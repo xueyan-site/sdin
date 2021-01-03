@@ -5,6 +5,7 @@
   "license": "MIT",
   "description": "",
   "xueyan": "xueyan.json",
+  "keywords": [],
   "bin": {
     "<%= package.name %>": "./dist/binary/index.js"
   },

@@ -28,6 +28,6 @@ export default async function main(project: NodePackageProject) {
    * 初始化git
    */
   const initGitOra = ora('initializing git repository').start()
-  execSync(`cd ${project.path} && git init && git add . && git commit -m 'chore: project created'`)
+  execSync(`cd ${project.path} && git init && git add . && git commit -m "chore: project created"`)
   initGitOra.succeed(`initialized git repository successfully`)
 }

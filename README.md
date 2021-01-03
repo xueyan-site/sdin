@@ -1,8 +1,6 @@
 # xueyan-typescript-cli
 
-## Introduction
-
-xueyan-typescript-cli is a react cli application.
+xueyan-typescript-cli is a typescript CLI application.
 
 The project created by xueyan <yang@xueyan.site>.
 
@@ -11,23 +9,116 @@ The project created by xueyan <yang@xueyan.site>.
 - NPM: `npm i -g xueyan-typescript-cli`  
 - YARN: `yarn global add xueyan-typescript-cli`  
 
-## xueyan-typescript create
+## Usage
 
-`xueyan-typescript create [path]` create application or package
+First, you should install this package to global node modules on your computer.
 
-## xueyan-typescript start
+Then, you should use command line to create an application or package.
 
-`xueyan-typescript start [path]` start application (no package)
+Finally, please open the project you just created, and start it.
 
-## xueyan-typescript build
+Just like this:
 
-`xueyan-typescript build [path] [-w, --watch]` build application or package
+```shell
+$ npm i -g xueyan-typescript-cli
+# ...
+$ xueyan-typescript -h
+# ...
+$ xueyan-typescript create
+# ...
+$ cd $THE_PROJECT_YOU_JUST_CREATED
+# ...
+$ yarn start
+# ...
+# ok, you can start coding.
+```
 
-## xueyan-typescript serve
+## API
 
-`xueyan-typescript serve [path]` run application by http server (no package)
+- [create project](#create-project)
+- [start project](#start-project)
+- [build project](#build-project)
+- [serve project](serve-project)
+- [project config](project-config)
 
-## react-application config
+## create project
+
+create application or package
+
+`xueyan-typescript create [path]`  
+
+For example:
+
+```shell
+$ xueyan-typescript create
+√ project type · react-application
+√ package name · demo
+√ project path · D:\workspace\demo
+√ package author name · xueyan
+√ package author email · yang@xueyan.site
+√ copy project template successfully
+√ downloaded node modules successfully
+√ initialized git repository successfully
+```
+
+## start project
+
+start application (not package)
+
+`xueyan-typescript start [path]`  
+
+For example:
+
+```shell
+$ xueyan-typescript start
+i ｢wds｣: Project is running at http://localhost:8080/
+i ｢wds｣: webpack output is served from undefined
+i ｢wds｣: Content not from webpack is served from D:\workspace\demo\public
+i ｢wds｣: 404s will fallback to /index.html
+i ｢wdm｣: wait until bundle finished: /
+i ｢wdm｣: Compiled successfully.
+```
+
+## build project
+
+build application or package
+
+`xueyan-typescript build [path] [-w, --watch]`  
+
+For example:
+
+```shell
+$ xueyan-typescript build
+√ xueyan-typescript-cli builded successfully!
+```
+
+watch option can only be used for building packages.
+
+```shell
+$ xueyan-typescript build --watch
+√ xueyan-typescript-cli builded successfully!
+_
+```
+
+## serve project
+
+run application by http server (not package)
+
+`xueyan-typescript serve [path]`  
+
+```shell
+$ xueyan-typescript serve
+[00:00:00.238 suc] demo listening on http://127.0.0.1:443!
+_
+```
+
+## project config
+
+xueyan-typescript application or package config file is **xueyan.json**.
+
+please see **xueyan.json** config file in project root path.
+
+### react-application config
 
 ```ts
 interface ReactApplicationConfig {
@@ -51,7 +142,7 @@ interface ReactApplicationConfig {
 }
 ```
 
-## react-package config
+### react-package config
 
 ```ts
 interface ReactPackageConfig {
@@ -59,7 +150,7 @@ interface ReactPackageConfig {
 }
 ```
 
-## node-application config
+### node-application config
 
 ```ts
 interface NodeApplicationConfig {
@@ -67,7 +158,7 @@ interface NodeApplicationConfig {
 }
 ```
 
-## node-package config
+### node-package config
 
 ```ts
 export interface NodePackageConfig {
