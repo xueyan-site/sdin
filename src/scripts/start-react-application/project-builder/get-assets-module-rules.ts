@@ -33,7 +33,7 @@ function getFontRule(): RuleSetRule {
 
 function getRawRule(): RuleSetRule {
   return {
-    test: /\.txt$/i,
+    test: /\.(txt|md)$/i,
     use: [
       {
         loader: 'raw-loader',

@@ -17,7 +17,7 @@ Then, you should use command line to create an application or package.
 
 Finally, please open the project you just created, and start it.
 
-Just like this:
+Just as:
 
 ```shell
 $ npm i -g xueyan-typescript-cli
@@ -53,7 +53,7 @@ For example:
 $ xueyan-typescript create
 √ project type · react-application
 √ package name · demo
-√ project path · D:\workspace\demo
+√ project path · /.../demo
 √ package author name · xueyan
 √ package author email · yang@xueyan.site
 √ copy project template successfully
@@ -73,10 +73,11 @@ For example:
 $ xueyan-typescript start
 i ｢wds｣: Project is running at http://localhost:8080/
 i ｢wds｣: webpack output is served from undefined
-i ｢wds｣: Content not from webpack is served from D:\workspace\demo\public
+i ｢wds｣: Content not from webpack is served from /.../demo/public
 i ｢wds｣: 404s will fallback to /index.html
 i ｢wdm｣: wait until bundle finished: /
 i ｢wdm｣: Compiled successfully.
+_
 ```
 
 ## build project
@@ -127,6 +128,10 @@ interface ReactApplicationConfig {
   startPort?: number
   /** <http://expressjs.com/en/4x/api.html#app.listen> */
   servePort?: number
+  /** <https://webpack.docschina.org/configuration/output/#outputpublicpath> */
+  startPublicPath?: string
+  /** <https://webpack.docschina.org/configuration/output/#outputpublicpath> */
+  buildPublicPath?: string
   /** <https://webpack.docschina.org/configuration/dev-server/#devserverproxy> */
   startProxies?: ProxyConfigArrayItem[]
   /** <https://webpack.docschina.org/configuration/dev-server/#devserverproxy> */

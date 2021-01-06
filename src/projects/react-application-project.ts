@@ -14,6 +14,10 @@ export interface ReactApplicationConfig extends RootProjectConfig<ReactApplicati
   startPort?: number
   /** <http://expressjs.com/en/4x/api.html#app.listen> */
   servePort?: number
+  /** <https://webpack.docschina.org/configuration/output/#outputpublicpath> */
+  startPublicPath?: string
+  /** <https://webpack.docschina.org/configuration/output/#outputpublicpath> */
+  buildPublicPath?: string
   /** <https://webpack.docschina.org/configuration/dev-server/#devserverproxy> */
   startProxies?: ProxyConfigArrayItem[]
   /** <https://webpack.docschina.org/configuration/dev-server/#devserverproxy> */
@@ -40,6 +44,18 @@ export default class ReactApplicationProject extends RootProject<ReactApplicatio
    * <http://expressjs.com/en/4x/api.html#app.listen>
    */
   servePort: number
+
+  /**
+   * 开发时资源的公共路径
+   * <https://webpack.docschina.org/configuration/output/#outputpublicpath> 
+   */
+  startPublicPath: string
+
+  /** 
+   * 构建时资源的公共路径
+   * <https://webpack.docschina.org/configuration/output/#outputpublicpath> 
+   */
+  buildPublicPath: string
 
   /**
    * 开发时的代理设置
@@ -89,6 +105,8 @@ export default class ReactApplicationProject extends RootProject<ReactApplicatio
     const config = this.config as ReactApplicationConfig
     this.startPort = config.startPort || 8080
     this.servePort = config.servePort || 443
+    this.startPublicPath = config.startPublicPath || '/'
+    this.buildPublicPath = config.buildPublicPath || '/'
     this.startProxies = config.startProxies
     this.serveProxies = config.serveProxies
     this.moduleAlias = config.moduleAlias

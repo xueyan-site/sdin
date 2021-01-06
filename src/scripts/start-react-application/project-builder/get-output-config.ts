@@ -6,7 +6,9 @@ import { Configuration } from 'webpack'
  * @param configInfo 
  */
 export default function getOutputConfig(builder: ProjectBuilder): Configuration['output'] {
+  const project = builder.project
   return {
+    publicPath: project.startPublicPath,
     path: undefined,
     pathinfo: true,
     filename: 'scripts/[name].[hash:8].js',
