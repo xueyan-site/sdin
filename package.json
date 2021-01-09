@@ -1,6 +1,6 @@
 {
   "name": "xueyan-typescript-cli",
-  "version": "1.0.3",
+  "version": "1.0.7",
   "author": "xueyan <yang@xueyan.site>",
   "license": "MIT",
   "description": "Typescript Application or Package CLI Tool",
@@ -20,6 +20,10 @@
     "type": "git",
     "url": "https://github.com/xueyan-site/xueyan-typescript-cli.git"
   },
+  "files": [
+    "dist",
+    "tmp"
+  ],
   "bin": {
     "xueyan-typescript": "./dist/binary/index.js"
   },

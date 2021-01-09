@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
 import { Command, ExecutableCommandOptions } from 'commander'
-import packageInfo from '../../package.json'
+import { readPackageInfoSyncByPath } from '../utils/read'
 import { logErrorAndExit } from '../utils/print'
+import { CMD } from '../utils/path'
 
 process.on('unhandledRejection', (reason: any) => logErrorAndExit(reason))
 process.on('uncaughtException', err => logErrorAndExit(err, 1))
 
 const program = new Command()
+const packageInfo = readPackageInfoSyncByPath(CMD)
 
 const SUB_CMD_LIST: {
   command: string
@@ -67,5 +69,6 @@ SUB_CMD_LIST.forEach(cmd => {
 })
 
 program
+  .version(packageInfo.name + ' ' + packageInfo.version)
   .on('--help', () => console.log(HELP_INFO))
   .parse(process.argv)

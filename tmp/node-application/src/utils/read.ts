@@ -2,7 +2,7 @@ import fse from 'fs-extra'
 import { isPlainObject, isString } from 'lodash'
 import { withPath } from '../utils/path'
 import { logErrorAndExit } from '../utils/print'
-import { AnyObject } from '../types'
+import { PackageInfo, AnyObject } from '../types'
 
 /**
  * 获取json信息
@@ -29,6 +29,29 @@ export function readJSONSyncByValue(value: any, relationPath: string = ''): AnyO
     } else {
       return {}
     }
+  } catch (err) {
+    return logErrorAndExit(err)
+  }
+}
+
+/**
+ * 根据文件夹目录，获取包的信息
+ * @param {String} dirPath 指定文件夹目录
+ */
+export function readPackageInfoSyncByPath(projectPath: string): PackageInfo {
+  try {
+    const packageInfo = readJSONSyncByValue('package.json', projectPath)
+    const author = packageInfo.author
+    if (typeof author === 'object') {
+      packageInfo.author = author.name || ''
+      if (author.email) {
+        packageInfo.author += ' <' + author.email + '>'
+      }
+    }
+    if (!packageInfo.name || !packageInfo.version || !packageInfo.author) {
+      throw Error('package.json must contain "name", "version", "author" fields')
+    }
+    return packageInfo as PackageInfo
   } catch (err) {
     return logErrorAndExit(err)
   }

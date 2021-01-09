@@ -1,7 +1,0 @@
-.git/
-doc/
-node_modules/
-src/
-.gitignore
-tsconfig.json
-xueyan.json

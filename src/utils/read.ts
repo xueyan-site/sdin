@@ -1,7 +1,7 @@
 import { execSync } from 'child_process'
 import fse, { Stats } from 'fs-extra'
 import setByPath from 'lodash/set'
-import { withPath, joinPath } from '../utils/path'
+import { withPath, joinPath, basename } from '../utils/path'
 import { logErrorAndExit } from '../utils/print'
 import { isPlainObject, isString } from 'lodash'
 import { PackageInfo, GitInfo, AnyObject } from '../types'
@@ -10,10 +10,11 @@ import { PackageInfo, GitInfo, AnyObject } from '../types'
  * 深度遍历的节点信息
  */
 export interface DeepReadNodeInfo {
+  name: string,
+  stats: Stats,
   source: string,
   offset: string,
   current: string,
-  stats: Stats
 }
 
 /**
@@ -23,12 +24,14 @@ export interface DeepReadNodeInfo {
  * @private
  */
 async function __deepReadByPath__({
+  name,
   source,
   offset,
   current,
   filter,
   handler
 }: {
+  name: string,
   source: string
   offset: string
   current: string
@@ -38,14 +41,14 @@ async function __deepReadByPath__({
   const stats = fse.statSync(current)
   if (filter) {
     const isContinue = await filter({
-      offset, source, current, stats
+      name, offset, source, current, stats
     })
     if (!isContinue) {
       return
     }
   }
   if (stats.isFile()) {
-    await handler({ offset, source, current, stats })
+    await handler({ name, offset, source, current, stats })
   } else if (stats.isDirectory()) {
     const files = await fse.readdir(current)
     for (let i = 0; i < files.length; i++) {
@@ -54,6 +57,7 @@ async function __deepReadByPath__({
         filter,
         handler,
         source,
+        name: fileName,
         offset: joinPath(offset, fileName),
         current: withPath(current, fileName),
       })
@@ -82,6 +86,7 @@ export function deepReadByPath(
     offset: '',
     current: source,
     filter: options.filter,
+    name: basename(source),
   })
 }
 
@@ -142,6 +147,13 @@ export function readGitConfigSync(): GitInfo {
 export function readPackageInfoSyncByPath(projectPath: string): PackageInfo {
   try {
     const packageInfo = readJSONSyncByValue('package.json', projectPath)
+    const author = packageInfo.author
+    if (typeof author === 'object') {
+      packageInfo.author = author.name || ''
+      if (author.email) {
+        packageInfo.author += ' <' + author.email + '>'
+      }
+    }
     if (!packageInfo.name || !packageInfo.version || !packageInfo.author) {
       throw Error('package.json must contain "name", "version", "author" fields')
     }

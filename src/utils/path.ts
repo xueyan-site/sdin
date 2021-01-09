@@ -2,6 +2,11 @@ import path from 'path'
 import os from 'os'
 
 /**
+ * 导出path原生的函数，于此处做兼容
+ */
+export const basename = path.basename
+
+/**
  * 连接路径
  * @param {String[]} pathList 路径
  */

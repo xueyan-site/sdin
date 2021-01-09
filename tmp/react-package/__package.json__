@@ -10,9 +10,7 @@
   "module": "dist/es",
   "types": "dist/types",
   "files": [
-    "dist/es",
-    "dist/lib",
-    "dist/types"
+    "dist"
   ],
   "scripts": {
     "start": "yarn start-doc",

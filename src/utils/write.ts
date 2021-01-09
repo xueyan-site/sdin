@@ -22,13 +22,20 @@ export async function deepCopyByPath(
     handler?: (node: DeepCopyNodeInfo, content: Buffer) => ((string | Buffer) | Promise<(string | Buffer)>)
   } = {}
 ) {
+  const specFileExp = /^__(.*\.\w+)__$/
   const handler = async (node: DeepCopyNodeInfo) => {
     let content = await fse.readFile(node.current)
     let content1: string | Buffer = content
     if (options.handler) {
       content1 = await options.handler(node, content)
     }
-    const filePath = withPath(target, node.offset)
+    let filePath = ''
+    const matched = specFileExp.exec(node.name)
+    if (matched && matched[1]) {
+      filePath = withPath(target, node.offset, '../' + matched[1])
+    } else {
+      filePath = withPath(target, node.offset)
+    }
     await fse.outputFile(filePath, content1)
   }
   await deepReadByPath(
