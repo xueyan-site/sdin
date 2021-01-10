@@ -1,6 +1,6 @@
 {
   "name": "xueyan-typescript-cli",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "xueyan <yang@xueyan.site>",
   "license": "MIT",
   "description": "Typescript Application or Package CLI Tool",
@@ -82,6 +82,7 @@
     "source-map-loader": "^1.1.1",
     "style-loader": "^2.0.0",
     "typescript": "^3.9.7",
+    "update-notifier": "^5.0.1",
     "url-loader": "^4.1.1",
     "validator": "^13.1.17",
     "webpack": "^4.44.2",
@@ -105,6 +106,7 @@
     "@types/postcss-import": "^12.0.0",
     "@types/postcss-normalize": "^9.0.0",
     "@types/postcss-preset-env": "^6.7.0",
+    "@types/update-notifier": "^5.0.0",
     "@types/validator": "^13.1.0",
     "@types/webpack": "^4.41.22",
     "@types/webpack-dev-server": "^3.11.0"
