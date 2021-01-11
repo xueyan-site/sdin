@@ -5,30 +5,16 @@
  */
 
 import React, { lazy } from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
 import Pages, { PageSources } from 'xueyan-react-pages'
-import './index.scss'
+import styles from './index.module.scss'
 
-const Readme = lazy(() => import('./pages/readme'))
-const Example1 = lazy(() => import('./pages/example1'))
-const Interface1 = lazy(() => import('./pages/interface1'))
-const Interface2 = lazy(() => import('./pages/interface2'))
+const Interface1 = lazy(() => import('./interface1'))
+const Interface2 = lazy(() => import('./interface2'))
 
 const sources: PageSources = {
   zh: {
     header: 'xueyan-react-pages',
     groupList: [
-      {
-        name: '示例',
-        nodeList: [
-          {
-            path: '/example1',
-            name: '示例1',
-            component: Example1
-          }
-        ]
-      },
       {
         name: 'API',
         nodeList: [
@@ -50,16 +36,6 @@ const sources: PageSources = {
     header: 'xueyan-react-pages',
     groupList: [
       {
-        name: '示例',
-        nodeList: [
-          {
-            path: '/example1',
-            name: '示例1',
-            component: Example1
-          }
-        ]
-      },
-      {
         name: 'API',
         nodeList: [
           {
@@ -78,15 +54,10 @@ const sources: PageSources = {
   }
 }
 
-function App() {
+export default function Example1() {
   return (
-    <BrowserRouter>
-      <Pages readme={Readme} sources={sources} />
-    </BrowserRouter>
+    <div className={styles.example1}>
+      <Pages sources={sources} />
+    </div>
   )
 }
-
-ReactDOM.render(
-  <App/>,
-  document.getElementById('app')
-)

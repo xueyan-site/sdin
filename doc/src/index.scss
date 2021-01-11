@@ -4,13 +4,15 @@ html, body {
   margin: 0;
   padding: 0;
   border: none;
-  font-family:
-    'PingFangSC-Regular',
+  font-family: 
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
     Helvetica,
-    'STHeiti STXihei',
-    'Microsoft YaHei',
-    'Microsoft JhengHei',
-    Arial;
+    Arial,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji;
 }
 
 html, body, #app {
