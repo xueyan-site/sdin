@@ -21,8 +21,8 @@
     "url": "https://github.com/xueyan-site/xueyan-typescript-cli.git"
   },
   "files": [
-    "dist",
-    "tmp"
+    "dist/**/*",
+    "tmp/**/*"
   ],
   "bin": {
     "xueyan-typescript": "./dist/binary/index.js"
