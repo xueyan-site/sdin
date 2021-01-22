@@ -10,7 +10,7 @@
   "module": "dist/es",
   "types": "dist/types",
   "files": [
-    "dist"
+    "dist/**/*"
   ],
   "scripts": {
     "start": "yarn start-doc",
@@ -21,13 +21,15 @@
     "serve-doc": "xueyan-typescript serve doc"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5"
+    "@babel/runtime": "^7.12.5",
+    "classnames": "^2.2.6"
   },
   "peerDependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.10",
     "@types/react": "^16.9.49",
     "react": "^16.13.1",
     "typescript": "^4.0.3"

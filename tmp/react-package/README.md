@@ -1,10 +1,27 @@
 # <%= package.name %>
 
-<%= package.name %> is a react package.
+<%= package.name %> 是一个react包。  
+<%= package.name %> is a react package.  
 
-The project created by <%= package.author %>.
+本包创建自 <%= package.author %>。  
+The project created by <%= package.author %>.  
 
-## Install
+## Install（下载）
 
-- NPM: `npm i <%= package.name %>`  
-- YARN: `yarn add <%= package.name %>`  
+```bash
+# 如果你使用的是NPM：
+# if you use NPM: 
+npm i <%= package.name %>
+
+# 如果你使用的是Yarn：
+# if you use Yarn: 
+yarn add <%= package.name %>
+```
+
+## Example（示例）
+
+```ts
+import Switch from '<%= package.name %>'
+
+<Switch value={state} onChange={state => setState(state)}/>
+```

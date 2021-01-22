@@ -21,7 +21,6 @@
     "baseUrl": ".",
     "paths": {
       "<%= package.name %>": ["../src"],
-      "components/*": ["./src/components/*"],
       "pages/*": ["./src/pages/*"]
     }
   }

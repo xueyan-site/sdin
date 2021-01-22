@@ -1,0 +1,34 @@
+.wrapper {
+  width: 2.6em;
+  height: 1.4em;
+  display: inline-block;
+  box-sizing: content-box;
+  background-color: rgba(127,127,127,.5);
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.4em;
+  transition: background-color .3s;
+  vertical-align: top;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  &.block {
+    display: block;
+  }
+  &.active {
+    background-color: #13d474;
+    .inner {
+      transform: translate3d(1.3em, -50%, 0);
+    }
+  }
+  .inner {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    background-color: #fff;
+    transform: translate3d(0.12em, -50%, 0);
+    transition: transform .3s;
+  }
+}
