@@ -6,7 +6,7 @@
 本包创建自 <%= package.author %>。  
 The project created by <%= package.author %>.  
 
-## Install（下载）
+## 下载 Install
 
 ```bash
 # 如果你使用的是NPM：
@@ -18,7 +18,7 @@ npm i <%= package.name %>
 yarn add <%= package.name %>
 ```
 
-## Example（示例）
+## 示例 Example
 
 ```ts
 import Switch from '<%= package.name %>'

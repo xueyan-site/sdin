@@ -5,10 +5,10 @@
   "license": "MIT",
   "description": "",
   "xueyan": "xueyan.json",
-  "keywords": [],
   "main": "dist/lib",
   "module": "dist/es",
   "types": "dist/types",
+  "keywords": [],
   "files": [
     "dist/**/*"
   ],

@@ -6,31 +6,31 @@ const mark1 = `
 
 \`undefined | boolean\`
 
-switch state (on or off)
+Switch state (on or off)
 
 ## onChange
 
 \`undefined | (value: boolean) => void\`
 
-set switch state
+Set switch state
 
 ## block
 
 \`undefined | boolean\`
 
-let switch DOM become block element (true), or inline element (false)
+Let switch DOM become block element (true), or inline element (false)
 
 ## style
 
 \`undefined | React.CSSProperties\`
 
-switch wrapper dom style
+Switch wrapper dom style
 
 ## className
 
 \`undefined | string\`
 
-switch wrapper dom classname
+Switch wrapper dom classname
 `
 
 export default function ApiOne() {

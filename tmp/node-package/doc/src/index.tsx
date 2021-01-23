@@ -1,35 +1,74 @@
 /**
  * @package <%= package.name %>
  * @author <%= package.author %>
- * @description doc entry
+ * @description 文档入口 document entry
  */
 
-import React from "react"
+import React, { lazy } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
-import Sidebar, { TMenu } from 'components/sidebar'
-import Example from 'pages/example'
+import Pages, { PageSources } from 'xueyan-react-pages'
 import './index.scss'
 
-const pageList: TMenu[] = [
-  {
-    key: 'examples',
-    name: 'Examples',
-    nodeList: [
+const Readme = lazy(() => import('./readme'))
+
+const sources: PageSources = {
+  en: {
+    header: '<%= package.name %>',
+    groupList: [
       {
-        key: 'example',
-        name: '简单表格',
-        path: '/example',
-        component: Example
+        name: 'api',
+        nodeList: [
+          {
+            path: '/api-one',
+            name: 'add',
+            component: lazy(() => import('pages/en/api-one'))
+          }
+        ]
       },
+      {
+        name: 'use',
+        nodeList: [
+          {
+            path: '/use-one',
+            name: 'addition',
+            component: lazy(() => import('pages/en/use-one'))
+          }
+        ]
+      }
     ]
-  }
-]
+  },
+  zh: {
+    header: '<%= package.name %>',
+    groupList: [
+      {
+        name: '接口',
+        nodeList: [
+          {
+            path: '/api-one',
+            name: 'add',
+            component: lazy(() => import('pages/zh/api-one'))
+          }
+        ]
+      },
+      {
+        name: '示例',
+        nodeList: [
+          {
+            path: '/use-one',
+            name: '加法',
+            component: lazy(() => import('pages/zh/use-one'))
+          }
+        ]
+      }
+    ]
+  },
+}
 
 function App() {
   return (
     <BrowserRouter>
-      <Sidebar header="EXAMPLES" menuList={pageList} />
+      <Pages readme={Readme} sources={sources} />
     </BrowserRouter>
   )
 }

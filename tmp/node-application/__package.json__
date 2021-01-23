@@ -7,7 +7,7 @@
   "xueyan": "xueyan.json",
   "keywords": [],
   "files": [
-    "dist"
+    "dist/**/*"
   ],
   "bin": {
     "<%= package.name %>": "./dist/binary/index.js"

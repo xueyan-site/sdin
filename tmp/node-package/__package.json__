@@ -5,12 +5,12 @@
   "license": "MIT",
   "description": "",
   "xueyan": "xueyan.json",
-  "keywords": [],
   "main": "dist/lib",
   "module": "dist/esm",
   "types": "dist/types",
+  "keywords": [],
   "files": [
-    "dist"
+    "dist/**/*"
   ],
   "scripts": {
     "start": "yarn start-doc",

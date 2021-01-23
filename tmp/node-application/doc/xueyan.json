@@ -1,8 +1,6 @@
 {
   "type": "react-application",
   "moduleAlias": {
-    "<%= package.name %>": "../src",
-    "components": "src/components",
     "pages": "src/pages"
   },
   "startProxy": [

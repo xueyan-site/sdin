@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import { MarkdownSegment } from 'xueyan-react-markdown'
 import Switch from '<%= package.name %>'
 
-const code = `
+const code1 = `
 \`\`\`ts
 import React, { useState } from 'react'
 import Switch from '<%= package.name %>'
@@ -18,8 +18,11 @@ export default function UseOne() {
   const [state, setState] = useState<boolean>(false)
   return (
     <Fragment>
-      <MarkdownSegment>{code}</MarkdownSegment>
-      effect: <Switch value={state} onChange={setState}/>
+      <MarkdownSegment>{code1}</MarkdownSegment>
+      <p>result: </p>
+      <p>
+        switch: <Switch value={state} onChange={setState}/>
+      </p>
     </Fragment>
   )
 }

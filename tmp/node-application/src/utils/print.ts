@@ -2,7 +2,8 @@ import chalk from 'chalk'
 import { isError, isString } from 'lodash'
 
 /**
- * 打印的时间标记
+ * 获取相对于开始的时间  
+ * get the time relative to start  
  */
 const startTime = Date.now()
 const getTimeout = (flag: string) => {
@@ -27,8 +28,9 @@ const getTimeout = (flag: string) => {
 }
 
 /**
- * 打印错误信息
- * @param {String} msg 信息
+ * 打印错误信息  
+ * print error message
+ * @param {String} msg 信息 message
  */
 export const logError = (msg: string | Error, callback?: () => void) => {
   const txt = isError(msg) ? msg.message : isString(msg) ? msg : ''
@@ -44,8 +46,9 @@ export const logError = (msg: string | Error, callback?: () => void) => {
 }
 
 /**
- * 打印错误信息并退出
- * @param {String} msg 信息
+ * 打印错误信息并退出  
+ * print error message and exit  
+ * @param {String} msg 信息 message
  */
 export const logErrorAndExit = (msg: string | Error, code?: number): any => {
   logError(msg, () => {
@@ -54,8 +57,9 @@ export const logErrorAndExit = (msg: string | Error, code?: number): any => {
 }
 
 /**
- * 打印普通信息
- * @param {String} msg 信息
+ * 打印普通信息  
+ * print normal message  
+ * @param {String} msg 信息 message
  */
 export const logInfo = (msg: string, callback?: () => void) => {
   const txt = isString(msg) ? msg : ''
@@ -68,8 +72,9 @@ export const logInfo = (msg: string, callback?: () => void) => {
 }
 
 /**
- * 打印错误信息并退出
- * @param {String} msg 信息
+ * 打印错误信息并退出  
+ * print error message and exit  
+ * @param {String} msg 信息 message
  */
 export const logInfoAndExit = (msg: string, code?: number): any => {
   logInfo(msg, () => {
@@ -78,8 +83,9 @@ export const logInfoAndExit = (msg: string, code?: number): any => {
 }
 
 /**
- * 打印警告信息
- * @param {String} msg 信息
+ * 打印警告信息  
+ * print warning message  
+ * @param {String} msg 信息 message
  */
 export const logWarning = (msg: string) => {
   const txt = isString(msg) ? msg : ''
@@ -89,8 +95,9 @@ export const logWarning = (msg: string) => {
 }
 
 /**
- * 打印成功信息
- * @param {String} msg 信息
+ * 打印成功信息  
+ * print success message  
+ * @param {String} msg 信息 message
  */
 export const logSuccess = (msg: string) => {
   const txt = isString(msg) ? msg : ''

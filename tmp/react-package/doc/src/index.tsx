@@ -1,7 +1,7 @@
 /**
  * @package <%= package.name %>
  * @author <%= package.author %>
- * @description doc entry
+ * @description 文档入口 document entry
  */
 
 import React, { lazy } from 'react'

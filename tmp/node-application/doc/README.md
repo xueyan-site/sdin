@@ -1,5 +1,7 @@
-# <%= package.name %>-doc
+# <%= package.name %> document
 
-<%= package.name %>-doc is a react application.
+<%= package.name %> document 是一个React应用程序。  
+<%= package.name %> document is a a react application.  
 
-The project created by <%= package.author %>.
+本包创建自 <%= package.author %>。  
+The project created by <%= package.author %>.  
