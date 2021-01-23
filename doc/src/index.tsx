@@ -1,7 +1,7 @@
 /**
- * @package xueyan-react-pages
+ * @package xueyan-typescript-cli
  * @author xueyan <yang@xueyan.site>
- * @description doc entry
+ * @description 文档入口 document entry
  */
 
 import React, { lazy } from 'react'
@@ -10,72 +10,59 @@ import { BrowserRouter } from 'react-router-dom'
 import Pages, { PageSources } from 'xueyan-react-pages'
 import './index.scss'
 
-const Readme = lazy(() => import('./pages/readme'))
-const Example1 = lazy(() => import('./pages/example1'))
-const Interface1 = lazy(() => import('./pages/interface1'))
-const Interface2 = lazy(() => import('./pages/interface2'))
+const Readme = lazy(() => import('./readme'))
 
 const sources: PageSources = {
-  zh: {
-    header: 'xueyan-react-pages',
+  en: {
+    header: 'xueyan-typescript-cli',
     groupList: [
       {
-        name: '示例',
+        name: 'api',
         nodeList: [
           {
-            path: '/example1',
-            name: '示例1',
-            component: Example1
+            path: '/api-one',
+            name: 'create',
+            component: lazy(() => import('pages/en/api-one'))
           }
         ]
       },
       {
-        name: 'API',
+        name: 'use',
         nodeList: [
           {
-            path: '/interface1',
-            name: '接口1',
-            component: Interface1
-          },
-          {
-            path: '/interface2',
-            name: '接口2',
-            component: Interface2
+            path: '/use-one',
+            name: 'create an application',
+            component: lazy(() => import('pages/en/use-one'))
           }
         ]
       }
     ]
   },
-  en: {
-    header: 'xueyan-react-pages',
+  zh: {
+    header: 'xueyan-typescript-cli',
     groupList: [
       {
-        name: '示例',
+        name: '接口',
         nodeList: [
           {
-            path: '/example1',
-            name: '示例1',
-            component: Example1
+            path: '/api-one',
+            name: 'create',
+            component: lazy(() => import('pages/zh/api-one'))
           }
         ]
       },
       {
-        name: 'API',
+        name: '示例',
         nodeList: [
           {
-            path: '/interface1',
-            name: '接口1',
-            component: Interface1
-          },
-          {
-            path: '/interface2',
-            name: '接口2',
-            component: Interface2
+            path: '/use-one',
+            name: '创建一个应用',
+            component: lazy(() => import('pages/zh/use-one'))
           }
         ]
       }
     ]
-  }
+  },
 }
 
 function App() {

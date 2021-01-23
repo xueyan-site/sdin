@@ -1,6 +1,6 @@
 {
   "name": "xueyan-typescript-cli",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "author": "xueyan <yang@xueyan.site>",
   "license": "MIT",
   "description": "Typescript Application or Package CLI Tool",

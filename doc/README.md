@@ -1,7 +1,7 @@
-# xueyan-typescript-cli-doc
+# xueyan-typescript-cli document
 
-## Introduction
+xueyan-typescript-cli document 是一个React应用程序。  
+xueyan-typescript-cli document is a a react application.  
 
-xueyan-typescript-cli-doc is a react application.
-
-The project created by xueyan <yang@xueyan.site>.
+本包创建自 xueyan <yang@xueyan.site>。  
+The project created by xueyan <yang@xueyan.site>.  

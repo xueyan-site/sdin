@@ -1,26 +1,32 @@
 /**
+ * @package <%= package.name %>
  * @author <%= package.author %>
- * @description application entry
+ * @description 应用程序入口 application entry
  */
 
-import React from "react"
+import React, { lazy } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
-import Sidebar, { TMenu } from 'components/sidebar'
-import Example from 'pages/example'
+import Container, { PageGroup } from 'components/Container'
 import './index.scss'
 
-const pageList: TMenu[] = [
+const PageOne = lazy(() => import('pages/page-one'))
+const PageTwo = lazy(() => import('pages/page-two'))
+
+const groupList: PageGroup[] = [
   {
-    key: 'examples',
-    name: 'Examples',
+    name: '页面列表 Page List',
     nodeList: [
       {
-        key: 'example',
-        name: '简单表格',
-        path: '/example',
-        component: Example
+        path: '/page-one',
+        name: '页面1 Page one',
+        component: PageOne
       },
+      {
+        path: '/page-two',
+        name: '页面2 Page two',
+        component: PageTwo
+      }
     ]
   }
 ]
@@ -28,7 +34,7 @@ const pageList: TMenu[] = [
 function App() {
   return (
     <BrowserRouter>
-      <Sidebar header="EXAMPLES" menuList={pageList} />
+      <Container header="<%= package.name %>" groupList={groupList} />
     </BrowserRouter>
   )
 }

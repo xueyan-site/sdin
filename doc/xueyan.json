@@ -1,7 +1,6 @@
 {
   "type": "react-application",
   "moduleAlias": {
-    "components": "src/components",
     "pages": "src/pages"
   },
   "startProxy": [
