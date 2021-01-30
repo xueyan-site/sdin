@@ -14,7 +14,8 @@ const program = new Command()
 const packageInfo = readPackageInfoSyncByPath(CMD)
 
 /**
- * update check
+ * 检查更新  
+ * update check  
  */
 const notifier = updateNotifier({ pkg: packageInfo })
 if (notifier.update) {
@@ -44,7 +45,8 @@ const SUB_CMD_LIST: {
 ]
 
 /**
- * you can see this site to create Character Painting
+ * 你可以在这个网站上制作下方的字符画  
+ * you can see this site to create Character Painting  
  * <http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=xy-ts>
  */
 const HELP_INFO = `
