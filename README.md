@@ -1,15 +1,24 @@
 # xueyan-typescript-cli
 
+xueyan-typescript-cli 是一个运行 typescript 代码的命令行工具。  
 xueyan-typescript-cli is a typescript CLI application.
 
+本项目创建自 xueyan <yang@xueyan.site>。  
 The project created by xueyan <yang@xueyan.site>.
 
-## Install
+## 下载 Install
 
-- NPM: `npm i -g xueyan-typescript-cli`  
-- YARN: `yarn global add xueyan-typescript-cli`  
+```bash
+# 如果你使用的是NPM：
+# if you use NPM: 
+npm i xueyan-typescript-cli
 
-## Usage
+# 如果你使用的是Yarn：
+# if you use Yarn: 
+yarn add xueyan-typescript-cli
+```
+
+## 用法 Usage
 
 First, you should install this package to global node modules on your computer.
 
@@ -33,7 +42,7 @@ $ yarn start
 # ok, you can start coding.
 ```
 
-## API
+## 接口 API
 
 - [create project](#create-project)
 - [start project](#start-project)
@@ -41,7 +50,7 @@ $ yarn start
 - [serve project](serve-project)
 - [project config](project-config)
 
-## create project
+## 创建项目 create project
 
 create application or package
 
@@ -61,7 +70,7 @@ $ xueyan-typescript create
 √ initialized git repository successfully
 ```
 
-## start project
+## 开发项目 start project
 
 start application (not package)
 
@@ -80,7 +89,7 @@ i ｢wdm｣: Compiled successfully.
 _
 ```
 
-## build project
+## 构建项目 build project
 
 build application or package
 
@@ -101,7 +110,7 @@ $ xueyan-typescript build --watch
 _
 ```
 
-## serve project
+## 运行项目 serve project
 
 run application by http server (not package)
 
@@ -113,7 +122,7 @@ $ xueyan-typescript serve
 _
 ```
 
-## project config
+## 项目配置 project config
 
 xueyan-typescript application or package config file is **xueyan.json**.
 

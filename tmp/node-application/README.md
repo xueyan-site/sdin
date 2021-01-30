@@ -3,7 +3,7 @@
 <%= package.name %> 是一个Node应用。  
 <%= package.name %> is a node application.  
 
-本包创建自 <%= package.author %>。  
+本项目创建自 <%= package.author %>。  
 The project created by <%= package.author %>.  
 
 ## 下载 Install
