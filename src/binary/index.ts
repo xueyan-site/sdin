@@ -20,7 +20,7 @@ const notifier = updateNotifier({ pkg: packageInfo })
 if (notifier.update) {
   const { current, latest, type, name } = notifier.update
   const updateMessage = [
-    `update infomation:`,
+    'update infomation:',
     `  version: ${chalk.red(current)} => ${chalk.green(latest)}`,
     `  npm: ${chalk.yellow('npm i -g ' + name + '@latest')}`,
     `  yarn: ${chalk.yellow('yarn global add ' + name + '@latest')}`,

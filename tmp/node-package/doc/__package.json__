@@ -16,8 +16,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "xueyan-react-markdown": "^1.1.1",
-    "xueyan-react-pages": "^1.1.0"
+    "xueyan-react-markdown": "^1.2.3",
+    "xueyan-react-pages": "^1.2.3"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",

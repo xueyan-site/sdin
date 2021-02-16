@@ -6,6 +6,10 @@
   "description": "",
   "xueyan": "xueyan.json",
   "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
   "files": [
     "dist/**/*"
   ],

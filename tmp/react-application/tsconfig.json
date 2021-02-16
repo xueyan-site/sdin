@@ -21,7 +21,9 @@
     "baseUrl": ".",
     "paths": {
       "components/*": ["./src/components/*"],
-      "pages/*": ["./src/pages/*"]
+      "pages/*": ["./src/pages/*"],
+      "stores/*": ["./src/stores/*"],
+      "types": ["src/types"]
     }
   }
 }

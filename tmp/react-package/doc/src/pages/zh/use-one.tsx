@@ -1,28 +1,21 @@
 import React, { Fragment, useState } from 'react'
-import { MarkdownSegment } from 'xueyan-react-markdown'
+import Playground from 'xueyan-react-playground'
 import Switch from '<%= package.name %>'
 
 const code1 = `
-\`\`\`ts
 import React, { useState } from 'react'
 import Switch from '<%= package.name %>'
 
 export default function UseSwitch() {
   const [state, setState] = useState<boolean>(false)
-  return <Switch value={state} onChange={setState}/>
+  return (
+    <Fragment>
+      switch: <Switch value={state} onChange={setState}/>
+    </Fragment>
+  )
 }
-\`\`\`
 `
 
 export default function UseOne() {
-  const [state, setState] = useState<boolean>(false)
-  return (
-    <Fragment>
-      <MarkdownSegment>{code1}</MarkdownSegment>
-      <p>结果：</p>
-      <p>
-        开关：<Switch value={state} onChange={setState}/>
-      </p>
-    </Fragment>
-  )
+  return <Playground scope={{ React, Fragment, useState, Switch }} code={code1}/>
 }

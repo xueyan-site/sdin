@@ -11,27 +11,29 @@ The project created by xueyan <yang@xueyan.site>.
 ```bash
 # 如果你使用的是NPM：
 # if you use NPM: 
-npm i xueyan-typescript-cli
+npm i -g xueyan-typescript-cli
 
 # 如果你使用的是Yarn：
 # if you use Yarn: 
-yarn add xueyan-typescript-cli
+yarn global add xueyan-typescript-cli
 ```
 
 ## 用法 Usage
 
+首先，你需要下载这个包到本地全局node_modules目录中。（npm i / yarn global）  
 First, you should install this package to global node modules on your computer.
 
+然后，使用命令行去创建一个应用或者包。（xueyan-typescript create）  
 Then, you should use command line to create an application or package.
 
+最后，打开你刚创建的项目，并启动它。（cd xxx && yarn start）  
 Finally, please open the project you just created, and start it.
 
+就像这样：  
 Just as:
 
 ```shell
 $ npm i -g xueyan-typescript-cli
-# ...
-$ xueyan-typescript -h
 # ...
 $ xueyan-typescript create
 # ...
@@ -52,11 +54,13 @@ $ yarn start
 
 ## 创建项目 create project
 
-create application or package
+你可以使用该命令来创建一个应用或者包。  
+create application or package  
 
 `xueyan-typescript create [path]`  
 
-For example:
+示例：  
+For example:  
 
 ```shell
 $ xueyan-typescript create
@@ -72,11 +76,13 @@ $ xueyan-typescript create
 
 ## 开发项目 start project
 
-start application (not package)
+启动一个项目（该命令只对应用有效）  
+start application (not package)  
 
 `xueyan-typescript start [path]`  
 
-For example:
+示例：  
+For example:  
 
 ```shell
 $ xueyan-typescript start
@@ -91,10 +97,12 @@ _
 
 ## 构建项目 build project
 
-build application or package
+构建一个应用或者包（打包后的成品）  
+build application or package  
 
 `xueyan-typescript build [path] [-w, --watch]`  
 
+示例：  
 For example:
 
 ```shell
@@ -102,6 +110,7 @@ $ xueyan-typescript build
 √ xueyan-typescript-cli builded successfully!
 ```
 
+可以添加`--watch`选项（该选项只适用于构建包的时候）
 watch option can only be used for building packages.
 
 ```shell
@@ -112,7 +121,8 @@ _
 
 ## 运行项目 serve project
 
-run application by http server (not package)
+将该应用运行于HTTP服务器之上（只适用于应用）  
+run application by http server (not package)  
 
 `xueyan-typescript serve [path]`  
 
@@ -124,8 +134,10 @@ _
 
 ## 项目配置 project config
 
+本命令行生成的项目中，配置文件是**xueyan.json**。  
 xueyan-typescript application or package config file is **xueyan.json**.
 
+你可以在项目的根目录下找到它。  
 please see **xueyan.json** config file in project root path.
 
 ### react-application config
