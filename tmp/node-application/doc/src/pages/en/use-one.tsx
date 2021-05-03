@@ -3,7 +3,7 @@ import { MarkdownSegment } from 'xueyan-react-markdown'
 
 const code1 = `
 \`\`\`shell
-# <%= package.name %> create
+# <%= name %> create
 \`\`\`
 `
 

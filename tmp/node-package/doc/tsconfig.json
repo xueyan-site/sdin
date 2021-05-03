@@ -20,7 +20,7 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
-      "<%= package.name %>": ["../src"],
+      "<%= name %>": ["../src"],
       "pages/*": ["./src/pages/*"]
     }
   }

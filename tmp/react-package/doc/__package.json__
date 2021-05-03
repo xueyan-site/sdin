@@ -1,8 +1,8 @@
 {
-  "name": "<%= package.name %>-doc",
-  "version": "<%= package.version %>",
-  "author": "<%= package.author %>",
-  "description": "<%= package.name %> project document",
+  "name": "<%= name %>-doc",
+  "version": "<%= version %>",
+  "author": "<%= author %>",
+  "description": "<%= name %> project document",
   "private": true,
   "xueyan": "xueyan.json",
   "scripts": {

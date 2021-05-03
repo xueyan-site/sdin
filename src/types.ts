@@ -1,12 +1,12 @@
 /**
- * 用以指代任一对象
+ * 指代任一对象
  */
-export interface AnyObject {
-  [prop: string]: any
+export interface AnyObject<TValue = any> {
+  [prop: string]: TValue
 }
 
 /**
- * Git信息格式
+ * git全局配置信息
  */
 export interface GitInfo {
   user: {
@@ -17,7 +17,7 @@ export interface GitInfo {
 }
 
 /**
- * 包信息格式
+ * npm包信息
  */
 export interface PackageInfo {
   name: string // 包的名称

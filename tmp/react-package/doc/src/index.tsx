@@ -1,6 +1,6 @@
 /**
- * @package <%= package.name %>
- * @author <%= package.author %>
+ * @package <%= name %>
+ * @author <%= author %>
  * @description 文档入口 document entry
  */
 
@@ -14,7 +14,7 @@ const Readme = lazy(() => import('./readme'))
 
 const sources: PageSources = {
   en: {
-    header: '<%= package.name %>',
+    header: '<%= name %>',
     groupList: [
       {
         name: 'api',
@@ -44,7 +44,7 @@ const sources: PageSources = {
     ]
   },
   zh: {
-    header: '<%= package.name %>',
+    header: '<%= name %>',
     groupList: [
       {
         name: '接口',

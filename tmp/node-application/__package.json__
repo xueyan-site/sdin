@@ -1,10 +1,9 @@
 {
-  "name": "<%= package.name %>",
-  "version": "<%= package.version %>",
-  "author": "<%= package.author %>",
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "author": "<%= author %>",
   "license": "MIT",
   "description": "",
-  "xueyan": "xueyan.json",
   "keywords": [],
   "repository": {
     "type": "git",
@@ -14,7 +13,7 @@
     "dist/**/*"
   ],
   "bin": {
-    "<%= package.name %>": "./dist/binary/index.js"
+    "<%= name %>": "./dist/binary/index.js"
   },
   "scripts": {
     "start": "yarn start-doc",

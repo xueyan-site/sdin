@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from 'react'
 import Playground from 'xueyan-react-playground'
-import Switch from '<%= package.name %>'
+import Switch from '<%= name %>'
 
 const code1 = `
 import React, { useState } from 'react'
-import Switch from '<%= package.name %>'
+import Switch from '<%= name %>'
 
 export default function UseSwitch() {
   const [state, setState] = useState<boolean>(false)

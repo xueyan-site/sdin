@@ -1,10 +1,9 @@
 {
-  "name": "<%= package.name %>",
-  "version": "<%= package.version %>",
-  "author": "<%= package.author %>",
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "author": "<%= author %>",
   "description": "",
   "private": true,
-  "xueyan": "xueyan.json",
   "scripts": {
     "start": "xueyan-typescript start",
     "build": "xueyan-typescript build",

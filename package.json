@@ -47,11 +47,11 @@
     "babel-loader": "^8.1.0",
     "chalk": "^4.1.0",
     "chardet": "^1.3.0",
-    "clean-webpack-plugin": "^3.0.0",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
     "commander": "^6.1.0",
     "compression": "^1.7.4",
     "connect-history-api-fallback": "^1.6.0",
-    "copy-webpack-plugin": "^6.2.1",
+    "copy-webpack-plugin": "^8.1.1",
     "css-loader": "^5.0.0",
     "cssnano": "^4.1.10",
     "del": "^6.0.0",
@@ -64,10 +64,10 @@
     "gulp-filter": "^6.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",
-    "html-webpack-plugin": "^4.5.0",
+    "html-webpack-plugin": "^5.3.1",
     "json-loader": "^0.5.7",
     "lodash": "^4.17.20",
-    "mini-css-extract-plugin": "^1.1.1",
+    "mini-css-extract-plugin": "^1.6.0",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "ora": "^5.1.0",
     "postcss": "^8.1.3",
@@ -85,8 +85,8 @@
     "update-notifier": "^5.0.1",
     "url-loader": "^4.1.1",
     "validator": "^13.1.17",
-    "webpack": "^4.44.2",
-    "webpack-dev-server": "^3.11.0"
+    "webpack": "^5.36.2",
+    "webpack-dev-server": "^3.11.2"
   },
   "devDependencies": {
     "@types/babel__preset-env": "^7.9.1",
@@ -108,7 +108,7 @@
     "@types/postcss-preset-env": "^6.7.0",
     "@types/update-notifier": "^5.0.0",
     "@types/validator": "^13.1.0",
-    "@types/webpack": "^4.41.22",
-    "@types/webpack-dev-server": "^3.11.0"
+    "@types/webpack": "^5.28.0",
+    "@types/webpack-dev-server": "^3.11.3"
   }
 }

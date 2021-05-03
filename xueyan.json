@@ -1,3 +1,10 @@
 {
-  "type": "node-application"
+  "type": "node-application",
+  "moduleAlias": {
+    "base": "src/base",
+    "projects": "src/projects",
+    "scripts": "src/scripts",
+    "utils": "src/utils",
+    "types": "src/types.ts"
+  }
 }

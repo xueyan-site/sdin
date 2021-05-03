@@ -3,20 +3,17 @@
 import { Command } from 'commander'
 import { prompt } from 'enquirer'
 import validator from 'validator'
-import { logErrorAndExit } from '../utils/print'
-import { cwdPath } from '../utils/path'
-import { readGitConfigSync } from '../utils/read'
-import { RootProjectProps } from '../projects/root-project'
-
-import ReactApplicationProject from '../projects/react-application-project'
-import ReactPackageProject from '../projects/react-package-project'
-import NodePackageProject from '../projects/node-package-project'
-import NodeApplicationProject from '../projects/node-application-project'
-
-import createReactApplication from '../scripts/create-react-application'
-import createReactPackage from '../scripts/create-react-package'
-import createNodePackage from '../scripts/create-node-package'
-import createNodeApplication from '../scripts/create-node-application'
+import { cwdPath } from 'utils/path'
+import { logErrorAndExit } from 'utils/print'
+import { readGitConfigSync } from 'utils/read'
+import NodeApplication, { NODE_APPLICATION_TYPE } from 'projects/node-application'
+import NodePackage, { NODE_PACKAGE_TYPE } from 'projects/node-package'
+import ReactApplication, { REACT_APPLICATION_TYPE } from 'projects/react-application'
+import ReactPackage, { REACT_PACKAGE_TYPE } from 'projects/react-package'
+import { NodeApplicationCreater, NODE_APPLICATION_TEMPLATE_OPTIONS } from 'scripts/node-application'
+import { NodePackageCreater, NODE_PACKAGE_TEMPLATE_OPTIONS } from 'scripts/node-package'
+import { ReactApplicationCreater, REACT_APPLICATION_TEMPLATE_OPTIONS } from 'scripts/react-application'
+import { ReactPackageCreater, REACT_PACKAGE_TEMPLATE_OPTIONS } from 'scripts/react-package'
 
 process.on('unhandledRejection', (reason: any) => logErrorAndExit(reason))
 process.on('uncaughtException', err => logErrorAndExit(err, 1))
@@ -29,20 +26,15 @@ program
   .action(action)
   .parse(process.argv)
 
-interface Answers {
-  type: string,
-  name: string,
-  author: string,
-  email: string,
-  path: string
-}
-
 async function action(path: string) {
-  const git = readGitConfigSync()
-  const answers = await prompt<Answers>([
+  /**
+   * 确认类型
+   */
+  const { type } = await prompt<{ type: string }>([
     {
       type: 'select',
       name: 'type',
+      initial: program.type,
       message: 'project type',
       required: true,
       choices: [
@@ -63,7 +55,48 @@ async function action(path: string) {
           message: 'node application'
         }
       ]
-    },
+    }
+  ])
+  /**
+   * 确认需要使用的模版
+   */
+  const templateList = type === NODE_APPLICATION_TYPE
+    ? NODE_APPLICATION_TEMPLATE_OPTIONS
+    : type === NODE_PACKAGE_TYPE
+    ? NODE_PACKAGE_TEMPLATE_OPTIONS
+    : type === REACT_APPLICATION_TYPE
+    ? REACT_APPLICATION_TEMPLATE_OPTIONS
+    : type === REACT_PACKAGE_TYPE
+    ? REACT_PACKAGE_TEMPLATE_OPTIONS
+    : []
+  let template: string = templateList.length === 1
+    ? templateList[0].value
+    : ''
+  if (!template) {
+    template = (await prompt<{ template: string }>([
+      {
+        type: 'select',
+        name: 'type',
+        initial: program.type,
+        message: 'project type',
+        required: true,
+        choices: templateList.map(i => ({
+          name: i.value,
+          message: i.label
+        }))
+      }
+    ])).template
+  }
+  /**
+   * 设置其余值
+   */
+  const git = readGitConfigSync()
+  const answers = await prompt<{
+    name: string
+    path: string
+    author: string
+    email: string
+  }>([
     {
       type: 'input',
       name: 'name',
@@ -79,7 +112,7 @@ async function action(path: string) {
       initial: (data: any) => {
         const answers = data.state.answers
         const packageName = answers.name || ''
-        return cwdPath(path, packageName.replace('/', '__'))
+        return cwdPath(path, packageName.replace('/', '_'))
       }
     },
     {
@@ -98,9 +131,11 @@ async function action(path: string) {
       validate: validator.isEmail
     }
   ])
-  const props: RootProjectProps = {
-    program,
-    config: {},
+  /**
+   * 生成项目模版
+   */
+  const meta = {
+    type,
     path: answers.path,
     package: {
       name: answers.name,
@@ -108,15 +143,31 @@ async function action(path: string) {
       author: `${answers.author} <${answers.email}>`
     }
   }
-  if (answers.type === 'react-application') {
-    await createReactApplication(new ReactApplicationProject(props))
-  } else if (answers.type === 'react-package') {
-    await createReactPackage(new ReactPackageProject(props))
-  } else if (answers.type === 'node-package') {
-    await createNodePackage(new NodePackageProject(props))
-  } else if (answers.type === 'node-application') {
-    await createNodeApplication(new NodeApplicationProject(props))
+  if (meta.type === 'node-application') {
+    const creater = new NodeApplicationCreater({
+      project: new NodeApplication(meta),
+      template
+    })
+    await creater.open()
+  } else if (meta.type === 'node-package') {
+    const creater = new NodePackageCreater({
+      project: new NodePackage(meta),
+      template
+    })
+    await creater.open()
+  } else if (meta.type === 'react-application') {
+    const creater = new ReactApplicationCreater({
+      project: new ReactApplication(meta),
+      template
+    })
+    await creater.open()
+  } else if (meta.type === 'react-package') {
+    const creater = new ReactPackageCreater({
+      project: new ReactPackage(meta),
+      template
+    })
+    await creater.open()
   } else {
-    logErrorAndExit('Please Indicates the type of project at package.json')
+    throw new Error('please indicates the type of project in config file')
   }
 }

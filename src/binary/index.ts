@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
-import chalk from 'chalk'
-import updateNotifier from 'update-notifier'
-import { Command, ExecutableCommandOptions } from 'commander'
-import { readPackageInfoSyncByPath } from '../utils/read'
-import { logErrorAndExit, logInfo } from '../utils/print'
-import { CMD } from '../utils/path'
-
 process.on('unhandledRejection', (reason: any) => logErrorAndExit(reason))
 process.on('uncaughtException', err => logErrorAndExit(err, 1))
 
+import chalk from 'chalk'
+import updateNotifier from 'update-notifier'
+import { Command, ExecutableCommandOptions } from 'commander'
+import { readPackageInfoSync } from '../utils/read'
+import { logErrorAndExit } from '../utils/print'
+import { CMD } from '../utils/path'
+
 const program = new Command()
-const packageInfo = readPackageInfoSyncByPath(CMD)
+const packageInfo = readPackageInfoSync(CMD)
 
 /**
  * update check

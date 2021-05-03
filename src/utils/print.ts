@@ -2,28 +2,11 @@ import chalk from 'chalk'
 import { isError, isString } from 'lodash'
 
 /**
- * 打印的时间标记
+ * 获取标记
  */
 const startTime = Date.now()
-const getTimeout = (flag: string) => {
-  let delay = Date.now() - startTime
-  const h = Math.floor(delay / 3600000)
-  delay = delay % 3600000
-  const m = Math.floor(delay / 60000)
-  delay =  delay % 60000
-  const s = Math.floor(delay / 1000)
-  const ms = delay % 1000
-  return '['
-    + ('00' + h).slice(-2)
-    + ':'
-    + ('00' + m).slice(-2)
-    + ':'
-    + ('00' + s).slice(-2)
-    + '.'
-    + ('000' + ms).slice(-3)
-    + ' '
-    + flag
-    + ']'
+const getLabel = (flag: string) => {
+  return `${startTime} ${Date.now()} ${flag}: `
 }
 
 /**
@@ -33,7 +16,7 @@ const getTimeout = (flag: string) => {
 export const logError = (msg: string | Error, callback?: () => void) => {
   const txt = isError(msg) ? msg.message : isString(msg) ? msg : ''
   if (txt) {
-    console.log(getTimeout('err'), chalk.red(txt))
+    console.log(getLabel('err'), chalk.red(txt))
     if (isError(msg) && msg.stack) {
       console.error(msg.stack)
     }
@@ -60,7 +43,7 @@ export const logErrorAndExit = (msg: string | Error, code?: number): any => {
 export const logInfo = (msg: string, callback?: () => void) => {
   const txt = isString(msg) ? msg : ''
   if (txt) {
-    console.log(getTimeout('inf'), chalk.gray(msg))
+    console.log(getLabel('inf'), chalk.gray(msg))
     if (callback) {
       callback()
     }
@@ -84,7 +67,7 @@ export const logInfoAndExit = (msg: string, code?: number): any => {
 export const logWarning = (msg: string) => {
   const txt = isString(msg) ? msg : ''
   if (txt) {
-    console.log(getTimeout('war'), chalk.yellow(msg))
+    console.log(getLabel('war'), chalk.yellow(msg))
   }
 }
 
@@ -95,6 +78,6 @@ export const logWarning = (msg: string) => {
 export const logSuccess = (msg: string) => {
   const txt = isString(msg) ? msg : ''
   if (txt) {
-    console.log(getTimeout('suc'), chalk.green(msg))
+    console.log(getLabel('suc'), chalk.green(msg))
   }
 }

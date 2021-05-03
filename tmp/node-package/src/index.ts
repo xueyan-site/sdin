@@ -1,6 +1,6 @@
 /**
- * @package <%= package.name %>
- * @author <%= package.author %>
+ * @package <%= name %>
+ * @author <%= author %>
  * @description 包入口 package entry
  */
 

@@ -5,7 +5,7 @@ export default function PageOne() {
   return (
     <div className={styles.wrapper}>
       <h1 className={styles.title}>page one</h1>
-      <div className={styles.content}><%= package.name %></div>
+      <div className={styles.content}><%= name %></div>
     </div>
   )
 }

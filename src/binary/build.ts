@@ -1,19 +1,17 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander'
-import { logErrorAndExit } from '../utils/print'
-import { readPackageInfoSyncByPath, readJSONSyncByValue } from '../utils/read'
-import { cwdPath } from '../utils/path'
-
-import ReactApplicationProject from '../projects/react-application-project'
-import ReactPackageProject from '../projects/react-package-project'
-import NodePackageProject from '../projects/node-package-project'
-import NodeApplicationProject from '../projects/node-application-project'
-
-import buildReactApplication from '../scripts/build-react-application'
-import buildReactPackage from '../scripts/build-react-package'
-import buildNodePackage from '../scripts/build-node-package'
-import buildNodeApplication from '../scripts/build-node-application'
+import { logErrorAndExit } from 'utils/print'
+import { cwdPath } from 'utils/path'
+import { readProjectMeta } from 'base/project'
+import NodeApplication from 'projects/node-application'
+import NodePackage from 'projects/node-package'
+import ReactApplication from 'projects/react-application'
+import ReactPackage from 'projects/react-package'
+import { NodeApplicationBuilder } from 'scripts/node-application'
+import { NodePackageBuilder } from 'scripts/node-package'
+import { ReactApplicationBuilder } from 'scripts/react-application'
+import { ReactPackageBuilder } from 'scripts/react-package'
 
 process.on('unhandledRejection', (reason: any) => logErrorAndExit(reason))
 process.on('uncaughtException', err => logErrorAndExit(err, 1))
@@ -29,37 +27,31 @@ program
 
 async function action(path: string) {
   const projectPath = cwdPath(path)
-  const packageInfo = readPackageInfoSyncByPath(projectPath)
-  const config = readJSONSyncByValue(packageInfo.xueyan, projectPath)
-  if (config.type === 'react-application') {
-    await buildReactApplication(new ReactApplicationProject({
-      config,
-      program,
-      path: projectPath,
-      package: packageInfo,
-    }))
-  } else if (config.type === 'react-package') {
-    await buildReactPackage(new ReactPackageProject({
-      config,
-      program,
-      path: projectPath,
-      package: packageInfo,
-    }))
-  } else if (config.type === 'node-package') {
-    await buildNodePackage(new NodePackageProject({
-      config,
-      program,
-      path: projectPath,
-      package: packageInfo,
-    }))
-  } else if (config.type === 'node-application') {
-    await buildNodeApplication(new NodeApplicationProject({
-      config,
-      program,
-      path: projectPath,
-      package: packageInfo,
-    }))
+  const meta = readProjectMeta(projectPath)
+  if (meta.type === 'node-application') {
+    const builder = new NodeApplicationBuilder({
+      project: new NodeApplication(meta),
+      watch: program.watch
+    })
+    await builder.open()
+  } else if (meta.type === 'node-package') {
+    const builder = new NodePackageBuilder({
+      project: new NodePackage(meta),
+      watch: program.watch
+    })
+    await builder.open()
+  } else if (meta.type === 'react-application') {
+    const builder = new ReactApplicationBuilder({
+      project: new ReactApplication(meta)
+    })
+    await builder.open()
+  } else if (meta.type === 'react-package') {
+    const builder = new ReactPackageBuilder({
+      project: new ReactPackage(meta),
+      watch: program.watch
+    })
+    await builder.open()
   } else {
-    logErrorAndExit('Please Indicates the type of project at package.json')
+    throw new Error('please indicates the type of project in config file')
   }
 }

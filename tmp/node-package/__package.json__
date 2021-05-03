@@ -1,10 +1,9 @@
 {
-  "name": "<%= package.name %>",
-  "version": "<%= package.version %>",
-  "author": "<%= package.author %>",
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "author": "<%= author %>",
   "license": "MIT",
   "description": "",
-  "xueyan": "xueyan.json",
   "main": "dist/lib",
   "module": "dist/esm",
   "types": "dist/types",
