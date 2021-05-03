@@ -17,7 +17,7 @@ export function getWebpackConfig(
   const config: WebpackOptions = {}
   if (options.isDevMode) {
     config.mode = 'development'
-    config.devtool = 'cheap-module-eval-source-map'
+    config.devtool = 'eval-cheap-module-source-map'
   } else {
     config.mode = 'production'
     config.devtool = 'cheap-module-source-map'

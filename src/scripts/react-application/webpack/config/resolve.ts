@@ -14,15 +14,10 @@ export function getResolveConfig(project: ReactApplication): Configuration['reso
     ]
   }
   if (project.config.moduleAlias) {
-    resolve.alias = mapValues(config.moduleAlias, value => {
-      if (typeof value === 'string') {
-        return project.withPath(value)
-      } else if (Array.isArray(value)) {
-        return value.map(sub => project.withPath(sub))
-      } else {
-        return value
-      }
-    })
+    resolve.alias = mapValues(
+      config.moduleAlias,
+      value => project.withPath(value)
+    )
   }
   return resolve
 }

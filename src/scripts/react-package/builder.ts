@@ -165,9 +165,10 @@ export default class ReactPackageBuilder extends ProjectBuilder<ReactPackage> {
               cmdNmPath('@babel/preset-typescript'),
             ],
             plugins: [
+              this.getModuleAliasBabelPlugin(),
               cmdNmPath('@babel/plugin-transform-runtime'),
               cmdNmPath('@babel/plugin-proposal-class-properties'),
-            ]
+            ].filter(Boolean)
           })
           .on('error', reject)
         )
@@ -204,9 +205,10 @@ export default class ReactPackageBuilder extends ProjectBuilder<ReactPackage> {
               cmdNmPath('@babel/preset-typescript'),
             ],
             plugins: [
+              this.getModuleAliasBabelPlugin(),
               cmdNmPath('@babel/plugin-transform-runtime'),
               cmdNmPath('@babel/plugin-proposal-class-properties'),
-            ]
+            ].filter(Boolean)
           })
           .on('error', reject)
         )

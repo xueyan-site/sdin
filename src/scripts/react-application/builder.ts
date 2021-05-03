@@ -3,6 +3,7 @@ import ProjectBuilder, { ProjectBuilderProps } from 'base/project-builder'
 import Webpack, { Compiler, Stats } from 'webpack'
 import { getWebpackConfig } from './webpack'
 import { logInfo, logSuccess } from 'utils/print'
+import ora from 'ora'
 
 /**
  * react应用构建器实例化参数
@@ -46,15 +47,19 @@ export default class ReactApplicationBuilder extends ProjectBuilder<ReactApplica
           resolve()
         })
       })
+      const buildOra = ora(`${this.project.name} is building`)
+      buildOra.start()
       this.compiler.run((error?: Error, stats?: Stats) => {
         if (error) {
+          buildOra.fail(`${this.project.name} build failed!`)
           console.error(error.stack || error)
           reject()
         } else if (stats && stats.hasErrors()) {
+          buildOra.fail(`${this.project.name} build failed!`)
           console.error(stats.toString('errors-only'))
           reject()
         } else {
-          logSuccess(`${project.name} builded successfully!`)
+          buildOra.succeed(`${this.project.name} builded successfully!`)
           if (stats) {
             console.log(stats.toString({
               all: false,

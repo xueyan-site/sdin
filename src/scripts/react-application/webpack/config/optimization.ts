@@ -8,7 +8,7 @@ export function getOptimizationConfig(options: WebpackConfigOptions): Configurat
     }
   }
   if (options.isDevMode) {
-    config.noEmitOnErrors = true
+    config.emitOnErrors = false
     config.splitChunks = {
       chunks: 'all',
       name: false,

@@ -25,8 +25,8 @@ program
   .action(action)
   .parse(process.argv)
 
-async function action(path: string) {
-  const projectPath = cwdPath(path)
+async function action(path?: string) {
+  const projectPath = cwdPath(path || '')
   const meta = readProjectMeta(projectPath)
   if (meta.type === 'node-application') {
     const builder = new NodeApplicationBuilder({

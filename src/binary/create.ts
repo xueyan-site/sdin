@@ -26,7 +26,7 @@ program
   .action(action)
   .parse(process.argv)
 
-async function action(path: string) {
+async function action(path?: string) {
   /**
    * 确认类型
    */
@@ -112,7 +112,7 @@ async function action(path: string) {
       initial: (data: any) => {
         const answers = data.state.answers
         const packageName = answers.name || ''
-        return cwdPath(path, packageName.replace('/', '_'))
+        return cwdPath(path || '', packageName.replace('/', '_'))
       }
     },
     {

@@ -3,7 +3,6 @@ import ReactApplication from 'projects/react-application'
 import { getAssetsRules } from '../module/assets'
 import { getScriptRules } from '../module/script'
 import { getStyleRules } from '../module/style'
-import { getTemplateRules } from '../module/template'
 import { WebpackConfigOptions } from '../types'
 
 export function getModuleConfig(
@@ -14,8 +13,7 @@ export function getModuleConfig(
     rules: Array<RuleSetRule>().concat(
       getScriptRules(project),
       getStyleRules(options),
-      getAssetsRules(),
-      getTemplateRules()
+      getAssetsRules()
     ).filter(Boolean)
   }
 }

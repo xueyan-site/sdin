@@ -8,7 +8,7 @@ function getImageRule(): RuleSetRule {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'images/[name].[hash:8].[ext]',
+          name: 'images/[name].[fullhash:8].[ext]',
         }
       }
     ]
@@ -23,7 +23,7 @@ function getFontRule(): RuleSetRule {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'fonts/[name].[hash:8].[ext]'
+          name: 'fonts/[name].[fullhash:8].[ext]'
         }
       }
     ]

@@ -118,9 +118,10 @@ export default class NodeApplicationBuilder extends ProjectBuilder<NodeApplicati
               cmdNmPath('@babel/preset-typescript'),
             ],
             plugins: [
+              this.getModuleAliasBabelPlugin(),
               cmdNmPath('@babel/plugin-transform-runtime'),
               cmdNmPath('@babel/plugin-proposal-class-properties'),
-            ]
+            ].fill(Boolean)
           })
           .on('error', reject)
         )

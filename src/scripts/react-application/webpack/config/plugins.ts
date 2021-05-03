@@ -23,7 +23,7 @@ export function getPluginsConfig(
           to: project.distPath,
           globOptions: {
             ignore: [
-              'index.html'
+              '**/index.html'
             ]
           }
         }
@@ -32,8 +32,8 @@ export function getPluginsConfig(
   }
   if (!options.isDevMode) {
     config.push(new MiniCssExtractPlugin({
-      filename: 'styles/[name].[hash:8].css',
-      chunkFilename: 'styles/[name].[hash:8].chunk.css',
+      filename: 'styles/[name].[fullhash:8].css',
+      chunkFilename: 'styles/[name].[fullhash:8].chunk.css',
     }))
   }
   config.push(new HtmlWebpackPlugin({

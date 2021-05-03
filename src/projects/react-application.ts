@@ -51,15 +51,6 @@ export interface ReactApplicationConfig extends ProjectConfig<ReactApplicationTy
   serveProxies?: ProxyConfigArrayItem[]
 
   /**
-   * 模块的alias
-   * webpack.resolve.alias
-   * <https://webpack.docschina.org/configuration/resolve/#resolvealias>
-   */
-  moduleAlias?: {
-    [index: string]: string | false | string[]
-  }
-
-  /**
    * 模块的扩展
    * webpack.externals
    * <https://webpack.docschina.org/configuration/externals/>

@@ -1,4 +1,4 @@
-import express, { Express } from 'express'
+import express, { Express, Router } from 'express'
 import HttpProxyMiddleware from 'http-proxy-middleware'
 import CompressionMiddleware from 'compression'
 import HistoryApiMiddleware from 'connect-history-api-fallback'
@@ -72,9 +72,15 @@ export default class ReactApplicationServer extends ProjectServer<ReactApplicati
     /**
      * 前端单页路由（当寻不到静态页面时）
      */
+    const indexHtmlPath = project.withDistPath('index.html')
     server.use(HistoryApiMiddleware({
-      index: project.withDistPath('index.html')
+      index: indexHtmlPath
     }))
+    const router = Router()
+    router.get('*', (_req, res) => {
+      res.sendFile(indexHtmlPath)
+    })
+    server.use(router)
     return server
   }
 }

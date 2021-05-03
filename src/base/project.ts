@@ -2,7 +2,7 @@ import { defaultsDeep, isPlainObject, isString } from 'lodash'
 import { withPath } from 'utils/path'
 import { readJsonSync, readPackageInfoSync } from 'utils/read'
 import { AnyObject, PackageInfo } from 'types'
-import { existsSync } from 'node:fs'
+import { existsSync } from 'fs-extra'
 
 /**
  * 项目配置信息
@@ -12,6 +12,16 @@ export interface ProjectConfig<TType extends string> {
    * 项目类型
    */
   type: TType
+
+  /**
+   * 模块的alias
+   * webpack.resolve.alias | babel-plugin-module-resolver.alias
+   * <https://webpack.docschina.org/configuration/resolve/#resolvealias>
+   * <https://github.com/tleunen/babel-plugin-module-resolver/blob/master/DOCS.md>
+   */
+  moduleAlias?: {
+    [index: string]: string
+  }
 }
 
 /**

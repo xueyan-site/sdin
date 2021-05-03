@@ -8,6 +8,7 @@ import { Options as BabelPresetEnvOpts } from '@babel/preset-env'
 import NodePackage from 'projects/node-package'
 import ProjectBuilder, { ProjectBuilderProps } from 'base/project-builder'
 import { cmdNmPath } from 'utils/path'
+import { mapValues } from 'lodash'
 
 /**
  * node包构建器实例化参数
@@ -164,9 +165,10 @@ export default class NodePackageBuilder extends ProjectBuilder<NodePackage> {
               cmdNmPath('@babel/preset-typescript'),
             ],
             plugins: [
+              this.getModuleAliasBabelPlugin(),
               cmdNmPath('@babel/plugin-transform-runtime'),
               cmdNmPath('@babel/plugin-proposal-class-properties'),
-            ]
+            ].filter(Boolean)
           })
           .on('error', reject)
         )
@@ -202,6 +204,14 @@ export default class NodePackageBuilder extends ProjectBuilder<NodePackage> {
               cmdNmPath('@babel/preset-typescript'),
             ],
             plugins: [
+              this.project.config.moduleAlias && (
+                [cmdNmPath('babel-plugin-module-resolver'), {
+                  "root": [this.project.path],
+                  "alias": mapValues(this.project.config.moduleAlias, value => {
+                    return this.project.withPath(value)
+                  })
+                }] as any
+              ),
               cmdNmPath('@babel/plugin-transform-runtime'),
               cmdNmPath('@babel/plugin-proposal-class-properties'),
             ]

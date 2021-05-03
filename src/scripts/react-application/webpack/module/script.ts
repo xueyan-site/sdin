@@ -1,5 +1,6 @@
 import { RuleSetRule, RuleSetCondition } from 'webpack'
 import ReactApplication from 'projects/react-application'
+import { cmdNmPath } from 'utils/path'
 
 function getBableRule(project: ReactApplication): RuleSetRule {
   const { babelParseIncludes, babelParseExcludes } = project.config
@@ -21,12 +22,12 @@ function getBableRule(project: ReactApplication): RuleSetRule {
           babelrc: false,
           configFile: false,
           presets: [
-            project.withModulePath('@babel/preset-env'),
-            project.withModulePath('@babel/preset-react'),
-            project.withModulePath('@babel/preset-typescript'),
+            cmdNmPath('@babel/preset-env'),
+            cmdNmPath('@babel/preset-react'),
+            cmdNmPath('@babel/preset-typescript'),
           ],
           plugins: [
-            project.withModulePath('@babel/plugin-proposal-class-properties'),
+            cmdNmPath('@babel/plugin-proposal-class-properties'),
           ]
         }
       }
