@@ -1,7 +1,7 @@
 import ora from 'ora'
 import chardet from 'chardet'
 import { template } from 'lodash'
-import { existsSync } from 'fs-extra'
+import fse from 'fs-extra'
 import Project, { ProjectConfig } from './project'
 import Executor, { ExecutorProps } from './executor'
 import { cmdPath } from 'utils/path'
@@ -38,7 +38,7 @@ export default abstract class ProjectCreator<
    * 复制项目代码
    */
   protected async generateProject() {
-    if (existsSync(this.project.path)) {
+    if (fse.existsSync(this.project.path)) {
       throw new Error(`project ${this.project.name} is already exists`)
     }
     const copyOra = ora('copying project template').start()
@@ -62,32 +62,11 @@ export default abstract class ProjectCreator<
   }
 
   /**
-   * 下载node_modules
-   */
-  protected downloadProjectModules() {
-    const downloadOra = ora('downloading node modules').start()
-    executeSync(`cd ${this.project.path} && yarn`)
-    downloadOra.succeed(`downloaded node modules successfully`)
-  }
-  
-  /**
-   * 下载 doc node_modules
-   */
-  protected downloadDocumentModules() {
-    const docPath = this.project.withPath('doc')
-    if (existsSync(docPath)) {
-      const downloadDocOra = ora('downloading doc node modules').start()
-      executeSync(`cd ${docPath} && yarn`)
-      downloadDocOra.succeed(`downloaded doc node modules successfully`)
-    }
-  }
-  
-  /**
    * 初始化git仓库
    */
   protected initializeGitRepository() {
     const gitPath = this.project.withPath('.git')
-    if (!existsSync(gitPath)) {
+    if (!fse.existsSync(gitPath)) {
       const initGitOra = ora('initializing git repository').start()
       executeSync(`cd ${this.project.path} && git init && git add . && git commit -m "chore: project created"`)
       initGitOra.succeed(`initialized git repository successfully`)

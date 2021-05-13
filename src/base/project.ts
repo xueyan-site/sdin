@@ -2,7 +2,7 @@ import { defaultsDeep, isPlainObject, isString } from 'lodash'
 import { withPath } from 'utils/path'
 import { readJsonSync, readPackageInfoSync } from 'utils/read'
 import { AnyObject, PackageInfo } from 'types'
-import { existsSync } from 'fs-extra'
+import fse from 'fs-extra'
 
 /**
  * 项目配置信息
@@ -78,9 +78,9 @@ interface ProjectMeta {
 function getProjectConfigByAgree(projectPath: string, packageInfo: PackageInfo): AnyObject {
   if (packageInfo.xueyan) {
     return readJsonSync(packageInfo.xueyan, projectPath)
-  } else if (existsSync(withPath(projectPath, 'xueyan.js'))) {
+  } else if (fse.existsSync(withPath(projectPath, 'xueyan.js'))) {
     return readJsonSync('xueyan.js', projectPath)
-  } else if (existsSync(withPath(projectPath, 'xueyan.json'))) {
+  } else if (fse.existsSync(withPath(projectPath, 'xueyan.json'))) {
     return readJsonSync('xueyan.json', projectPath)
   } else {
     return {}
@@ -149,6 +149,11 @@ export default abstract class Project<
   readonly srcPath: string
 
   /**
+   * 项目文档目录
+   */
+  readonly docPath: string
+
+  /**
    * 项目生成资源文件目录
    */
   readonly distPath: string
@@ -174,6 +179,7 @@ export default abstract class Project<
      */
     this.path = props.path
     this.srcPath = this.withPath('src')
+    this.docPath = this.withPath('doc')
     this.distPath = this.withPath('dist')
     this.cachePath = this.withPath('cache')
     this.modulePath = this.withPath('node_modules')
@@ -212,6 +218,13 @@ export default abstract class Project<
    */
   withSrcPath(...pathList: string[]) {
     return withPath(this.srcPath, ...pathList)
+  }
+
+  /**
+   * 拼接路径
+   */
+  withDocPath(...pathList: string[]) {
+    return withPath(this.docPath, ...pathList)
   }
 
   /**

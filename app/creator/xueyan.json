@@ -1,0 +1,12 @@
+{
+  "type": "react-application",
+  "moduleAlias": {
+    "pages": "src/pages"
+  },
+  "startProxy": [
+    {
+      "path": "^/api",
+      "target": "https://xxx.com"
+    }
+  ]
+}

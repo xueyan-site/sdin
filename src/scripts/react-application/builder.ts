@@ -38,6 +38,7 @@ export default class ReactApplicationBuilder extends ProjectBuilder<ReactApplica
   }
 
   main() {
+    this.downloadModules()
     return new Promise<void>((resolve, reject) => {
       const project = this.project
       const config = project.config

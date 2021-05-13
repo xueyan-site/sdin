@@ -40,6 +40,7 @@ export default class NodeApplicationBuilder extends ProjectBuilder<NodeApplicati
   }
 
   async main() {
+    this.downloadModules()
     await del(this.project.distPath)
     await this.compile()
     if (this.watch) {

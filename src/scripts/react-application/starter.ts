@@ -47,6 +47,7 @@ export default class ReactApplicationStarter extends ProjectStarter<ReactApplica
   }
 
   async main() {
+    this.downloadModules()
     return new Promise<void>(resolve => {
       const project = this.project
       const config = project.config

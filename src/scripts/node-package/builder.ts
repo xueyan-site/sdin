@@ -50,6 +50,7 @@ export default class NodePackageBuilder extends ProjectBuilder<NodePackage> {
   }
 
   async main() {
+    this.downloadModules()
     await del(this.project.distPath)
     await this.compile()
     if (this.watch) {

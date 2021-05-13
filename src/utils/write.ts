@@ -9,7 +9,7 @@ export type DeepCopyNode = DeepReadNode
 
 /**
  * 深度遍历复制各个文件的信息
- * @param projectInfo 
+ * 文件名以__开头，是为了避开git、npm等，需要修正
  */
 export async function deepCopy(
   source: string,

@@ -29,8 +29,8 @@ export default class NodePackageCreator extends ProjectCreator<NodePackage> {
 
   async main() {
     await this.generateProject()
-    this.downloadProjectModules()
-    this.downloadDocumentModules()
+    this.downloadModules()
+    this.downloadModules(this.project.docPath, 'doc')
     this.initializeGitRepository()
   }
 }

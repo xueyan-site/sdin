@@ -49,6 +49,7 @@ export default class ReactPackageBuilder extends ProjectBuilder<ReactPackage> {
   }
 
   async main() {
+    this.downloadModules()
     await del(this.project.distPath)
     await this.compile()
     if (this.watch) {

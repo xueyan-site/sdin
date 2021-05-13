@@ -29,8 +29,8 @@ export default class ReactApplicationCreator extends ProjectCreator<ReactApplica
 
   async main() {
     await this.generateProject()
-    this.downloadProjectModules()
-    this.downloadDocumentModules()
+    this.downloadModules()
+    this.downloadModules(this.project.docPath, 'doc')
     this.initializeGitRepository()
   }
 }
