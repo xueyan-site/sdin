@@ -1,0 +1,32 @@
+{
+  "projects": [
+    {
+      "type": "package",
+      "label": "组件/模块",
+      "templates": [
+        {
+          "name": "package",
+          "label": "普通包"
+        },
+        {
+          "name": "react-package",
+          "label": "专供react使用的包"
+        },
+        {
+          "name": "commander",
+          "label": "命令行工具"
+        }
+      ]
+    },
+    {
+      "type": "react-csr",
+      "label": "客户端渲染式react应用",
+      "templates": [
+        {
+          "name": "spa-application",
+          "label": "react单页应用"
+        }
+      ]
+    }
+  ]
+}

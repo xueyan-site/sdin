@@ -10,13 +10,49 @@ export const PACKAGE_TYPE: PackageType = 'package'
 /**
  * 包配置信息
  */
-export interface PackageConfig extends ProjectConfig<PackageType> {}
+export interface PackageConfig extends ProjectConfig<PackageType> {
+  /**
+   * 构建成web端使用的脚本
+   */
+  buildWeb: boolean
+
+  /**
+   * 构建成node端使用的脚本
+   */
+  buildNode: boolean
+
+  /**
+   * 构建成定义文件
+   */
+  buildTypes: boolean 
+
+  /**
+   * 使用react
+   */
+  useReact: boolean
+
+  /**
+   * 开启压缩
+   */
+  useCompress: boolean
+
+  /**
+   * 将多个文件合并于一处
+   */
+  useMerge: boolean
+}
 
 /**
  * 包配置信息默认值
  */
 export const PACKAGE_CONFIG: PackageConfig = {
-  type: PACKAGE_TYPE
+  type: PACKAGE_TYPE,
+  buildWeb: true,
+  buildNode: true,
+  buildTypes: true,
+  useReact: false,
+  useCompress: false,
+  useMerge: false
 }
 
 /**

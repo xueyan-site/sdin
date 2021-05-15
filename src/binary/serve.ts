@@ -4,8 +4,8 @@ import { Command } from 'commander'
 import { logErrorAndExit } from 'utils/print'
 import { cwdPath } from 'utils/path'
 import { readProjectMeta } from 'projects/project'
-import ReactApplication from 'projects/react-application'
-import { ReactApplicationServer } from 'scripts/react-application'
+import ReactCSR, { REACT_CSR_TYPE } from 'projects/react-csr'
+import { ReactCSRServer } from 'scripts/react-csr'
 
 process.on('unhandledRejection', (reason: any) => logErrorAndExit(reason))
 process.on('uncaughtException', err => logErrorAndExit(err, 1))
@@ -21,9 +21,9 @@ program
 async function action(path?: string) {
   const projectPath = cwdPath(path || '')
   const meta = readProjectMeta(projectPath)
-  if (meta.type === 'react-application') {
-    const builder = new ReactApplicationServer({
-      project: new ReactApplication(meta)
+  if (meta.type === REACT_CSR_TYPE) {
+    const builder = new ReactCSRServer({
+      project: new ReactCSR(meta)
     })
     await builder.open()
   } else {

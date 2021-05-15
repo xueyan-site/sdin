@@ -1,7 +1,6 @@
 export { 
   default as PackageCreater,
-  PackageCreaterProps,
-  PACKAGE_TEMPLATE_OPTIONS
+  PackageCreaterProps
 } from './creater'
 
 export { 
