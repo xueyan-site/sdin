@@ -1,7 +1,7 @@
 {
   "type": "node-application",
   "moduleAlias": {
-    "base": "src/base",
+    "execurots": "src/execurots",
     "projects": "src/projects",
     "scripts": "src/scripts",
     "utils": "src/utils",

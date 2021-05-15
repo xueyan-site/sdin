@@ -1,6 +1,6 @@
 import { ProxyConfigArrayItem } from 'webpack-dev-server'
-import { Configuration, RuleSetCondition, ResolveOptions } from 'webpack'
-import Project, { ProjectProps, ProjectConfig } from 'base/project'
+import { Configuration, RuleSetCondition } from 'webpack'
+import Project, { ProjectProps, ProjectConfig } from 'projects/project'
 import { withPath } from 'utils/path'
 
 /**

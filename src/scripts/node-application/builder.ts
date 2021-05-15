@@ -6,7 +6,7 @@ import babel from 'gulp-babel'
 import uglify from 'gulp-uglify'
 import { Options as BabelPresetEnvOpts } from '@babel/preset-env'
 import NodeApplication from 'projects/node-application'
-import ProjectBuilder, { ProjectBuilderProps } from 'base/project-builder'
+import ProjectBuilder, { ProjectBuilderProps } from 'executors/builder'
 import { cmdNmPath } from 'utils/path'
 
 /**

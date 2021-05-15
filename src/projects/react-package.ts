@@ -1,4 +1,4 @@
-import Project, { ProjectProps, ProjectConfig } from 'base/project'
+import Project, { ProjectProps, ProjectConfig } from 'projects/project'
 
 /**
  * react包类型

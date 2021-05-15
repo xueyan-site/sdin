@@ -3,7 +3,7 @@
 import { Command } from 'commander'
 import { logErrorAndExit } from 'utils/print'
 import { cwdPath } from 'utils/path'
-import { readProjectMeta } from 'base/project'
+import { readProjectMeta } from 'projects/project'
 import ReactApplication from 'projects/react-application'
 import { ReactApplicationStarter } from 'scripts/react-application'
 

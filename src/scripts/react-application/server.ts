@@ -2,7 +2,7 @@ import express, { Express, Router } from 'express'
 import HttpProxyMiddleware from 'http-proxy-middleware'
 import CompressionMiddleware from 'compression'
 import HistoryApiMiddleware from 'connect-history-api-fallback'
-import ProjectServer, { ProjectServerProps } from 'base/project-server'
+import ProjectServer, { ProjectServerProps } from 'executors/server'
 import ReactApplication from 'projects/react-application'
 import { logSuccess } from 'utils/print'
 

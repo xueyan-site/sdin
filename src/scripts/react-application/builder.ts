@@ -1,5 +1,5 @@
 import ReactApplication from 'projects/react-application'
-import ProjectBuilder, { ProjectBuilderProps } from 'base/project-builder'
+import ProjectBuilder, { ProjectBuilderProps } from 'executors/builder'
 import Webpack, { Compiler, Stats } from 'webpack'
 import { getWebpackConfig } from './webpack'
 import { logInfo, logSuccess } from 'utils/print'

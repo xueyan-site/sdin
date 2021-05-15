@@ -1,0 +1,14 @@
+{
+  "list": [
+    {
+      "name": "node-application",
+      "desc": "node application",
+      "temps": [
+        {
+          "name": "default",
+          ""
+        }
+      ]
+    }
+  ]
+}

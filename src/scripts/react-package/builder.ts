@@ -6,7 +6,7 @@ import filter from 'gulp-filter'
 import babel from 'gulp-babel'
 import { Options as BabelPresetEnvOpts } from '@babel/preset-env'
 import ReactPackage from 'projects/react-package'
-import ProjectBuilder, { ProjectBuilderProps } from 'base/project-builder'
+import ProjectBuilder, { ProjectBuilderProps } from 'executors/builder'
 import { cmdNmPath } from 'utils/path'
 
 /**

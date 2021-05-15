@@ -1,4 +1,4 @@
-import ProjectCreator, { ProjectCreatorProps } from 'base/project-creator'
+import ProjectCreator, { ProjectCreatorProps } from 'executors/creator'
 import NodeApplication, { NODE_APPLICATION_TYPE } from 'projects/node-application'
 
 /**

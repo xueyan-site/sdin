@@ -2,7 +2,7 @@ import ora from 'ora'
 import chardet from 'chardet'
 import { template } from 'lodash'
 import fse from 'fs-extra'
-import Project, { ProjectConfig } from './project'
+import Project, { ProjectConfig } from 'projects/project'
 import Executor, { ExecutorProps } from './executor'
 import { cmdPath } from 'utils/path'
 import { deepCopy } from 'utils/write'
@@ -11,7 +11,7 @@ import { executeSync } from 'utils/exec'
 /**
  * 项目创建器实例化参数
  */
-export interface ProjectCreatorProps<
+export interface CreatorProps<
   TProject extends Project<string, ProjectConfig<string>>
 > extends ExecutorProps<TProject> {
   /**
@@ -23,12 +23,12 @@ export interface ProjectCreatorProps<
 /**
  * 项目创建器
  */
-export default abstract class ProjectCreator<
+export default abstract class Creator<
   TProject extends Project<string, ProjectConfig<string>>
 > extends Executor<TProject> {
   protected templatePath: string
 
-  constructor(props: ProjectCreatorProps<TProject>, defaultTemplate: string) {
+  constructor(props: CreatorProps<TProject>, defaultTemplate: string) {
     super(props)
     const __template__ = props.template || defaultTemplate
     this.templatePath = cmdPath(`tmp/${__template__}`)

@@ -1,4 +1,4 @@
-import ProjectCreator, { ProjectCreatorProps } from 'base/project-creator'
+import ProjectCreator, { ProjectCreatorProps } from 'executors/creator'
 import ReactPackage, { REACT_PACKAGE_TYPE } from 'projects/react-package'
 
 /**

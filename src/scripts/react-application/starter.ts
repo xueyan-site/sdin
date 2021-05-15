@@ -1,4 +1,4 @@
-import ProjectStarter, { ProjectStarterProps } from 'base/project-starter'
+import ProjectStarter, { ProjectStarterProps } from 'executors/starter'
 import ReactApplication from 'projects/react-application'
 import Webpack, { Compiler } from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'

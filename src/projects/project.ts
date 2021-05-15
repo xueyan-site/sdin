@@ -1,8 +1,8 @@
+import fse from 'fs-extra'
 import { defaultsDeep, isPlainObject, isString } from 'lodash'
 import { withPath } from 'utils/path'
 import { readJsonSync, readPackageInfoSync } from 'utils/read'
 import { AnyObject, PackageInfo } from 'types'
-import fse from 'fs-extra'
 
 /**
  * 项目配置信息
@@ -75,7 +75,7 @@ interface ProjectMeta {
 /**
  * 按照项目的约定规则去读取配置信息
  */
-function getProjectConfigByAgree(projectPath: string, packageInfo: PackageInfo): AnyObject {
+function getProjectConfigSync(projectPath: string, packageInfo: PackageInfo): AnyObject {
   if (packageInfo.xueyan) {
     return readJsonSync(packageInfo.xueyan, projectPath)
   } else if (fse.existsSync(withPath(projectPath, 'xueyan.js'))) {
@@ -92,7 +92,7 @@ function getProjectConfigByAgree(projectPath: string, packageInfo: PackageInfo):
  */
 export function readProjectMeta(projectPath: string): ProjectMeta {
   const packageInfo = readPackageInfoSync(projectPath)
-  const config = getProjectConfigByAgree(projectPath, packageInfo)
+  const config = getProjectConfigSync(projectPath, packageInfo)
   return {
     type: config.type || '',
     path: projectPath,
@@ -154,9 +154,24 @@ export default abstract class Project<
   readonly docPath: string
 
   /**
-   * 项目生成资源文件目录
+   * 项目生成的资源文件目录
    */
   readonly distPath: string
+
+  /**
+   * 项目生成的web端资源文件目录
+   */
+  readonly webDistPath: string
+
+  /**
+   * 项目生成的node端资源文件目录
+   */
+  readonly nodeDistPath: string
+
+  /**
+   * 项目生成的定义文件目录
+   */
+  readonly typesDistPath: string
 
   /**
    * 项目缓存文件目录
@@ -167,7 +182,7 @@ export default abstract class Project<
    * 项目缓存文件目录
    */
   readonly modulePath: string
-
+  
   /**
    * 项目依赖映射表
    */
@@ -181,6 +196,9 @@ export default abstract class Project<
     this.srcPath = this.withPath('src')
     this.docPath = this.withPath('doc')
     this.distPath = this.withPath('dist')
+    this.webDistPath = this.withDistPath('web')
+    this.nodeDistPath = this.withDistPath('node')
+    this.typesDistPath = this.withDistPath('types')
     this.cachePath = this.withPath('cache')
     this.modulePath = this.withPath('node_modules')
     /**
@@ -200,7 +218,7 @@ export default abstract class Project<
     } else if (isString(props.config)) {
       __config__ = readJsonSync(props.config, this.path)
     } else {
-      __config__ = getProjectConfigByAgree(this.path, this.package)
+      __config__ = getProjectConfigSync(this.path, this.package)
     }
     this.config = defaultsDeep(__config__, defaultConfig)
     this.type = this.config.type

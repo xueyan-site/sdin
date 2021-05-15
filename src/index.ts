@@ -19,7 +19,7 @@ export {
   NodePackageType,
   NodePackageConfig,
   NodePackageProps
-} from 'projects/node-package'
+} from 'projects/package'
 
 export {
   NodePackageCreater,

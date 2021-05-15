@@ -20,7 +20,7 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
-      "base/*": ["src/base/*"],
+      "executors/*": ["src/executors/*"],
       "projects/*": ["src/projects/*"],
       "scripts/*": ["src/scripts/*"],
       "utils/*": ["src/utils/*"],

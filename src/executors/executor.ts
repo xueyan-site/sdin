@@ -2,7 +2,7 @@ import EventEmitter from 'events'
 import fse from 'fs-extra'
 import ora from 'ora'
 import { executeSync } from 'utils/exec'
-import Project, { ProjectConfig } from './project'
+import Project, { ProjectConfig } from 'projects/project'
 
 /**
  * 项目执行器实例化参数
