@@ -23,8 +23,8 @@
       "label": "客户端渲染式react应用",
       "templates": [
         {
-          "name": "spa-application",
-          "label": "react单页应用"
+          "name": "react-csr",
+          "label": "客户端渲染式react应用"
         }
       ]
     }

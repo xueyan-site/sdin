@@ -1,27 +1,19 @@
 # <%= name %>
 
-<%= name %> 是一个Node包。  
-<%= name %> is a node package.  
+<%= name %> 是一个xxx包。  
 
-本项目创建自 <%= author %>。  
-The project created by <%= author %>.  
+## 下载
 
-## 下载 Install
+NPM：`npm i <%= name %>`  
+Yarn：`yarn add <%= name %>`  
 
-```bash
-# 如果你使用的是NPM：
-# if you use NPM: 
-npm i <%= name %>
-
-# 如果你使用的是Yarn：
-# if you use Yarn: 
-yarn add <%= name %>
-```
-
-## 示例 Example
+## 用法
 
 ```ts
-import Switch from '<%= name %>'
-
-<Switch value={state} onChange={state => setState(state)}/>
+const sum = add(1, 1)
 ```
+
+## 信息
+
+作者：<%= author %>  
+构建工具：[xueyan-typescript-cli](https://github.com/xueyan-site/xueyan-typescript-cli)  

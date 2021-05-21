@@ -22,7 +22,6 @@
     "paths": {
       "components/*": ["./src/components/*"],
       "pages/*": ["./src/pages/*"],
-      "stores/*": ["./src/stores/*"],
       "types": ["src/types"]
     }
   }

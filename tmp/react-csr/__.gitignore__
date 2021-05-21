@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/react,node,yarn,macos,emacs,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=react,node,yarn,macos,emacs,windows
 
+# Project cache
+cache
+**/cache
+
 ### Emacs ###
 # -*- mode: gitignore; -*-
 *~
@@ -35,7 +39,6 @@ tramp
 # cask packages
 .cask/
 dist/
-doc/
 
 # Flycheck
 flycheck_*.el

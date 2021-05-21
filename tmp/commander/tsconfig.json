@@ -17,6 +17,12 @@
     "sourceMap": true,
     "declaration": false,
     "declarationMap": false,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "scripts/*": ["src/scripts/*"],
+      "utils/*": ["src/utils/*"],
+      "types": ["src/types.ts"]
+    }
   }
 }

@@ -46,7 +46,7 @@ export const cwdNmPath = (...pathList: string[]) => {
 /**
  * 当前模块目录（current module directory）
  */
-export const CMD = path.resolve(__dirname, '../../')
+export const CMD = path.resolve(__dirname, '../../../')
 
 /**
  * 基于当前模块目录的相对路径

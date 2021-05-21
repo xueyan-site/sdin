@@ -13,7 +13,7 @@
     "dist/**/*"
   ],
   "bin": {
-    "<%= name %>": "./dist/binary/index.js"
+    "<%= name %>": "./dist/node/binary/index.js"
   },
   "scripts": {
     "start": "yarn start-doc",

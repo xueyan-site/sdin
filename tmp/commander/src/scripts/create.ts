@@ -1,4 +1,4 @@
-import { logSuccess } from '../utils/print'
+import { logSuccess } from 'utils/print'
 
 /**
  * 主程序  

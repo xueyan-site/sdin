@@ -3,15 +3,15 @@
 import chalk from 'chalk'
 import updateNotifier from 'update-notifier'
 import { Command, ExecutableCommandOptions } from 'commander'
-import { readPackageInfoSyncByPath } from '../utils/read'
-import { logErrorAndExit } from '../utils/print'
-import { CMD } from '../utils/path'
+import { readPackageInfoSync } from 'utils/read'
+import { logErrorAndExit } from 'utils/print'
+import { CMD } from 'utils/path'
 
 process.on('unhandledRejection', (reason: any) => logErrorAndExit(reason))
 process.on('uncaughtException', err => logErrorAndExit(err, 1))
 
 const program = new Command()
-const packageInfo = readPackageInfoSyncByPath(CMD)
+const packageInfo = readPackageInfoSync(CMD)
 
 /**
  * 检查更新  

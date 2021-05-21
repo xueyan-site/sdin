@@ -1,18 +1,27 @@
 /**
- * 代指一切对象  
- * means any object  
+ * 代指一切对象
  */
 export interface AnyObject {
   [prop: string]: any
 }
 
 /**
- * 包信息  
- * package information  
+ * git全局配置信息
+ */
+export interface GitInfo {
+  [prop: string]: any
+  user: {
+    name: string // 用户名称
+    email: string // 用户邮箱
+  }
+}
+
+/**
+ * npm包信息
  */
 export interface PackageInfo {
-  name: string // 包的名称 package name  
-  version: string // 包的版本 package version  
-  author: string // 包的作者 package author  
-  [prop: string]: any // 其他字段 other fields  
+  [prop: string]: any
+  name: string // 包的名称
+  version: string // 包的版本
+  author: string // 包的作者
 }

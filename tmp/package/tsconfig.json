@@ -17,6 +17,7 @@
     "sourceMap": false,
     "declaration": true,
     "declarationMap": false,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "baseUrl": "."
   }
 }

@@ -1,6 +1,5 @@
 /**
- * 代指一切对象  
- * means any object  
+ * 代指一切对象
  */
 export interface AnyObject {
   [prop: string]: any

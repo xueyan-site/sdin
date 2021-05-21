@@ -3,9 +3,9 @@
   "include": [ "src" ],
   "exclude": [ "*.test.*" ],
   "compilerOptions": {
-    "module": "esnext",
+    "module": "commonjs",
     "target": "es5",
-    "lib": [ "dom", "esnext" ],
+    "lib": [ "esnext" ],
     "jsx": "react",
     "strict": true,
     "outDir": "dist",
@@ -17,6 +17,7 @@
     "sourceMap": false,
     "declaration": true,
     "declarationMap": false,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "baseUrl": "."
   }
 }
