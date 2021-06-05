@@ -16,18 +16,18 @@ export {
 export {
   default as ReactCSR,
   REACT_CSR_TYPE,
-  ReactApplicationType,
-  ReactApplicationConfig,
-  ReactApplicationProps
+  ReactCSRType,
+  ReactCSRConfig,
+  ReactCSRProps
 } from 'projects/react-csr'
 
 export {
-  ReactApplicationCreater,
-  ReactApplicationCreaterProps,
-  ReactApplicationStarter,
-  ReactApplicationStarterProps,
-  ReactApplicationBuilder,
-  ReactApplicationBuilderProps,
-  ReactApplicationServer,
-  ReactApplicationServerProps
-} from 'scripts/react-application'
+  ReactCSRCreater,
+  ReactCSRCreaterProps,
+  ReactCSRBuilder,
+  ReactCSRBuilderProps,
+  ReactCSRStarter,
+  ReactCSRStarterProps,
+  ReactCSRServer,
+  ReactCSRServerProps
+} from 'scripts/react-csr'

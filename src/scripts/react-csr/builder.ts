@@ -2,8 +2,7 @@ import ReactCSR from 'projects/react-csr'
 import Builder, { BuilderProps } from 'executors/builder'
 import Webpack, { Compiler, Stats } from 'webpack'
 import { getWebpackConfig } from './webpack'
-import { logInfo } from 'utils/print'
-import ora from 'ora'
+import { printError, printInfo, printLoading, printSuccess } from 'utils/print'
 
 /**
  * react应用构建器实例化参数
@@ -38,29 +37,25 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
   }
 
   main() {
-    this.downloadModules()
     return new Promise<void>((resolve, reject) => {
       const project = this.project
       const config = project.config
       this.on('close', () => {
         this.compiler.close(() => {
-          logInfo(`${project.name} server will closed on ${config.servePort}!`)
+          printInfo(`${project.name} server will closed on ${config.servePort}!`)
           resolve()
         })
       })
-      const buildOra = ora(`${this.project.name} is building`)
-      buildOra.start()
+      printLoading(`${this.project.name} is building`)
       this.compiler.run((error?: Error, stats?: Stats) => {
         if (error) {
-          buildOra.fail(`${this.project.name} build failed!`)
-          console.error(error.stack || error)
+          printError(error)
           reject()
         } else if (stats && stats.hasErrors()) {
-          buildOra.fail(`${this.project.name} build failed!`)
-          console.error(stats.toString('errors-only'))
+          printError(stats.toString('errors-only'))
           reject()
         } else {
-          buildOra.succeed(`${this.project.name} builded successfully!`)
+          printSuccess(`${this.project.name} builded successfully!`)
           if (stats) {
             console.log(stats.toString({
               all: false,

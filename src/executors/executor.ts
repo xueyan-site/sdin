@@ -1,6 +1,6 @@
 import EventEmitter from 'events'
 import fse from 'fs-extra'
-import ora from 'ora'
+import { printLoading, printSuccess } from 'utils/print'
 import { executeSync } from 'utils/exec'
 import Project, { ProjectConfig } from 'projects/project'
 
@@ -63,9 +63,9 @@ export default abstract class Executor<
   ) {
     if (fse.existsSync(path)) {
       const __name__ = name && (name + ' ')
-      const downloadDocOra = ora(`downloading ${__name__}node modules`).start()
+      printLoading(`downloading ${__name__}node modules`)
       executeSync(`cd ${path} && yarn`)
-      downloadDocOra.succeed(`downloaded ${__name__}node modules successfully`)
+      printSuccess(`downloaded ${__name__}node modules successfully`)
     }
   }
 
@@ -78,11 +78,12 @@ export default abstract class Executor<
         this.executing = true
         this.emit('open')
         await this.race(this.main())
-      } catch (err) {
-        throw err
-      } finally {
         this.executing = false
         this.removeAllListeners('close')
+      } catch (err) {
+        this.executing = false
+        this.removeAllListeners('close')
+        throw err
       }
     }
   }

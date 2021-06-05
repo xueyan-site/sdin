@@ -51,8 +51,8 @@ export const PACKAGE_CONFIG: PackageConfig = {
   buildNode: true,
   buildTypes: true,
   useReact: false,
-  useCompress: false,
-  useMerge: false
+  useMerge: false,
+  useCompress: false
 }
 
 /**

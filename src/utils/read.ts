@@ -76,7 +76,7 @@ export function deepRead(
   } = {}
 ) {
   if (!fse.existsSync(source)) {
-    throw new Error(`Failed to read "${source}", please check whether the file is exists`)
+    throw Error(`failed to read "${source}", please check whether the file is exists`)
   }
   return __deepRead__({
     source,
@@ -87,6 +87,11 @@ export function deepRead(
     name: basename(source),
   })
 }
+
+/**
+ * json信息缓存
+ */
+const jsonCache: Map<string, AnyObject> = new Map()
 
 /**
  * 获取json信息
@@ -105,10 +110,13 @@ export function readJsonSync(value: any, relationPath?: string): AnyObject {
     const filePath = relationPath
       ? withPath(relationPath, value)
       : value
+    let data: any = jsonCache.get(filePath)
+    if (data) {
+      return data
+    }
     if (!fse.existsSync(filePath)) {
       throw Error(`"${filePath}" does not exist`)
     }
-    let data: any = undefined
     if (/\.json$/.test(filePath)) {
       data = fse.readJSONSync(filePath)
     } else if (/\.(js|mjs)$/.test(filePath)) {
@@ -117,6 +125,10 @@ export function readJsonSync(value: any, relationPath?: string): AnyObject {
     if (!isPlainObject(data)) {
       throw Error(`failed to read "${filePath}", please check whether the file content format is correct`)
     }
+    jsonCache.set(filePath, data)
+    setTimeout(() => {
+      jsonCache.delete(filePath)
+    }, 2000)
     return data
   } else {
     return {}

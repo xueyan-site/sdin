@@ -4,16 +4,17 @@ import { Command } from 'commander'
 import { prompt } from 'enquirer'
 import validator from 'validator'
 import { cwdPath, cmdPath } from 'utils/path'
-import { logErrorAndExit } from 'utils/print'
+import { printExitError, printInfo } from 'utils/print'
 import { readGitConfigSync, readJsonSync } from 'utils/read'
 import Package, { PACKAGE_TYPE } from 'projects/package'
 import ReactCSR, { REACT_CSR_TYPE } from 'projects/react-csr'
 import { PackageCreater } from 'scripts/package'
 import { ReactCSRCreater } from 'scripts/react-csr'
 
-process.on('unhandledRejection', (reason: any) => logErrorAndExit(reason))
-process.on('uncaughtException', err => logErrorAndExit(err, 1))
+process.on('unhandledRejection', (reason: any) => printExitError(reason))
+process.on('uncaughtException', err => printExitError(err, 1))
 
+printInfo('the project creation process is ready')
 const program = new Command()
 
 program
@@ -26,17 +27,17 @@ async function action(path?: string) {
   /**
    * 确认类型
    */
-  const { projects } = readJsonSync(cmdPath('tmp/meta.json'))
-  const { project } = await prompt<{ project: any }>([
+  const templateMeta = readJsonSync(cmdPath('tmp/meta.json'))
+  const projects: any[] = templateMeta.projects || []
+  const { projectName } = await prompt<{ projectName: string }>([
     {
       type: 'select',
-      name: 'project',
+      name: 'projectName',
       initial: program.type,
-      message: 'project type',
+      message: 'what kind of project do you want to create',
       required: true,
       choices: projects.map((item: any) => ({
         name: item.type,
-        value: item,
         message: item.label
       }))
     }
@@ -44,6 +45,7 @@ async function action(path?: string) {
   /**
    * 确认需要使用的模版
    */
+  const project = projects.find(i => i.type === projectName)
   const type = project.type
   const templateList = project.templates
   let template: any = templateList.length === 1
@@ -55,7 +57,7 @@ async function action(path?: string) {
         type: 'select',
         name: 'type',
         initial: program.type,
-        message: 'project type',
+        message: 'which project template do you want to use',
         required: true,
         choices: templateList.map((item: any) => ({
           name: item.name,
@@ -77,14 +79,14 @@ async function action(path?: string) {
     {
       type: 'input',
       name: 'name',
-      message: 'package name',
+      message: 'what is the name of your project',
       required: true,
       validate: str => /^[a-z@][a-z0-9\.\/\_\-]+$/.test(str)
     },
     {
       type: 'input',
       name: 'path',
-      message: 'project path',
+      message: 'where do you want the project to be generated',
       required: true,
       initial: (data: any) => {
         const answers = data.state.answers
@@ -95,14 +97,14 @@ async function action(path?: string) {
     {
       type: 'input',
       name: 'author',
-      message: 'package author name',
+      message: 'please tell me the name of the author',
       required: true,
       initial: git.user.name
     },
     {
       type: 'input',
       name: 'email',
-      message: 'package author email',
+      message: 'please tell me the author\'s email',
       required: true,
       initial: git.user.email,
       validate: validator.isEmail
@@ -133,6 +135,6 @@ async function action(path?: string) {
     })
     await creater.open()
   } else {
-    throw new Error('please indicates the type of project in config file')
+    throw Error(`sorry, there are no items of type ${meta.type}`)
   }
 }

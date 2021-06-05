@@ -3,21 +3,33 @@
   "include": [ "src" ],
   "exclude": [ "*.test.*" ],
   "compilerOptions": {
+    "checkJs": true,
+    "strict": true,
+    "strictPropertyInitialization": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "module": "commonjs",
     "target": "es5",
-    "lib": [ "esnext" ],
     "jsx": "react",
-    "strict": true,
     "outDir": "dist",
-    "noImplicitAny": false,
+    "allowJs": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "removeComments": false,
     "resolveJsonModule": true,
-    "sourceMap": false,
-    "declaration": true,
-    "declarationMap": false,
+    "moduleResolution": "node",
     "experimentalDecorators": true,
-    "baseUrl": "."
+    "sourceMap": true,
+    "declaration": false,
+    "declarationMap": false,
+    "removeComments": false,
+    "baseUrl": ".",
+    "paths": {
+      "types": ["src/types.ts"]
+    }
   }
 }

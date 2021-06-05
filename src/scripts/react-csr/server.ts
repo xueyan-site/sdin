@@ -1,10 +1,10 @@
 import express, { Express, Router } from 'express'
-import HttpProxyMiddleware from 'http-proxy-middleware'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 import CompressionMiddleware from 'compression'
 import HistoryApiMiddleware from 'connect-history-api-fallback'
 import Server, { ServerProps } from 'executors/server'
 import ReactCSR from 'projects/react-csr'
-import { logSuccess } from 'utils/print'
+import { printInfo } from 'utils/print'
 
 /**
  * react应用创建器实例化参数
@@ -34,7 +34,7 @@ export default class ReactCSRServer extends Server<ReactCSR> {
         resolve()
       })
       this.server.listen(config.servePort, () => {
-        logSuccess(`${project.name} listening on http://127.0.0.1:${config.servePort}!\n`)
+        printInfo(`${project.name} listening on http://127.0.0.1:${config.servePort}!\n`)
       })
     })
   }
@@ -53,11 +53,11 @@ export default class ReactCSRServer extends Server<ReactCSR> {
     if (serveProxies) {
       serveProxies.forEach(({ path, context, ...config }) => {
         if (path) {
-          server.use(path, HttpProxyMiddleware(config))
+          server.use(path, createProxyMiddleware(config))
         } else if (context) {
-          server.use(HttpProxyMiddleware(context, config))
+          server.use(createProxyMiddleware(context, config))
         } else {
-          server.use(HttpProxyMiddleware(config))
+          server.use(createProxyMiddleware(config))
         }
       })
     }

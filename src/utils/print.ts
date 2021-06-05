@@ -1,24 +1,19 @@
-import chalk from 'chalk'
-import { isError, isString } from 'lodash'
+import dayjs from 'dayjs'
+import { isError } from 'lodash'
 
-/**
- * 获取标记
- */
-const startTime = Date.now()
-const getLabel = (flag: string) => {
-  return `${startTime} ${Date.now()} ${flag}: `
-}
+const TIME_FORMAT = 'YYMMDD_HHmmss_SSS'
 
 /**
  * 打印错误信息
  * @param {String} msg 信息
  */
-export const logError = (msg: string | Error, callback?: () => void) => {
-  const txt = isError(msg) ? msg.message : isString(msg) ? msg : ''
-  if (txt) {
-    console.log(getLabel('err'), chalk.red(txt))
-    if (isError(msg) && msg.stack) {
+export const printError = (msg: string | Error, callback?: () => void) => {
+  if (msg) {
+    if (isError(msg) && msg.message) {
+      console.log('🐞 ' + dayjs().format(TIME_FORMAT) + ' ' + msg.message)
       console.error(msg.stack)
+    } else {
+      console.log('💥 ' + dayjs().format(TIME_FORMAT) + ' ' + msg)
     }
     if (callback) {
       callback()
@@ -30,20 +25,17 @@ export const logError = (msg: string | Error, callback?: () => void) => {
  * 打印错误信息并退出
  * @param {String} msg 信息
  */
-export const logErrorAndExit = (msg: string | Error, code?: number): any => {
-  logError(msg, () => {
-    process.exit(code)
-  })
+export const printExitError = (msg: string | Error, code?: number) => {
+  printError(msg, () => process.exit(code))
 }
 
 /**
  * 打印普通信息
  * @param {String} msg 信息
  */
-export const logInfo = (msg: string, callback?: () => void) => {
-  const txt = isString(msg) ? msg : ''
-  if (txt) {
-    console.log(getLabel('inf'), chalk.gray(msg))
+export const printInfo = (msg: string, callback?: () => void) => {
+  if (msg) {
+    console.log('🍀 ' + dayjs().format(TIME_FORMAT) + ' ' + msg)
     if (callback) {
       callback()
     }
@@ -54,20 +46,27 @@ export const logInfo = (msg: string, callback?: () => void) => {
  * 打印错误信息并退出
  * @param {String} msg 信息
  */
-export const logInfoAndExit = (msg: string, code?: number): any => {
-  logInfo(msg, () => {
-    process.exit(code)
-  })
+export const printExitInfo = (msg: string, code?: number) => {
+  printInfo(msg, () => process.exit(code))
+}
+
+/**
+ * 打印加载信息
+ * @param {String} msg 信息
+ */
+export const printLoading = (msg: string) => {
+  if (msg) {
+    console.log('🚀 ' + dayjs().format(TIME_FORMAT) + ' ' + msg)
+  }
 }
 
 /**
  * 打印警告信息
  * @param {String} msg 信息
  */
-export const logWarning = (msg: string) => {
-  const txt = isString(msg) ? msg : ''
-  if (txt) {
-    console.log(getLabel('war'), chalk.yellow(msg))
+export const printWarning = (msg: string) => {
+  if (msg) {
+    console.log('🔔 ' + dayjs().format(TIME_FORMAT) + ' ' + msg)
   }
 }
 
@@ -75,9 +74,8 @@ export const logWarning = (msg: string) => {
  * 打印成功信息
  * @param {String} msg 信息
  */
-export const logSuccess = (msg: string) => {
-  const txt = isString(msg) ? msg : ''
-  if (txt) {
-    console.log(getLabel('suc'), chalk.green(msg))
+export const printSuccess = (msg: string) => {
+  if (msg) {
+    console.log('🎉 ' + dayjs().format(TIME_FORMAT) + ' ' + msg)
   }
 }

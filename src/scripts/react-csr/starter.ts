@@ -47,7 +47,6 @@ export default class ReactCSRStarter extends Starter<ReactCSR> {
   }
 
   async main() {
-    this.downloadModules()
     return new Promise<void>(resolve => {
       const project = this.project
       const config = project.config

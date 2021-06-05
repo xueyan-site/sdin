@@ -1,9 +1,9 @@
-import ora from 'ora'
 import chardet from 'chardet'
 import { template } from 'lodash'
 import fse from 'fs-extra'
 import Project, { ProjectConfig } from 'projects/project'
 import Executor, { ExecutorProps } from './executor'
+import { printLoading, printSuccess } from 'utils/print'
 import { cmdPath } from 'utils/path'
 import { deepCopy } from 'utils/write'
 import { executeSync } from 'utils/exec'
@@ -39,9 +39,9 @@ export default abstract class Creator<
    */
   protected async generateProject() {
     if (fse.existsSync(this.project.path)) {
-      throw new Error(`project ${this.project.name} is already exists`)
+      throw Error(`project ${this.project.name} is already exists`)
     }
-    const copyOra = ora('copying project template').start()
+    printLoading('copying project template')
     await deepCopy(
       this.templatePath,
       this.project.path,
@@ -58,7 +58,7 @@ export default abstract class Creator<
         }
       }
     )
-    copyOra.succeed('copy project template successfully')
+    printSuccess('copy project template successfully')
   }
 
   /**
@@ -67,9 +67,9 @@ export default abstract class Creator<
   protected initializeGitRepository() {
     const gitPath = this.project.withPath('.git')
     if (!fse.existsSync(gitPath)) {
-      const initGitOra = ora('initializing git repository').start()
+      printLoading('initializing git repository')
       executeSync(`cd ${this.project.path} && git init && git add . && git commit -m "chore: project created"`)
-      initGitOra.succeed(`initialized git repository successfully`)
+      printSuccess(`initialized git repository successfully`)
     }
   }
 }

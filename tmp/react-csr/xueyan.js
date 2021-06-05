@@ -2,8 +2,7 @@ module.exports = {
   type: 'react-csr',
   moduleAlias: {
     components: 'src/components',
-    stores: 'src/stores',
-    types: 'src/types'
+    utils: 'src/utils'
   },
   startProxy: [
     {
