@@ -69,7 +69,6 @@ export default abstract class Creator<
     if (!fse.existsSync(gitPath)) {
       printLoading('initializing git repository')
       executeSync(`cd ${this.project.path} && git init && git add . && git commit -m "chore: project created"`)
-      printSuccess(`initialized git repository successfully`)
     }
   }
 }

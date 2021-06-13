@@ -1,6 +1,6 @@
 import EventEmitter from 'events'
 import fse from 'fs-extra'
-import { printLoading, printSuccess } from 'utils/print'
+import { printLoading } from 'utils/print'
 import { executeSync } from 'utils/exec'
 import Project, { ProjectConfig } from 'projects/project'
 
@@ -62,10 +62,8 @@ export default abstract class Executor<
     name: string = this.project.name
   ) {
     if (fse.existsSync(path)) {
-      const __name__ = name && (name + ' ')
-      printLoading(`downloading ${__name__}node modules`)
+      printLoading(`downloading ${name} node modules`)
       executeSync(`cd ${path} && yarn`)
-      printSuccess(`downloaded ${__name__}node modules successfully`)
     }
   }
 
