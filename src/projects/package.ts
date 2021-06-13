@@ -12,19 +12,29 @@ export const PACKAGE_TYPE: PackageType = 'package'
  */
 export interface PackageConfig extends ProjectConfig<PackageType> {
   /**
-   * 构建成web端使用的脚本
+   * 构建出web端使用的脚本
    */
   buildWeb: boolean
 
   /**
-   * 构建成node端使用的脚本
+   * 构建出node端使用的脚本
    */
   buildNode: boolean
 
   /**
-   * 构建成定义文件
+   * 构建出定义文件
    */
   buildTypes: boolean 
+
+  /**
+   * 构建出完全独立的单文件Web版本（会包含node_modules中引入的包）
+   */
+  buildMinWeb: false | {}
+
+  /**
+   * 构建出完全独立的单文件Node版本（会包含node_modules中引入的包）
+   */
+  buildMinNode: false | {}
 
   /**
    * 使用react
@@ -32,14 +42,9 @@ export interface PackageConfig extends ProjectConfig<PackageType> {
   useReact: boolean
 
   /**
-   * 开启压缩
+   * 混淆代码
    */
-  useCompress: boolean
-
-  /**
-   * 将多个文件合并于一处
-   */
-  useMerge: boolean
+   useUglify: boolean
 }
 
 /**
@@ -50,9 +55,10 @@ export const PACKAGE_CONFIG: PackageConfig = {
   buildWeb: true,
   buildNode: true,
   buildTypes: true,
+  buildMinWeb: false,
+  buildMinNode: false,
   useReact: false,
-  useMerge: false,
-  useCompress: false
+  useUglify: false
 }
 
 /**

@@ -1,17 +1,18 @@
 import del from 'del'
-import { mapValues } from 'lodash'
 import gulp from 'gulp'
-import gulpFilter from 'gulp-filter'
+import { Stats } from 'fs-extra'
+import { mapValues } from 'lodash'
 import gulpBabel from 'gulp-babel'
-import gulpTypescript from 'gulp-typescript'
-import gulpConcat from 'gulp-concat'
-import gulpSourcemaps from 'gulp-sourcemaps'
+import gulpTs from 'gulp-typescript'
 import gulpUglify from 'gulp-uglify'
-import { Options as BabelPresetEnvOpts } from '@babel/preset-env'
+import gulpFilter, { FileFunction as FilterFunc } from 'gulp-filter'
+import { SrcOptions as VinylSrcOptions } from 'vinyl-fs'
+import { cmdNmPath, relativePath } from 'utils/path'
+import { pipeline } from 'utils/exec'
+import { printError, printLoading, printSuccess } from 'utils/print'
 import Package from 'projects/package'
 import Builder, { BuilderProps } from 'executors/builder'
-import { cmdNmPath, relativePath } from 'utils/path'
-import { printLoading, printSuccess } from 'utils/print'
+import { AnyObject } from 'types'
 
 /**
  * 包构建器实例化参数
@@ -30,256 +31,270 @@ export default class PackageBuilder extends Builder<Package> {
   private watch: boolean
 
   /**
-   * 源文件目录中的所有路径
+   * 源目录Vinyl配置选项
    */
-  protected srcGlob: string
+  readonly srcOpts: VinylSrcOptions
 
   /**
-   * 源文件目录中的脚本文件名匹配表达式
+   * 脚本文件名匹配表达式
    */
-  protected srcScriptFilePattern: RegExp
+  protected scriptExp: RegExp
 
   /**
-   * 源文件目录中的定义文件名匹配表达式
+   * 定义文件名匹配表达式
    */
-  protected srcDefineFilePattern: RegExp
+  protected typescriptExp: RegExp
+
+  /**
+   * 定义文件名匹配表达式
+   */
+  protected defineExp: RegExp
   
   /**
-   * 源文件目录中的测试文件名匹配表达式
+   * 测试文件名匹配表达式
    */
-  protected srcTestFilePattern: RegExp
+  protected testExp: RegExp
 
   constructor(props: PackageBuilderProps) {
     super(props)
     this.watch = props.watch || false
-    this.srcGlob = this.project.withSrcPath('**/*')
-    this.srcScriptFilePattern = /\.(js|mjs|jsx|ts|tsx)$/
-    this.srcDefineFilePattern = /\.d\.(ts|tsx)$/
-    this.srcTestFilePattern = /\.test\.(js|mjs|jsx|ts|tsx)$/
+    this.srcOpts = { cwd: this.project.srcPath }
+    this.scriptExp = /\.(t|j)sx?$/
+    this.typescriptExp = /\.tsx?$/
+    this.defineExp = /\.d\.tsx?$/
+    this.testExp = /\.test\./
   }
 
   async main() {
     await del(this.project.distPath)
-    await this.compile()
-    if (this.watch) {
-      const watcher = gulp.watch(this.srcGlob, {
-        cwd: this.project.path
-      }, () => this.compile())
-      this.on('close', () => watcher.close())
-      return new Promise<void>(resolve => {
-        watcher.on('close', resolve)
-      })
+    printLoading(`project ${this.project.name} is building`)
+    if (!this.watch) {
+      await this.compile()
+      return printSuccess(`project ${this.project.name} was built successfully`)
     }
+    this.compile().then(() => {
+      printSuccess(`project ${this.project.name} was built successfully, please develop continue`)
+    }).catch(err => {
+      printError(`project ${this.project.name} was rebuilt failed`)
+      console.error(err)
+    })
+    const watcher = gulp.watch('**/*', this.srcOpts)
+    const watchHandler = (path: string, stats: Stats) => {
+      const pathType = stats.isDirectory() ? 'folder' : stats.isFile() ? 'file' : ''
+      if (pathType) {
+        printLoading(`${pathType} ${path} is rebuilding`)
+        this.compile(file => file.path.includes(path)).then(() => {
+          printSuccess(`${pathType} ${path} was rebuilt successfully`)
+        }).catch(err => {
+          printError(`${pathType} ${path} was rebuilt failed`)
+          console.error(err)
+        })
+      }
+    }
+    watcher.on('addDir', watchHandler)
+    watcher.on('change', watchHandler)
+    this.on('close', () => watcher.close())
+    return new Promise<void>((resolve, reject) => {
+      watcher.on('close', resolve)
+      watcher.on('error', reject)
+    })
   }
 
   /**
    * 编译
    */
-  private async compile() {
-    const config = this.project.config
-    printLoading(`${this.project.name} is building`)
-    await this.copyFiles({
-      outputToWeb: config.buildWeb,
-      outputToNode: config.buildNode
-    })
-    if (config.buildTypes) {
-      await this.compileTypes()
-    }
-    if (config.buildWeb) {
-      await this.compileScripts({
-        target: 'web',
-        useReact: config.useReact,
-        useCompress: config.useCompress,
-        useMerge: config.useMerge
-      })
-    }
-    if (config.buildNode) {
-      await this.compileScripts({
-        target: 'node',
-        useReact: config.useReact,
-        useCompress: config.useCompress,
-        useMerge: config.useMerge
-      })
-    }
-    printSuccess(`${this.project.name} builded successfully!`)
+  private async compile(filter?: FilterFunc) {
+    this.precheck()
+    await this.defineTask(filter)
+    await Promise.all<void>([
+      this.assetTask(filter),
+      this.typesTask()
+    ])
+    await Promise.all<void>([
+      this.scriptTask('web', filter),
+      this.scriptTask('node', filter)
+    ])
   }
 
   /**
-   * 获取环境相关的Babel预设集
+   * 预校验
    */
-  private getBabelEnvPreset(target: 'web' | 'node'): any {
-    return [cmdNmPath('@babel/preset-env'), {
-      modules: target === 'web' ? false : 'cjs'
-    } as BabelPresetEnvOpts]
+  precheck() {
+    if (!this.project.getDependenceVersion('@babel/runtime')) {
+      throw new Error('please install @babel/runtime dependence')
+    }
   }
 
   /**
-   * 获取自定义模块别名的Babel插件
+   * 处理素材文件
+   * @param toWeb 输出到web目录中
+   * @param toNode 输出到node目录中
    */
-  private getBabelModuleAliasPlugin(): any {
-    const aliasMap = mapValues(
-      this.project.config.moduleAlias || {},
-      value => this.project.withPath(value)
-    )
-    const aliasKeys = Object.keys(aliasMap)
-    if (aliasKeys.length <= 0) {
+  protected assetTask(filter?: FilterFunc) {
+    const { buildWeb, buildNode } = this.project.config
+    if (!buildWeb && !buildNode) {
       return
     }
-    const resolvePath = (source: string, current: string) => {
-      let matchedKey: string = ''
-      for(let i = 0; i < aliasKeys.length; i++) {
-        const key = aliasKeys[i]
-        if (key[0] === source[0] && source.startsWith(key)) {
-          matchedKey = key
-          break
-        }
-      }
-      if (!matchedKey) {
-        return source
-      }
-      return relativePath(
-        this.project.withPath(source.replace(matchedKey, aliasMap[matchedKey])),
-        current
-      )
+    return pipeline(
+      gulp.src('**/*', this.srcOpts),
+      gulpFilter(file => {
+        return !this.scriptExp.test(file.path) 
+          && (filter ? filter(file) : true)
+      }),
+      buildWeb && gulp.dest(this.project.webDistPath),
+      buildNode && gulp.dest(this.project.nodeDistPath)
+    )
+  }
+
+  /**
+   * 处理定义文件
+   */
+  protected defineTask(filter?: FilterFunc) {
+    const { buildTypes } = this.project.config
+    if (!buildTypes) {
+      return
     }
-    return [
-      cmdNmPath('babel-plugin-module-resolver'),
-      { resolvePath }
-    ]
+    return pipeline(
+      gulp.src('**/*', this.srcOpts),
+      gulpFilter(file => {
+        return this.defineExp.test(file.path) 
+          && (filter ? filter(file) : true)
+      }),
+      gulp.dest(this.project.typesDistPath)
+    )
   }
 
   /**
-   * 复制文件至dist目录
-   * @param outputToWeb 输出到web目录中
-   * @param outputToNode 输出到node目录中
+   * 构建类型文件
    */
-  protected copyFiles({
-    outputToWeb,
-    outputToNode
-  }: {
-    outputToWeb?: boolean
-    outputToNode?: boolean
-  } = {}): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      let stream = gulp.src(this.srcGlob, {
-        cwd: this.project.path
-      })
-      stream.on('end', resolve)
-      stream.on('error', reject)
-      stream = stream.pipe(gulpFilter(file => {
-        return !this.srcScriptFilePattern.test(file.path)
-      }))
-      if (outputToWeb) {
-        stream = stream.pipe(gulp.dest(this.project.webDistPath))
+  protected typesTask() {
+    const { buildTypes } = this.project.config
+    if (!buildTypes) {
+      return
+    }
+    const tsProject = gulpTs.createProject(
+      this.project.tsconfigPath,
+      {
+        declaration: true,
+        removeComments: false,
       }
-      if (outputToNode) {
-        stream = stream.pipe(gulp.dest(this.project.nodeDistPath))
-      }
-    })
+    )
+    return pipeline(
+      tsProject.src(),
+      tsProject(),
+      (ts) => ts.dts,
+      gulp.dest(this.project.typesDistPath)
+    )
   }
 
   /**
-   * 生成定义文件至dist目录
-   */
-  protected async compileTypes(): Promise<void> {
-    /**
-     * 复制定义文件至types目录
-     */
-    await new Promise((resolve, reject) => {
-      let stream = gulp.src(this.srcGlob, {
-        cwd: this.project.path
-      })
-      stream.on('end', resolve)
-      stream.on('error', reject)
-      stream = stream.pipe(gulpFilter(file => {
-        return this.srcDefineFilePattern.test(file.path)
-      }))
-      stream = stream.pipe(gulp.dest(this.project.typesDistPath))
-    })
-    /**
-     * 编译脚本文件至dist目录
-     */
-    await new Promise((resolve, reject) => {
-      const project = gulpTypescript.createProject(
-        this.project.withPath('tsconfig.json'),
-        {
-          declaration: true,
-          removeComments: false,
-        }
-      )
-      let stream = project.src()
-      stream.on('end', resolve)
-      stream.on('error', reject)
-      let cstream = project()
-      cstream.on('error', reject)
-      cstream = stream.pipe(cstream)
-      cstream.dts.pipe(gulp.dest(this.project.typesDistPath))
-    })
-  }
-
-  /**
-   * 生成脚本文件至dist目录
+   * 处理脚本文件
    * @param target 构建的目标类型
-   * @param useReact 是否开启react
-   * @param useMerge 是否将多个文件合并于一处
-   * @param useCompress 是否压缩
    */
-  protected compileScripts({
-    target,
-    useReact,
-    useMerge,
-    useCompress
-  }: {
-    target: 'web' | 'node'
-    useReact?: boolean
-    useMerge?: boolean
-    useCompress?: boolean
-  }) {
-    return new Promise((resolve, reject) => {
-      if (!this.project.hasBabelRuntimeDependence()) {
-        reject('please install @babel/runtime dependence')
-      }
-      let stream = gulp.src(this.srcGlob, {
-        cwd: this.project.path
-      })
-      stream.on('end', resolve)
-      stream.on('error', reject)
-      stream = stream.pipe(gulpFilter(file => {
-        return this.srcScriptFilePattern.test(file.path)
-          && !this.srcDefineFilePattern.test(file.path)
-          && !this.srcTestFilePattern.test(file.path)
-      }))
-      stream = stream.pipe(gulpSourcemaps.init())
-      const babelLine = gulpBabel({
-        presets: [
-          this.getBabelEnvPreset(target),
-          useReact && cmdNmPath('@babel/preset-react'),
-          cmdNmPath('@babel/preset-typescript'),
-        ].filter(Boolean),
-        plugins: [
-          this.getBabelModuleAliasPlugin(),
-          cmdNmPath('@babel/plugin-transform-runtime'),
-          cmdNmPath('@babel/plugin-proposal-class-properties'),
-        ].filter(Boolean)
-      })
-      babelLine.on('error', reject)
-      stream = stream.pipe(babelLine)
-      if (useMerge) {
-        stream = stream.pipe(gulpConcat('index.js'))
-      }
-      if (useCompress) {
-        stream = stream.pipe(gulpUglify({
-          mangle: {
-            toplevel: true
-          }
-        }))
-      }
-      stream = stream.pipe(gulpSourcemaps.write())
-      stream = stream.pipe(gulp.dest(
+  protected scriptTask(
+    target: 'web' | 'node',
+    filter?: FilterFunc
+  ) {
+    const { buildWeb, buildNode, useUglify } = this.project.config
+    if ((!buildWeb && target === 'web') || (!buildNode && target === 'node')) {
+      return
+    }
+    return pipeline(
+      gulp.src('**/*', this.srcOpts),
+      gulpFilter(file => {
+        return this.scriptExp.test(file.path)
+          && !this.defineExp.test(file.path)
+          && !this.testExp.test(file.path)
+          && (filter ? filter(file) : true)
+      }),
+      gulpBabel(this.getBabelOptions(target)),
+      useUglify && gulpUglify({
+        mangle: {
+          toplevel: true
+        }
+      }),
+      gulp.dest(
         target === 'web'
           ? this.project.webDistPath
           : this.project.nodeDistPath
-      ))
-    })
+      )
+    )
+  }
+
+  /**
+   * 缓存Babel配置
+   */
+  private babelOptionsMap: AnyObject = {}
+
+  /**
+   * 获取Babel配置
+   */
+  protected getBabelOptions(target: 'web' | 'node'): any {
+    let opts = this.babelOptionsMap[target]
+    if (!opts) {
+      const { useReact } = this.project.config
+      opts = {
+        presets: [
+          [cmdNmPath('@babel/preset-env'), {
+            modules: target === 'web' ? false : 'cjs'
+          }],
+          useReact && cmdNmPath('@babel/preset-react'),
+          cmdNmPath('@babel/preset-typescript')
+        ].filter(Boolean),
+        plugins: [
+          this.getModuleAliasBabelPlugin(),
+          cmdNmPath('@babel/plugin-transform-runtime'),
+          cmdNmPath('@babel/plugin-proposal-class-properties')
+        ].filter(Boolean)
+      }
+      this.babelOptionsMap[target] = opts
+    }
+    return opts
+  }
+
+  /**
+   * 缓存自定义模块别名Babel插件
+   */
+  private moduleAliasBabelPlugin: any
+
+  /**
+   * 获取自定义模块别名Babel插件
+   */
+  protected getModuleAliasBabelPlugin(): any {
+    if (this.moduleAliasBabelPlugin === undefined) {
+      const aliasMap = mapValues(
+        this.project.config.moduleAlias || {},
+        value => this.project.withPath(value)
+      )
+      const aliasKeys = Object.keys(aliasMap)
+      if (aliasKeys.length <= 0) {
+        this.moduleAliasBabelPlugin = false
+        return
+      }
+      const resolvePath = (source: string, current: string) => {
+        let matchedKey: string = ''
+        for(let i = 0; i < aliasKeys.length; i++) {
+          const key = aliasKeys[i]
+          if (key[0] === source[0] && source.startsWith(key)) {
+            matchedKey = key
+            break
+          }
+        }
+        if (!matchedKey) {
+          return source
+        }
+        return relativePath(
+          this.project.withPath(
+            source.replace(matchedKey, aliasMap[matchedKey])
+          ),
+          current
+        )
+      }
+      this.moduleAliasBabelPlugin = [
+        cmdNmPath('babel-plugin-module-resolver'),
+        { resolvePath }
+      ]
+    }
+    return this.moduleAliasBabelPlugin
   }
 }

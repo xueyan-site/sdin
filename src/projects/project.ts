@@ -2,7 +2,7 @@ import fse from 'fs-extra'
 import { defaultsDeep, isPlainObject, isString } from 'lodash'
 import { withPath } from 'utils/path'
 import { readJsonSync, readPackageInfoSync } from 'utils/read'
-import { AnyObject, PackageInfo } from 'types'
+import { AnyObject, PackageInfo, ModuleAlias } from 'types'
 
 /**
  * 项目配置信息
@@ -19,9 +19,7 @@ export interface ProjectConfig<TType extends string> {
    * <https://webpack.docschina.org/configuration/resolve/#resolvealias>
    * <https://github.com/tleunen/babel-plugin-module-resolver/blob/master/DOCS.md>
    */
-  moduleAlias?: {
-    [index: string]: string
-  }
+  moduleAlias?: ModuleAlias
 }
 
 /**
@@ -75,13 +73,9 @@ interface ProjectMeta {
 /**
  * 按照项目的约定规则去读取配置信息
  */
-function getProjectConfigSync(projectPath: string, packageInfo: PackageInfo): AnyObject {
-  if (packageInfo.xueyan) {
-    return readJsonSync(packageInfo.xueyan, projectPath)
-  } else if (fse.existsSync(withPath(projectPath, 'xueyan.js'))) {
+function getProjectConfigSync(projectPath: string): AnyObject {
+  if (fse.existsSync(withPath(projectPath, 'xueyan.js'))) {
     return readJsonSync('xueyan.js', projectPath)
-  } else if (fse.existsSync(withPath(projectPath, 'xueyan.json'))) {
-    return readJsonSync('xueyan.json', projectPath)
   } else {
     return {}
   }
@@ -92,7 +86,7 @@ function getProjectConfigSync(projectPath: string, packageInfo: PackageInfo): An
  */
 export function readProjectMeta(projectPath: string): ProjectMeta {
   const packageInfo = readPackageInfoSync(projectPath)
-  const config = getProjectConfigSync(projectPath, packageInfo)
+  const config = getProjectConfigSync(projectPath)
   return {
     type: config.type || '',
     path: projectPath,
@@ -182,6 +176,16 @@ export default abstract class Project<
    * 项目缓存文件目录
    */
   readonly modulePath: string
+
+  /**
+   * typescript配置文件路径
+   */
+  readonly tsconfigPath: string
+
+  /**
+   * ts配置的缓存
+   */
+  private tsconfig: any
   
   /**
    * 项目依赖映射表
@@ -201,6 +205,7 @@ export default abstract class Project<
     this.typesDistPath = this.withDistPath('types')
     this.cachePath = this.withPath('cache')
     this.modulePath = this.withPath('node_modules')
+    this.tsconfigPath = this.withPath('tsconfig.json')
     /**
      * 获取包信息
      */
@@ -218,7 +223,7 @@ export default abstract class Project<
     } else if (isString(props.config)) {
       __config__ = readJsonSync(props.config, this.path)
     } else {
-      __config__ = getProjectConfigSync(this.path, this.package)
+      __config__ = getProjectConfigSync(this.path)
     }
     this.config = defaultsDeep(__config__, defaultConfig)
     this.type = this.config.type
@@ -275,22 +280,16 @@ export default abstract class Project<
   }
 
   /**
-   * 项目是否已安装 @babel/runtime 依赖项
+   * 获取项目的ts配置
    */
-  hasBabelRuntimeDependence(): boolean {
-    return Boolean(this.getDependenceVersion('@babel/runtime'))
-  }
-
-  /**
-   * 确保是数组
-   */
-  ensureArray<T = any>(data?: T | T[]): T[] {
-    if (Array.isArray(data)) {
-      return data
-    } else if (data) {
-      return [data]
-    } else {
-      return []
+  getTsconfig() {
+    if (!this.tsconfig) {
+      if (fse.existsSync(this.tsconfigPath)) {
+        this.tsconfig = fse.readJSONSync(this.tsconfigPath)
+      } else {
+        this.tsconfig = {}
+      }
     }
+    return this.tsconfig
   }
 }

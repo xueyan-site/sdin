@@ -25,3 +25,10 @@ export interface PackageInfo {
   version: string // 包的版本
   author: string // 包的作者
 }
+
+/**
+ * 模块别名
+ */
+export interface ModuleAlias {
+  [index: string]: string
+}
