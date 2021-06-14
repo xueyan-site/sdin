@@ -1,33 +1,30 @@
 #!/usr/bin/env node
 
-import chalk from 'chalk'
 import updateNotifier from 'update-notifier'
 import { Command, ExecutableCommandOptions } from 'commander'
 import { readPackageInfoSync } from 'utils/read'
-import { logErrorAndExit } from 'utils/print'
+import { printExitError, printInfo } from 'utils/print'
 import { CMD } from 'utils/path'
 
-process.on('unhandledRejection', (reason: any) => logErrorAndExit(reason))
-process.on('uncaughtException', err => logErrorAndExit(err, 1))
+process.on('unhandledRejection', (reason: any) => printExitError(reason))
+process.on('uncaughtException', err => printExitError(err, 1))
 
+printInfo('welcome to use <%= name %>')
 const program = new Command()
 const packageInfo = readPackageInfoSync(CMD)
 
 /**
- * 检查更新  
- * update check  
+ * update check
  */
 const notifier = updateNotifier({ pkg: packageInfo })
 if (notifier.update) {
   const { current, latest, type, name } = notifier.update
-  const updateMessage = [
-    `update infomation:`,
-    `  version: ${chalk.red(current)} => ${chalk.green(latest)}`,
-    `  npm: ${chalk.yellow('npm i -g ' + name + '@latest')}`,
-    `  yarn: ${chalk.yellow('yarn global add ' + name + '@latest')}`,
-    `  you can update package ${chalk.green(name)} to a new ${chalk.yellow(type)} version`
-  ].join('\n')
-  console.log('\n' + updateMessage + '\n')
+  printInfo(`you can update ${name} to new ${type} version`)
+  console.log([
+    `  version: ${current} => ${latest}`,
+    `  npm: npm i -g ${name}@latest`,
+    `  yarn: yarn global add ${name}@latest`
+  ].join('\n'))
 }
 
 const SUB_CMD_LIST: {

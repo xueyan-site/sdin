@@ -29,12 +29,12 @@ export interface PackageConfig extends ProjectConfig<PackageType> {
   /**
    * 构建出完全独立的单文件Web版本（会包含node_modules中引入的包）
    */
-  buildMinWeb: false | {}
+  // buildMinWeb: false | {}
 
   /**
    * 构建出完全独立的单文件Node版本（会包含node_modules中引入的包）
    */
-  buildMinNode: false | {}
+  // buildMinNode: false | {}
 
   /**
    * 使用react
@@ -55,8 +55,8 @@ export const PACKAGE_CONFIG: PackageConfig = {
   buildWeb: true,
   buildNode: true,
   buildTypes: true,
-  buildMinWeb: false,
-  buildMinNode: false,
+  // buildMinWeb: false,
+  // buildMinNode: false,
   useReact: false,
   useUglify: false
 }

@@ -43,7 +43,12 @@ export default function Switch({
 }: SwitchProps) {
   return (
     <div 
-      className={classNames(styles.wrapper, value && styles.active, block && styles.block, className)} 
+      className={classNames(
+        styles.wrapper, 
+        value && styles.active, 
+        block && styles.block, 
+        className
+      )}
       style={style}
       onClick={() => {
         if (onChange) {

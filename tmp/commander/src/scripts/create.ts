@@ -1,4 +1,4 @@
-import { logSuccess } from 'utils/print'
+import { printSuccess } from 'utils/print'
 
 /**
  * 主程序  
@@ -7,7 +7,7 @@ import { logSuccess } from 'utils/print'
 export default async function main(path: string) {
   await new Promise<void>(resolve => {
     setTimeout(() => {
-      logSuccess('The node application path: ' + path)
+      printSuccess('The node application path: ' + path)
       resolve()
     }, 100)
   })

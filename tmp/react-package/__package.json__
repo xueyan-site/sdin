@@ -16,9 +16,8 @@
     "dist/**/*"
   ],
   "scripts": {
-    "start": "yarn start-doc",
+    "start": "xueyan-typescript build --watch",
     "build": "xueyan-typescript build",
-    "watch": "xueyan-typescript build --watch",
     "start-doc": "xueyan-typescript start doc",
     "build-doc": "xueyan-typescript build doc",
     "serve-doc": "xueyan-typescript serve doc"

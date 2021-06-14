@@ -16,16 +16,14 @@
     "<%= name %>": "./dist/node/binary/index.js"
   },
   "scripts": {
-    "start": "yarn start-doc",
+    "start": "xueyan-typescript build --watch",
     "build": "xueyan-typescript build",
-    "watch": "xueyan-typescript build --watch",
     "start-doc": "xueyan-typescript start doc",
     "build-doc": "xueyan-typescript build doc",
     "serve-doc": "xueyan-typescript serve doc"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
-    "chalk": "^4.1.0",
     "commander": "^6.1.0",
     "fs-extra": "^9.0.1",
     "lodash": "^4.17.20",
@@ -33,10 +31,6 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.1",
-    "@types/gulp": "^4.0.7",
-    "@types/gulp-babel": "^6.1.29",
-    "@types/gulp-filter": "^3.0.33",
-    "@types/gulp-uglify": "^3.0.6",
     "@types/lodash": "^4.14.161",
     "@types/update-notifier": "^5.0.0",
     "typescript": "^4.0.3"
