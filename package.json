@@ -24,15 +24,15 @@
     "tmp/**/*"
   ],
   "bin": {
-    "xueyan-typescript": "./dist/binary/index.js"
+    "xyts": "./dist/node/binary/index.js"
   },
   "scripts": {
     "start": "yarn start-doc",
-    "build": "xueyan-typescript build",
-    "watch": "xueyan-typescript build --watch",
-    "start-doc": "xueyan-typescript start doc",
-    "build-doc": "xueyan-typescript build doc",
-    "serve-doc": "xueyan-typescript serve doc"
+    "build": "xyts build",
+    "watch": "xyts build --watch",
+    "start-doc": "xyts start doc",
+    "build-doc": "xyts build doc",
+    "serve-doc": "xyts serve doc"
   },
   "dependencies": {
     "@babel/core": "^7.12.3",

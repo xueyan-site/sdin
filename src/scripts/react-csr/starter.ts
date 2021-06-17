@@ -2,8 +2,8 @@ import Starter, { StarterProps } from 'executors/starter'
 import ReactCSR from 'projects/react-csr'
 import Webpack, { Compiler } from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
-import { getWebpackConfig, getWebpackDevServerConfig } from './webpack'
-import { logSuccess, logInfo } from 'utils/print'
+import { getWebpackConfig, getWebpackDevServerConfig } from './__webpack__'
+import { printSuccess, printInfo } from 'utils/print'
 
 /**
  * react应用创建器实例化参数
@@ -37,8 +37,7 @@ export default class ReactCSRStarter extends Starter<ReactCSR> {
     super(props)
     this.compiler = Webpack(getWebpackConfig(this.project, {
       isDevMode: true,
-      isTestEnv: props.isPrevEnv || false,
-      isPrevEnv: props.isPrevEnv || false
+      isTestEnv: props.isPrevEnv || false
     }))
     this.server = new WebpackDevServer(
       this.compiler as any,
@@ -52,12 +51,12 @@ export default class ReactCSRStarter extends Starter<ReactCSR> {
       const config = project.config
       this.on('close', () => {
         this.server.close(() => {
-          logInfo(`${project.name} server will closed on ${config.startPort}!`)
+          printInfo(`${project.name} server will closed on ${config.startPort}!`)
           resolve()
         })
       })
       this.server.listen(config.startPort, () => {
-        logSuccess(`${project.name} listening on http://127.0.0.1:${config.startPort}!\n`)
+        printSuccess(`${project.name} listening on http://127.0.0.1:${config.startPort}!\n`)
       })
     })
   }

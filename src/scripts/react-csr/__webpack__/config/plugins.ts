@@ -10,13 +10,13 @@ export function getPluginsConfig(
   project: ReactCSR,
   options: WebpackConfigOptions
 ): Configuration['plugins'] {
-  const config: Configuration['plugins'] = []
+  const plugins: Configuration['plugins'] = []
   if (options.isDevMode) {
-    config.push(new HotModuleReplacementPlugin())
+    plugins.push(new HotModuleReplacementPlugin())
   }
-  config.push(new CleanWebpackPlugin())
+  plugins.push(new CleanWebpackPlugin())
   if (!options.isDevMode) {
-    config.push(new CopyWebpackPlugin({
+    plugins.push(new CopyWebpackPlugin({
       patterns: [
         {
           from: project.publicPath,
@@ -31,16 +31,16 @@ export function getPluginsConfig(
     }) as any)
   }
   if (!options.isDevMode) {
-    config.push(new MiniCssExtractPlugin({
+    plugins.push(new MiniCssExtractPlugin({
       filename: 'styles/[name].[fullhash:8].css',
       chunkFilename: 'styles/[name].[fullhash:8].chunk.css',
     }))
   }
-  config.push(new HtmlWebpackPlugin({
+  plugins.push(new HtmlWebpackPlugin({
     inject: true,
     minify: true,
     template: project.withPublicPath('index.html'),
     templateParameters: project
   }))
-  return config
+  return plugins
 }

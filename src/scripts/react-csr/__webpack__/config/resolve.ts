@@ -8,9 +8,9 @@ export function getResolveConfig(project: ReactCSR): Configuration['resolve'] {
     extensions: [
       '.tsx',
       '.ts',
+      'jsx',
       '.js',
-      '.json',
-      '.mjs'
+      '.json'
     ]
   }
   if (project.config.moduleAlias) {

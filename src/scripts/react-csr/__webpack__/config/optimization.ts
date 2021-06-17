@@ -2,22 +2,22 @@ import { Configuration } from 'webpack'
 import { WebpackConfigOptions } from '../types'
 
 export function getOptimizationConfig(options: WebpackConfigOptions): Configuration['optimization'] {
-  const config: Configuration['optimization'] = {
+  const optimization: Configuration['optimization'] = {
     runtimeChunk: {
       name: (entrypoint: any) => `runtime-${entrypoint.name}`,
     }
   }
   if (options.isDevMode) {
-    config.emitOnErrors = false
-    config.splitChunks = {
+    optimization.emitOnErrors = false
+    optimization.splitChunks = {
       chunks: 'all',
       name: false,
     }
   } else {
-    config.minimize = true
-    config.splitChunks = {
+    optimization.minimize = true
+    optimization.splitChunks = {
       chunks: 'all',
     }
   }
-  return config
+  return optimization
 }

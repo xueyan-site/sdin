@@ -105,7 +105,7 @@ export default class ReactCSR extends Project<
 
   constructor(props: ReactCSRProps) {
     super(props, REACT_CSR_CONFIG)
-    this.publicPath = this.withPath('public')
+    this.publicPath = this.withPath('pub')
   }
 
   /**
