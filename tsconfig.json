@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "include": [ "src" ],
+  "include": [ "src", "typings.d.ts" ],
   "exclude": [ "*.test.*" ],
   "compilerOptions": {
     "checkJs": true,
@@ -29,10 +29,10 @@
     "removeComments": false,
     "baseUrl": ".",
     "paths": {
-      "executors/*": ["src/executors/*"],
-      "projects/*": ["src/projects/*"],
-      "scripts/*": ["src/scripts/*"],
-      "utils/*": ["src/utils/*"],
+      "exe/*": ["src/exe/*"],
+      "pro/*": ["src/pro/*"],
+      "scr/*": ["src/scr/*"],
+      "utl/*": ["src/utl/*"],
       "types": ["src/types.ts"]
     }
   }

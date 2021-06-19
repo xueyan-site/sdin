@@ -4,10 +4,10 @@ module.exports = {
   useCompress: true,
   useMerge: true,
   moduleAlias: {
-    executors: "src/executors",
-    projects: "src/projects",
-    scripts: "src/scripts",
-    utils: "src/utils",
+    exe: "src/exe",
+    pro: "src/pro",
+    scr: "src/scr",
+    utl: "src/utl",
     types: "src/types.ts"
   }
 }

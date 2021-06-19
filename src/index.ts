@@ -4,14 +4,14 @@ export {
   PackageType,
   PackageConfig,
   PackageProps
-} from 'projects/package'
+} from 'pro/package'
 
 export {
   PackageCreater,
   PackageCreaterProps,
   PackageBuilder,
   PackageBuilderProps
-} from 'scripts/package'
+} from 'scr/package'
 
 export {
   default as ReactCSR,
@@ -19,7 +19,7 @@ export {
   ReactCSRType,
   ReactCSRConfig,
   ReactCSRProps
-} from 'projects/react-csr'
+} from 'pro/react-csr'
 
 export {
   ReactCSRCreater,
@@ -30,4 +30,4 @@ export {
   ReactCSRStarterProps,
   ReactCSRServer,
   ReactCSRServerProps
-} from 'scripts/react-csr'
+} from 'scr/react-csr'
