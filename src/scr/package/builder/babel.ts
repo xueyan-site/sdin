@@ -8,7 +8,7 @@ import { mapValues } from 'lodash'
  */
 function getModuleAliasPlugin(project: Package): any {
   const aliasMap = mapValues(
-    project.config.moduleAlias || {},
+    project.config.alias || {},
     value => project.withPath(value)
   )
   const aliasKeys = Object.keys(aliasMap)

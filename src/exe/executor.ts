@@ -55,19 +55,6 @@ export default abstract class Executor<
   }
 
   /**
-   * 下载 node_modules
-   */
-  protected downloadModules(
-    path: string = this.project.path,
-    name: string = this.project.name
-  ) {
-    if (fse.existsSync(path)) {
-      printLoading(`downloading ${name} node modules`)
-      executeSync(`cd ${path} && yarn`)
-    }
-  }
-
-  /**
    * 开始运行
    */
   async open(): Promise<void> {
@@ -94,6 +81,19 @@ export default abstract class Executor<
       this.emit('close')
       this.executing = false
       this.removeAllListeners('close')
+    }
+  }
+
+  /**
+   * 下载 node_modules
+   */
+  protected downloadModules(
+    path: string = this.project.path,
+    name: string = this.project.name
+  ) {
+    if (fse.existsSync(path)) {
+      printLoading(`downloading ${name} node modules`)
+      executeSync(`cd ${path} && yarn`)
     }
   }
 }

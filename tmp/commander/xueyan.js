@@ -7,7 +7,7 @@ module.exports = {
 
   /**
    * 模块的alias
-   * moduleAlias?: { [index: string]: string }
+   * alias?: { [index: string]: string }
    * default: undefined
    * 
    * 为了保证ts能够识别，还需要在tsconfig中配置一番
@@ -15,7 +15,7 @@ module.exports = {
    *   "types": ["src/types.ts"]
    * }
    */
-  moduleAlias: {
+  alias: {
     scripts: 'src/scripts',
     utils: 'src/utils',
     types: 'src/types'

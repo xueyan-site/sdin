@@ -1,11 +1,9 @@
-import chardet from 'chardet'
-import { template } from 'lodash'
 import fse from 'fs-extra'
 import Project, { ProjectConfig } from 'pro/project'
 import Executor, { ExecutorProps } from './executor'
 import { printLoading, printSuccess } from 'utl/print'
 import { cmdPath } from 'utl/path'
-import { deepCopy } from 'utl/write'
+import { deepCopy, getReplaceHandler } from 'utl/write'
 import { executeSync } from 'utl/exec'
 
 /**
@@ -45,18 +43,7 @@ export default abstract class Creator<
     await deepCopy(
       this.templatePath,
       this.project.path,
-      {
-        handler: (_node, content) => {
-          const encodeInfo = chardet.analyse(content)
-          if(encodeInfo.find(i => i.name === 'UTF-8')) {
-            const compiled = template(content.toString('utf8'), {
-              interpolate: /<%=([\s\S]+?)%>/g
-            })
-            return compiled(this.project)
-          }
-          return content
-        }
-      }
+      getReplaceHandler(this.project)
     )
     printSuccess('copy project template successfully')
   }

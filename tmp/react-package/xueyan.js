@@ -15,7 +15,7 @@ module.exports = {
    *   "types": ["src/types.ts"]
    * }
    */
-  moduleAlias: {
+   alias: {
     types: 'src/types'
   },
 

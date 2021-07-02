@@ -69,16 +69,12 @@ export default class PackageBuilder extends Builder<Package> {
     this.precheck()
     printLoading(`project ${this.project.name} has no questions`)
     printLoading(`project ${this.project.name} is being built`)
+    // 非监视态下的正常构建
     if (!this.watch) {
       await this.compile()
       return printSuccess(`project ${this.project.name} has been built successfully`)
     }
-    this.compile().then(() => {
-      printSuccess(`project ${this.project.name} has been built successfully, please develop continue`)
-    }).catch(err => {
-      printError(`project ${this.project.name} has been rebuilt failed`)
-      console.error(err)
-    })
+    // 执行watch相关逻辑
     const watcher = gulp.watch('**/*', this.srcOpts)
     const watchHandler = (path: string, stats: Stats) => {
       const pathType = stats.isDirectory() ? 'folder' : stats.isFile() ? 'file' : ''
@@ -96,6 +92,14 @@ export default class PackageBuilder extends Builder<Package> {
     watcher.on('change', watchHandler)
     this.on('close', () => watcher.close())
     return new Promise<void>((resolve, reject) => {
+      this.compile().then(() => {
+        printSuccess(`project ${this.project.name} has been built successfully, please develop continue`)
+        resolve()
+      }).catch(err => {
+        printError(`project ${this.project.name} has been rebuilt failed`)
+        console.error(err)
+        reject()
+      })
       watcher.on('close', resolve)
       watcher.on('error', reject)
     })
@@ -114,23 +118,21 @@ export default class PackageBuilder extends Builder<Package> {
    * 编译
    */
   private async compile(filter?: FilterFunc) {
-    await this.defineTask(filter)
+    await this.handleDefine(filter)
     await Promise.all<void>([
-      this.assetTask(filter),
-      this.typesTask()
+      this.handleAssets(filter),
+      this.handleTypes()
     ])
     await Promise.all<void>([
-      this.scriptTask('web', filter),
-      this.scriptTask('node', filter)
+      this.handleScript('web', filter),
+      this.handleScript('node', filter)
     ])
   }
 
   /**
    * 处理素材文件
-   * @param toWeb 输出到web目录中
-   * @param toNode 输出到node目录中
    */
-  protected assetTask(filter?: FilterFunc) {
+  protected handleAssets(filter?: FilterFunc) {
     const { buildWeb, buildNode } = this.project.config
     if (!buildWeb && !buildNode) {
       return
@@ -149,7 +151,7 @@ export default class PackageBuilder extends Builder<Package> {
   /**
    * 处理定义文件
    */
-  protected defineTask(filter?: FilterFunc) {
+  protected handleDefine(filter?: FilterFunc) {
     const { buildTypes } = this.project.config
     if (!buildTypes) {
       return
@@ -160,20 +162,20 @@ export default class PackageBuilder extends Builder<Package> {
         return this.defineExp.test(file.path) 
           && (filter ? filter(file) : true)
       }),
-      gulp.dest(this.project.typesDistPath)
+      gulp.dest(this.project.defDistPath)
     )
   }
 
   /**
    * 构建类型文件
    */
-  protected typesTask() {
+  protected handleTypes() {
     const { buildTypes } = this.project.config
     if (!buildTypes) {
       return
     }
     const tsProject = gulpTs.createProject(
-      this.project.tsconfigPath,
+      this.project.tscPath,
       {
         declaration: true,
         removeComments: false,
@@ -183,7 +185,7 @@ export default class PackageBuilder extends Builder<Package> {
       tsProject.src(),
       tsProject(),
       (ts) => ts.dts,
-      gulp.dest(this.project.typesDistPath)
+      gulp.dest(this.project.defDistPath)
     )
   }
 
@@ -191,7 +193,7 @@ export default class PackageBuilder extends Builder<Package> {
    * 处理脚本文件
    * @param target 构建的目标类型
    */
-  protected scriptTask(
+  protected handleScript(
     target: 'web' | 'node',
     filter?: FilterFunc
   ) {

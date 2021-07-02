@@ -1,8 +1,10 @@
+import del from 'del'
 import ReactCSR from 'pro/react-csr'
 import Builder, { BuilderProps } from 'exe/builder'
-import { Compiler, Stats } from 'webpack'
-import { createWebpack } from './webpack'
 import { printError, printInfo, printLoading, printSuccess } from 'utl/print'
+import Webpack, { Stats } from 'webpack'
+import { getWebpackConfig } from './webpack'
+import { handleAssets } from '../common/assets'
 
 /**
  * react应用构建器实例化参数
@@ -11,35 +13,40 @@ export interface ReactCSRBuilderProps extends BuilderProps<ReactCSR> {
   /**
    * 是否是测试环境
    */
-  isTestEnv?: boolean
+  test?: boolean
 }
 
 /**
  * react应用构建器
  */
 export default class ReactCSRBuilder extends Builder<ReactCSR> {
-  /**
-   * 代码编译器
-   */
-  readonly compiler: Compiler
-
   constructor(props: ReactCSRBuilderProps) {
     super(props)
-    this.compiler = createWebpack(this.project)
   }
 
-  main() {
+  async main() {
+    await del(this.project.distPath)
+    printLoading(`project ${this.project.name} is being built`)
+    await handleAssets(this.project)
+    await this.scriptTask()
+    return printSuccess(`project ${this.project.name} has been built successfully`)
+  }
+
+  /**
+   * 处理脚本文件
+   */
+  protected async scriptTask() {
+    const project = this.project
+    const options = await getWebpackConfig(project)
+    const compiler = Webpack(options)
     return new Promise<void>((resolve, reject) => {
-      const project = this.project
-      const config = this.project.config
       this.on('close', () => {
-        this.compiler.close(() => {
-          printInfo(`${project.name} server will closed on ${config.servePort}!`)
+        compiler.close(() => {
+          printInfo(`${project.name} build process is closed`)
           resolve()
         })
       })
-      printLoading(`${project.name} is building`)
-      this.compiler.run((error?: Error, stats?: Stats) => {
+      compiler.run((error?: Error, stats?: Stats) => {
         if (error) {
           printError(error)
           reject()

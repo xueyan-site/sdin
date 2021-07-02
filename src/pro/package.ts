@@ -1,4 +1,4 @@
-import Project, { ProjectProps, ProjectConfig } from 'pro/project'
+import Project, { ProjectProps, ProjectConfig } from './project'
 
 /**
  * 包类型

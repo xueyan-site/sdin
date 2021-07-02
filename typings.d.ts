@@ -27,3 +27,8 @@ declare module '*.jpg' {
   const content: string
   export default content
 }
+
+declare module 'webpack-cdn-plugin' {
+  const content: any
+  export default content
+}

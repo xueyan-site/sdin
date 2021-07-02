@@ -1,6 +1,6 @@
 module.exports = {
   type: 'react-csr',
-  moduleAlias: {
+  alias: {
     components: 'src/components',
     utils: 'src/utils'
   },

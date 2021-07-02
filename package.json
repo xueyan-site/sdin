@@ -24,15 +24,15 @@
     "tmp/**/*"
   ],
   "bin": {
-    "xyts": "./dist/node/binary/index.js"
+    "xt": "./dist/node/bin/index.js"
   },
   "scripts": {
     "start": "yarn start-doc",
-    "build": "xyts build",
-    "watch": "xyts build --watch",
-    "start-doc": "xyts start doc",
-    "build-doc": "xyts build doc",
-    "serve-doc": "xyts serve doc"
+    "build": "xt build",
+    "watch": "xt build --watch",
+    "start-doc": "xt start doc",
+    "build-doc": "xt build doc",
+    "serve-doc": "xt serve doc"
   },
   "dependencies": {
     "@babel/core": "^7.12.3",
@@ -62,7 +62,9 @@
     "fs-extra": "^9.0.1",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
     "gulp-filter": "^6.0.0",
+    "gulp-rename": "^2.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",
     "html-webpack-plugin": "^5.3.1",
@@ -88,7 +90,10 @@
     "url-loader": "^4.1.1",
     "validator": "^13.1.17",
     "webpack": "^5.36.2",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-cdn-plugin": "^3.3.1",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.8.0",
+    "webpack-stream": "^6.1.2"
   },
   "devDependencies": {
     "@types/babel__preset-env": "^7.9.1",
@@ -100,6 +105,7 @@
     "@types/fs-extra": "^9.0.1",
     "@types/gulp": "^4.0.7",
     "@types/gulp-babel": "^6.1.29",
+    "@types/gulp-clean-css": "^4.3.0",
     "@types/gulp-concat": "0.0.32",
     "@types/gulp-filter": "^3.0.33",
     "@types/gulp-sourcemaps": "0.0.34",
@@ -114,6 +120,7 @@
     "@types/update-notifier": "^5.0.0",
     "@types/validator": "^13.1.0",
     "@types/webpack": "^5.28.0",
-    "@types/webpack-dev-server": "^3.11.3"
+    "@types/webpack-dev-server": "^3.11.3",
+    "@types/webpack-stream": "^3.2.12"
   }
 }

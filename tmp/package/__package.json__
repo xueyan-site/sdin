@@ -6,7 +6,7 @@
   "description": "",
   "main": "dist/node",
   "module": "dist/web",
-  "types": "dist/types",
+  "types": "dist/type",
   "keywords": [],
   "repository": {
     "type": "git",

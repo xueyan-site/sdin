@@ -71,19 +71,17 @@ async function __deepRead__({
 export function deepRead(
   source: string,
   handler: (node: DeepReadNode) => (void | Promise<void>),
-  options: {
-    filter?: (node: DeepReadNode) => (boolean | Promise<boolean>)
-  } = {}
+  filter?: (node: DeepReadNode) => (boolean | Promise<boolean>)
 ) {
   if (!fse.existsSync(source)) {
     throw Error(`failed to read "${source}", please check whether the file is exists`)
   }
   return __deepRead__({
     source,
+    filter,
     handler,
     offset: '',
     current: source,
-    filter: options.filter,
     name: basename(source),
   })
 }

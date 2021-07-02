@@ -1,7 +1,6 @@
 import express, { Express, Router } from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import CompressionMiddleware from 'compression'
-import HistoryApiMiddleware from 'connect-history-api-fallback'
 import Server, { ServerProps } from 'exe/server'
 import ReactCSR from 'pro/react-csr'
 import { printInfo } from 'utl/print'
@@ -33,8 +32,8 @@ export default class ReactCSRServer extends Server<ReactCSR> {
         this.server.emit('close')
         resolve()
       })
-      this.server.listen(config.servePort, () => {
-        printInfo(`${project.name} listening on http://127.0.0.1:${config.servePort}!\n`)
+      this.server.listen(config.serve.port, () => {
+        printInfo(`${project.name} listening on http://127.0.0.1:${config.serve.port}!\n`)
       })
     })
   }
@@ -49,7 +48,7 @@ export default class ReactCSRServer extends Server<ReactCSR> {
     /**
      * 服务代理（优先进行接口代理）
      */
-    const serveProxies = config.serveProxies
+    const serveProxies = config.serve.proxy
     if (serveProxies) {
       serveProxies.forEach(({ path, context, ...config }) => {
         if (path) {
@@ -68,17 +67,19 @@ export default class ReactCSRServer extends Server<ReactCSR> {
     /**
      * 静态配置
      */
-    server.use(express.static(project.distPath))
+    server.use(express.static(project.webDistPath))
+    server.use(express.static(project.astDistPath))
     /**
      * 前端单页路由（当寻不到静态页面时）
      */
-    const indexHtmlPath = project.withDistPath('index.html')
-    server.use(HistoryApiMiddleware({
-      index: indexHtmlPath
-    }))
+    // server.use(HistoryApiMiddleware({
+    //   index: indexHtmlPath
+    // }))
     const router = Router()
     router.get('*', (_req, res) => {
-      res.sendFile(indexHtmlPath)
+      const d = _req.path.split('/')
+      const p = d.pop()
+      res.sendFile(project.withDistPath('web', p + '.html'))
     })
     server.use(router)
     return server

@@ -1,10 +1,9 @@
 import { mapValues } from 'lodash'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import ReactCSR from 'pro/react-csr'
 import { cmdNmPath } from 'utl/path'
 import { getPages } from '../common/page'
 import { getRules } from '../common/module'
-import { Configuration, ProgressPlugin } from 'webpack'
+import { Configuration, HotModuleReplacementPlugin } from 'webpack'
 
 /**
  * 获取webpack配置
@@ -13,20 +12,21 @@ import { Configuration, ProgressPlugin } from 'webpack'
  */
 export async function getWebpackConfig(project: ReactCSR): Promise<Configuration> {
   const config = project.config
-  const { module, serve } = project.config
+  const { module, start } = project.config
   const pages = await getPages(project, false)
   return {
-    mode: 'production',
-    devtool: 'cheap-module-source-map',
+    mode: 'development',
+    devtool: 'eval-cheap-module-source-map',
     entry: pages.entry,
     output: {
       path: project.webDistPath,
-      publicPath: serve.path,
+      pathinfo: true,
+      publicPath: start.path,
       filename: 'js/[name].[fullhash:8].js',
       chunkFilename: 'js/[name].[fullhash:8].m.js'
     },
     module: {
-      rules: getRules(project, false)
+      rules: getRules(project, true)
     },
     externals: module.externals,
     resolve: {
@@ -48,11 +48,7 @@ export async function getWebpackConfig(project: ReactCSR): Promise<Configuration
       ]
     },
     plugins: [
-      new ProgressPlugin(),
-      new MiniCssExtractPlugin({
-        filename: 'css/[name].[fullhash:8].css',
-        chunkFilename: 'css/[name].[fullhash:8].m.css',
-      }),
+      new HotModuleReplacementPlugin(),
       ...pages.plugins
     ],
     optimization: {
