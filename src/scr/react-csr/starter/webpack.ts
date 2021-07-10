@@ -3,25 +3,25 @@ import ReactCSR from 'pro/react-csr'
 import { cmdNmPath } from 'utl/path'
 import { getPages } from '../common/page'
 import { getRules } from '../common/module'
-import { Configuration, HotModuleReplacementPlugin } from 'webpack'
+import Webpack, { Compiler, HotModuleReplacementPlugin } from 'webpack'
 
 /**
  * 获取webpack配置
  * @param project 
  * @returns 
  */
-export async function getWebpackConfig(project: ReactCSR): Promise<Configuration> {
+export async function createWebpack(project: ReactCSR): Promise<Compiler> {
   const config = project.config
-  const { module, start } = project.config
+  const { module } = project.config
   const pages = await getPages(project, false)
-  return {
+  return Webpack({
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',
     entry: pages.entry,
     output: {
-      path: project.webDistPath,
+      path: project.webDist,
       pathinfo: true,
-      publicPath: start.path,
+      publicPath: project.path,
       filename: 'js/[name].[fullhash:8].js',
       chunkFilename: 'js/[name].[fullhash:8].m.js'
     },
@@ -38,12 +38,12 @@ export async function getWebpackConfig(project: ReactCSR): Promise<Configuration
         '.json'
       ],
       alias: mapValues(config.alias, value => {
-        return project.withPath(value)
+        return project.withRoot(value)
       })
     },
     resolveLoader: {
       modules: [
-        project.mdlPath,
+        project.mdl,
         cmdNmPath()
       ]
     },
@@ -52,6 +52,10 @@ export async function getWebpackConfig(project: ReactCSR): Promise<Configuration
       ...pages.plugins
     ],
     optimization: {
+      // 运行时代码
+      runtimeChunk: {
+        name: 'manifest'
+      },
       splitChunks: {
         cacheGroups: {
           // 打包业务中公共代码
@@ -71,11 +75,7 @@ export async function getWebpackConfig(project: ReactCSR): Promise<Configuration
             minChunks: 2, // 同时引用了2次才打包
           }
         }
-      },
-      // 运行时代码
-      runtimeChunk: {
-        name: 'manifest'
       }
     }
-  }
+  })
 }

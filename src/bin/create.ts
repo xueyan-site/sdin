@@ -72,7 +72,7 @@ async function action(path?: string) {
   const git = readGitConfigSync()
   const answers = await prompt<{
     name: string
-    path: string
+    root: string
     author: string
     email: string
   }>([
@@ -85,7 +85,7 @@ async function action(path?: string) {
     },
     {
       type: 'input',
-      name: 'path',
+      name: 'root',
       message: 'where do you want the project to be generated',
       required: true,
       initial: (data: any) => {
@@ -115,7 +115,7 @@ async function action(path?: string) {
    */
   const meta = {
     type,
-    path: answers.path,
+    root: answers.root,
     package: {
       name: answers.name,
       version: '1.0.0',

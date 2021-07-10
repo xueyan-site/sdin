@@ -52,6 +52,7 @@ export interface PackageConfig extends ProjectConfig<PackageType> {
  */
 export const PACKAGE_CONFIG: PackageConfig = {
   type: PACKAGE_TYPE,
+  name: '',
   buildWeb: true,
   buildNode: true,
   buildTypes: true,

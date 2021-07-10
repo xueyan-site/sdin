@@ -1,6 +1,7 @@
 import Koa from 'koa'
 import koaConditional from 'koa-conditional-get'
 import koaETag from 'koa-etag'
+import koaCompose from 'koa-compose'
 import koaCompress from 'koa-compress'
 import koaMount from 'koa-mount'
 import koaStatic from 'koa-static'
@@ -15,11 +16,14 @@ export function createServer(project: ReactCSR) {
   const server = new Koa()
   server.use(koaConditional())
   server.use(koaETag())
-  server.use(koaCompress)
+  server.use(koaCompress())
   server.use(koaMount(project.path, koaStatic(project.astDist)))
   server.use(koaMount(project.path, koaStatic(project.webDist)))
   const router = createRouter(project)
-  server.use(router.routes())
+  server.use(koaCompose([
+    router.routes(),
+    router.allowedMethods()
+  ]))
   return server
 }
 
@@ -29,13 +33,12 @@ export function createServer(project: ReactCSR) {
 function createRouter(project: ReactCSR) {
   const { pageList } = project
   const router = new KoaRouter({
-    prefix: project.path,
-    methods: ['get']
+    prefix: project.path
   })
   // 设置项目各页面路径对应的路由
   pageList.forEach(page => {
     router.get(page.path, ctx => {
-      koaSend(ctx, page.path + '.html', {
+      return koaSend(ctx, page.path + '.html', {
         root: project.webDist
       })
     })
@@ -45,7 +48,7 @@ function createRouter(project: ReactCSR) {
     const page = pageList.find(page => page.path === project.index)
     if (page) {
       router.get('/', ctx => {
-        koaSend(ctx, page.path + '.html', {
+        return koaSend(ctx, page.path + '.html', {
           root: project.webDist
         })
       })

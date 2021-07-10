@@ -36,13 +36,13 @@ export default abstract class Creator<
    * 复制项目代码
    */
   protected async generateProject() {
-    if (fse.existsSync(this.project.path)) {
+    if (fse.existsSync(this.project.root)) {
       throw Error(`project ${this.project.name} is already exists`)
     }
     printLoading('copying project template')
     await deepCopy(
       this.templatePath,
-      this.project.path,
+      this.project.root,
       getReplaceHandler(this.project)
     )
     printSuccess('copy project template successfully')
@@ -52,10 +52,10 @@ export default abstract class Creator<
    * 初始化git仓库
    */
   protected initializeGitRepository() {
-    const gitPath = this.project.withPath('.git')
+    const gitPath = this.project.withRoot('.git')
     if (!fse.existsSync(gitPath)) {
       printLoading('initializing git repository')
-      executeSync(`cd ${this.project.path} && git init && git add . && git commit -m "chore: project created"`)
+      executeSync(`cd ${this.project.root} && git init && git add . && git commit -m "chore: project created"`)
     }
   }
 }

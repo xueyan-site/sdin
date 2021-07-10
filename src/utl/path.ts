@@ -11,17 +11,13 @@ export const basename = path.basename
  * 连接路径
  * @param {String[]} pathList 路径
  */
-export const withPath = (...pathList: string[]) => {
-  return path.resolve(...pathList)
-}
+export const withPath = path.resolve
 
 /**
  * 连接路径
  * @param {String[]} pathList 路径
  */
-export const joinPath = (...pathList: string[]) => {
-  return path.join(...pathList)
-}
+export const joinPath = path.join
 
 /**
  * 当前工作目录（current working directory）

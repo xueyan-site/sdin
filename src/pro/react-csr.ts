@@ -1,8 +1,7 @@
 import fse from 'fs-extra'
 import { defaultsDeep, keyBy } from 'lodash'
-import { ProxyConfigArrayItem } from 'webpack-dev-server'
 import { RuleSetCondition } from 'webpack'
-import Project, { ProjectProps, ProjectConfig } from './project'
+import Application, { ApplicationProps, ApplicationConfig } from './application'
 import ReactCSRPage, { ReactCSRPageConfig, REACT_CSR_PAGE_CONFIG } from './react-csr-page'
 import { AnyObject } from 'types'
 
@@ -17,6 +16,19 @@ export const REACT_CSR_TYPE: ReactCSRType = 'react-csr'
  * react-csr 模块配置信息
  */
 export interface ReactCSRModuleConfig {
+  /**
+   * 资源的公共路径
+   * <https://webpack.docschina.org/configuration/output/#outputpublicpath> 
+   */
+  path: string
+
+  /**
+   * 默认页面
+   * 若不写，则默认使用index页面
+   * 若没有index页面，则返回404
+   */
+  index: string
+
   /**
    * 模块扩展
    */
@@ -38,6 +50,8 @@ export interface ReactCSRModuleConfig {
 }
 
 const REACT_CSR_MODULE_CONFIG: ReactCSRModuleConfig = {
+  path: '/',
+  index: 'index',
   externals: {},
   babelIncludes: [],
   babelExcludes: []
@@ -48,12 +62,6 @@ const REACT_CSR_MODULE_CONFIG: ReactCSRModuleConfig = {
  */
 export interface ReactCSRServeConfig {
   /**
-   * 资源的公共路径
-   * <https://webpack.docschina.org/configuration/output/#outputpublicpath> 
-   */
-  path: string
-
-  /**
    * 启动的端口
    * <http://expressjs.com/en/4x/api.html#app.listen>
    */
@@ -63,11 +71,10 @@ export interface ReactCSRServeConfig {
    * 代理设置
    * <https://webpack.docschina.org/configuration/dev-server/#devserverproxy>
    */
-  proxy: ProxyConfigArrayItem[]
+  proxy: any[]
 }
 
 const REACT_CSR_SERVE_CONFIG: ReactCSRServeConfig = {
-  path: '/',
   port: 443,
   proxy: []
 }
@@ -85,7 +92,7 @@ const REACT_CSR_START_CONFIG: ReactCSRStartConfig = {
 /**
  * react-csr 配置信息
  */
-export interface ReactCSRConfig extends ProjectConfig<ReactCSRType> {
+export interface ReactCSRConfig extends ApplicationConfig<ReactCSRType> {
   /**
    * 页面的全局默认配置
    */
@@ -112,6 +119,8 @@ export interface ReactCSRConfig extends ProjectConfig<ReactCSRType> {
  */
 export const REACT_CSR_CONFIG: ReactCSRConfig = {
   type: REACT_CSR_TYPE,
+  name: '',
+  path: '/',
   page: REACT_CSR_PAGE_CONFIG,
   module: REACT_CSR_MODULE_CONFIG,
   serve: REACT_CSR_SERVE_CONFIG,
@@ -121,7 +130,7 @@ export const REACT_CSR_CONFIG: ReactCSRConfig = {
 /**
  * react-csr应用实例化参数
  */
-export interface ReactCSRProps extends ProjectProps<
+export interface ReactCSRProps extends ApplicationProps<
   ReactCSRType, 
   ReactCSRConfig
 > {}
@@ -129,7 +138,7 @@ export interface ReactCSRProps extends ProjectProps<
 /**
  * react-csr应用
  */
-export default class ReactCSR extends Project<
+export default class ReactCSR extends Application<
   ReactCSRType, 
   ReactCSRConfig
 > {
@@ -145,9 +154,10 @@ export default class ReactCSR extends Project<
 
   constructor(props: ReactCSRProps) {
     super(props, REACT_CSR_CONFIG)
-    this.config.start = defaultsDeep(this.config.start, this.config.serve)
     this.pageList = this.getPageList()
     this.pageMap = keyBy(this.pageList, 'name')
+    const { start, serve } = this.config
+    this.config.start = defaultsDeep({}, start, serve)
   }
 
   /**
@@ -164,13 +174,13 @@ export default class ReactCSR extends Project<
    */
   private getPageList() {
     const pages: ReactCSRPage[] = []
-    const files = fse.readdirSync(this.srcPath)
+    const files = fse.readdirSync(this.src)
     for (let i = 0; i < files.length; i++) {
       const fileName = files[i]
-      const filePath = this.withSrcPath(fileName)
+      const filePath = this.withSrc(fileName)
       if (fse.statSync(filePath).isDirectory()) {
         pages.push(new ReactCSRPage({
-          name: fileName,
+          folder: fileName,
           project: this
         }))
       }

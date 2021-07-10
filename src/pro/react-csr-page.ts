@@ -31,7 +31,7 @@ export default class ReactCSRPage extends Page<ReactCSR, ReactCSRPageConfig> {
   constructor(props: ReactCSRPageProps) {
     super(props, props.project.config.page)
     const config = this.config
-    const _config = this._config
-    config.skeleton = _config.skeleton || config.skeleton
+    const __config__ = this.__config__
+    config.skeleton = __config__.skeleton || config.skeleton
   }
 }

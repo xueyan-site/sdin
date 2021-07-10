@@ -11,10 +11,12 @@ export function getScriptString(page: ReactCSRPage, dev: boolean) {
       dev,
       page: {
         name: page.name,
+        path: page.path,
         title: page.config.title
       },
       project: {
         name: page.project.name,
+        path: page.project.path,
         author: page.project.author,
         version: page.project.version
       }

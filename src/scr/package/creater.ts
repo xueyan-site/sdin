@@ -17,7 +17,7 @@ export default class PackageCreator extends Creator<Package> {
   async main() {
     await this.generateProject()
     this.downloadModules()
-    this.downloadModules(this.project.docPath, 'doc')
+    this.downloadModules(this.project.doc, 'doc')
     this.initializeGitRepository()
   }
 }

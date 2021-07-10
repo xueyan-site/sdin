@@ -11,7 +11,7 @@ export function getTemplateString(page: ReactCSRPage, dev: boolean) {
         ${page.nodesToString('meta', metas)}
         <title>${dev?'⚡️':''}${title}</title>
         ${page.nodesToString('link', links)}
-        ${page.nodesToString('script', scripts, true)}
+        ${page.nodesToString('script', scripts)}
         ${page.nodesToString('link', styles)}
       </head>
       <body>

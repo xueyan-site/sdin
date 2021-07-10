@@ -14,7 +14,7 @@ export async function handleAssets(project: ReactCSR) {
   const scrFilter = gulpFilter('**/*.js', { restore: true })
   const styFilter = gulpFilter('**/*.css', { restore: true })
   return pipeline(
-    gulp.src('**/*', { cwd: project.withPubPath('ast') }),
+    gulp.src('**/*', { cwd: project.withPub('ast') }),
     scrFilter,
     gulpBabel({
       presets: [cmdNmPath('@babel/preset-env')],
@@ -28,6 +28,6 @@ export async function handleAssets(project: ReactCSR) {
     styFilter,
     gulpCleanCss(),
     styFilter.restore,
-    gulp.dest(project.astDistPath)
+    gulp.dest(project.astDist)
   )
 }

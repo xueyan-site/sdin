@@ -2,8 +2,8 @@ import del from 'del'
 import ReactCSR from 'pro/react-csr'
 import Builder, { BuilderProps } from 'exe/builder'
 import { printError, printInfo, printLoading, printSuccess } from 'utl/print'
-import Webpack, { Stats } from 'webpack'
-import { getWebpackConfig } from './webpack'
+import { Stats } from 'webpack'
+import { createWebpack } from './webpack'
 import { handleAssets } from '../common/assets'
 
 /**
@@ -25,7 +25,8 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
   }
 
   async main() {
-    await del(this.project.distPath)
+    await del(this.project.dist)
+    await del(this.project.withBuf('entry'))
     printLoading(`project ${this.project.name} is being built`)
     await handleAssets(this.project)
     await this.scriptTask()
@@ -37,8 +38,7 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
    */
   protected async scriptTask() {
     const project = this.project
-    const options = await getWebpackConfig(project)
-    const compiler = Webpack(options)
+    const compiler = await createWebpack(project)
     return new Promise<void>((resolve, reject) => {
       this.on('close', () => {
         compiler.close(() => {

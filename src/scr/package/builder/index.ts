@@ -56,7 +56,7 @@ export default class PackageBuilder extends Builder<Package> {
   constructor(props: PackageBuilderProps) {
     super(props)
     this.watch = props.watch || false
-    this.srcOpts = { cwd: this.project.srcPath }
+    this.srcOpts = { cwd: this.project.src }
     this.scriptExp = /\.(t|j)sx?$/
     this.typescriptExp = /\.tsx?$/
     this.defineExp = /\.d\.tsx?$/
@@ -64,7 +64,7 @@ export default class PackageBuilder extends Builder<Package> {
   }
 
   async main() {
-    await del(this.project.distPath)
+    await del(this.project.dist)
     printLoading(`project ${this.project.name} is being checked`)
     this.precheck()
     printLoading(`project ${this.project.name} has no questions`)
@@ -109,7 +109,7 @@ export default class PackageBuilder extends Builder<Package> {
    * 预校验
    */
   precheck() {
-    if (!this.project.getDependenceVersion('@babel/runtime')) {
+    if (!this.project.getDepVersion('@babel/runtime')) {
       throw new Error('please install @babel/runtime dependence')
     }
   }
@@ -143,8 +143,8 @@ export default class PackageBuilder extends Builder<Package> {
         return !this.scriptExp.test(file.path) 
           && (filter ? filter(file) : true)
       }),
-      buildWeb && gulp.dest(this.project.webDistPath),
-      buildNode && gulp.dest(this.project.nodeDistPath)
+      buildWeb && gulp.dest(this.project.webDist),
+      buildNode && gulp.dest(this.project.nodeDist)
     )
   }
 
@@ -162,7 +162,7 @@ export default class PackageBuilder extends Builder<Package> {
         return this.defineExp.test(file.path) 
           && (filter ? filter(file) : true)
       }),
-      gulp.dest(this.project.defDistPath)
+      gulp.dest(this.project.defDist)
     )
   }
 
@@ -175,7 +175,7 @@ export default class PackageBuilder extends Builder<Package> {
       return
     }
     const tsProject = gulpTs.createProject(
-      this.project.tscPath,
+      this.project.tsc,
       {
         declaration: true,
         removeComments: false,
@@ -185,7 +185,7 @@ export default class PackageBuilder extends Builder<Package> {
       tsProject.src(),
       tsProject(),
       (ts) => ts.dts,
-      gulp.dest(this.project.defDistPath)
+      gulp.dest(this.project.defDist)
     )
   }
 
@@ -217,8 +217,8 @@ export default class PackageBuilder extends Builder<Package> {
       }),
       gulp.dest(
         target === 'web'
-          ? this.project.webDistPath
-          : this.project.nodeDistPath
+          ? this.project.webDist
+          : this.project.nodeDist
       )
     )
   }

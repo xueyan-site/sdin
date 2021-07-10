@@ -9,7 +9,7 @@ import { mapValues } from 'lodash'
 function getModuleAliasPlugin(project: Package): any {
   const aliasMap = mapValues(
     project.config.alias || {},
-    value => project.withPath(value)
+    value => project.withRoot(value)
   )
   const aliasKeys = Object.keys(aliasMap)
   if (aliasKeys.length <= 0) {
@@ -28,7 +28,7 @@ function getModuleAliasPlugin(project: Package): any {
       return source
     }
     return relativePath(
-      project.withPath(
+      project.withRoot(
         source.replace(matchedKey, aliasMap[matchedKey])
       ),
       current

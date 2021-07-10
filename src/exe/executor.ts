@@ -88,7 +88,7 @@ export default abstract class Executor<
    * 下载 node_modules
    */
   protected downloadModules(
-    path: string = this.project.path,
+    path: string = this.project.root,
     name: string = this.project.name
   ) {
     if (fse.existsSync(path)) {
