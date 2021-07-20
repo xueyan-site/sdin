@@ -1,14 +1,14 @@
 import ReactCSR from './react-csr'
-import Page, { PageConfig, PageProps, PAGE_CONFIG } from './page'
+import Page, { PageConfig, PageProps } from './page'
 
 /**
  * react-csr页面配置
  */
 export interface ReactCSRPageConfig extends PageConfig {
   /**
-   * 设置未渲染前的骨架
+   * HTML骨架图渲染器
    */
-  skeleton: (page: ReactCSRPage) => string
+  skeleton?: (page: ReactCSRPage) => string
 }
 
 /**
@@ -17,21 +17,19 @@ export interface ReactCSRPageConfig extends PageConfig {
 export interface ReactCSRPageProps extends PageProps<ReactCSR> {}
 
 /**
- * react-csr页面配置信息默认值
- */
-export const REACT_CSR_PAGE_CONFIG: ReactCSRPageConfig = {
-  ...PAGE_CONFIG,
-  skeleton: () => ''
-}
-
-/**
  * react-csr页面
  */
 export default class ReactCSRPage extends Page<ReactCSR, ReactCSRPageConfig> {
+  /**
+   * HTML骨架图渲染器
+   */
+  skeleton: (page: ReactCSRPage) => string
+
   constructor(props: ReactCSRPageProps) {
-    super(props, props.project.config.page)
+    super(props, props.project.page)
     const config = this.config
-    const __config__ = this.__config__
-    config.skeleton = __config__.skeleton || config.skeleton
+    const __config__ = props.project.page
+    // 设置HTML的骨架图
+    this.skeleton = config.skeleton || __config__.skeleton || (() => '')
   }
 }

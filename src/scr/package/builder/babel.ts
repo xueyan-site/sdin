@@ -8,7 +8,7 @@ import { mapValues } from 'lodash'
  */
 function getModuleAliasPlugin(project: Package): any {
   const aliasMap = mapValues(
-    project.config.alias || {},
+    project.alias || {},
     value => project.withRoot(value)
   )
   const aliasKeys = Object.keys(aliasMap)
@@ -52,13 +52,12 @@ export function getBabelOptions(project: Package, target: 'web' | 'node'): any {
   const key = project.name + target
   let options = optionsMap[key]
   if (!options) {
-    const { useReact } = project.config
     options = {
       presets: [
         [cmdNmPath('@babel/preset-env'), {
           modules: target === 'web' ? false : 'cjs'
         }],
-        useReact && cmdNmPath('@babel/preset-react'),
+        project.useReact && cmdNmPath('@babel/preset-react'),
         cmdNmPath('@babel/preset-typescript')
       ].filter(Boolean),
       plugins: [

@@ -2,7 +2,7 @@ import fse from 'fs-extra'
 import { defaultsDeep, keyBy } from 'lodash'
 import { RuleSetCondition } from 'webpack'
 import Application, { ApplicationProps, ApplicationConfig } from './application'
-import ReactCSRPage, { ReactCSRPageConfig, REACT_CSR_PAGE_CONFIG } from './react-csr-page'
+import ReactCSRPage, { ReactCSRPageConfig } from './react-csr-page'
 import { AnyObject } from 'types'
 
 /**
@@ -36,12 +36,6 @@ export interface ReactCSRModuleConfig {
   babelExcludes: RuleSetCondition[]
 }
 
-const REACT_CSR_MODULE_CONFIG: ReactCSRModuleConfig = {
-  externals: {},
-  babelIncludes: [],
-  babelExcludes: []
-}
-
 /**
  * react-csr 服务配置信息
  */
@@ -59,20 +53,10 @@ export interface ReactCSRServeConfig {
   proxy: any[]
 }
 
-const REACT_CSR_SERVE_CONFIG: ReactCSRServeConfig = {
-  port: 443,
-  proxy: []
-}
-
 /**
  * react-csr 开发配置信息
  */
 export interface ReactCSRStartConfig extends ReactCSRServeConfig {}
-
-const REACT_CSR_START_CONFIG: ReactCSRStartConfig = {
-  ...REACT_CSR_SERVE_CONFIG,
-  port: 8080
-}
 
 /**
  * react-csr 配置信息
@@ -81,37 +65,22 @@ export interface ReactCSRConfig extends ApplicationConfig<ReactCSRType> {
   /**
    * 页面的全局默认配置
    */
-  page: ReactCSRPageConfig
+  page?: Partial<ReactCSRPageConfig>
 
   /**
-   * react-csr 模块配置信息
+   * 模块配置信息
    */
-  module: ReactCSRModuleConfig
+  module?: Partial<ReactCSRModuleConfig>
 
   /**
-   * react-csr 服务配置信息
+   * 服务配置信息
    */
-  serve: ReactCSRServeConfig
+  serve?: Partial<ReactCSRServeConfig>
 
   /**
-   * react-csr 服务配置信息（开发时期）
+   * 服务配置信息（开发时期）
    */
-  start: ReactCSRStartConfig
-}
-
-/**
- * react-csr应用配置信息默认值
- */
-export const REACT_CSR_CONFIG: ReactCSRConfig = {
-  type: REACT_CSR_TYPE,
-  name: '',
-  path: '/',
-  index: '',
-  error: '',
-  page: REACT_CSR_PAGE_CONFIG,
-  module: REACT_CSR_MODULE_CONFIG,
-  serve: REACT_CSR_SERVE_CONFIG,
-  start: REACT_CSR_START_CONFIG
+  start?: Partial<ReactCSRStartConfig>
 }
 
 /**
@@ -135,6 +104,26 @@ export default class ReactCSR extends Application<
   readonly astPub: string
 
   /**
+   * 页面的全局默认配置
+   */
+  page: ReactCSRPageConfig
+
+  /**
+   * 模块配置信息
+   */
+  module: ReactCSRModuleConfig
+
+  /**
+   * 服务配置信息
+   */
+  serve: ReactCSRServeConfig
+
+  /**
+   * 服务配置信息（开发时期）
+   */
+  start: ReactCSRStartConfig
+
+  /**
    * 页面列表
    */
   readonly pageList: ReactCSRPage[] = []
@@ -145,20 +134,35 @@ export default class ReactCSR extends Application<
   private readonly pageMap: AnyObject<ReactCSRPage> = {}
 
   constructor(props: ReactCSRProps) {
-    super(props, REACT_CSR_CONFIG)
+    super(REACT_CSR_TYPE, props)
+    const config = this.config
     this.astPub = this.withPub('ast')
+    // 设置项目的页面全局配置，模块、服务、开发等配置信息
+    this.page = config.page || {}
+    this.module = defaultsDeep({}, config.module, {
+      externals: {},
+      babelIncludes: [],
+      babelExcludes: []
+    })
+    this.serve = defaultsDeep({}, config.serve, {
+      port: 443,
+      proxy: []
+    })
+    this.start = defaultsDeep({}, config.start, {
+      ...this.serve,
+      port: 8080
+    })
+    // 设置项目的页面
     this.pageList = this.getPageList()
-    this.pageMap = keyBy(this.pageList, 'name')
-    const { start, serve } = this.config
-    this.config.start = defaultsDeep({}, start, serve)
+    this.pageMap = keyBy(this.pageList, 'path')
   }
 
   /**
    * 获取某一个页面
    * @returns 
    */
-  getPage(name: string): ReactCSRPage | undefined {
-    return this.pageMap[name]
+  getPage(name?: string): ReactCSRPage | undefined {
+    return this.pageMap[name || '']
   }
 
   /**

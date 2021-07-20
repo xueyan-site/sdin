@@ -25,8 +25,7 @@ export async function getPages(project: ReactCSR, dev: boolean) {
     tasks.push(fse.outputFile(swpIdxPath, getScriptString(page, dev)))
     // 设定入口（为了配合热更新，在开发时，需要加入热更新脚本）
     entry[page.path] = dev 
-      ? [
-        WHM_CLIENT_SCRIPT + `?name=${page.path}`, swpIdxPath]
+      ? [WHM_CLIENT_SCRIPT + `?name=${page.path}`, swpIdxPath]
       : swpIdxPath
     // 设定模版
     plugins.push(new HtmlWebpackPlugin({

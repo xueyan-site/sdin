@@ -32,8 +32,6 @@ export default class ReactCSRStarter extends Starter<ReactCSR> {
    */
   protected async scriptTask() {
     const project = this.project
-    const config = project.config
-    const { start } = config
     const compiler = await createWebpack(project)
     const server = await createServer(project, compiler)
     return new Promise<void>(resolve => {
@@ -41,8 +39,8 @@ export default class ReactCSRStarter extends Starter<ReactCSR> {
         server.emit('close')
         resolve()
       })
-      server.listen(start.port, () => {
-        printInfo(`${project.name} listening on http://127.0.0.1:${start.port}!\n`)
+      server.listen(project.start.port, () => {
+        printInfo(`application ${project.name} listening on http://127.0.0.1:${project.start.port}\n`)
       })
     })
   }

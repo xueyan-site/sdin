@@ -92,45 +92,68 @@ export function deepRead(
 const jsonCache: Map<string, AnyObject> = new Map()
 
 /**
+ * 从缓存中读取json信息
+ */
+function getJsonFromCache(key: string, creatJson: () => object) {
+  let data: any = jsonCache.get(key)
+  if (data) {
+    return data
+  }
+  data = creatJson()
+  jsonCache.set(key, data)
+  setTimeout(() => {
+    jsonCache.delete(key)
+  }, 2000)
+  return data
+}
+
+/**
  * 获取json信息
- * 若传入的值是string，则与relationPath拼接成路径，读取该路径的文件，出错则报错并退出
+ * 
+ * 关于 value：
+ * 若传入的值是string，则与relationPath拼接成路径，读取该路径的文件
  *   json: 使用readJSONSync进行读取
  *   js/mjs: 使用require进行读取
  * 若传入的值是object，则原样返回
  * 若是其他值，则返回undefined
- * @param {Any} value 指定传入的值
- * @param {String} relationPath 指定文件的参考目录 @default ''
+ * 
+ * @param value 指定传入的值，可以是字符串、对象，或其他值
+ * @param root 指定文件的参考目录 @default ''
+ * @param strict 是否启用严格模式（一定要有，没有则报错）
  */
-export function readJsonSync(value: any, relationPath?: string): AnyObject {
+export function readJsonSync(value: any, root?: string, strict?: boolean): AnyObject {
+  // 若值是纯对象，则直接返回
   if (isPlainObject(value)) {
     return value
-  } else if (isString(value)) {
-    const filePath = relationPath
-      ? withPath(relationPath, value)
-      : value
-    let data: any = jsonCache.get(filePath)
-    if (data) {
-      return data
-    }
-    if (!fse.existsSync(filePath)) {
+  }
+  // 若值不是纯对象，也不是字符串，则返回空对象
+  if (!isString(value)) {
+    return {}
+  }
+  // 若值是字符串，则拼接路径，并判断路径是否存在
+  const filePath = root ? withPath(root, value) : value
+  if (!fse.existsSync(filePath)) {
+    if (strict) {
       throw Error(`"${filePath}" does not exist`)
+    } else {
+      return {}
     }
+  }
+  // 从缓存中读取数据，若没有，则创建数据
+  return getJsonFromCache(filePath, () => {
+    // 读取文件中的数据
+    let data: any
     if (/\.json$/.test(filePath)) {
       data = fse.readJSONSync(filePath)
     } else if (/\.(js|mjs)$/.test(filePath)) {
       data = require(filePath)
     }
-    if (!isPlainObject(data)) {
+    // 判断是否是对象
+    if (strict && !isPlainObject(data)) {
       throw Error(`failed to read "${filePath}", please check whether the file content format is correct`)
     }
-    jsonCache.set(filePath, data)
-    setTimeout(() => {
-      jsonCache.delete(filePath)
-    }, 2000)
-    return data
-  } else {
-    return {}
-  }
+    return data || {}
+  })
 }
 
 /**
@@ -158,7 +181,7 @@ export function readGitConfigSync(): GitInfo {
  * @param {String} dirPath 指定文件夹目录
  */
 export function readPackageInfoSync(projectPath: string): PackageInfo {
-  const packageInfo = readJsonSync('package.json', projectPath)
+  const packageInfo = readJsonSync('package.json', projectPath, true)
   const author = packageInfo.author
   if (typeof author === 'object') {
     packageInfo.author = author.name || ''

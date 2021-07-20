@@ -133,7 +133,7 @@ export default class PackageBuilder extends Builder<Package> {
    * 处理素材文件
    */
   protected handleAssets(filter?: FilterFunc) {
-    const { buildWeb, buildNode } = this.project.config
+    const { buildWeb, buildNode } = this.project
     if (!buildWeb && !buildNode) {
       return
     }
@@ -152,7 +152,7 @@ export default class PackageBuilder extends Builder<Package> {
    * 处理定义文件
    */
   protected handleDefine(filter?: FilterFunc) {
-    const { buildTypes } = this.project.config
+    const { buildTypes } = this.project
     if (!buildTypes) {
       return
     }
@@ -170,7 +170,7 @@ export default class PackageBuilder extends Builder<Package> {
    * 构建类型文件
    */
   protected handleTypes() {
-    const { buildTypes } = this.project.config
+    const { buildTypes } = this.project
     if (!buildTypes) {
       return
     }
@@ -197,7 +197,7 @@ export default class PackageBuilder extends Builder<Package> {
     target: 'web' | 'node',
     filter?: FilterFunc
   ) {
-    const { buildWeb, buildNode, useUglify } = this.project.config
+    const { buildWeb, buildNode, useUglify } = this.project
     if ((!buildWeb && target === 'web') || (!buildNode && target === 'node')) {
       return
     }

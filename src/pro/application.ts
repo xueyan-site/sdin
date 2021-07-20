@@ -9,18 +9,17 @@ export interface ApplicationConfig<TType extends string> extends ProjectConfig<T
    * 项目url中的公共路径
    * <https://webpack.docschina.org/configuration/output/#outputpublicpath> 
    */
-  path: string
+  path?: string
 
   /**
    * 项目的根页面
-   * 若不写，则没有项目的根页面
    */
-  index: string
+  index?: string
 
   /**
    * 错误页面
    */
-  error: string
+  error?: string
 }
 
 /**
@@ -46,18 +45,17 @@ export default abstract class Application<
   /**
    * 项目的根页面（填写的应当是页面的path）
    */
-  readonly index: string
+  readonly index?: string
 
   /**
    * 项目的错误页面（填写的应当是页面的path）
    */
-  readonly error: string
+  readonly error?: string
 
-  constructor(props: ApplicationProps<TType, TConfig>, defaultConfig: TConfig) {
-    super(props, defaultConfig)
+  constructor(type: TType, props: ApplicationProps<TType, TConfig>) {
+    super(type, props)
     const config = this.config
-    const __config__ = this.__config__
-    this.path = config.path = __config__.path || '/'
+    this.path = config.path || '/'
     this.index = config.index
     this.error = config.error
   }

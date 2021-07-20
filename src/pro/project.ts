@@ -1,5 +1,3 @@
-import fse from 'fs-extra'
-import { defaultsDeep, isPlainObject, isString } from 'lodash'
 import { withPath } from 'utl/path'
 import { readJsonSync, readPackageInfoSync } from 'utl/read'
 import { AnyObject, PackageInfo, ModuleAlias } from 'types'
@@ -11,13 +9,13 @@ export interface ProjectConfig<TType extends string> {
   /**
    * 项目类型
    */
-  type: TType
+  type?: TType
 
   /**
    * 项目名称（中文、英文都可以）
    * 不写，则使用package.json中的name字段代替
    */
-  name: string
+  name?: string
 
   /**
    * 模块的alias
@@ -43,7 +41,7 @@ export interface ProjectProps<
   /**
    * 项目配置信息
    */
-  config?: Partial<TConfig> | string
+  config?: TConfig | string
 
   /**
    * 项目包信息
@@ -77,22 +75,11 @@ interface ProjectMeta {
 }
 
 /**
- * 按照项目的约定规则去读取配置信息
- */
-function getProjectConfigSync(projectPath: string): AnyObject {
-  if (fse.existsSync(withPath(projectPath, 'project.js'))) {
-    return readJsonSync('project.js', projectPath)
-  } else {
-    return {}
-  }
-}
-
-/**
  * 读取项目元信息
  */
 export function readProjectMeta(projectPath: string): ProjectMeta {
   const packageInfo = readPackageInfoSync(projectPath)
-  const config = getProjectConfigSync(projectPath)
+  const config = readJsonSync('project.js', projectPath)
   return {
     type: config.type || '',
     root: projectPath,
@@ -123,36 +110,6 @@ export default abstract class Project<
    * 项目目录路径
    */
   readonly root: string
-
-  /**
-   * 项目配置信息
-   */
-  readonly config: TConfig
-
-  /**
-   * 页面配置信息（未合并过默认配置的）
-   */
-  protected __config__: Partial<TConfig>
-
-  /**
-   * 项目包信息
-   */
-  readonly package: PackageInfo
-
-  /**
-   * 项目名称（中文、英文都可以）
-   */
-  readonly name: string
-
-  /**
-   * 项目版本
-   */
-  readonly version: string
-
-  /**
-   * 项目作者
-   */
-  readonly author: string
 
   /**
    * 项目构建时的临时缓存文件目录
@@ -210,14 +167,48 @@ export default abstract class Project<
   readonly nodeDist: string
 
   /**
+   * 项目配置信息
+   */
+  protected config: TConfig
+
+  /**
+   * 项目包信息
+   */
+  readonly package: PackageInfo
+
+  /**
+   * 项目版本
+   */
+  readonly version: string
+
+  /**
+   * 项目作者
+   */
+  readonly author: string
+
+  /**
+   * 项目名称（中文、英文都可以）
+   * 不写，则使用package.json中的name字段代替
+   */
+  readonly name: string
+
+  /**
+   * 模块的alias
+   * webpack.resolve.alias | babel-plugin-module-resolver.alias
+   * <https://webpack.docschina.org/configuration/resolve/#resolvealias>
+   * <https://github.com/tleunen/babel-plugin-module-resolver/blob/master/DOCS.md>
+   */
+  readonly alias?: ModuleAlias
+
+  /**
    * ts配置的缓存
    */
-  private tsconfig: any
+  private tsconfig?: AnyObject
 
-  constructor(props: ProjectProps<TType, TConfig>, defaultConfig: TConfig) {
-    /**
-     * 建立项目相关路径
-     */
+  constructor(type: TType, props: ProjectProps<TType, TConfig>) {
+    // 确定项目的类型
+    this.type = type
+    // 建立项目相关路径
     this.root = props.root
     this.buf = this.withRoot('buf')
     this.src = this.withRoot('src')
@@ -230,32 +221,15 @@ export default abstract class Project<
     this.defDist = this.withDist('def')
     this.webDist = this.withDist('web')
     this.nodeDist = this.withDist('node')
-    /**
-     * 获取包信息
-     */
-    this.package = props.package || readPackageInfoSync(this.root)
-    /**
-     * 获取配置信息
-     */
-    let __config__: any = undefined
-    if (isPlainObject(props.config)) {
-      __config__ = props.config
-    } else if (isString(props.config)) {
-      __config__ = readJsonSync(props.config, this.root)
-    } else {
-      __config__ = getProjectConfigSync(this.root)
-    }
-    this.__config__ = __config__
-    const config = defaultsDeep({}, __config__, defaultConfig)
-    /**
-     * 初始化其他数据
-     */
-    this.config = config
-    this.type = config.type
-    this.author = this.package.author
-    this.version = this.package.version
-    this.name = config.name = __config__.name || this.package.name
-    this.id = [this.type, this.package.name, this.version].join('_')
+    // 设置项目的包信息、配置信息
+    const packageInfo = this.package = props.package || readPackageInfoSync(this.root)
+    const config = this.config = readJsonSync(props.config || 'project.js', this.root) as any
+    // 设置项目的名称、作者、版本、id
+    this.author = packageInfo.author
+    this.version = packageInfo.version
+    this.name = config.name || packageInfo.name
+    this.id = [this.type, packageInfo.name, this.version].join('_')
+    this.alias = config.alias
   }
 
   /**
@@ -321,11 +295,7 @@ export default abstract class Project<
    */
   getTsconfig() {
     if (!this.tsconfig) {
-      if (fse.existsSync(this.tsc)) {
-        this.tsconfig = fse.readJSONSync(this.tsc)
-      } else {
-        this.tsconfig = {}
-      }
+      this.tsconfig = readJsonSync(this.tsc)
     }
     return this.tsconfig
   }

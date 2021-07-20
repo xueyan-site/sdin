@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from 'dayjs'
 import { isError } from 'lodash'
 
-const TIME_FORMAT = 'MMDD.HH:mm:ss.SSS'
+const TIME_FORMAT = 'YY/MM/DD HH:mm:ss.SSS'
 
 /**
  * 上次打印信息时的时间

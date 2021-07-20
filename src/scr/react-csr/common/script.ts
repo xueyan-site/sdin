@@ -1,18 +1,17 @@
 import ReactCSRPage from 'pro/react-csr-page'
 
 export function getScriptString(page: ReactCSRPage, dev: boolean) {
-  const { entry, container } = page.config
   return `
     import React from 'react'
     import ReactDOM from 'react-dom'
-    import Index from '${entry}'
-    ${container && `import Container from '${container}'`}
+    import Index from '${page.entry}'
+    ${page.container && `import Container from '${page.container}'`}
     const data = ${JSON.stringify({
       dev,
       page: {
         name: page.name,
         path: page.path,
-        title: page.config.title
+        title: page.title
       },
       project: {
         name: page.project.name,
@@ -22,7 +21,7 @@ export function getScriptString(page: ReactCSRPage, dev: boolean) {
       }
     })}
     ReactDOM.render(
-      ${container ? `
+      ${page.container ? `
         <Container {...data}>
           <Index {...data} />
         </Container>

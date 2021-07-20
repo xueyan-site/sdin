@@ -162,14 +162,14 @@ function getScssRule(dev: boolean): RuleSetRule {
 }
 
 function getBableRule(project: ReactCSR, dev: boolean): RuleSetRule {
-  const { module } = project.config
+  const { babelIncludes, babelExcludes } = project.module
   const rule: Partial<RuleSetRule> = {}
-  if (module.babelIncludes && module.babelIncludes.length > 0) {
-    rule.include = module.babelIncludes
+  if (babelIncludes.length > 0) {
+    rule.include = babelIncludes
   }
   rule.exclude = [/node_modules/]
-  if (module.babelExcludes && module.babelExcludes.length > 0) {
-    rule.exclude = rule.exclude.concat(module.babelExcludes)
+  if (babelExcludes.length > 0) {
+    rule.exclude = rule.exclude.concat(babelExcludes)
   }
   return {
     ...rule,

@@ -12,8 +12,6 @@ import { getRules } from '../common/module'
  * @returns 
  */
 export async function createWebpack(project: ReactCSR): Promise<Compiler> {
-  const config = project.config
-  const { module } = project.config
   const pages = await getPages(project, false)
   return Webpack({
     mode: 'development',
@@ -29,7 +27,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     module: {
       rules: getRules(project, true)
     },
-    externals: module.externals,
+    externals: project.module.externals,
     resolve: {
       extensions: [
         '.tsx',
@@ -38,7 +36,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
         '.js',
         '.json'
       ],
-      alias: mapValues(config.alias, value => {
+      alias: mapValues(project.alias, value => {
         return project.withRoot(value)
       })
     },

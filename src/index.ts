@@ -7,19 +7,25 @@ export {
 } from 'pro/package'
 
 export {
-  PackageCreater,
-  PackageCreaterProps,
-  PackageBuilder,
-  PackageBuilderProps
-} from 'scr/package'
-
-export {
   default as ReactCSR,
   REACT_CSR_TYPE,
   ReactCSRType,
   ReactCSRConfig,
   ReactCSRProps
 } from 'pro/react-csr'
+
+export {
+  default as ReactCSRPage,
+  ReactCSRPageConfig,
+  ReactCSRPageProps
+} from 'pro/react-csr-page'
+
+export {
+  PackageCreater,
+  PackageCreaterProps,
+  PackageBuilder,
+  PackageBuilderProps
+} from 'scr/package'
 
 export {
   ReactCSRCreater,

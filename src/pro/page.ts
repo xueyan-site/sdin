@@ -1,7 +1,7 @@
-import fse from 'fs-extra'
 import Application, { ApplicationConfig } from './application'
 import { uniqWith } from 'lodash'
 import { withPath } from 'utl/path'
+import { readJsonSync } from 'utl/read'
 
 /**
  * 节点属性键值对
@@ -16,51 +16,51 @@ export interface NodeAttrs {
  */
 export interface PageConfig {
   /**
-   * 名称（默认使用文件夹名）
+   * 页面名称
    */
   name?: string
 
   /**
-   * 页面url后缀（默认使用name）
+   * 页面url后缀
    */
   path?: string
 
   /**
    * 入口文件
    */
-  entry: string
+  entry?: string
 
   /**
    * 容器，默认是没有的
    * 若有，则会将entry作为children传入
    * 它会接收与entry相同的参数
    */
-  container: string
+  container?: string
 
   /**
    * 标题
    */
-  title: string
+  title?: string
 
   /**
    * 插入模版的meta标签
    */
-  metas: NodeAttrs[]
+  metas?: NodeAttrs[]
 
   /**
    * 插入模版的样式列表
    */
-  links: NodeAttrs[]
+  links?: NodeAttrs[]
 
   /**
    * 插入模版的脚本列表
    */
-  scripts: NodeAttrs[]
+  scripts?: NodeAttrs[]
 
   /**
    * 插入模版的样式列表
    */
-  styles: NodeAttrs[]
+  styles?: NodeAttrs[]
 }
 
 /**
@@ -81,47 +81,19 @@ export interface PageProps<
 }
 
 /**
- * 页面配置信息默认值
- */
-export const PAGE_CONFIG: PageConfig = {
-  entry: 'index.tsx',
-  container: '',
-  title: '',
-  metas: [],
-  links: [],
-  scripts: [],
-  styles: []
-}
-
-/**
  * 页面
  */
 export default abstract class Page<
   TProject extends Application<string, ApplicationConfig<string>>,
-  TPageConfig extends PageConfig
+  TConfig extends PageConfig
 > {
-  /**
-   * 页面所属项目
-   */
-  readonly project: TProject
-
   /**
    * 页面ID
    */
   readonly id: string
 
   /**
-   * 页面目录路径
-   */
-  readonly root: string
-
-  /**
-   * 页面名称（页面路径）
-   */
-  readonly name: string
-
-  /**
-   * 页面url路径（只包含非公共部分的路径）
+   * 页面url后缀（默认使用文件夹名）
    */
   readonly path: string
 
@@ -131,44 +103,90 @@ export default abstract class Page<
   readonly fullPath: string
 
   /**
-   * 页面配置信息
+   * 名称（默认使用path）
    */
-  readonly config: TPageConfig
+  readonly name: string
 
   /**
-   * 页面配置信息（未合并过默认配置的）
+   * 页面目录路径
    */
-  protected __config__: Partial<TPageConfig>
+  readonly root: string
 
-  constructor(props: PageProps<TProject>, defaultConfig: TPageConfig) {
+  /**
+   * 页面所属项目
+   */
+  readonly project: TProject
+
+  /**
+   * 页面配置文件内容
+   */
+  protected config: TConfig
+
+  /**
+   * 入口文件（默认使用index.tsx）
+   */
+  readonly entry: string
+
+  /**
+   * 容器，默认是没有的
+   * 若有，则会将entry作为children传入
+   * 它会接收与entry相同的参数
+   */
+  readonly container?: string
+
+  /**
+   * 标题
+   */
+  readonly title: string
+
+  /**
+   * 插入模版的meta标签
+   */
+  readonly metas: NodeAttrs[]
+
+  /**
+   * 插入模版的样式列表
+   */
+  readonly links: NodeAttrs[]
+
+  /**
+   * 插入模版的脚本列表
+   */
+  readonly scripts: NodeAttrs[]
+
+  /**
+   * 插入模版的样式列表
+   */
+  readonly styles: NodeAttrs[]
+
+  constructor(props: PageProps<TProject>, __config__: Partial<TConfig>) {
     const project = this.project = props.project
     this.root = project.withSrc(props.folder)
-    // 提取配置文件信息
-    const config: TPageConfig = { ...defaultConfig }
-    const __configPath__ = this.withRoot('page.js')
-    const __config__: TPageConfig = fse.existsSync(__configPath__)
-      ? require(__configPath__)
-      : {}
-    // 设置页面的名称、路由、id
-    this.path = __config__.path || props.folder
-    this.name = __config__.name || this.path
+    const config = this.config = readJsonSync('page.js', this.root) as any
+    // 设置页面的路由、名称、id
+    this.path = config.path || props.folder
     this.fullPath = props.project.joinPath(this.path)
     this.id = project.id + '_' + this.path
-    // 对配置文件信息进行整理
-    config.entry = __config__.entry || config.entry || 'index.tsx'
-    config.entry = this.withRoot(config.entry)
-    if (__config__.container) {
-      config.container = this.withRoot(__config__.container)
-    } else if (config.container) {
-      config.container = this.project.withRoot(config.container)
+    this.name = config.name || this.path
+    // 设置页面的文件入口
+    this.entry = config.entry || __config__.entry || 'index.tsx'
+    this.entry = this.withRoot(this.entry)
+    // 外层容器组件
+    if (config.container) {
+      this.container = this.withRoot(config.container)
+    } else if (__config__.container) {
+      this.container = this.project.withRoot(__config__.container)
     }
-    config.title = __config__.title || config.title || (this.name + ' ' + project.name)
-    config.metas = uniqWith((__config__.metas || []).concat(config.metas), this.compareWithId)
-    config.links = uniqWith((__config__.links || []).concat(config.links), this.compareWithId)
-    config.scripts = uniqWith((__config__.scripts || []).concat(config.scripts), this.compareWithId)
-    config.styles = uniqWith((__config__.styles || []).concat(config.styles), this.compareWithId)
-    this.config = config
-    this.__config__ = __config__
+    // 设置页面标题
+    this.title = config.title || __config__.title
+    if (!this.title) {
+      this.title = this.name + ' ' + project.name
+    }
+    // 设置页面元信息、链接、脚本、样式
+    this.metas = this.uniqNodeAttrs(config.metas, __config__.metas)
+    this.links = this.uniqNodeAttrs(config.links, __config__.links)
+    this.scripts = this.uniqNodeAttrs(config.scripts, __config__.scripts)
+    this.styles = this.uniqNodeAttrs(config.styles, __config__.styles)
   }
 
   /**
@@ -186,10 +204,23 @@ export default abstract class Page<
   }
 
   /**
+   * 确保节点唯一
+   * @param name 
+   */
+  protected uniqNodeAttrs(a: NodeAttrs[] | undefined, b: NodeAttrs[] | undefined): NodeAttrs[] {
+    if (a && b) {
+      return uniqWith(a.concat(b), this.compareWithId)
+    } else {
+      return a || b || []
+    }
+  }
+
+  /**
    * 将节点们转换成字符串
    */
-  nodesToString(label: string, nodes: NodeAttrs[]) {
+  getNodeListString(label: 'links' | 'metas' | 'styles' | 'scripts') {
     const full = ['script'].includes(label)
+    const nodes = this[label]
     return nodes.map(node => {
       const keys = Object.keys(node).filter(key => key !== 'id')
       if (keys.length <= 0) {
