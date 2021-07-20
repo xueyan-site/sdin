@@ -1,9 +1,10 @@
 import { mapValues } from 'lodash'
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import Webpack, { Compiler, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin } from 'webpack'
 import ReactCSR from 'pro/react-csr'
 import { cmdNmPath } from 'utl/path'
 import { getPages } from '../common/page'
 import { getRules } from '../common/module'
-import Webpack, { Compiler, HotModuleReplacementPlugin } from 'webpack'
 
 /**
  * 获取webpack配置
@@ -49,33 +50,9 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     },
     plugins: [
       new HotModuleReplacementPlugin(),
+      new ReactRefreshWebpackPlugin(),
+      new NoEmitOnErrorsPlugin(),
       ...pages.plugins
-    ],
-    optimization: {
-      // 运行时代码
-      runtimeChunk: {
-        name: 'manifest'
-      },
-      splitChunks: {
-        cacheGroups: {
-          // 打包业务中公共代码
-          common: {
-            name: "common",
-            chunks: "initial",
-            minSize: 1,
-            priority: 0,
-            minChunks: 2, // 同时引用了2次才打包
-          },
-          // 打包第三方库的文件
-          vendor: {
-            name: "vendor",
-            test: /[\\/]node_modules[\\/]/,
-            chunks: "initial",
-            priority: 10,
-            minChunks: 2, // 同时引用了2次才打包
-          }
-        }
-      }
-    }
+    ]
   })
 }

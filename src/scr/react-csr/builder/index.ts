@@ -9,12 +9,7 @@ import { handleAssets } from '../common/assets'
 /**
  * react应用构建器实例化参数
  */
-export interface ReactCSRBuilderProps extends BuilderProps<ReactCSR> {
-  /**
-   * 是否是测试环境
-   */
-  test?: boolean
-}
+export interface ReactCSRBuilderProps extends BuilderProps<ReactCSR> {}
 
 /**
  * react应用构建器

@@ -17,19 +17,6 @@ export const REACT_CSR_TYPE: ReactCSRType = 'react-csr'
  */
 export interface ReactCSRModuleConfig {
   /**
-   * 资源的公共路径
-   * <https://webpack.docschina.org/configuration/output/#outputpublicpath> 
-   */
-  path: string
-
-  /**
-   * 默认页面
-   * 若不写，则默认使用index页面
-   * 若没有index页面，则返回404
-   */
-  index: string
-
-  /**
    * 模块扩展
    */
   externals: AnyObject<string>
@@ -50,8 +37,6 @@ export interface ReactCSRModuleConfig {
 }
 
 const REACT_CSR_MODULE_CONFIG: ReactCSRModuleConfig = {
-  path: '/',
-  index: 'index',
   externals: {},
   babelIncludes: [],
   babelExcludes: []
@@ -121,6 +106,8 @@ export const REACT_CSR_CONFIG: ReactCSRConfig = {
   type: REACT_CSR_TYPE,
   name: '',
   path: '/',
+  index: '',
+  error: '',
   page: REACT_CSR_PAGE_CONFIG,
   module: REACT_CSR_MODULE_CONFIG,
   serve: REACT_CSR_SERVE_CONFIG,
@@ -143,6 +130,11 @@ export default class ReactCSR extends Application<
   ReactCSRConfig
 > {
   /**
+   * 项目原始的公共资源文件目录
+   */
+  readonly astPub: string
+
+  /**
    * 页面列表
    */
   readonly pageList: ReactCSRPage[] = []
@@ -154,6 +146,7 @@ export default class ReactCSR extends Application<
 
   constructor(props: ReactCSRProps) {
     super(props, REACT_CSR_CONFIG)
+    this.astPub = this.withPub('ast')
     this.pageList = this.getPageList()
     this.pageMap = keyBy(this.pageList, 'name')
     const { start, serve } = this.config

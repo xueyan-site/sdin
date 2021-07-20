@@ -14,7 +14,7 @@ export async function handleAssets(project: ReactCSR) {
   const scrFilter = gulpFilter('**/*.js', { restore: true })
   const styFilter = gulpFilter('**/*.css', { restore: true })
   return pipeline(
-    gulp.src('**/*', { cwd: project.withPub('ast') }),
+    gulp.src('**/*', { cwd: project.astPub }),
     scrFilter,
     gulpBabel({
       presets: [cmdNmPath('@babel/preset-env')],

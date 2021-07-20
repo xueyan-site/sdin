@@ -15,7 +15,12 @@ export interface ApplicationConfig<TType extends string> extends ProjectConfig<T
    * 项目的根页面
    * 若不写，则没有项目的根页面
    */
-  index?: string
+  index: string
+
+  /**
+   * 错误页面
+   */
+  error: string
 }
 
 /**
@@ -41,7 +46,12 @@ export default abstract class Application<
   /**
    * 项目的根页面（填写的应当是页面的path）
    */
-  readonly index?: string
+  readonly index: string
+
+  /**
+   * 项目的错误页面（填写的应当是页面的path）
+   */
+  readonly error: string
 
   constructor(props: ApplicationProps<TType, TConfig>, defaultConfig: TConfig) {
     super(props, defaultConfig)
@@ -49,8 +59,14 @@ export default abstract class Application<
     const __config__ = this.__config__
     this.path = config.path = __config__.path || '/'
     this.index = config.index
+    this.error = config.error
   }
 
+  /**
+   * 以本项目公共path为前缀，拼接url的path
+   * @param pathList 
+   * @returns 
+   */
   joinPath(...pathList: string[]) {
     return joinPath(this.path, ...pathList)
   }

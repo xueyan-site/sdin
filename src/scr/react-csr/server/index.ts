@@ -1,28 +1,18 @@
 import ReactCSR from 'pro/react-csr'
-import Starter, { StarterProps } from 'exe/starter'
+import Server, { ServerProps } from 'exe/server'
 import { printInfo } from 'utl/print'
 import { createServer } from './server'
 
 /**
  * react应用创建器实例化参数
  */
-export interface ReactCSRStarterProps extends StarterProps<ReactCSR> {
-  /**
-   * 是否是测试环境
-   */
-  test?: boolean
-
-  /**
-   * 是否是预发环境
-   */
-  prev?: boolean
-}
+export interface ReactCSRServerProps extends ServerProps<ReactCSR> {}
 
 /**
  * react应用创建器
  */
-export default class ReactCSRStarter extends Starter<ReactCSR> {
-  constructor(props: ReactCSRStarterProps) {
+export default class ReactCSRServer extends Server<ReactCSR> {
+  constructor(props: ReactCSRServerProps) {
     super(props)
   }
 

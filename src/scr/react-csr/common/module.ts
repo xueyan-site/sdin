@@ -22,7 +22,7 @@ export function getRules(project: ReactCSR, dev: boolean): RuleSetRule[] {
     getVideoRule(),
     getCssRule(dev),
     getScssRule(dev),
-    getBableRule(project)
+    getBableRule(project, dev)
   ]
 }
 
@@ -114,16 +114,12 @@ function getCssRule(dev: boolean): RuleSetRule {
         options: {
           sourceMap: dev ? false : true,
           postcssOptions: {
-            plugins: dev ? [
-              Autoprefixer,
-              PostcssImport(),
-              PostcssPresetEnv()
-            ] : [
+            plugins: [
               Autoprefixer,
               PostcssImport(),
               PostcssPresetEnv(),
-              Cssnano()
-            ]
+              dev ? Cssnano() : false
+            ].filter(Boolean)
           }
         }
       }
@@ -149,16 +145,12 @@ function getScssRule(dev: boolean): RuleSetRule {
         options: {
           sourceMap: dev ? false : true,
           postcssOptions: {
-            plugins: dev ? [
-              Autoprefixer,
-              PostcssImport(),
-              PostcssPresetEnv()
-            ] : [
+            plugins: [
               Autoprefixer,
               PostcssImport(),
               PostcssPresetEnv(),
-              Cssnano()
-            ]
+              dev ? Cssnano() : false
+            ].filter(Boolean)
           }
         }
       },
@@ -169,7 +161,7 @@ function getScssRule(dev: boolean): RuleSetRule {
   }
 }
 
-function getBableRule(project: ReactCSR): RuleSetRule {
+function getBableRule(project: ReactCSR, dev: boolean): RuleSetRule {
   const { module } = project.config
   const rule: Partial<RuleSetRule> = {}
   if (module.babelIncludes && module.babelIncludes.length > 0) {
@@ -198,7 +190,8 @@ function getBableRule(project: ReactCSR): RuleSetRule {
           ],
           plugins: [
             cmdNmPath('@babel/plugin-proposal-class-properties'),
-          ]
+            dev && cmdNmPath('react-refresh/babel')
+          ].filter(Boolean)
         }
       }
     ]
