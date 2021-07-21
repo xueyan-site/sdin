@@ -7,11 +7,11 @@ export function getTemplateString(page: ReactCSRPage, dev: boolean) {
       <head>
         <script>window._t1_=Date.now()</script>
         <meta charset="UTF-8"/>
-        ${page.getNodeListString('metas')}
+        ${page.getNodeListString('meta', page.metas)}
         <title>${dev ? '⚡️' : ''}${page.title}</title>
-        ${page.getNodeListString('links')}
-        ${page.getNodeListString('scripts')}
-        ${page.getNodeListString('links')}
+        ${page.getNodeListString('link', page.links)}
+        ${page.getNodeListString('script', page.scripts)}
+        ${page.getNodeListString('link', page.styles)}
       </head>
       <body>
         <script>window._t2_=Date.now()</script>

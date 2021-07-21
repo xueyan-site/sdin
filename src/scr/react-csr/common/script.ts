@@ -5,7 +5,7 @@ export function getScriptString(page: ReactCSRPage, dev: boolean) {
     import React from 'react'
     import ReactDOM from 'react-dom'
     import Index from '${page.entry}'
-    ${page.container && `import Container from '${page.container}'`}
+    ${page.container ? `import Container from '${page.container}'` : ''}
     const data = ${JSON.stringify({
       dev,
       page: {

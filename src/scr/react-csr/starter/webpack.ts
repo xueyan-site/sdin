@@ -12,7 +12,7 @@ import { getRules } from '../common/module'
  * @returns 
  */
 export async function createWebpack(project: ReactCSR): Promise<Compiler> {
-  const pages = await getPages(project, false)
+  const pages = await getPages(project, true)
   return Webpack({
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',

@@ -159,7 +159,7 @@ export default abstract class Page<
    */
   readonly styles: NodeAttrs[]
 
-  constructor(props: PageProps<TProject>, __config__: Partial<TConfig>) {
+  constructor(props: PageProps<TProject>, __config__: TConfig) {
     const project = this.project = props.project
     this.root = project.withSrc(props.folder)
     const config = this.config = readJsonSync('page.js', this.root) as any
@@ -218,9 +218,8 @@ export default abstract class Page<
   /**
    * 将节点们转换成字符串
    */
-  getNodeListString(label: 'links' | 'metas' | 'styles' | 'scripts') {
+  getNodeListString(label: string, nodes: NodeAttrs[]) {
     const full = ['script'].includes(label)
-    const nodes = this[label]
     return nodes.map(node => {
       const keys = Object.keys(node).filter(key => key !== 'id')
       if (keys.length <= 0) {

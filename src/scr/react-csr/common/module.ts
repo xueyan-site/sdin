@@ -21,7 +21,7 @@ export function getRules(project: ReactCSR, dev: boolean): RuleSetRule[] {
     getAudioRule(),
     getVideoRule(),
     getCssRule(dev),
-    getScssRule(dev),
+    getScssRule(project, dev),
     getBableRule(project, dev)
   ]
 }
@@ -127,7 +127,7 @@ function getCssRule(dev: boolean): RuleSetRule {
   }
 }
 
-function getScssRule(dev: boolean): RuleSetRule {
+function getScssRule(project: ReactCSR, dev: boolean): RuleSetRule {
   return {
     test: /\.scss$/,
     use: [
@@ -137,7 +137,11 @@ function getScssRule(dev: boolean): RuleSetRule {
         options: {
           sourceMap: dev ? false : true,
           importLoaders: 2,
-          modules: true
+          modules: {
+            exportLocalsConvention: "camelCase",
+            localIdentName: dev ? '[path][name]_[local]' : '[hash:base64:12]',
+            localIdentContext: project.root
+          }
         }
       },
       {
