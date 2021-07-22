@@ -1,5 +1,5 @@
 import { mapValues } from 'lodash'
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import Webpack, { Compiler, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin } from 'webpack'
 import ReactCSR from 'pro/react-csr'
 import { cmdNmPath } from 'utl/path'
@@ -48,7 +48,11 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     },
     plugins: [
       new HotModuleReplacementPlugin(),
-      new ReactRefreshWebpackPlugin(),
+      new ReactRefreshPlugin({
+        overlay: {
+          sockIntegration: 'whm'
+        }
+      }),
       new NoEmitOnErrorsPlugin(),
       ...pages.plugins
     ]
