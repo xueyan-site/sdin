@@ -25,7 +25,7 @@ export default class ReactCSRServer extends Server<ReactCSR> {
         resolve()
       })
       server.listen(project.serve.port, () => {
-        printInfo(`application ${project.name} listening on http://127.0.0.1:${project.serve.port}\n`)
+        printInfo(`project ${project.name} listening on http://127.0.0.1:${project.serve.port}\n`)
       })
     })
   }

@@ -16,13 +16,15 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
   return Webpack({
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',
+    context: project.root,
     entry: pages.entry,
     output: {
       path: project.webDist,
       pathinfo: true,
       publicPath: project.path,
-      filename: 'js/[name].[fullhash:8].js',
-      chunkFilename: 'js/[name].[fullhash:8].m.js'
+      hashDigestLength: 8,
+      filename: 'js/[name].[chunkhash].js',
+      chunkFilename: 'js/[id].[chunkhash].js'
     },
     module: {
       rules: getRules(project, true)

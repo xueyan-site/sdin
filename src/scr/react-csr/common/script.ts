@@ -2,9 +2,9 @@ import ReactCSRPage from 'pro/react-csr-page'
 
 export function getScriptString(page: ReactCSRPage, dev: boolean) {
   return `
-    import React from 'react'
+    import React, { useEffect } from 'react'
     import ReactDOM from 'react-dom'
-    import Index from '${page.entry}'
+    import Entry from '${page.entry}'
     ${page.container ? `import Container from '${page.container}'` : ''}
     const data = ${JSON.stringify({
       dev,
@@ -20,15 +20,17 @@ export function getScriptString(page: ReactCSRPage, dev: boolean) {
         version: page.project.version
       }
     })}
-    ReactDOM.render(
-      ${page.container ? `
+    const App = () => {
+      performance._d=Date.now()
+      useEffect(() => {
+        performance._e=Date.now()
+      })
+      return ${page.container ? `(
         <Container {...data}>
-          <Index {...data} />
+          <Entry {...data} />
         </Container>
-      ` : `
-        <Index {...data} />
-      `},
-      document.getElementById('app')
-    )
+      )` : '<Entry {...data} />'}
+    }
+    ReactDOM.render(<App />, document.getElementById('app'))
   `
 }

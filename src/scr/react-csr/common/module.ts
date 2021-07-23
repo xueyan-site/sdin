@@ -1,8 +1,4 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import PostcssImport from 'postcss-import'
-import PostcssPresetEnv from 'postcss-preset-env'
-import Autoprefixer from 'autoprefixer'
-import Cssnano from 'cssnano'
 import ReactCSR from 'pro/react-csr'
 import { cmdNmPath } from 'utl/path'
 import { RuleSetRule } from 'webpack'
@@ -31,7 +27,7 @@ function getTextRule() {
     test: /\.txt$/i,
     type: 'asset/source',
     generator: {
-      filename: 'fnt/[name].[fullhash:8].[ext][query]'
+      filename: 'raw/[name].[contenthash].[ext]'
     }
   }
 }
@@ -41,7 +37,7 @@ function getFontRule() {
     test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
     type: 'asset',
     generator: {
-      filename: 'fnt/[name].[fullhash:8].[ext][query]'
+      filename: 'fnt/[name].[contenthash].[ext]'
     },
     parser: {
       dataUrlCondition: {
@@ -56,7 +52,7 @@ function getImageRule() {
     test: /\.(png|jpg|jpeg|svg|gif|bmp|webp|tif)(\?.*)?$/,
     type: 'asset',
     generator: {
-      filename: 'img/[name].[fullhash:8].[ext][query]'
+      filename: 'img/[name].[contenthash].[ext]'
     },
     parser: {
       dataUrlCondition: {
@@ -71,7 +67,7 @@ function getAudioRule() {
     test: /\.(mp3|wma|wav|aac|amr|ogg)(\?.*)?$/,
     type: 'asset',
     generator: {
-      filename: 'ado/[name].[fullhash:8].[ext][query]'
+      filename: 'ado/[name].[contenthash].[ext]'
     },
     parser: {
       dataUrlCondition: {
@@ -86,7 +82,7 @@ function getVideoRule() {
     test: /\.(mp4|3gp|mpg|avi|wmv|flv)(\?.*)?$/,
     type: 'asset',
     generator: {
-      filename: 'vdo/[name].[fullhash:8].[ext][query]'
+      filename: 'vdo/[name].[contenthash].[ext]'
     },
     parser: {
       dataUrlCondition: {
@@ -97,6 +93,7 @@ function getVideoRule() {
 }
 
 function getCssRule(dev: boolean): RuleSetRule {
+  const sourceMap = dev ? false : true
   return {
     test: /\.css$/,
     use: [
@@ -104,7 +101,7 @@ function getCssRule(dev: boolean): RuleSetRule {
       {
         loader: 'css-loader',
         options: {
-          sourceMap: dev ? false : true,
+          sourceMap,
           importLoaders: 1,
           modules: false
         }
@@ -112,13 +109,12 @@ function getCssRule(dev: boolean): RuleSetRule {
       {
         loader: 'postcss-loader',
         options: {
-          sourceMap: dev ? false : true,
+          sourceMap,
           postcssOptions: {
             plugins: [
-              Autoprefixer,
-              PostcssImport(),
-              PostcssPresetEnv(),
-              dev ? Cssnano() : false
+              'postcss-import',
+              'postcss-preset-env',
+              dev ? false : 'cssnano'
             ].filter(Boolean)
           }
         }
@@ -128,6 +124,7 @@ function getCssRule(dev: boolean): RuleSetRule {
 }
 
 function getScssRule(project: ReactCSR, dev: boolean): RuleSetRule {
+  const sourceMap = dev ? false : true
   return {
     test: /\.scss$/,
     use: [
@@ -135,7 +132,7 @@ function getScssRule(project: ReactCSR, dev: boolean): RuleSetRule {
       {
         loader: 'css-loader',
         options: {
-          sourceMap: dev ? false : true,
+          sourceMap,
           importLoaders: 2,
           modules: {
             exportLocalsConvention: "camelCase",
@@ -147,19 +144,21 @@ function getScssRule(project: ReactCSR, dev: boolean): RuleSetRule {
       {
         loader: 'postcss-loader',
         options: {
-          sourceMap: dev ? false : true,
+          sourceMap,
           postcssOptions: {
             plugins: [
-              Autoprefixer,
-              PostcssImport(),
-              PostcssPresetEnv(),
-              dev ? Cssnano() : false
+              'postcss-import',
+              'postcss-preset-env',
+              dev ? false : 'cssnano'
             ].filter(Boolean)
           }
         }
       },
       {
-        loader: 'sass-loader'
+        loader: 'sass-loader',
+        options: {
+          sourceMap
+        }
       }
     ]
   }
@@ -182,11 +181,11 @@ function getBableRule(project: ReactCSR, dev: boolean): RuleSetRule {
       {
         loader: 'babel-loader',
         options: {
-          cacheDirectory: true,
-          cacheCompression: false,
           compact: false,
           babelrc: false,
           configFile: false,
+          cacheDirectory: true,
+          cacheCompression: false,
           presets: [
             cmdNmPath('@babel/preset-env'),
             cmdNmPath('@babel/preset-react'),

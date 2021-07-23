@@ -25,7 +25,7 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
     printLoading(`project ${this.project.name} is being built`)
     await handleAssets(this.project)
     await this.scriptTask()
-    return printSuccess(`project ${this.project.name} has been built successfully`)
+    return printSuccess(`project ${this.project.name} was built successfully`)
   }
 
   /**
@@ -37,7 +37,7 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
     return new Promise<void>((resolve, reject) => {
       this.on('close', () => {
         compiler.close(() => {
-          printInfo(`${project.name} build process is closed`)
+          printInfo(`project ${project.name} build process is closed`)
           resolve()
         })
       })
@@ -49,7 +49,7 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
           printError(stats.toString('errors-only'))
           reject()
         } else {
-          printSuccess(`${project.name} was built successfully!`)
+          printSuccess(`project ${project.name} was built successfully!`)
           if (stats) {
             console.log(stats.toString({
               all: false,

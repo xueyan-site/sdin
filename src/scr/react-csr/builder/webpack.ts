@@ -16,12 +16,14 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
   return Webpack({
     mode: 'production',
     devtool: 'cheap-module-source-map',
+    context: project.root,
     entry: pages.entry,
     output: {
       path: project.webDist,
       publicPath: project.path,
-      filename: 'js/[name].[fullhash:8].js',
-      chunkFilename: 'js/[name].[fullhash:8].m.js'
+      hashDigestLength: 12,
+      filename: 'js/[name].[chunkhash].js',
+      chunkFilename: 'js/[id].[chunkhash].js'
     },
     module: {
       rules: getRules(project, false)
@@ -48,21 +50,21 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     plugins: [
       new ProgressPlugin(),
       new MiniCssExtractPlugin({
-        filename: 'css/[name].[fullhash:8].css',
-        chunkFilename: 'css/[name].[fullhash:8].m.css',
+        filename: 'css/[name].[contenthash].css',
+        chunkFilename: 'css/[id].[contenthash].css'
       }),
       ...pages.plugins
     ],
     optimization: {
       // 运行时代码
       runtimeChunk: {
-        name: 'manifest'
+        name: (entry: any) => entry.name + '_rc'
       },
       splitChunks: {
         cacheGroups: {
           // 打包业务中公共代码
           common: {
-            name: "common",
+            name: "com_cc",
             chunks: "initial",
             minSize: 1,
             priority: 0,
@@ -70,7 +72,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
           },
           // 打包第三方库的文件
           vendor: {
-            name: "vendor",
+            name: "vdr_cc",
             test: /[\\/]node_modules[\\/]/,
             chunks: "initial",
             priority: 10,
