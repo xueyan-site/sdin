@@ -112,9 +112,9 @@ function getCssRule(dev: boolean): RuleSetRule {
           sourceMap,
           postcssOptions: {
             plugins: [
-              'postcss-import',
-              'postcss-preset-env',
-              dev ? false : 'cssnano'
+              cmdNmPath('postcss-import'),
+              cmdNmPath('postcss-preset-env'),
+              dev ? false : cmdNmPath('cssnano')
             ].filter(Boolean)
           }
         }
@@ -136,7 +136,7 @@ function getScssRule(project: ReactCSR, dev: boolean): RuleSetRule {
           importLoaders: 2,
           modules: {
             exportLocalsConvention: "camelCase",
-            localIdentName: dev ? '[path][name]_[local]' : '[hash:base64:12]',
+            localIdentName: dev ? '[local]_[hash:base64:8]' : '[hash:base64:12]',
             localIdentContext: project.root
           }
         }
@@ -147,9 +147,9 @@ function getScssRule(project: ReactCSR, dev: boolean): RuleSetRule {
           sourceMap,
           postcssOptions: {
             plugins: [
-              'postcss-import',
-              'postcss-preset-env',
-              dev ? false : 'cssnano'
+              cmdNmPath('postcss-import'),
+              cmdNmPath('postcss-preset-env'),
+              dev ? false : cmdNmPath('cssnano')
             ].filter(Boolean)
           }
         }
@@ -192,7 +192,7 @@ function getBableRule(project: ReactCSR, dev: boolean): RuleSetRule {
             cmdNmPath('@babel/preset-typescript'),
           ],
           plugins: [
-            cmdNmPath('@babel/plugin-proposal-class-properties'),
+            cmdNmPath('@babel/plugin-transform-runtime'),
             dev && cmdNmPath('react-refresh/babel')
           ].filter(Boolean)
         }

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander'
-import { printExitError } from 'utl/print'
+import { printExitError, printInfo } from 'utl/print'
 import { cwdPath } from 'utl/path'
 import { readProjectMeta } from 'pro/project'
 import Package, { PACKAGE_TYPE } from 'pro/package'
@@ -9,9 +9,11 @@ import ReactCSR, { REACT_CSR_TYPE } from 'pro/react-csr'
 import { PackageBuilder } from 'scr/package'
 import { ReactCSRBuilder } from 'scr/react-csr'
 
+process.env.XT_CMD = 'build'
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))
 
+printInfo('welcome to use xueyan-typescript-cli')
 const program = new Command()
 
 program
@@ -22,7 +24,10 @@ program
   .parse(process.argv)
 
 async function action(path?: string) {
-  const meta = readProjectMeta(cwdPath(path || ''))
+  const projectPath = cwdPath(path || '')
+  process.env.XT_PATH = projectPath
+  const meta = readProjectMeta(projectPath)
+  process.env.XT_TYPE = meta.type
   if (meta.type === PACKAGE_TYPE) {
     const builder = new PackageBuilder({
       project: new Package(meta),

@@ -66,27 +66,27 @@ export default class Package extends Project<
   /**
    * 构建出web端使用的脚本
    */
-  buildWeb: boolean
+  readonly buildWeb: boolean
 
   /**
    * 构建出node端使用的脚本
    */
-  buildNode: boolean
+  readonly buildNode: boolean
 
   /**
    * 构建出定义文件
    */
-  buildTypes: boolean 
+  readonly buildTypes: boolean 
 
   /**
    * 使用react
    */
-  useReact: boolean
+  readonly useReact: boolean
 
   /**
    * 混淆代码
    */
-  useUglify: boolean
+  readonly useUglify: boolean
   
   constructor(props: PackageProps) {
     super(PACKAGE_TYPE, props)

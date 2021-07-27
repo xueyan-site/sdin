@@ -7,8 +7,9 @@ import { readJsonSync } from 'utl/read'
  * 节点属性键值对
  */
 export interface NodeAttrs {
-  id: string
-  [prop: string]: string | true
+  key: string
+  children: string | undefined
+  [prop: string]: string | boolean | undefined
 }
 
 /**
@@ -216,27 +217,45 @@ export default abstract class Page<
   }
 
   /**
-   * 将节点们转换成字符串
+   * 将节点们转换成标签
    */
-  getNodeListString(label: string, nodes: NodeAttrs[]) {
+  nodesToHTML(label: string, nodes: NodeAttrs[]) {
     const full = ['script'].includes(label)
-    return nodes.map(node => {
-      const keys = Object.keys(node).filter(key => key !== 'id')
-      if (keys.length <= 0) {
-        return undefined
-      }
-      const attrs = keys.map(key => {
-        if (node[key] === true) {
-          return key
-        } else {
-          return key + '="' + node[key] + '"'
+    let strs: string[] = []
+    for (let i = 0, node: NodeAttrs; i < nodes.length; i++) {
+      node = nodes[i]
+      let attrs: string[] = []
+      let children: string | undefined
+      const keys = Object.keys(node)
+      for (let j = 0, key: string, value: any; j < keys.length; j++) {
+        key = keys[j]
+        if (key === 'key') {
+          continue
         }
-      }).join(' ')
-      if (full) {
-        return '<' + label + ' ' + attrs + '></' + label + '>'
-      } else {
-        return '<' + label + ' ' + attrs + '/>'
+        value = node[key]
+        if (key === 'children') {
+          children = value
+          continue
+        }
+        if (value === true) {
+          attrs.push(key)
+        } else {
+          attrs.push(key + '="' + value + '"')
+        }
       }
-    }).filter(i => i !== undefined).join('\n')
+      if (attrs.length <= 0) {
+        continue
+      }
+      const attrstr = attrs.join(' ')
+      const labelpre = '<' + label + ' ' + attrstr
+      if (children) {
+        strs.push(labelpre + '>' + children + '</' + label + '>')
+      } else if (full) {
+        strs.push(labelpre + '></' + label + '>')
+      } else {
+        strs.push(labelpre + '/>')
+      }
+    }
+    return strs.join('\n')
   }
 }

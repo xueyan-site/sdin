@@ -203,7 +203,7 @@ export default abstract class Project<
   /**
    * ts配置的缓存
    */
-  private tsconfig?: AnyObject
+  private __tsConfig__?: AnyObject
 
   constructor(type: TType, props: ProjectProps<TType, TConfig>) {
     // 确定项目的类型
@@ -294,9 +294,9 @@ export default abstract class Project<
    * 获取项目的ts配置
    */
   getTsconfig() {
-    if (!this.tsconfig) {
-      this.tsconfig = readJsonSync(this.tsc)
+    if (!this.__tsConfig__) {
+      this.__tsConfig__ = readJsonSync(this.tsc)
     }
-    return this.tsconfig
+    return this.__tsConfig__
   }
 }

@@ -16,7 +16,7 @@ export interface WebStaticOptions extends Omit<Options, 'maxage'> {
  */
 export function webStatic(options: WebStaticOptions) {
   if (options.maxAge === undefined) {
-    options.maxAge = 31536000 * 1000 // 一年
+    options.maxAge = 31536000000 // 一年
   }
   if (options.maxAge) {
     options.immutable = true

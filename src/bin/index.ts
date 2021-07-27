@@ -9,7 +9,6 @@ import { CMD } from 'utl/path'
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))
 
-printInfo('welcome to use xueyan-typescript-cli')
 const program = new Command()
 const packageInfo = readPackageInfoSync(CMD)
 
@@ -67,13 +66,13 @@ const SUB_CMD_LIST: {
  * <http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=xy-ts>
  */
 const HELP_INFO = `
-██╗  ██╗██╗   ██╗  ████████╗███████╗
-╚██╗██╔╝╚██╗ ██╔╝  ╚══██╔══╝██╔════╝
- ╚███╔╝  ╚████╔╝█████╗██║   ███████╗
- ██╔██╗   ╚██╔╝ ╚════╝██║   ╚════██║
-██╔╝ ██╗   ██║        ██║   ███████║
-╚═╝  ╚═╝   ╚═╝        ╚═╝   ╚══════╝
-
+██╗  ██╗████████╗
+╚██╗██╔╝╚══██╔══╝
+ ╚███╔╝    ██║   
+ ██╔██╗    ██║   
+██╔╝ ██╗   ██║   
+╚═╝  ╚═╝   ╚═╝   
+                 
 name:        ${packageInfo.name}
 author:      ${packageInfo.author}
 version:     ${packageInfo.version}

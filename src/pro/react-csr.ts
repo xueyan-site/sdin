@@ -63,6 +63,16 @@ export interface ReactCSRStartConfig extends ReactCSRServeConfig {}
  */
 export interface ReactCSRConfig extends ApplicationConfig<ReactCSRType> {
   /**
+   * 项目的根页面
+   */
+  index?: string
+
+  /**
+   * 错误页面
+   */
+  error?: string
+
+  /**
    * 页面的全局默认配置
    */
   page?: Partial<ReactCSRPageConfig>
@@ -104,24 +114,34 @@ export default class ReactCSR extends Application<
   readonly astPub: string
 
   /**
-   * 页面的全局默认配置
+   * 项目的根页面（填写的应当是页面的path）
    */
-  page: ReactCSRPageConfig
+  readonly index?: string
+
+  /**
+   * 项目的错误页面（填写的应当是页面的path）
+   */
+  readonly error?: string
 
   /**
    * 模块配置信息
    */
-  module: ReactCSRModuleConfig
+  readonly module: ReactCSRModuleConfig
 
   /**
    * 服务配置信息
    */
-  serve: ReactCSRServeConfig
+  readonly serve: ReactCSRServeConfig
 
   /**
    * 服务配置信息（开发时期）
    */
-  start: ReactCSRStartConfig
+  readonly start: ReactCSRStartConfig
+
+  /**
+   * 页面的全局默认配置
+   */
+  readonly __pageConfig__: ReactCSRPageConfig
 
   /**
    * 页面列表
@@ -131,14 +151,15 @@ export default class ReactCSR extends Application<
   /**
    * 页面映射表
    */
-  private readonly pageMap: AnyObject<ReactCSRPage> = {}
+  private __pageMap__: AnyObject<ReactCSRPage> = {}
 
   constructor(props: ReactCSRProps) {
     super(REACT_CSR_TYPE, props)
     const config = this.config
     this.astPub = this.withPub('ast')
     // 设置项目的页面全局配置，模块、服务、开发等配置信息
-    this.page = config.page || {}
+    this.index = config.index
+    this.error = config.error
     this.module = defaultsDeep({}, config.module, {
       externals: {},
       babelIncludes: [],
@@ -153,8 +174,9 @@ export default class ReactCSR extends Application<
       port: 8080
     })
     // 设置项目的页面
+    this.__pageConfig__ = config.page || {}
     this.pageList = this.getPageList()
-    this.pageMap = keyBy(this.pageList, 'path')
+    this.__pageMap__ = keyBy(this.pageList, 'path')
   }
 
   /**
@@ -162,7 +184,7 @@ export default class ReactCSR extends Application<
    * @returns 
    */
   getPage(name?: string): ReactCSRPage | undefined {
-    return this.pageMap[name || '']
+    return this.__pageMap__[name || '']
   }
 
   /**

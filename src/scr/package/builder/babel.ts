@@ -62,8 +62,7 @@ export function getBabelOptions(project: Package, target: 'web' | 'node'): any {
       ].filter(Boolean),
       plugins: [
         getModuleAliasPlugin(project),
-        cmdNmPath('@babel/plugin-transform-runtime'),
-        cmdNmPath('@babel/plugin-proposal-class-properties')
+        cmdNmPath('@babel/plugin-transform-runtime')
       ].filter(Boolean)
     }
     optionsMap[key] = options

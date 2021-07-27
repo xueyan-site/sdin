@@ -11,9 +11,11 @@ import ReactCSR, { REACT_CSR_TYPE } from 'pro/react-csr'
 import { PackageCreater } from 'scr/package'
 import { ReactCSRCreater } from 'scr/react-csr'
 
+process.env.XT_CMD = 'create'
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))
 
+printInfo('welcome to use xueyan-typescript-cli')
 printInfo('the project creation process is ready')
 const program = new Command()
 
@@ -122,6 +124,8 @@ async function action(path?: string) {
       author: `${answers.author} <${answers.email}>`
     }
   }
+  process.env.XT_PATH = answers.root
+  process.env.XT_TYPE = meta.type
   if (meta.type === PACKAGE_TYPE) {
     const creater = new PackageCreater({
       project: new Package(meta),

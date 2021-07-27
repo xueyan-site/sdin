@@ -1,4 +1,4 @@
-import { mapValues } from 'lodash'
+import { mapValues, omit } from 'lodash'
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import Webpack, { Compiler, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin } from 'webpack'
 import ReactCSR from 'pro/react-csr'
@@ -13,6 +13,9 @@ import { getRules } from '../common/module'
  */
 export async function createWebpack(project: ReactCSR): Promise<Compiler> {
   const pages = await getPages(project, true)
+  // 在开发模式下，需要确保externals中不包含react和react-dom
+  // 否则，react-refresh不会生效。
+  const externals = omit(project.module.externals, ['react', 'react-dom']) 
   return Webpack({
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',
@@ -23,13 +26,13 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
       pathinfo: true,
       publicPath: project.path,
       hashDigestLength: 8,
-      filename: 'js/[name].[chunkhash].js',
-      chunkFilename: 'js/[id].[chunkhash].js'
+      filename: 'js/[name].js',
+      chunkFilename: 'js/[id].js'
     },
     module: {
       rules: getRules(project, true)
     },
-    externals: project.module.externals,
+    externals,
     resolve: {
       extensions: [
         '.tsx',
