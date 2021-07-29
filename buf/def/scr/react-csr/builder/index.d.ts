@@ -1,5 +1,6 @@
 import ReactCSR from 'pro/react-csr';
 import Builder, { BuilderProps } from 'exe/builder';
+import { Stats } from 'webpack';
 /**
  * react应用构建器实例化参数
  */
@@ -12,7 +13,7 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
     constructor(props: ReactCSRBuilderProps);
     main(): Promise<void>;
     /**
-     * 处理脚本文件
+     * 编译脚本文件
      */
-    protected scriptTask(): Promise<void>;
+    protected compile(): Promise<Stats | undefined>;
 }

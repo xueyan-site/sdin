@@ -16,24 +16,22 @@
     "dist/**/*"
   ],
   "scripts": {
-    "start": "xyts build --watch",
-    "build": "xyts build",
-    "start-doc": "xyts start doc",
-    "build-doc": "xyts build doc",
-    "serve-doc": "xyts serve doc"
+    "start": "xt start",
+    "build": "xt build",
+    "start-doc": "xt start doc",
+    "build-doc": "xt build doc",
+    "serve-doc": "xt serve doc"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
-    "classnames": "^2.2.6"
+    "@babel/runtime": "^7.12.5"
   },
   "peerDependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
-    "@types/react": "^16.9.49",
-    "react": "^16.13.1",
+    "@types/react": ">=16.8.0",
     "typescript": "^4.0.3"
   }
 }

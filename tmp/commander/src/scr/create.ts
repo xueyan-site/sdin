@@ -1,4 +1,4 @@
-import { printSuccess } from 'utils/print'
+import { printSuccess } from 'utl/print'
 
 /**
  * main program  

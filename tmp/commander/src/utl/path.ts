@@ -1,5 +1,6 @@
 import path from 'path'
 import os from 'os'
+import fse from 'fs-extra'
 
 /**
  * 导出path原生的函数，于此处做兼容
@@ -10,17 +11,13 @@ export const basename = path.basename
  * 连接路径
  * @param {String[]} pathList 路径
  */
-export const withPath = (...pathList: string[]) => {
-  return path.resolve(...pathList)
-}
+export const withPath = path.resolve
 
 /**
  * 连接路径
  * @param {String[]} pathList 路径
  */
-export const joinPath = (...pathList: string[]) => {
-  return path.join(...pathList)
-}
+export const joinPath = path.join
 
 /**
  * 当前工作目录（current working directory）
@@ -101,4 +98,18 @@ export const relativePath = (path1: string, path2: string) => {
     relaPath = './'
   }
   return relaPath + path1List.join('/')
+}
+
+/**
+ * 查询路径下对应的文件是否存在，存在则返回
+ * resolvePathExtends('/path/to', 'index', ['.tsx', '.ts', '.jsx', '.js'])
+ */
+export function resolvePathExtends(path: string, name: string, exts: string[]) {
+  for (let i = 0; i < exts.length; i++) {
+    const currPath = withPath(path, name + exts[i])
+    if (fse.existsSync(currPath)) {
+      return currPath
+    }
+  }
+  return ''
 }

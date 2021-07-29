@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander'
-import { cwdPath } from 'utils/path'
-import { printExitError, printInfo } from 'utils/print'
-import create from 'scripts/create'
+import { cwdPath } from 'utl/path'
+import { printExitError, printInfo } from 'utl/print'
+import create from 'scr/create'
 
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))
 
-printInfo('the project creation process is ready')
+printInfo(`welcome to use <%= name %>`)
+printInfo('project creation process is ready')
 const program = new Command()
 
 program

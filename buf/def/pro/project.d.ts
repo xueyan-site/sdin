@@ -193,5 +193,11 @@ export default abstract class Project<TType extends string, TConfig extends Proj
      * 获取项目的ts配置
      */
     getTsconfig(): AnyObject<any>;
+    /**
+     * 获取项目中的不规范文件名
+     * root 需要扫描的文件夹
+     * prefix 最后返回的文件路径中，前面补上的公共路径
+     */
+    getIrregularFileList(root: string, prefix?: string): Promise<string[]>;
 }
 export {};

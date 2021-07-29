@@ -1,26 +1,15 @@
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
+import chalk, { Chalk } from 'chalk'
 import { isError } from 'lodash'
 
-const TIME_FORMAT = 'MMDD.HH:mm:ss.SSS'
-
-/**
- * 上次打印信息时的时间
- */
-let __prevTime__: Dayjs | undefined
+const TIME_FORMAT = 'YY/MM/DD HH:mm ss.SSS'
 
 /**
  * 获取标签
- * @param msg 
- * @param callback 
  */
-function getLabel(icon: string, msg: string) {
+function getLabel(icon: string, color: Chalk, msg: string) {
   const curr = dayjs()
-  let diff = '      '
-  if (__prevTime__) {
-    diff = (Math.min(curr.diff(__prevTime__), 999999) + diff).slice(0,6)
-  }
-  __prevTime__ = curr
-  return `${icon} ${curr.format(TIME_FORMAT)} ${diff} ${msg}`
+  return `${icon} ${color(curr.format(TIME_FORMAT))} ${msg}`
 }
 
 /**
@@ -30,10 +19,10 @@ function getLabel(icon: string, msg: string) {
 export const printError = (msg: string | Error, callback?: () => void) => {
   if (msg) {
     if (isError(msg) && msg.message) {
-      console.log(getLabel('💥', msg.message))
+      console.log(getLabel('💥', chalk.red, msg.message))
       console.error(msg.stack)
     } else {
-      console.log(getLabel('🐛', msg as any))
+      console.log(getLabel('🐛', chalk.red, msg as any))
     }
     if (callback) {
       callback()
@@ -55,7 +44,7 @@ export const printExitError = (msg: string | Error, code?: number) => {
  */
 export const printInfo = (msg: string, callback?: () => void) => {
   if (msg) {
-    console.log(getLabel('🍀', msg))
+    console.log(getLabel('🍀', chalk.cyan, msg))
     if (callback) {
       callback()
     }
@@ -76,7 +65,7 @@ export const printExitInfo = (msg: string, code?: number) => {
  */
 export const printLoading = (msg: string) => {
   if (msg) {
-    console.log(getLabel('🚀', msg))
+    console.log(getLabel('🚀', chalk.green, msg))
   }
 }
 
@@ -86,7 +75,7 @@ export const printLoading = (msg: string) => {
  */
 export const printWarning = (msg: string) => {
   if (msg) {
-    console.log(getLabel('🔔', msg))
+    console.log(getLabel('🔔', chalk.yellow, msg))
   }
 }
 
@@ -96,6 +85,6 @@ export const printWarning = (msg: string) => {
  */
 export const printSuccess = (msg: string) => {
   if (msg) {
-    console.log(getLabel('🍺', msg))
+    console.log(getLabel('🍺', chalk.blue, msg))
   }
 }

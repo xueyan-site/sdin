@@ -1,1 +1,1 @@
-export { default as main } from 'scripts/create'
+export { default as main } from 'scr/create'

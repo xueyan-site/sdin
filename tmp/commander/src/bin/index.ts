@@ -2,14 +2,13 @@
 
 import updateNotifier from 'update-notifier'
 import { Command, ExecutableCommandOptions } from 'commander'
-import { readPackageInfoSync } from 'utils/read'
-import { printExitError, printInfo } from 'utils/print'
-import { CMD } from 'utils/path'
+import { readPackageInfoSync } from 'utl/read'
+import { printExitError, printInfo } from 'utl/print'
+import { CMD } from 'utl/path'
 
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))
 
-printInfo('welcome to use <%= name %>')
 const program = new Command()
 const packageInfo = readPackageInfoSync(CMD)
 

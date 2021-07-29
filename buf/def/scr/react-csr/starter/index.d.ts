@@ -11,8 +11,4 @@ export interface ReactCSRStarterProps extends StarterProps<ReactCSR> {
 export default class ReactCSRStarter extends Starter<ReactCSR> {
     constructor(props: ReactCSRStarterProps);
     main(): Promise<void>;
-    /**
-     * 处理脚本文件
-     */
-    protected scriptTask(): Promise<void>;
 }

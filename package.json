@@ -27,8 +27,8 @@
     "xt": "./dist/node/bin/index.js"
   },
   "scripts": {
-    "start": "node ./buf1/node/bin/index.js start",
-    "build": "node ./buf1/node/bin/index.js build",
+    "start": "node ./buf/node/bin/index.js start",
+    "build": "node ./buf/node/bin/index.js build",
     "watch": "xytsc build --watch",
     "start-doc": "xt start doc",
     "build-doc": "xt build doc",

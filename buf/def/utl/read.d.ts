@@ -18,6 +18,15 @@ export interface DeepReadNode {
  */
 export declare function deepRead(source: string, handler: (node: DeepReadNode) => (void | Promise<void>), filter?: (node: DeepReadNode) => (boolean | Promise<boolean>)): Promise<void>;
 /**
+ * 用于包装数据获取器
+ * 近期获取过的数据，可直接从缓存中取出使用，加快程序的运行速度
+ *
+ * @param getter 数据获取器
+ * @param expire 数据的过期时间
+ * @returns
+ */
+export declare function withCache<K, V, P = void>(getter: (key: K, props: P) => V, expire?: number): (key: K, props: P) => V;
+/**
  * 获取json信息
  *
  * 关于 value：

@@ -16,7 +16,7 @@
     "<%= name %>": "./dist/node/binary/index.js"
   },
   "scripts": {
-    "start": "xt build --watch",
+    "start": "xt start",
     "build": "xt build",
     "start-doc": "xt start doc",
     "build-doc": "xt build doc",

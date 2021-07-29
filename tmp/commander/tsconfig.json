@@ -29,8 +29,8 @@
     "removeComments": false,
     "baseUrl": ".",
     "paths": {
-      "scripts/*": ["src/scripts/*"],
-      "utils/*": ["src/utils/*"],
+      "scr/*": ["src/scr/*"],
+      "utl/*": ["src/utl/*"],
       "types": ["src/types.ts"]
     }
   }
