@@ -2,29 +2,29 @@
   "projects": [
     {
       "type": "package",
-      "label": "组件或模块（node包、web包、react包、命令行工具等）",
+      "label": "components or modules (node packages, web packages, react packages, command line tools, etc.)",
       "templates": [
         {
           "name": "package",
-          "label": "普通组件或模块（可以node、web端共用）"
+          "label": "common components or modules (can be shared by node, web side)"
         },
         {
           "name": "react-package",
-          "label": "专供与react使用的包（可以node、web端共用）"
+          "label": "package dedicated to react environment (can be shared by node, web side)"
         },
         {
           "name": "commander",
-          "label": "命令行工具（包含有版本检查和代码编译时混淆）"
+          "label": "command line tools (with check for updates and code compile-time obfuscation)"
         }
       ]
     },
     {
       "type": "react-csr",
-      "label": "react应用（客户端渲染形式）",
+      "label": "react application (client-side rendering)",
       "templates": [
         {
           "name": "react-csr",
-          "label": "react应用（客户端渲染形式）"
+          "label": "react application (client-side rendering)"
         }
       ]
     }

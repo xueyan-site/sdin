@@ -1,3 +1,11 @@
+html {
+  font-size: calc(100vw / 3.75)
+}
+
+body {
+  font-size: 14px;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -16,7 +24,7 @@ html, body {
 
 html, body, #app {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   box-sizing: border-box;
   background-color: #e3e6e9;
 }

@@ -1,4 +1,4 @@
-declare module '*.module.scss' {
+declare module '*.scss' {
   const content: { [prop:string]: string }
   export default content
 }

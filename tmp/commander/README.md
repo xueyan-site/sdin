@@ -1,19 +1,28 @@
 # <%= name %>
 
-<%= name %> 是一个命令行工具。  
+`<%= name %>` is a command line tools.  
 
-## 下载
+- [<%= name %>](#-name-)
+  - [Why use it](#why-use-it)
+  - [What are its highlights](#what-are-its-highlights)
+  - [How to use it](#how-to-use-it)
+  - [Interface](#interface)
+  - [Develop](#develop)
+  - [Appendix](#appendix)
 
-NPM：`npm i -g <%= name %>`  
-Yarn：`yarn add global <%= name %>`  
+## Why use it
 
-## 用法
+## What are its highlights
 
-```bash
-<%= name %> --version
-```
+## How to use it
 
-## 信息
+## Interface
 
-作者：<%= author %>  
-构建工具：[xueyan-typescript-cli](https://github.com/xueyan-site/xueyan-typescript-cli)  
+## Develop
+
+Please make sure that `Node` and `NPM` are installed on your computer, and `xueyan-typescript-cli` is installed globally. After switching current work path to this project root in CMD, you can run command `yarn start`.
+
+## Appendix
+
+author - <%= author %>  
+builder - [xueyan-typescript-cli](https://github.com/xueyan-site/xueyan-typescript-cli)  
