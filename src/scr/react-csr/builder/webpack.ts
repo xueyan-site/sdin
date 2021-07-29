@@ -64,7 +64,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
         cacheGroups: {
           // 打包业务中公共代码
           common: {
-            name: "com_cc",
+            name: "com_ck",
             chunks: "initial",
             minSize: 1,
             priority: 0,
@@ -72,7 +72,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
           },
           // 打包第三方库的文件
           vendor: {
-            name: "vdr_cc",
+            name: "vdr_ck",
             test: /[\\/]node_modules[\\/]/,
             chunks: "initial",
             priority: 10,

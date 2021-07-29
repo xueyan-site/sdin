@@ -1,7 +1,8 @@
+import chalk from 'chalk'
+import ora from 'ora'
 import fse from 'fs-extra'
 import Project, { ProjectConfig } from 'pro/project'
 import Executor, { ExecutorProps } from './executor'
-import { printLoading, printSuccess } from 'utl/print'
 import { cmdPath } from 'utl/path'
 import { deepCopy, getReplaceHandler } from 'utl/write'
 import { executeSync } from 'utl/exec'
@@ -37,15 +38,20 @@ export default abstract class Creator<
    */
   protected async generateProject() {
     if (fse.existsSync(this.project.root)) {
-      throw Error(`project ${this.project.name} is already exists`)
+      throw Error(`${chalk.yellow(this.project.name)} is already exists`)
     }
-    printLoading('copying project template')
-    await deepCopy(
-      this.templatePath,
-      this.project.root,
-      getReplaceHandler(this.project)
-    )
-    printSuccess('copy project template successfully')
+    const tip = ora(`${this.project.type} template ${chalk.blue('copying')}`).start()
+    try {
+      await deepCopy(
+        this.templatePath,
+        this.project.root,
+        getReplaceHandler(this.project)
+      )
+      tip.succeed(`${this.project.type} template ${chalk.blue('copied successfully')}`)
+    } catch (err) {
+      tip.fail(`${this.project.type} node modules ${chalk.red('copy failed')}`)
+      console.error(err)
+    }
   }
 
   /**
@@ -54,8 +60,14 @@ export default abstract class Creator<
   protected initializeGitRepository() {
     const gitPath = this.project.withRoot('.git')
     if (!fse.existsSync(gitPath)) {
-      printLoading('initializing git repository')
-      executeSync(`cd ${this.project.root} && git init && git add . && git commit -m "chore: project created"`)
+      const tip = ora(`${this.project.name} git repository ${chalk.blue('initializing')}`).start()
+      try {
+        executeSync(`cd ${this.project.root} && git init && git add . && git commit -m "chore: project created"`)
+        tip.succeed(`${this.project.name} git repository ${chalk.blue('initialized successfully')}`)
+      } catch (err) {
+        tip.fail(`${this.project.name} git repository ${chalk.red('initialization failed')}`)
+        console.error(err)
+      }
     }
   }
 }

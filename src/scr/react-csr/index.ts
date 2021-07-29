@@ -1,7 +1,7 @@
 export { 
-  default as ReactCSRCreater,
-  ReactCSRCreaterProps
-} from './creater'
+  default as ReactCSRCreator,
+  ReactCSRCreatorProps
+} from './creator'
 
 export {
   default as ReactCSRStarter,

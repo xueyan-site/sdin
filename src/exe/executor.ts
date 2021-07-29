@@ -1,6 +1,7 @@
 import EventEmitter from 'events'
 import fse from 'fs-extra'
-import { printLoading } from 'utl/print'
+import ora from 'ora'
+import chalk from 'chalk'
 import { executeSync } from 'utl/exec'
 import Project, { ProjectConfig } from 'pro/project'
 
@@ -92,8 +93,14 @@ export default abstract class Executor<
     name: string = this.project.name
   ) {
     if (fse.existsSync(path)) {
-      printLoading(`downloading ${name} node modules`)
-      executeSync(`cd ${path} && yarn`)
+      const tip = ora(`${name} node modules ${chalk.blue('downloading')}`).start()
+      try {
+        executeSync(`cd ${path} && yarn`)
+        tip.succeed(`${name} node modules ${chalk.blue('downloaded successfully')}`)
+      } catch (err) {
+        tip.fail(`${name} node modules ${chalk.red('download failed')}`)
+        console.error(err)
+      }
     }
   }
 }

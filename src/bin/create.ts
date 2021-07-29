@@ -1,22 +1,25 @@
 #!/usr/bin/env node
 
+import chalk from 'chalk'
 import { Command } from 'commander'
 import { prompt } from 'enquirer'
 import validator from 'validator'
 import { cwdPath, cmdPath } from 'utl/path'
 import { printExitError, printInfo } from 'utl/print'
 import { readGitConfigSync, readJsonSync } from 'utl/read'
+import Creator from 'exe/creator'
 import Package, { PACKAGE_TYPE } from 'pro/package'
 import ReactCSR, { REACT_CSR_TYPE } from 'pro/react-csr'
-import { PackageCreater } from 'scr/package'
-import { ReactCSRCreater } from 'scr/react-csr'
+import { PackageCreator } from 'scr/package'
+import { ReactCSRCreator } from 'scr/react-csr'
 
 process.env.XT_CMD = 'create'
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))
 
-printInfo('welcome to use xueyan-typescript-cli')
-printInfo('the project creation process is ready')
+printInfo(`welcome to use ${chalk.blue('xueyan-typescript-cli')}`)
+printInfo('project creation process is ready')
+console.log()
 const program = new Command()
 
 program
@@ -35,7 +38,6 @@ async function action(path?: string) {
     {
       type: 'select',
       name: 'projectName',
-      initial: program.type,
       message: 'what kind of project do you want to create',
       required: true,
       choices: projects.map((item: any) => ({
@@ -49,6 +51,7 @@ async function action(path?: string) {
    */
   const project = projects.find(i => i.type === projectName)
   const type = project.type
+  process.env.XT_TYPE = type
   const templateList = project.templates
   let template: any = templateList.length === 1
     ? templateList[0].name
@@ -58,7 +61,6 @@ async function action(path?: string) {
       {
         type: 'select',
         name: 'type',
-        initial: program.type,
         message: 'which project template do you want to use',
         required: true,
         choices: templateList.map((item: any) => ({
@@ -115,6 +117,8 @@ async function action(path?: string) {
   /**
    * 生成项目模版
    */
+  console.log()
+  process.env.XT_PATH = answers.root
   const meta = {
     type,
     root: answers.root,
@@ -124,20 +128,20 @@ async function action(path?: string) {
       author: `${answers.author} <${answers.email}>`
     }
   }
-  process.env.XT_PATH = answers.root
-  process.env.XT_TYPE = meta.type
+  let creator: Creator<any> | undefined
   if (meta.type === PACKAGE_TYPE) {
-    const creater = new PackageCreater({
+    creator = new PackageCreator({
       project: new Package(meta),
       template
     })
-    await creater.open()
   } else if (meta.type === REACT_CSR_TYPE) {
-    const creater = new ReactCSRCreater({
+    creator = new ReactCSRCreator({
       project: new ReactCSR(meta),
       template
     })
-    await creater.open()
+  }
+  if (creator) {
+    await creator.open()
   } else {
     throw Error(`sorry, there are no items of type ${meta.type}`)
   }

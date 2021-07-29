@@ -1,0 +1,1 @@
+"use strict";function e(e){return e.getDepVersion("@babel/runtime")?"":"please install @babel/runtime dependence"}Object.defineProperty(exports,"__esModule",{value:!0}),exports.precheck=e;

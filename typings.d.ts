@@ -28,7 +28,7 @@ declare module '*.jpg' {
   export default content
 }
 
-declare module 'webpack-cdn-plugin' {
+declare module 'webpack-hot-middleware' {
   const content: any
   export default content
 }

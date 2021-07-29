@@ -1,5 +1,5 @@
-import { withPath } from 'utl/path'
-import { readJsonSync, readPackageInfoSync } from 'utl/read'
+import { joinPath, withPath } from 'utl/path'
+import { deepRead, readJsonSync, readPackageInfoSync } from 'utl/read'
 import { AnyObject, PackageInfo, ModuleAlias } from 'types'
 
 /**
@@ -298,5 +298,25 @@ export default abstract class Project<
       this.__tsConfig__ = readJsonSync(this.tsc)
     }
     return this.__tsConfig__
+  }
+
+  /**
+   * 获取项目中的不规范文件名
+   * root 需要扫描的文件夹
+   * prefix 最后返回的文件路径中，前面补上的公共路径
+   */
+  async getIrregularFileList(root: string, prefix?: string): Promise<string[]> {
+    const ALLOW_EXP = /^[a-z][a-z0-9\.]+$/
+    const fileList: string[] = []
+    deepRead(root, node => {
+      if (!ALLOW_EXP.test(node.name)) {
+        fileList.push(
+          prefix 
+            ? joinPath(prefix, node.offset)
+            : node.offset
+        )
+      }
+    })
+    return fileList
   }
 }

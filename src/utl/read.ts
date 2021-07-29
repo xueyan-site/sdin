@@ -8,11 +8,11 @@ import { PackageInfo, GitInfo, AnyObject } from 'types'
  * 深度遍历的节点信息
  */
 export interface DeepReadNode {
-  name: string,
-  stats: Stats,
-  source: string,
-  offset: string,
-  current: string,
+  name: string, // 文件名 xxx.js
+  stats: Stats, // 文件的各种元信息
+  source: string, // 遍历时，传入的顶层路径
+  offset: string, // 文件相对于顶层的路径
+  current: string, // 文件的绝对路径
 }
 
 /**
@@ -87,25 +87,46 @@ export function deepRead(
 }
 
 /**
- * json信息缓存
+ * 用于包装数据获取器
+ * 近期获取过的数据，可直接从缓存中取出使用，加快程序的运行速度
+ * 
+ * @param getter 数据获取器
+ * @param expire 数据的过期时间
+ * @returns 
  */
-const jsonCache: Map<string, AnyObject> = new Map()
+export function withCache<K,V,P=void>(
+  getter: (key: K, props: P) => V,
+  expire?: number
+) {
+  const cache: Map<K, V> = new Map()
+  return (key: K, props: P) => {
+    let value = cache.get(key)
+    if (!value) {
+      value = getter(key, props)
+      cache.set(key, value)
+      if (expire) {
+        setTimeout(() => {
+          cache.delete(key)
+        }, expire)
+      }
+    }
+    return value
+  }
+}
 
 /**
  * 从缓存中读取json信息
  */
-function getJsonFromCache(key: string, creatJson: () => object) {
-  let data: any = jsonCache.get(key)
-  if (data) {
-    return data
+const getJson = withCache<string, any>(key => {
+  // 读取文件中的数据
+  let data: any
+  if (/\.json$/.test(key)) {
+    data = fse.readJSONSync(key)
+  } else if (/\.(js|mjs)$/.test(key)) {
+    data = require(key)
   }
-  data = creatJson()
-  jsonCache.set(key, data)
-  setTimeout(() => {
-    jsonCache.delete(key)
-  }, 2000)
   return data
-}
+}, 2000)
 
 /**
  * 获取json信息
@@ -140,20 +161,12 @@ export function readJsonSync(value: any, root?: string, strict?: boolean): AnyOb
     }
   }
   // 从缓存中读取数据，若没有，则创建数据
-  return getJsonFromCache(filePath, () => {
-    // 读取文件中的数据
-    let data: any
-    if (/\.json$/.test(filePath)) {
-      data = fse.readJSONSync(filePath)
-    } else if (/\.(js|mjs)$/.test(filePath)) {
-      data = require(filePath)
-    }
-    // 判断是否是对象
-    if (strict && !isPlainObject(data)) {
-      throw Error(`failed to read "${filePath}", please check whether the file content format is correct`)
-    }
-    return data || {}
-  })
+  const data = getJson(filePath)
+  // 判断是否是对象
+  if (strict && !isPlainObject(data)) {
+    throw Error(`failed to read "${filePath}", please check whether the file content format is correct`)
+  }
+  return data || {}
 }
 
 /**

@@ -16,11 +16,11 @@
     "<%= name %>": "./dist/node/binary/index.js"
   },
   "scripts": {
-    "start": "xyts build --watch",
-    "build": "xyts build",
-    "start-doc": "xyts start doc",
-    "build-doc": "xyts build doc",
-    "serve-doc": "xyts serve doc"
+    "start": "xt build --watch",
+    "build": "xt build",
+    "start-doc": "xt start doc",
+    "build-doc": "xt build doc",
+    "serve-doc": "xt serve doc"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",

@@ -1,6 +1,6 @@
+import chalk from 'chalk'
 import ReactCSR from 'pro/react-csr'
 import Server, { ServerProps } from 'exe/server'
-import { printInfo } from 'utl/print'
 import { createServer } from './server'
 
 /**
@@ -25,7 +25,9 @@ export default class ReactCSRServer extends Server<ReactCSR> {
         resolve()
       })
       server.listen(project.serve.port, () => {
-        printInfo(`project ${project.name} listening on http://127.0.0.1:${project.serve.port}\n`)
+        console.log(`${this.project.name} server listening on ${
+          chalk.blue('http://127.0.0.1:' + this.project.serve.port)
+        }\n`)
       })
     })
   }
