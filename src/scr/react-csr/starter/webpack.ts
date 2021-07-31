@@ -13,9 +13,11 @@ import { getRules } from '../common/module'
  */
 export async function createWebpack(project: ReactCSR): Promise<Compiler> {
   const pages = await getPages(project, true)
-  // 在开发模式下，需要确保externals中不包含react和react-dom
-  // 否则，react-refresh不会生效。
-  const externals = omit(project.module.externals, ['react', 'react-dom']) 
+  // 在开发模式下，需尽可能使用本地的包（减少CDN包，去除网络带来的阻碍）
+  const externals = omit(
+    project.module.externals,
+    Object.keys(project.module.externals).filter(i => project.getDepVersion(i))
+  )
   return Webpack({
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',

@@ -1,5 +1,7 @@
 import { Context, Next } from 'koa'
 import koaMount from 'koa-mount'
+import koaProxy, { Options as ProxyOptions } from 'koa-proxy'
+import koaCompose from 'koa-compose'
 import koaStatic, { Options } from 'koa-static'
 import ReactCSR from 'pro/react-csr'
 import ReactCSRPage from 'pro/react-csr-page'
@@ -57,4 +59,15 @@ export function webError(options: WebErrorOptions) {
       }
     }
   }
+}
+
+interface WebProxyOptions {
+  proxies: ProxyOptions[]
+}
+
+/**
+ * 网站代理
+ */
+export function webProxy(options: WebProxyOptions) {
+  return koaCompose(options.proxies.map(i => koaProxy(i)))
 }

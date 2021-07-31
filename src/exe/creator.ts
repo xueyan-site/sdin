@@ -40,7 +40,7 @@ export default abstract class Creator<
     if (fse.existsSync(this.project.root)) {
       throw Error(`${chalk.yellow(this.project.name)} is already exists`)
     }
-    const tip = ora(`${this.project.type} template ${chalk.blue('copying')}`).start()
+    const tip = ora(`${this.project.type} template ${chalk.blue('copying')}\n`).start()
     try {
       await deepCopy(
         this.templatePath,
@@ -60,7 +60,7 @@ export default abstract class Creator<
   protected initializeGitRepository() {
     const gitPath = this.project.withRoot('.git')
     if (!fse.existsSync(gitPath)) {
-      const tip = ora(`${this.project.name} git repository ${chalk.blue('initializing')}`).start()
+      const tip = ora(`${this.project.name} git repository ${chalk.blue('initializing')}\n`).start()
       try {
         executeSync(`cd ${this.project.root} && git init && git add . && git commit -m "chore: project created"`)
         tip.succeed(`${this.project.name} git repository ${chalk.blue('initialized successfully')}`)

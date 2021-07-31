@@ -33,9 +33,15 @@ export function handleAssets(project: Package, filter?: FilterFunc) {
   if (!project.buildWeb && !project.buildNode) {
     return
   }
+  const SCRIPT_EXP = /\.[tj]sx?$/
   return pipeline(
-    gulp.src(['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'], { cwd: project.src }),
-    filter && gulpFilter(filter),
+    gulp.src('**/*', { cwd: project.src }),
+    gulpFilter(file => {
+      if (filter && !filter(file)) {
+        return false
+      }
+      return !SCRIPT_EXP.test(file.path)
+    }),
     project.buildWeb && gulp.dest(project.webDist),
     project.buildNode && gulp.dest(project.nodeDist)
   )
@@ -93,15 +99,18 @@ export function handleScript(
   if ((!project.buildWeb && target === 'web') || (!project.buildNode && target === 'node')) {
     return
   }
+  const SCRIPT_EXP = /\.[tj]sx?$/
   const DEFINE_EXP = /\.d\.tsx?$/
   const TEST_EXP = /\.test\./
   return pipeline(
-    gulp.src(['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'], { cwd: project.src }),
+    gulp.src('**/*', { cwd: project.src }),
     gulpFilter(file => {
       if (filter && !filter(file)) {
         return false
       }
-      return !DEFINE_EXP.test(file.path) && !TEST_EXP.test(file.path)
+      return SCRIPT_EXP.test(file.path) 
+        && !DEFINE_EXP.test(file.path)
+        && !TEST_EXP.test(file.path)
     }),
     gulpBabel(getBabelOptions(project, target)),
     project.useUglify && gulpUglify({

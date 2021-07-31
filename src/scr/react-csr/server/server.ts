@@ -3,7 +3,7 @@ import koaConditional from 'koa-conditional-get'
 import koaETag from 'koa-etag'
 import koaCompress from 'koa-compress'
 import koaSend from 'koa-send'
-import { webStatic, webError } from '../common/server'
+import { webStatic, webError, webProxy } from '../common/server'
 import ReactCSR from 'pro/react-csr'
 
 /**
@@ -11,6 +11,9 @@ import ReactCSR from 'pro/react-csr'
  */
 export function createServer(project: ReactCSR) {
   const server = new Koa()
+  server.use(webProxy({
+    proxies: project.serve.proxies
+  }))
   server.use(koaConditional())
   server.use(koaETag())
   server.use(koaCompress())

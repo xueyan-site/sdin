@@ -1,9 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "include": [ "src", "typings.d.ts" ],
+  "include": [ "src", "pub", "typings.d.ts" ],
   "exclude": [ "*.test.*" ],
   "compilerOptions": {
-    "checkJs": true,
+    "checkJs": false,
     "strict": true,
     "strictPropertyInitialization": true,
     "noImplicitAny": true,

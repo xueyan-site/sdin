@@ -1,7 +1,7 @@
 module.exports = {
   type: 'react-csr',
-  index: 'page-one',
-  error: 'page-error',
+  index: 'one',
+  error: 'error',
   alias: {
     src: 'src',
     api: 'pub/api',
@@ -10,10 +10,10 @@ module.exports = {
     utl: 'pub/utl',
   },
   start: {
-    proxy: [
+    proxies: [
       {
-        path: '^/api',
-        target: 'https://xxx.com'
+        match: /^\/api\//,
+        host: 'https://xxx.com'
       }
     ]
   },
@@ -26,7 +26,7 @@ module.exports = {
     }
   },
   page: {
-    title: '<%= name %>',
+    title: 'react-csr-test',
     metas: [
       {
         key: 'ie',

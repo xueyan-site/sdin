@@ -1,11 +1,11 @@
 import ReactCSRPage from 'pro/react-csr-page'
 
 export function getTemplateString(page: ReactCSRPage, dev: boolean) {
-  let { metas, title, links, scripts, styles } = page
+  let { project, metas, title, links, scripts, styles } = page
   if (dev) {
     title = '⚡️' + title
-    const cannotUsedScripts = ['react', 'react-dom']
-    scripts = scripts.filter(i => !cannotUsedScripts.includes(i.key))
+    // 在开发模式下，需尽可能使用本地的包（减少CDN包，去除网络带来的阻碍）
+    scripts = page.scripts.filter(i => !project.getDepVersion(i.key))
   }
   return `
     <!DOCTYPE html>

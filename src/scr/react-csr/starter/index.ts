@@ -43,9 +43,9 @@ export default class ReactCSRStarter extends Starter<ReactCSR> {
     }
     if (server) {
       server.listen(this.project.start.port, () => {
-        console.log(`${this.project.name} compiler listening on ${
+        ora(`${this.project.name} compiler listening on ${
           chalk.blue('http://127.0.0.1:' + this.project.start.port)
-        }\n`)
+        }\n`).succeed()
       })
       return new Promise<void>(resolve => {
         this.on('close', () => {

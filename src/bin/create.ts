@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk'
+import { padEnd } from 'lodash'
 import { Command } from 'commander'
 import { prompt } from 'enquirer'
 import validator from 'validator'
@@ -42,7 +43,7 @@ async function action(path?: string) {
       required: true,
       choices: projects.map((item: any) => ({
         name: item.type,
-        message: item.label
+        message: chalk.red(padEnd(item.type, 16)) + item.label
       }))
     }
   ])
@@ -65,7 +66,7 @@ async function action(path?: string) {
         required: true,
         choices: templateList.map((item: any) => ({
           name: item.name,
-          message: item.label
+          message: chalk.red(padEnd(item.name, 16)) + item.label
         }))
       }
     ])).template

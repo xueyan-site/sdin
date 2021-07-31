@@ -19,7 +19,7 @@ export async function getPages(project: ReactCSR, dev: boolean) {
   const HMR_CLIENT = cmdNmPath('webpack-hot-middleware/client?reload=true')
   project.pageList.forEach(page => {
     const swpIdxPath = project.withBuf('entry', page.path + '.jsx')
-    tasks.push(fse.outputFile(swpIdxPath, getScriptString(page, dev)))
+    tasks.push(fse.outputFile(swpIdxPath, getScriptString(page)))
     // 设定入口（为了配合热更新，在开发时，需要加入热更新脚本）
     if (dev) {
       entry[page.path] = [HMR_CLIENT, swpIdxPath]

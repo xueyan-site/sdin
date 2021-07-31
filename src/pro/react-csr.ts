@@ -1,6 +1,7 @@
 import fse from 'fs-extra'
 import { defaultsDeep, keyBy } from 'lodash'
 import { RuleSetCondition } from 'webpack'
+import { Options as ProxyOptions } from 'koa-proxy'
 import Application, { ApplicationProps, ApplicationConfig } from './application'
 import ReactCSRPage, { ReactCSRPageConfig } from './react-csr-page'
 import { AnyObject } from 'types'
@@ -42,15 +43,14 @@ export interface ReactCSRModuleConfig {
 export interface ReactCSRServeConfig {
   /**
    * 启动的端口
-   * <http://expressjs.com/en/4x/api.html#app.listen>
    */
   port: number
 
   /**
    * 代理设置
-   * <https://webpack.docschina.org/configuration/dev-server/#devserverproxy>
+   * <https://github.com/edorivai/koa-proxy>
    */
-  proxy: any[]
+  proxies: ProxyOptions[]
 }
 
 /**
@@ -167,15 +167,16 @@ export default class ReactCSR extends Application<
     })
     this.serve = defaultsDeep({}, config.serve, {
       port: 443,
-      proxy: []
+      proxies: []
     })
     this.start = defaultsDeep({}, config.start, {
       ...this.serve,
       port: 8080
     })
     // 设置项目的页面
+    const isExistProject = fse.existsSync(props.root)
     this.__pageConfig__ = config.page || {}
-    this.pageList = this.getPageList()
+    this.pageList = isExistProject ? this.getPageList() : []
     this.__pageMap__ = keyBy(this.pageList, 'path')
   }
 

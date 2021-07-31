@@ -6,7 +6,7 @@ import wdm from 'webpack-dev-middleware'
 import whm from 'webpack-hot-middleware'
 import { Compiler } from 'webpack'
 import ReactCSR from 'pro/react-csr'
-import { webStatic, webError } from '../common/server'
+import { webStatic, webError, webProxy } from '../common/server'
 import ReactCSRPage from 'pro/react-csr-page'
 
 /**
@@ -14,6 +14,9 @@ import ReactCSRPage from 'pro/react-csr-page'
  */
 export async function createServer(project: ReactCSR, compiler: Compiler) {
   const server = new Koa()
+  server.use(webProxy({
+    proxies: project.start.proxies
+  }))
   server.use(webError({
     project,
     reader: (ctx, page) => {
