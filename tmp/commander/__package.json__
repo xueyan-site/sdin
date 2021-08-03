@@ -25,6 +25,7 @@
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "commander": "^6.1.0",
+    "dayjs": "^1.10.6",
     "fs-extra": "^9.0.1",
     "lodash": "^4.17.20",
     "update-notifier": "^5.0.1"

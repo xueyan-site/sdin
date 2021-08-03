@@ -6,7 +6,7 @@
   "description": "",
   "main": "dist/node",
   "module": "dist/web",
-  "types": "dist/type",
+  "types": "dist/def",
   "keywords": [],
   "repository": {
     "type": "git",
@@ -26,6 +26,6 @@
     "@babel/runtime": "^7.12.5"
   },
   "devDependencies": {
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.0"
   }
 }

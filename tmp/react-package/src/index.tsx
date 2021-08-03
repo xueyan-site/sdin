@@ -1,35 +1,39 @@
 /**
  * @package <%= name %>
  * @author <%= author %>
- * @description 包入口
+ * @description package entry
  */
 
 import React from 'react'
 import classNames from 'classnames'
-import styles from './index.module.scss'
+import styles from './index.scss'
 
 /**
- * 开关组件的参数  
+ * component props  
  */
 export interface SwitchProps {
   /**
-   * 开关状态（on或off） 
+   * switch status（on或off） 
    */
   value?: boolean
+  
   /**
-   * 设置开关状态  
+   * set switch status  
    */
   onChange?: (value: boolean) => void
+
   /**
-   * 设置为块级元素（或不设置）  
+   * set to block element or not
    */
   block?: boolean
+
   /**
-   * 开关组件的class  
+   * switch component class name
    */
   className?: string
+
   /**
-   * 开关组件的样式  
+   * switch component style
    */
   style?: React.CSSProperties
 }

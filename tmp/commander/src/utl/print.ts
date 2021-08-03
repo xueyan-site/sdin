@@ -5,7 +5,7 @@ import { isError } from 'lodash'
 const TIME_FORMAT = 'YY/MM/DD HH:mm ss.SSS'
 
 /**
- * 获取标签
+ * get message prefix
  */
 function getLabel(icon: string, color: Chalk, msg: string) {
   const curr = dayjs()
@@ -13,8 +13,7 @@ function getLabel(icon: string, color: Chalk, msg: string) {
 }
 
 /**
- * 打印错误信息
- * @param {String} msg 信息
+ * print error message
  */
 export const printError = (msg: string | Error, callback?: () => void) => {
   if (msg) {
@@ -31,16 +30,14 @@ export const printError = (msg: string | Error, callback?: () => void) => {
 }
 
 /**
- * 打印错误信息并退出
- * @param {String} msg 信息
+ * print error message and exit process
  */
 export const printExitError = (msg: string | Error, code?: number) => {
   printError(msg, () => process.exit(code))
 }
 
 /**
- * 打印普通信息
- * @param {String} msg 信息
+ * print information
  */
 export const printInfo = (msg: string, callback?: () => void) => {
   if (msg) {
@@ -52,16 +49,14 @@ export const printInfo = (msg: string, callback?: () => void) => {
 }
 
 /**
- * 打印错误信息并退出
- * @param {String} msg 信息
+ * print information and exit process
  */
 export const printExitInfo = (msg: string, code?: number) => {
   printInfo(msg, () => process.exit(code))
 }
 
 /**
- * 打印加载信息
- * @param {String} msg 信息
+ * print loading message
  */
 export const printLoading = (msg: string) => {
   if (msg) {
@@ -70,8 +65,7 @@ export const printLoading = (msg: string) => {
 }
 
 /**
- * 打印警告信息
- * @param {String} msg 信息
+ * print warning message
  */
 export const printWarning = (msg: string) => {
   if (msg) {
@@ -80,8 +74,7 @@ export const printWarning = (msg: string) => {
 }
 
 /**
- * 打印成功信息
- * @param {String} msg 信息
+ * print success message
  */
 export const printSuccess = (msg: string) => {
   if (msg) {

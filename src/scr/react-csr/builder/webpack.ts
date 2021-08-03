@@ -4,6 +4,7 @@ import ReactCSR from 'pro/react-csr'
 import { cmdNmPath } from 'utl/path'
 import { getPages } from '../common/page'
 import { getRules } from '../common/module'
+import { getSplitChunks } from '../common/optimize'
 import Webpack, { Compiler, ProgressPlugin } from 'webpack'
 
 /**
@@ -56,30 +57,10 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
       ...pages.plugins
     ],
     optimization: {
-      // 运行时代码
       runtimeChunk: {
-        name: (entry: any) => entry.name + '_rc'
+        name: (entry: any) => entry.name + '-rc'
       },
-      splitChunks: {
-        cacheGroups: {
-          // 打包业务中公共代码
-          common: {
-            name: "com_ck",
-            chunks: "initial",
-            minSize: 1,
-            priority: 0,
-            minChunks: 2, // 同时引用了2次才打包
-          },
-          // 打包第三方库的文件
-          vendor: {
-            name: "vdr_ck",
-            test: /[\\/]node_modules[\\/]/,
-            chunks: "initial",
-            priority: 10,
-            minChunks: 2, // 同时引用了2次才打包
-          }
-        }
-      }
+      splitChunks: getSplitChunks()
     }
   })
 }

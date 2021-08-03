@@ -2,7 +2,7 @@
 
 `<%= name %>` is a react package.  
 
-- [<%= name %>](#-name-)
+- [<%= name %>](<% print('#'+name) %>)
   - [Why use it](#why-use-it)
   - [What are its highlights](#what-are-its-highlights)
   - [How to use it](#how-to-use-it)

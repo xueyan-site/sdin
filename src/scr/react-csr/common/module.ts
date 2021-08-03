@@ -1,3 +1,4 @@
+import { defaultsDeep } from 'lodash'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import ReactCSR from 'pro/react-csr'
 import { cmdNmPath } from 'utl/path'
@@ -11,85 +12,91 @@ import { RuleSetRule } from 'webpack'
  */
 export function getRules(project: ReactCSR, dev: boolean): RuleSetRule[] {
   return [
-    getTextRule(),
-    getFontRule(),
-    getImageRule(),
-    getAudioRule(),
-    getVideoRule(),
+    getRowRule(project),
+    getFontRule(project),
+    getImageRule(project),
+    getAudioRule(project),
+    getVideoRule(project),
+    ...project.module.loaders,
     getCssRule(dev),
     getScssRule(project, dev),
     getBableRule(project, dev)
   ]
 }
 
-function getTextRule() {
-  return {
-    test: /\.txt$/i,
+function getRowRule(project: ReactCSR) {
+  return defaultsDeep({
     type: 'asset/source',
     generator: {
       filename: 'raw/[name].[contenthash].[ext]'
     }
-  }
+  }, project.module.rules.row, {
+    test: /\.txt$/i
+  })
 }
 
-function getFontRule() {
-  return {
-    test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+function getFontRule(project: ReactCSR) {
+  return defaultsDeep({
     type: 'asset',
     generator: {
       filename: 'fnt/[name].[contenthash].[ext]'
-    },
+    }
+  }, project.module.rules.font, {
+    test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
     parser: {
       dataUrlCondition: {
         maxSize: 10240 // 10kb
       }
     }
-  }
+  })
 }
 
-function getImageRule() {
-  return {
-    test: /\.(png|jpg|jpeg|svg|gif|bmp|webp|tif)(\?.*)?$/,
+function getImageRule(project: ReactCSR) {
+  return defaultsDeep({
     type: 'asset',
     generator: {
       filename: 'img/[name].[contenthash].[ext]'
-    },
+    }
+  }, project.module.rules.image, {
+    test: /\.(png|jpg|jpeg|svg|gif|bmp|webp|tif)(\?.*)?$/,
     parser: {
       dataUrlCondition: {
         maxSize: 10240 // 10kb
       }
     }
-  }
+  })
 }
 
-function getAudioRule() {
-  return {
-    test: /\.(mp3|wma|wav|aac|amr|ogg)(\?.*)?$/,
+function getAudioRule(project: ReactCSR) {
+  return defaultsDeep({
     type: 'asset',
     generator: {
       filename: 'ado/[name].[contenthash].[ext]'
-    },
+    }
+  }, project.module.rules.audio, {
+    test: /\.(mp3|wma|wav|aac|amr|ogg)(\?.*)?$/,
     parser: {
       dataUrlCondition: {
         maxSize: 10240 // 10kb
       }
     }
-  }
+  })
 }
 
-function getVideoRule() {
-  return {
-    test: /\.(mp4|3gp|mpg|avi|wmv|flv)(\?.*)?$/,
+function getVideoRule(project: ReactCSR) {
+  return defaultsDeep({
     type: 'asset',
     generator: {
       filename: 'vdo/[name].[contenthash].[ext]'
-    },
+    }
+  }, project.module.rules.video, {
+    test: /\.(mp4|3gp|mpg|avi|wmv|flv)(\?.*)?$/,
     parser: {
       dataUrlCondition: {
         maxSize: 10240 // 10kb
       }
     }
-  }
+  })
 }
 
 function getCssRule(dev: boolean): RuleSetRule {
@@ -113,9 +120,8 @@ function getCssRule(dev: boolean): RuleSetRule {
           postcssOptions: {
             plugins: [
               cmdNmPath('postcss-import'),
-              cmdNmPath('postcss-preset-env'),
-              dev ? false : cmdNmPath('cssnano')
-            ].filter(Boolean)
+              cmdNmPath('postcss-preset-env')
+            ]
           }
         }
       }
@@ -148,9 +154,8 @@ function getScssRule(project: ReactCSR, dev: boolean): RuleSetRule {
           postcssOptions: {
             plugins: [
               cmdNmPath('postcss-import'),
-              cmdNmPath('postcss-preset-env'),
-              dev ? false : cmdNmPath('cssnano')
-            ].filter(Boolean)
+              cmdNmPath('postcss-preset-env')
+            ]
           }
         }
       },

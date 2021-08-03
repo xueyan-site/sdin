@@ -35,10 +35,10 @@ async function action(path?: string) {
    */
   const templateMeta = readJsonSync(cmdPath('tmp/meta.json'))
   const projects: any[] = templateMeta.projects || []
-  const { projectName } = await prompt<{ projectName: string }>([
+  const type = (await prompt<{ type: string }>([
     {
       type: 'select',
-      name: 'projectName',
+      name: 'type',
       message: 'what kind of project do you want to create',
       required: true,
       choices: projects.map((item: any) => ({
@@ -46,13 +46,12 @@ async function action(path?: string) {
         message: chalk.red(padEnd(item.type, 16)) + item.label
       }))
     }
-  ])
+  ])).type
   /**
    * 确认需要使用的模版
    */
-  const project = projects.find(i => i.type === projectName)
-  const type = project.type
   process.env.XT_TYPE = type
+  const project = projects.find(i => i.type === type)
   const templateList = project.templates
   let template: any = templateList.length === 1
     ? templateList[0].name
@@ -61,7 +60,7 @@ async function action(path?: string) {
     template = (await prompt<{ template: string }>([
       {
         type: 'select',
-        name: 'type',
+        name: 'template',
         message: 'which project template do you want to use',
         required: true,
         choices: templateList.map((item: any) => ({

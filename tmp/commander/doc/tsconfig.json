@@ -1,26 +1,37 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "include": [ "src" ],
+  "include": [ "src", "pub", "typings.d.ts" ],
   "exclude": [ "*.test.*" ],
   "compilerOptions": {
+    "checkJs": false,
+    "strict": true,
+    "strictPropertyInitialization": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "lib": ["ES2015", "dom"],
     "module": "esnext",
     "target": "es5",
-    "lib": [ "dom", "esnext" ],
     "jsx": "react",
-    "strict": true,
     "outDir": "dist",
-    "noImplicitAny": false,
+    "allowJs": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "removeComments": false,
     "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
     "sourceMap": true,
     "declaration": false,
     "declarationMap": false,
-    "experimentalDecorators": true,
+    "removeComments": false,
     "baseUrl": ".",
     "paths": {
-      "pages/*": ["./src/pages/*"]
+      "src/*": ["./src/*"],
+      "ast/*": ["./pub/ast/*"]
     }
   }
 }

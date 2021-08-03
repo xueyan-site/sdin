@@ -1,6 +1,6 @@
 import fse from 'fs-extra'
 import { defaultsDeep, keyBy } from 'lodash'
-import { RuleSetCondition } from 'webpack'
+import { RuleSetCondition, RuleSetRule } from 'webpack'
 import { Options as ProxyOptions } from 'koa-proxy'
 import Application, { ApplicationProps, ApplicationConfig } from './application'
 import ReactCSRPage, { ReactCSRPageConfig } from './react-csr-page'
@@ -35,6 +35,22 @@ export interface ReactCSRModuleConfig {
    * <https://webpack.docschina.org/configuration/externals/>
    */
   babelExcludes: RuleSetCondition[]
+
+  /**
+   * 修改现有模块规则（仅允许修改部分值）
+   */
+  rules: {
+    row?: Partial<RuleSetRule>
+    font?: Partial<RuleSetRule>
+    image?: Partial<RuleSetRule>
+    audio?: Partial<RuleSetRule>
+    video?: Partial<RuleSetRule>
+  }
+
+  /**
+   * 自定义模块规则
+   */
+  loaders: RuleSetRule[]
 }
 
 /**
@@ -163,7 +179,9 @@ export default class ReactCSR extends Application<
     this.module = defaultsDeep({}, config.module, {
       externals: {},
       babelIncludes: [],
-      babelExcludes: []
+      babelExcludes: [],
+      rules: {},
+      loaders: []
     })
     this.serve = defaultsDeep({}, config.serve, {
       port: 443,

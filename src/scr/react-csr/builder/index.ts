@@ -35,11 +35,10 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
     }
     // 正式开始构建
     console.log()
-    const tip = ora(`${this.project.name} ${chalk.blue('building')}`).start()
     try {
       await handleAssets(this.project)
       const stats = await this.compile()
-      tip.succeed(`${this.project.name} built ${chalk.blue('successfully')}`)
+      ora(`${this.project.name} built ${chalk.blue('successfully')}`).succeed()
       if (stats) {
         console.log(stats.toString({
           all: false,
@@ -49,12 +48,13 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
           builtAt: true,
           assets: true,
           children: true,
-          warnings: true
+          warnings: true,
+          errors: true
         }))
       }
       console.log()
     } catch (err) {
-      tip.fail(`${this.project.name} built ${chalk.red('failed')}`)
+      ora(`${this.project.name} built ${chalk.red('failed')}`).fail()
       return console.error(err)
     }
   }
