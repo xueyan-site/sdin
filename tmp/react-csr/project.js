@@ -26,7 +26,6 @@ module.exports = {
     }
   },
   page: {
-    title: 'react-csr-test',
     metas: [
       {
         key: 'ie',

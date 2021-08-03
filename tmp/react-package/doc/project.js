@@ -21,7 +21,6 @@ module.exports = {
     }
   },
   page: {
-    title: '<%= name %> doc',
     metas: [
       {
         key: 'ie',

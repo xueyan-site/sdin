@@ -181,7 +181,7 @@ export default abstract class Page<
     // 设置页面标题
     this.title = config.title || __config__.title
     if (!this.title) {
-      this.title = this.name + ' ' + project.name
+      this.title = this.name + '・' + project.name
     }
     // 设置页面元信息、链接、脚本、样式
     this.metas = this.uniqNodeAttrs(config.metas, __config__.metas)
