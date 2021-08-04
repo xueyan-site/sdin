@@ -1,0 +1,31 @@
+{
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "author": "<%= author %>",
+  "license": "MIT",
+  "description": "",
+  "main": "dist/node",
+  "types": "dist/def",
+  "module": "dist/web",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "start": "xt start",
+    "build": "xt build",
+    "start-doc": "xt start doc",
+    "build-doc": "xt build doc",
+    "serve-doc": "xt serve doc"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.12.5"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.0"
+  }
+}

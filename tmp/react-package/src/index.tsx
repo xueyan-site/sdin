@@ -1,41 +1,39 @@
 /**
  * @package <%= name %>
  * @author <%= author %>
- * @description 包入口 package entry
+ * @description package entry
  */
 
 import React from 'react'
 import classNames from 'classnames'
-import styles from './index.module.scss'
+import styles from './index.scss'
 
 /**
- * 开关组件的参数  
- * switch component props  
+ * component props  
  */
 export interface SwitchProps {
   /**
-   * 开关状态（on或off） 
-   * switch state (on or off)  
+   * switch status（on或off） 
    */
   value?: boolean
+  
   /**
-   * 设置开关状态  
-   * set switch state  
+   * set switch status  
    */
   onChange?: (value: boolean) => void
+
   /**
-   * 设置为块级元素（或不设置）  
-   * it is block or not  
+   * set to block element or not
    */
   block?: boolean
+
   /**
-   * 开关组件的class  
-   * switch className  
+   * switch component class name
    */
   className?: string
+
   /**
-   * 开关组件的样式  
-   * switch style  
+   * switch component style
    */
   style?: React.CSSProperties
 }
@@ -49,7 +47,12 @@ export default function Switch({
 }: SwitchProps) {
   return (
     <div 
-      className={classNames(styles.wrapper, value && styles.active, block && styles.block, className)} 
+      className={classNames(
+        styles.wrapper, 
+        value && styles.active, 
+        block && styles.block, 
+        className
+      )}
       style={style}
       onClick={() => {
         if (onChange) {

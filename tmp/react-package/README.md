@@ -1,27 +1,28 @@
 # <%= name %>
 
-<%= name %> 是一个react包。  
-<%= name %> is a react package.  
+`<%= name %>` is a react package.  
 
-本项目创建自 <%= author %>。  
-The project created by <%= author %>.  
+- [<%= name %>](<% print('#'+name) %>)
+  - [Why use it](#why-use-it)
+  - [What are its highlights](#what-are-its-highlights)
+  - [How to use it](#how-to-use-it)
+  - [Interface](#interface)
+  - [Develop](#develop)
+  - [Appendix](#appendix)
 
-## 下载 Install
+## Why use it
 
-```bash
-# 如果你使用的是NPM：
-# if you use NPM: 
-npm i <%= name %>
+## What are its highlights
 
-# 如果你使用的是Yarn：
-# if you use Yarn: 
-yarn add <%= name %>
-```
+## How to use it
 
-## 示例 Example
+## Interface
 
-```ts
-import Switch from '<%= name %>'
+## Develop
 
-<Switch value={state} onChange={state => setState(state)}/>
-```
+Please make sure that `Node` and `NPM` are installed on your computer, and `xueyan-typescript-cli` is installed globally. After switching current work path to this project root in CMD, you can run command `yarn start`.
+
+## Appendix
+
+author - <%= author %>  
+builder - [xueyan-typescript-cli](https://github.com/xueyan-site/xueyan-typescript-cli)  

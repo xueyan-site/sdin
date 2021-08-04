@@ -1,0 +1,14 @@
+# project
+/buf/
+/dist/
+
+# system
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# tools
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
