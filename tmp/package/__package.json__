@@ -5,8 +5,8 @@
   "license": "MIT",
   "description": "",
   "main": "dist/node",
-  "module": "dist/web",
   "types": "dist/def",
+  "module": "dist/web",
   "keywords": [],
   "repository": {
     "type": "git",

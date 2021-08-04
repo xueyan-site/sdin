@@ -4,6 +4,8 @@
   "author": "<%= author %>",
   "license": "MIT",
   "description": "",
+  "main": "dist/node",
+  "types": "dist/def",
   "keywords": [],
   "repository": {
     "type": "git",

@@ -4,6 +4,8 @@
   "author": "xueyan <yang@xueyan.site>",
   "license": "MIT",
   "description": "Typescript Application or Package Command Tool",
+  "main": "dist/node",
+  "types": "dist/def",
   "keywords": [
     "cli",
     "command",
