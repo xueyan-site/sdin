@@ -146,7 +146,7 @@ Project name, Chinese and English are both available, if null, the name field in
 
 #### package alias
 
-`name: string = <package.json name>`
+`alias: { [prop:string]: string } = {}`
 
 Module alias name
 
@@ -177,13 +177,13 @@ Build out the typescript definition file
 
 #### package useReact
 
-`useReact: booleann = false`
+`useReact: boolean = false`
 
 Enable react (you need to turn it on when developing react components)
 
 #### package useUglify
 
-`useUglify: booleann = false`
+`useUglify: boolean = false`
 
 Compress and obfuscate code
 
@@ -201,7 +201,7 @@ Project name, Chinese and English are both available, if null, the name field in
 
 #### react-csr alias
 
-`name: string = <package.json name>`
+`alias: { [prop:string]: string } = {}`
 
 Module alias name
 
@@ -318,13 +318,13 @@ The file `page.js` in the root of the project page is the page's configuration f
 
 #### react-csr-page name
 
-`name?: string`
+`name: string = <page folder name>`
 
 Page name
 
 #### react-csr-page path
   
-`path?: string`
+`path: string = <page folder name>`
 
 Page url suffix path
 
@@ -342,31 +342,31 @@ Container component (file path).
 
 #### react-csr-page title
 
-`title?: string`
+`title: string = <page name and project name`
 
 Title of HTML
 
 #### react-csr-page metas
 
-`metas?: NodeAttrs[]`
+`metas: NodeAttrs[] = []`
 
 Meta list of HTML
   
 #### react-csr-page links
 
-`links?: NodeAttrs[]`
+`links: NodeAttrs[] = []`
 
 Link list of HTML
 
 #### react-csr-page scripts
 
-`scripts?: NodeAttrs[]`
+`scripts: NodeAttrs[] = []`
 
 Script list of HTML
 
 #### react-csr-page styles
 
-`styles?: NodeAttrs[]`
+`styles: NodeAttrs[] = []`
 
 Style list of HTML
 
