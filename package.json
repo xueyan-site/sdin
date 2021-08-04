@@ -27,15 +27,8 @@
     "xt": "./dist/node/bin/index.js"
   },
   "scripts": {
-    "start": "node ./buf/node/bin/index.js start",
-    "build": "node ./buf/node/bin/index.js build",
-    "watch": "xytsc build --watch",
-    "start-doc": "xt start doc",
-    "build-doc": "xt build doc",
-    "serve-doc": "xt serve doc"
-  },
-  "resolutions": {
-    "webpack": "^5"
+    "start": "xt start",
+    "build": "xt build"
   },
   "dependencies": {
     "@babel/core": "^7.14.8",
@@ -80,7 +73,7 @@
     "postcss-import": "^14.0.2",
     "postcss-loader": "^6.1.1",
     "postcss-preset-env": "^6.7.0",
-    "react-refresh": "^0.10.0",
+    "react-refresh": "^0.9.0",
     "sass": "^1.36.0",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",

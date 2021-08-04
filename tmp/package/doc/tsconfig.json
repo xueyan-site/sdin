@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "include": [ "src", "pub", "typings.d.ts" ],
-  "exclude": [ "*.test.*" ],
+  "exclude": ["node_modules", "*.test.*"],
   "compilerOptions": {
     "checkJs": false,
     "strict": true,
