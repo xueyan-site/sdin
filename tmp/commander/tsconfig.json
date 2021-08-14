@@ -14,8 +14,9 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "lib": ["ES2015"],
     "module": "commonjs",
-    "target": "es5",
+    "target": "ES5",
     "jsx": "react",
     "outDir": "dist",
     "allowJs": true,
@@ -30,8 +31,7 @@
     "baseUrl": ".",
     "paths": {
       "scr/*": ["src/scr/*"],
-      "utl/*": ["src/utl/*"],
-      "types": ["src/types.ts"]
+      "utl/*": ["src/utl/*"]
     }
   }
 }

@@ -1,8 +1,11 @@
 .wrapper {
+  height: 100%;
   padding: 20vh 10vw 0;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   flex-flow: column nowrap;
+  background-color: #fff;
 }
 .banner {
   width: 48px;
@@ -16,5 +19,5 @@
 }
 .content {
   margin-bottom: 8px;
-  color: #fff;
+  color: #666;
 }

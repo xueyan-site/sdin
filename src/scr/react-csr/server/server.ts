@@ -4,7 +4,7 @@ import koaETag from 'koa-etag'
 import koaCompress from 'koa-compress'
 import koaSend from 'koa-send'
 import { webStatic, webError, webProxy } from '../common/server'
-import ReactCSR from 'pro/react-csr'
+import type ReactCSR from 'pro/react-csr'
 
 /**
  * 创建服务器
@@ -27,14 +27,14 @@ export function createServer(project: ReactCSR) {
     }
   }))
   server.use(webStatic({
-    prefix: project.path,
     dist: project.astDist,
+    prefix: project.publicPath,
     extensions: ['html','json']
   }))
   server.use(webStatic({
-    prefix: project.path,
     dist: project.webDist,
-    index: project.index,
+    index: project.index?.id,
+    prefix: project.publicPath,
     extensions: ['html','json']
   }))
   return server

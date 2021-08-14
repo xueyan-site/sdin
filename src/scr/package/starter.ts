@@ -2,12 +2,13 @@ import del from 'del'
 import gulp from 'gulp'
 import ora from 'ora'
 import chalk from 'chalk'
-import { Stats } from 'fs-extra'
 import { printExitError, printLoading, printSuccess } from 'utl/print'
-import Package from 'pro/package'
-import Starter, { StarterProps } from 'exe/starter'
+import Starter from 'exe/starter'
 import { compile } from './common/task'
 import { precheck } from './common/check'
+import type { Stats } from 'fs-extra'
+import type Package from 'pro/package'
+import type { StarterProps } from 'exe/starter'
 
 /**
  * 包构建器实例化参数

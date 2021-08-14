@@ -1,13 +1,14 @@
 import del from 'del'
 import ora from 'ora'
 import chalk from 'chalk'
-import ReactCSR from 'pro/react-csr'
-import Builder, { BuilderProps } from 'exe/builder'
+import Builder from 'exe/builder'
 import { printExitError, printLoading, printSuccess } from 'utl/print'
-import { Stats } from 'webpack'
 import { createWebpack } from './webpack'
 import { handleAssets } from '../common/task'
 import { precheck } from '../common/check'
+import type ReactCSR from 'pro/react-csr'
+import type { Stats } from 'webpack'
+import type { BuilderProps } from 'exe/builder'
 
 /**
  * react应用构建器实例化参数

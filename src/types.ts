@@ -1,14 +1,14 @@
 /**
  * 指代任一对象
  */
-export interface AnyObject<TValue = any> {
+interface AnyObject<TValue = any> {
   [prop: string]: TValue
 }
 
 /**
  * git全局配置信息
  */
-export interface GitInfo {
+interface GitInfo {
   [prop: string]: any
   user: {
     name: string // 用户名称
@@ -19,7 +19,7 @@ export interface GitInfo {
 /**
  * npm包信息
  */
-export interface PackageInfo {
+interface PackageInfo {
   [prop: string]: any
   name: string // 包的名称
   version: string // 包的版本
@@ -29,6 +29,6 @@ export interface PackageInfo {
 /**
  * 模块别名
  */
-export interface ModuleAlias {
+interface ModuleAlias {
   [index: string]: string
 }

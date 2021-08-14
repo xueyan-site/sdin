@@ -4,7 +4,8 @@ module.exports = {
   error: 'error',
   alias: {
     src: 'src',
-    ast: 'pub/ast'
+    ast: 'pub/ast',
+    utl: 'pub/utl'
   },
   module: {
     externals: {

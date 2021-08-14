@@ -6,8 +6,9 @@ export default function Index() {
   return (
     <div className={styles.wrapper}>
       <img className={styles.banner} src={FAVICON} />
-      <div className={styles.title}>ERROR</div>
-      <div className={styles.content}>You may have encountered some problems</div>
+      <div className={styles.title}>🙁</div>
+      <div className={styles.content}>Page crashed or not found</div>
+      <div className={styles.content}>Please check your network and URL</div>
     </div>
   )
 }

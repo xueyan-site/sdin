@@ -15,7 +15,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "module": "commonjs",
-    "target": "es5",
+    "target": "ES5",
+    "lib": ["ES2015"],
     "jsx": "react",
     "outDir": "dist",
     "allowJs": true,
@@ -32,8 +33,7 @@
       "exe/*": ["src/exe/*"],
       "pro/*": ["src/pro/*"],
       "scr/*": ["src/scr/*"],
-      "utl/*": ["src/utl/*"],
-      "types": ["src/types.ts"]
+      "utl/*": ["src/utl/*"]
     }
   }
 }

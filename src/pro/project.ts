@@ -1,6 +1,5 @@
 import { joinPath, withPath } from 'utl/path'
 import { deepRead, readJsonSync, readPackageInfoSync } from 'utl/read'
-import { AnyObject, PackageInfo, ModuleAlias } from 'types'
 
 /**
  * 项目配置信息
@@ -96,10 +95,24 @@ export default abstract class Project<
   TConfig extends ProjectConfig<TType>
 > {
   /**
-   * 项目ID（依据项目信息自动生成）
-   * 规则：${project.type}_${package.json/name}_${project.version}
+   * 项目ID（即package.json/name）
    */
   readonly id: string
+
+  /**
+   * 项目名称（中文、英文都可以，默认使用ID）
+   */
+  readonly name: string
+
+  /**
+   * 项目版本
+   */
+  readonly version: string
+
+  /**
+   * 项目作者
+   */
+  readonly author: string
 
   /**
    * 项目类型
@@ -177,22 +190,6 @@ export default abstract class Project<
   readonly package: PackageInfo
 
   /**
-   * 项目版本
-   */
-  readonly version: string
-
-  /**
-   * 项目作者
-   */
-  readonly author: string
-
-  /**
-   * 项目名称（中文、英文都可以）
-   * 不写，则使用package.json中的name字段代替
-   */
-  readonly name: string
-
-  /**
    * 模块的alias
    * webpack.resolve.alias | babel-plugin-module-resolver.alias
    * <https://webpack.docschina.org/configuration/resolve/#resolvealias>
@@ -225,10 +222,10 @@ export default abstract class Project<
     const packageInfo = this.package = props.package || readPackageInfoSync(this.root)
     const config = this.config = readJsonSync(props.config || 'project.js', this.root) as any
     // 设置项目的名称、作者、版本、id
+    this.id = packageInfo.name
+    this.name = config.name || this.id
     this.author = packageInfo.author
     this.version = packageInfo.version
-    this.name = config.name || packageInfo.name
-    this.id = [this.type, packageInfo.name, this.version].join('_')
     this.alias = config.alias
   }
 
@@ -306,9 +303,9 @@ export default abstract class Project<
    * prefix 最后返回的文件路径中，前面补上的公共路径
    */
   async getIrregularFileList(root: string, prefix?: string): Promise<string[]> {
-    const ALLOW_EXP = /^[a-z][a-z0-9\.]+$/
+    const ALLOW_EXP = /^[a-z][a-z0-9\-\.]+$/
     const fileList: string[] = []
-    deepRead(root, node => {
+    await deepRead(root, node => {
       if (!ALLOW_EXP.test(node.name)) {
         fileList.push(
           prefix 

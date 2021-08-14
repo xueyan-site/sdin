@@ -1,4 +1,4 @@
-import ReactCSRPage from 'pro/react-csr-page'
+import type ReactCSRPage from 'pro/react-csr-page'
 
 export function getTemplateString(page: ReactCSRPage, dev: boolean) {
   let { project, metas, title, links, scripts, styles } = page
@@ -11,7 +11,6 @@ export function getTemplateString(page: ReactCSRPage, dev: boolean) {
     <!DOCTYPE html>
     <html>
       <head>
-        <script>performance._a=Date.now()</script>
         <meta charset="UTF-8"/>
         ${page.nodesToHTML('meta', metas)}
         <title>${title}</title>
@@ -20,9 +19,9 @@ export function getTemplateString(page: ReactCSRPage, dev: boolean) {
         ${page.nodesToHTML('link', styles)}
       </head>
       <body>
-        <script>performance._b=Date.now()</script>
-        <div id="app">${page.skeleton(page)}</div>
-        <script>performance._c=Date.now()</script>
+        <div id="app">
+          ${page.skeleton(page)}
+        </div>
       </body>
     </html>
   `

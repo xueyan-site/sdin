@@ -1,6 +1,5 @@
 module.exports = {
-  container: '../../pub/com/container',
   skeleton: page => `
-    <div style="background-color:#80C491;height:100%"></div>
+    <div style="background-color:#fff;height:100%"></div>
   `
 }

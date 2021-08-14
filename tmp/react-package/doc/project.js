@@ -5,6 +5,7 @@ module.exports = {
   alias: {
     src: 'src',
     ast: 'pub/ast',
+    utl: 'pub/utl',
     '<%= name %>': '../src'
   },
   module: {

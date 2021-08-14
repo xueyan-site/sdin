@@ -1,19 +1,8 @@
-export { 
-  default as ReactCSRCreator,
-  ReactCSRCreatorProps
-} from './creator'
-
-export {
-  default as ReactCSRStarter,
-  ReactCSRStarterProps
-} from './starter'
-
-export { 
-  default as ReactCSRBuilder,
-  ReactCSRBuilderProps
-} from './builder'
-
-export {
-  default as ReactCSRServer,
-  ReactCSRServerProps
-} from './server'
+export { default as ReactCSRCreator } from './creator'
+export { default as ReactCSRStarter } from './starter'
+export { default as ReactCSRBuilder } from './builder'
+export { default as ReactCSRServer } from './server'
+export type { ReactCSRCreatorProps } from './creator'
+export type { ReactCSRStarterProps } from './starter'
+export type { ReactCSRBuilderProps } from './builder'
+export type { ReactCSRServerProps } from './server'

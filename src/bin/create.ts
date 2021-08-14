@@ -8,13 +8,13 @@ import validator from 'validator'
 import { cwdPath, cmdPath } from 'utl/path'
 import { printExitError, printInfo } from 'utl/print'
 import { readGitConfigSync, readJsonSync } from 'utl/read'
-import Creator from 'exe/creator'
 import Package, { PACKAGE_TYPE } from 'pro/package'
 import ReactCSR, { REACT_CSR_TYPE } from 'pro/react-csr'
 import { PackageCreator } from 'scr/package'
 import { ReactCSRCreator } from 'scr/react-csr'
+import type Creator from 'exe/creator'
 
-process.env.XT_CMD = 'create'
+process.env.XTCMD = 'create'
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))
 
@@ -50,7 +50,7 @@ async function action(path?: string) {
   /**
    * 确认需要使用的模版
    */
-  process.env.XT_TYPE = type
+  process.env.XTTYPE = type
   const project = projects.find(i => i.type === type)
   const templateList = project.templates
   let template: any = templateList.length === 1
@@ -118,7 +118,7 @@ async function action(path?: string) {
    * 生成项目模版
    */
   console.log()
-  process.env.XT_PATH = answers.root
+  process.env.XTPATH = answers.root
   const meta = {
     type,
     root: answers.root,

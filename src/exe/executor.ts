@@ -3,7 +3,8 @@ import fse from 'fs-extra'
 import ora from 'ora'
 import chalk from 'chalk'
 import { executeSync } from 'utl/exec'
-import Project, { ProjectConfig } from 'pro/project'
+import type Project from 'pro/project'
+import type { ProjectConfig } from 'pro/project'
 
 /**
  * 项目执行器实例化参数

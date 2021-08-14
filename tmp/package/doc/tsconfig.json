@@ -14,7 +14,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "lib": ["ES2015", "dom"],
+    "lib": ["ES2015", "DOM"],
     "module": "esnext",
     "target": "es5",
     "jsx": "react",
@@ -32,6 +32,7 @@
     "paths": {
       "src/*": ["./src/*"],
       "ast/*": ["./pub/ast/*"],
+      "utl/*": ["./pub/utl/*"],
       "<%= name %>": ["../src"]
     }
   }

@@ -1,16 +1,10 @@
-/**
- * refers to any object
- */
-export interface AnyObject {
-  [prop: string]: any
+interface AnyObject<TValue = any> {
+  [prop: string]: TValue
 }
 
-/**
- * npm package information
- */
-export interface PackageInfo {
+interface PackageInfo {
   [prop: string]: any
-  name: string // package name
-  version: string // package version
-  author: string // package author
+  name: string // 包的名称
+  version: string // 包的版本
+  author: string // 包的作者
 }

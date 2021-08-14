@@ -113,3 +113,10 @@ export function resolvePathExtends(path: string, name: string, exts: string[]) {
   }
   return ''
 }
+
+/**
+ * 路径转义（在将含反斜杠的路径，输出成文本时使用）
+ */
+export function escapePath(path: string = '') {
+  return path.replace('\\', '\\\\')
+}

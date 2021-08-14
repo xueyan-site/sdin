@@ -11,10 +11,10 @@ export default function Index(props: any) {
         {props.page.name}
       </div>
       <div className={styles.content}>
-        Project {props.project.name}
+        Project {XT_NAME}
       </div>
       <div className={styles.content}>
-        Author {props.project.author}
+        Author {XT_AUTHOR}
       </div>
     </div>
   )

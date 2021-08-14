@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
-import chalk, { Chalk } from 'chalk'
+import chalk from 'chalk'
 import { isError } from 'lodash'
+import type { Chalk } from 'chalk'
 
 const TIME_FORMAT = 'YY/MM/DD HH:mm ss.SSS'
 

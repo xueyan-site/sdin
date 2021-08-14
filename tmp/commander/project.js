@@ -4,7 +4,6 @@ module.exports = {
   useUglify: true,
   alias: {
     scr: 'src/scr',
-    utl: "src/utl",
-    types: "src/types.ts"
+    utl: "src/utl"
   }
 }

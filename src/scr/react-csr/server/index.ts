@@ -1,8 +1,9 @@
-import chalk from 'chalk'
-import ReactCSR from 'pro/react-csr'
-import Server, { ServerProps } from 'exe/server'
-import { createServer } from './server'
 import ora from 'ora'
+import chalk from 'chalk'
+import Server from 'exe/server'
+import { createServer } from './server'
+import type ReactCSR from 'pro/react-csr'
+import type { ServerProps } from 'exe/server'
 
 /**
  * react应用创建器实例化参数

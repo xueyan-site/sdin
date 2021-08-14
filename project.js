@@ -6,7 +6,6 @@ module.exports = {
     exe: "src/exe",
     pro: "src/pro",
     scr: "src/scr",
-    utl: "src/utl",
-    types: "src/types.ts"
+    utl: "src/utl"
   }
 }

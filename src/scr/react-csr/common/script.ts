@@ -1,39 +1,28 @@
-import ReactCSRPage from 'pro/react-csr-page'
+import { escapePath } from 'utl/path'
+import type ReactCSRPage from 'pro/react-csr-page'
 
-export function getScriptData(page: ReactCSRPage) {
+export function getPageData(page: ReactCSRPage) {
   return {
-    page: {
-      name: page.name,
-      path: page.path,
-      title: page.title
-    },
-    project: {
-      name: page.project.name,
-      path: page.project.path,
-      author: page.project.author,
-      version: page.project.version
-    }
+    id: page.id,
+    name: page.name,
+    pagePath: page.path,
+    trackPath: page.project.trackPath,
+    publicPath: page.project.publicPath,
+    privatePath: page.privatePath
   }
 }
 
 export function getScriptString(page: ReactCSRPage) {
   return `
-    import React, { useEffect } from 'react'
+    import React from 'react'
     import ReactDOM from 'react-dom'
-    import Entry from '${page.entry}'
-    ${page.container ? `import Container from '${page.container}'` : ''}
-    const data = ${JSON.stringify(getScriptData(page))}
-    const App = () => {
-      performance._d=Date.now()
-      useEffect(() => {
-        performance._e=Date.now()
-      })
-      return ${page.container ? `(
-        <Container {...data}>
-          <Entry {...data} />
-        </Container>
-      )` : '<Entry {...data} />'}
-    }
-    ReactDOM.render(<App />, document.getElementById('app'))
+    import { PageProvider } from 'xueyan-react'
+    import Entry from '${escapePath(page.entry)}'
+    const page = ${JSON.stringify(getPageData(page))}
+    ReactDOM.render((
+      <PageProvider page={page}>
+        <Entry page={page} />
+      </PageProvider>
+    ), document.getElementById('app'))
   `
 }

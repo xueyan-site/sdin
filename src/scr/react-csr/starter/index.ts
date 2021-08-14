@@ -1,11 +1,12 @@
 import ora from 'ora'
 import chalk from 'chalk'
-import ReactCSR from 'pro/react-csr'
-import Starter, { StarterProps } from 'exe/starter'
+import Starter from 'exe/starter'
 import { printExitError, printLoading, printSuccess } from 'utl/print'
 import { createServer } from './server'
 import { createWebpack } from './webpack'
 import { precheck } from '../common/check'
+import type ReactCSR from 'pro/react-csr'
+import type { StarterProps } from 'exe/starter'
 
 /**
  * react应用创建器实例化参数

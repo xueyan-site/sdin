@@ -1,11 +1,13 @@
 import chalk from 'chalk'
 import ora from 'ora'
 import fse from 'fs-extra'
-import Project, { ProjectConfig } from 'pro/project'
-import Executor, { ExecutorProps } from './executor'
+import Executor from './executor'
 import { cmdPath } from 'utl/path'
 import { deepCopy, getReplaceHandler } from 'utl/write'
 import { executeSync } from 'utl/exec'
+import type Project from 'pro/project'
+import type { ProjectConfig } from 'pro/project'
+import type { ExecutorProps } from './executor'
 
 /**
  * 项目创建器实例化参数

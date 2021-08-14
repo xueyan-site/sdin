@@ -23,7 +23,7 @@
     "serve-doc": "xt serve doc"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5"
+    "@babel/runtime": "^7.12.0"
   },
   "devDependencies": {
     "typescript": "^4.0.0"

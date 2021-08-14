@@ -5,13 +5,13 @@ import { Command } from 'commander'
 import { printExitError, printInfo } from 'utl/print'
 import { cwdPath } from 'utl/path'
 import { readProjectMeta } from 'pro/project'
-import Builder from 'exe/builder'
 import Package, { PACKAGE_TYPE } from 'pro/package'
 import ReactCSR, { REACT_CSR_TYPE } from 'pro/react-csr'
 import { PackageBuilder } from 'scr/package'
 import { ReactCSRBuilder } from 'scr/react-csr'
+import type Builder from 'exe/builder'
 
-process.env.XT_CMD = 'build'
+process.env.XTCMD = 'build'
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))
 
@@ -27,9 +27,9 @@ program
 
 async function action(path?: string) {
   const projectPath = cwdPath(path || '')
-  process.env.XT_PATH = projectPath
+  process.env.XTPATH = projectPath
   const meta = readProjectMeta(projectPath)
-  process.env.XT_TYPE = meta.type
+  process.env.XTTYPE = meta.type
   let builder: Builder<any> | undefined
   if (meta.type === PACKAGE_TYPE) {
     builder = new PackageBuilder({

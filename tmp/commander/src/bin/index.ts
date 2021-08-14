@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
 import updateNotifier from 'update-notifier'
-import { Command, ExecutableCommandOptions } from 'commander'
+import { Command } from 'commander'
 import { readPackageInfoSync } from 'utl/read'
 import { printExitError, printInfo } from 'utl/print'
 import { CMD } from 'utl/path'
+import type { ExecutableCommandOptions } from 'commander'
 
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))

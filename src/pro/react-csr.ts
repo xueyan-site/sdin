@@ -1,10 +1,11 @@
 import fse from 'fs-extra'
 import { defaultsDeep, keyBy } from 'lodash'
-import { RuleSetCondition, RuleSetRule } from 'webpack'
-import { Options as ProxyOptions } from 'koa-proxy'
-import Application, { ApplicationProps, ApplicationConfig } from './application'
-import ReactCSRPage, { ReactCSRPageConfig } from './react-csr-page'
-import { AnyObject } from 'types'
+import Application from './application'
+import ReactCSRPage from './react-csr-page'
+import type { RuleSetCondition, RuleSetRule } from 'webpack'
+import type { Options as ProxyOptions } from 'koa-proxy'
+import type { ApplicationProps, ApplicationConfig } from './application'
+import type { ReactCSRPageConfig } from './react-csr-page'
 
 /**
  * react-csr应用类型
@@ -89,6 +90,11 @@ export interface ReactCSRConfig extends ApplicationConfig<ReactCSRType> {
   error?: string
 
   /**
+   * 是否开启打点功能，默认开启
+   */
+  track?: boolean
+
+  /**
    * 页面的全局默认配置
    */
   page?: Partial<ReactCSRPageConfig>
@@ -130,14 +136,14 @@ export default class ReactCSR extends Application<
   readonly astPub: string
 
   /**
-   * 项目的根页面（填写的应当是页面的path）
+   * 项目的根页面
    */
-  readonly index?: string
+  readonly index?: ReactCSRPage
 
   /**
-   * 项目的错误页面（填写的应当是页面的path）
+   * 项目的错误页面
    */
-  readonly error?: string
+  readonly error?: ReactCSRPage
 
   /**
    * 模块配置信息
@@ -153,6 +159,11 @@ export default class ReactCSR extends Application<
    * 服务配置信息（开发时期）
    */
   readonly start: ReactCSRStartConfig
+
+  /**
+   * 打点路径（为空，则不能打点）
+   */
+  readonly trackPath: string
 
   /**
    * 页面的全局默认配置
@@ -174,8 +185,6 @@ export default class ReactCSR extends Application<
     const config = this.config
     this.astPub = this.withPub('ast')
     // 设置项目的页面全局配置，模块、服务、开发等配置信息
-    this.index = config.index
-    this.error = config.error
     this.module = defaultsDeep({}, config.module, {
       externals: {},
       babelIncludes: [],
@@ -195,15 +204,19 @@ export default class ReactCSR extends Application<
     const isExistProject = fse.existsSync(props.root)
     this.__pageConfig__ = config.page || {}
     this.pageList = isExistProject ? this.getPageList() : []
-    this.__pageMap__ = keyBy(this.pageList, 'path')
+    this.__pageMap__ = keyBy(this.pageList, 'id')
+    this.index = this.getPage(config.index)
+    this.error = this.getPage(config.error)
+    // 设置打点路径
+    this.trackPath = config.track !== false ? this.joinPath('t.gif') : ''
   }
 
   /**
    * 获取某一个页面
    * @returns 
    */
-  getPage(name?: string): ReactCSRPage | undefined {
-    return this.__pageMap__[name || '']
+  getPage(id?: string): ReactCSRPage | undefined {
+    return this.__pageMap__[id || '']
   }
 
   /**

@@ -1,13 +1,14 @@
-import Koa, { Context } from 'koa'
+import Koa from 'koa'
 import koaCompose from 'koa-compose'
 import KoaRouter from 'koa-router'
 import e2k from 'express-to-koa'
 import wdm from 'webpack-dev-middleware'
 import whm from 'webpack-hot-middleware'
-import { Compiler } from 'webpack'
-import ReactCSR from 'pro/react-csr'
 import { webStatic, webError, webProxy } from '../common/server'
-import ReactCSRPage from 'pro/react-csr-page'
+import type { Context } from 'koa'
+import type { Compiler } from 'webpack'
+import type ReactCSR from 'pro/react-csr'
+import type ReactCSRPage from 'pro/react-csr-page'
 
 /**
  * 创建服务器
@@ -24,8 +25,8 @@ export async function createServer(project: ReactCSR, compiler: Compiler) {
     }
   }))
   server.use(webStatic({
-    prefix: project.path,
     dist: project.astPub,
+    prefix: project.publicPath,
     extensions: ['html','json']
   }))
   server.use(pageBuilder(project, compiler))
@@ -38,7 +39,7 @@ export async function createServer(project: ReactCSR, compiler: Compiler) {
  * 页面处理器
  */
 async function pageReader(ctx: Context, page: ReactCSRPage, project: ReactCSR, compiler: Compiler) {
-  const filePath = project.withDist('web', page.path + '.html')
+  const filePath = project.withDist('web', page.id + '.html')
   ctx.set('content-type', 'text/html')
   ctx.body = await new Promise<string|Buffer|undefined>((resolve, reject) => {
     compiler.outputFileSystem.readFile(filePath, (err, data) => {
@@ -53,7 +54,7 @@ async function pageReader(ctx: Context, page: ReactCSRPage, project: ReactCSR, c
 function pageBuilder(project: ReactCSR, compiler: Compiler) {
   return e2k(wdm(compiler as any, {
     stats: 'errors-warnings',
-    publicPath: project.path
+    publicPath: project.publicPath
   }))
 }
 
@@ -68,18 +69,15 @@ function pageReloader(compiler: Compiler) {
  * 页面路由中间件
  */
 function pageRoutes(project: ReactCSR, compiler: Compiler) {
-  const { pageList } = project
-  const router = new KoaRouter({
-    prefix: project.path
-  })
+  const { pageList, index } = project
+  const router = new KoaRouter()
   // 设置项目各页面路径对应的路由
   pageList.forEach(page => {
     router.get(page.path, ctx => pageReader(ctx, page, project, compiler))
   })
   // 设置项目url的根路径对应的路由
-  const page = project.getPage(project.index)
-  if (page) {
-    router.get('/', ctx => pageReader(ctx, page, project, compiler))
+  if (index) {
+    router.get(project.publicPath, ctx => pageReader(ctx, index, project, compiler))
   }
   return koaCompose([
     router.routes(),

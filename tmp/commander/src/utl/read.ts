@@ -1,7 +1,6 @@
 import fse from 'fs-extra'
 import { isPlainObject, isString } from 'lodash'
 import { withPath } from './path'
-import { PackageInfo, AnyObject } from 'types'
 
 /**
  * data cacher

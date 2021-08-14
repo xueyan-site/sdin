@@ -1,10 +1,12 @@
-import { Context, Next } from 'koa'
 import koaMount from 'koa-mount'
-import koaProxy, { Options as ProxyOptions } from 'koa-proxy'
+import koaProxy from 'koa-proxy'
 import koaCompose from 'koa-compose'
-import koaStatic, { Options } from 'koa-static'
-import ReactCSR from 'pro/react-csr'
-import ReactCSRPage from 'pro/react-csr-page'
+import koaStatic from 'koa-static'
+import type { Context, Next } from 'koa'
+import type { Options as ProxyOptions } from 'koa-proxy'
+import type { Options } from 'koa-static'
+import type ReactCSR from 'pro/react-csr'
+import type ReactCSRPage from 'pro/react-csr-page'
 
 export interface WebStaticOptions extends Omit<Options, 'maxage'> {
   // 资源目录
@@ -42,8 +44,8 @@ interface WebErrorOptions {
 /**
  * 网站错误兜底
  */
-export function webError(options: WebErrorOptions) {
-  const page = options.project.getPage(options.project.error)
+export function webError({ project, reader }: WebErrorOptions) {
+  const page = project.error
   return async (ctx: Context, next: Next) => {
     try {
       await next()
@@ -51,8 +53,8 @@ export function webError(options: WebErrorOptions) {
         throw new Error()
       }
     } catch (error) {
-      if (page && options.reader) {
-        await options.reader(ctx, page, error)
+      if (page && reader) {
+        await reader(ctx, page, error)
       } else {
         ctx.set('content-type', 'text/html')
         ctx.body = error?.message
