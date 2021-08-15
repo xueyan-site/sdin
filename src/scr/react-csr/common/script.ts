@@ -6,7 +6,6 @@ export function getPageData(page: ReactCSRPage) {
     id: page.id,
     name: page.name,
     pagePath: page.path,
-    trackPath: page.project.trackPath,
     publicPath: page.project.publicPath,
     privatePath: page.privatePath
   }

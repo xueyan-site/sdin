@@ -10,4 +10,5 @@ declare global {
   const XT_VERSION: string
   const XT_ROOT: string
   const XT_PATH: string
+  const XT_TRACK_PATH: string
 }
