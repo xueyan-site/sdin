@@ -9,7 +9,6 @@ import ReactCSR, { REACT_CSR_TYPE } from 'pro/react-csr'
 import { ReactCSRServer } from 'scr/react-csr'
 import type Server from 'exe/server'
 
-process.env.XTCMD = 'serve'
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))
 
@@ -24,9 +23,7 @@ program
 
 async function action(path?: string) {
   const projectPath = cwdPath(path || '')
-  process.env.XTPATH = projectPath
   const meta = readProjectMeta(projectPath)
-  process.env.XTTYPE = meta.type
   let server: Server<any> | undefined
   if (meta.type === REACT_CSR_TYPE) {
     server = new ReactCSRServer({

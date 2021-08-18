@@ -11,7 +11,6 @@ import { PackageBuilder } from 'scr/package'
 import { ReactCSRBuilder } from 'scr/react-csr'
 import type Builder from 'exe/builder'
 
-process.env.XTCMD = 'build'
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))
 
@@ -21,15 +20,12 @@ const program = new Command()
 program
   .description('build project to production line')
   .arguments('[path]')
-  .option('-w, --watch', 'watch file change')
   .action(action)
   .parse(process.argv)
 
 async function action(path?: string) {
   const projectPath = cwdPath(path || '')
-  process.env.XTPATH = projectPath
   const meta = readProjectMeta(projectPath)
-  process.env.XTTYPE = meta.type
   let builder: Builder<any> | undefined
   if (meta.type === PACKAGE_TYPE) {
     builder = new PackageBuilder({

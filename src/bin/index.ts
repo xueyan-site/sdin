@@ -62,6 +62,13 @@ const SUB_CMD_LIST: {
     options: {
       executableFile: './serve'
     }
+  },
+  {
+    command: 'track',
+    description: 'start tracking services',
+    options: {
+      executableFile: './track'
+    }
   }
 ]
 

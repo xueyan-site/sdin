@@ -14,7 +14,6 @@ import { PackageCreator } from 'scr/package'
 import { ReactCSRCreator } from 'scr/react-csr'
 import type Creator from 'exe/creator'
 
-process.env.XTCMD = 'create'
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))
 
@@ -33,7 +32,7 @@ async function action(path?: string) {
   /**
    * 确认类型
    */
-  const templateMeta = readJsonSync(cmdPath('tmp/meta.json'))
+  const templateMeta = readJsonSync(cmdPath('com/tmp/meta.json'))
   const projects: any[] = templateMeta.projects || []
   const type = (await prompt<{ type: string }>([
     {
@@ -50,7 +49,6 @@ async function action(path?: string) {
   /**
    * 确认需要使用的模版
    */
-  process.env.XTTYPE = type
   const project = projects.find(i => i.type === type)
   const templateList = project.templates
   let template: any = templateList.length === 1
@@ -118,7 +116,6 @@ async function action(path?: string) {
    * 生成项目模版
    */
   console.log()
-  process.env.XTPATH = answers.root
   const meta = {
     type,
     root: answers.root,

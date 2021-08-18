@@ -32,7 +32,7 @@ export default abstract class Creator<
   constructor(props: CreatorProps<TProject>, defaultTemplate: string) {
     super(props)
     const __template__ = props.template || defaultTemplate
-    this.templatePath = cmdPath(`tmp/${__template__}`)
+    this.templatePath = cmdPath(`com/tmp/${__template__}`)
   }
 
   /**

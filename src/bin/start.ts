@@ -11,7 +11,6 @@ import { PackageStarter } from 'scr/package'
 import { ReactCSRStarter } from 'scr/react-csr'
 import type Starter from 'exe/starter'
 
-process.env.XTCMD = 'start'
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, 1))
 
@@ -26,9 +25,7 @@ program
 
 async function action(path?: string) {
   const projectPath = cwdPath(path || '')
-  process.env.XTPATH = projectPath
   const meta = readProjectMeta(projectPath)
-  process.env.XTTYPE = meta.type
   let starter: Starter<any> | undefined
   if (meta.type === PACKAGE_TYPE) {
     starter = new PackageStarter({

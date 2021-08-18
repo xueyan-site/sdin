@@ -14,6 +14,7 @@ export function createServer(project: ReactCSR) {
   server.use(webProxy({
     proxies: project.serve.proxies
   }))
+  
   server.use(koaConditional())
   server.use(koaETag())
   server.use(koaCompress())
