@@ -1,0 +1,42 @@
+{
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "author": "<%= author %>",
+  "license": "MIT",
+  "description": "",
+  "main": "dist/node",
+  "types": "dist/def",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "files": [
+    "dist/**/*",
+    "yarn.lock"
+  ],
+  "bin": {
+    "<%= name %>": "./dist/node/binary/index.js"
+  },
+  "scripts": {
+    "start": "xt start",
+    "build": "xt build",
+    "start-doc": "xt start doc",
+    "build-doc": "xt build doc",
+    "serve-doc": "xt serve doc"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.12.0",
+    "commander": "^6.1.0",
+    "dayjs": "^1.10.6",
+    "fs-extra": "^9.0.1",
+    "lodash": "^4.17.20",
+    "update-notifier": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.1",
+    "@types/lodash": "^4.14.161",
+    "@types/update-notifier": "^5.0.0",
+    "typescript": "^4.0.3"
+  }
+}

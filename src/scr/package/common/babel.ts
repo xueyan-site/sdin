@@ -1,8 +1,7 @@
 import { mapValues } from 'lodash'
-import { AnyObject } from 'types'
-import Package from 'pro/package'
 import { cmdNmPath, relativePath } from 'utl/path'
 import { withCache } from 'utl/read'
+import type Package from 'pro/package'
 
 /**
  * 获取自定义模块别名Babel插件

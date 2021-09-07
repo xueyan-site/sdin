@@ -1,4 +1,14 @@
-import ReactCSRPage from 'pro/react-csr-page'
+import type ReactCSRPage from 'pro/react-csr-page'
+
+function getPageData(page: ReactCSRPage) {
+  return {
+    id: page.id,
+    name: page.name,
+    pagePath: page.path,
+    publicPath: page.project.publicPath,
+    privatePath: page.privatePath
+  }
+}
 
 export function getTemplateString(page: ReactCSRPage, dev: boolean) {
   let { project, metas, title, links, scripts, styles } = page
@@ -11,18 +21,18 @@ export function getTemplateString(page: ReactCSRPage, dev: boolean) {
     <!DOCTYPE html>
     <html>
       <head>
-        <script>performance._a=Date.now()</script>
         <meta charset="UTF-8"/>
         ${page.nodesToHTML('meta', metas)}
         <title>${title}</title>
+        <script>window.XT_PAGE=${JSON.stringify(getPageData(page))}</script>
         ${page.nodesToHTML('link', links)}
         ${page.nodesToHTML('script', scripts)}
         ${page.nodesToHTML('link', styles)}
       </head>
       <body>
-        <script>performance._b=Date.now()</script>
-        <div id="app">${page.skeleton(page)}</div>
-        <script>performance._c=Date.now()</script>
+        <div id="app">
+          ${page.skeleton(page)}
+        </div>
       </body>
     </html>
   `

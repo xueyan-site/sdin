@@ -1,11 +1,13 @@
 import chalk from 'chalk'
 import ora from 'ora'
 import fse from 'fs-extra'
-import Project, { ProjectConfig } from 'pro/project'
-import Executor, { ExecutorProps } from './executor'
+import Executor from './executor'
 import { cmdPath } from 'utl/path'
 import { deepCopy, getReplaceHandler } from 'utl/write'
 import { executeSync } from 'utl/exec'
+import type Project from 'pro/project'
+import type { ProjectConfig } from 'pro/project'
+import type { ExecutorProps } from './executor'
 
 /**
  * 项目创建器实例化参数
@@ -30,7 +32,7 @@ export default abstract class Creator<
   constructor(props: CreatorProps<TProject>, defaultTemplate: string) {
     super(props)
     const __template__ = props.template || defaultTemplate
-    this.templatePath = cmdPath(`tmp/${__template__}`)
+    this.templatePath = cmdPath(`pub/tmp/${__template__}`)
   }
 
   /**

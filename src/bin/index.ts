@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
 import updateNotifier from 'update-notifier'
-import { Command, ExecutableCommandOptions } from 'commander'
+import { Command } from 'commander'
 import { readPackageInfoSync } from 'utl/read'
 import { printExitError, printInfo } from 'utl/print'
 import { CMD } from 'utl/path'
+import type { ExecutableCommandOptions } from 'commander'
 
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
-process.on('uncaughtException', err => printExitError(err, 1))
+process.on('uncaughtException', err => printExitError(err, undefined, 1))
 
 const program = new Command()
 const packageInfo = readPackageInfoSync(CMD)
@@ -60,6 +61,13 @@ const SUB_CMD_LIST: {
     description: 'open project server',
     options: {
       executableFile: './serve'
+    }
+  },
+  {
+    command: 'track',
+    description: 'start tracking services',
+    options: {
+      executableFile: './track'
     }
   }
 ]

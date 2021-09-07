@@ -1,12 +1,14 @@
 import gulp from 'gulp'
 import gulpBabel from 'gulp-babel'
-import gulpTs, { Project as TSProject, reporter } from 'gulp-typescript'
+import gulpTs, { reporter } from 'gulp-typescript'
 import gulpUglify from 'gulp-uglify'
-import gulpFilter, { FileFunction as FilterFunc } from 'gulp-filter'
-import Package from 'pro/package'
+import gulpFilter from 'gulp-filter'
 import { pipeline } from 'utl/exec'
 import { withCache } from 'utl/read'
 import { getBabelOptions } from './babel'
+import type Package from 'pro/package'
+import type { Project as TSProject } from 'gulp-typescript'
+import type { FileFunction as FilterFunc } from 'gulp-filter'
 
 /**
  * 编译项目（CLI运行的总实现）

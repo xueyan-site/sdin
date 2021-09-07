@@ -1,5 +1,7 @@
+import { trimStart } from 'lodash'
 import { joinPath } from 'utl/path'
-import Project, { ProjectProps, ProjectConfig } from './project'
+import Project from './project'
+import type { ProjectProps, ProjectConfig } from './project'
 
 /**
  * 应用配置信息
@@ -28,21 +30,21 @@ export default abstract class Application<
   TConfig extends ApplicationConfig<TType>
 > extends Project<TType, TConfig> {
   /**
-   * 项目url中的公共路径
+   * url中的公共路径（包含'/'）
    */
-  readonly path: string
+  readonly publicPath: string
 
   constructor(type: TType, props: ApplicationProps<TType, TConfig>) {
     super(type, props)
-    this.path = this.config.path || '/'
+    this.publicPath = '/' + trimStart(this.config.path, '/')
   }
 
   /**
-   * 以本项目公共path为前缀，拼接url的path
+   * 以本项目公共path为前缀，拼接其它path
    * @param pathList 
    * @returns 
    */
   joinPath(...pathList: string[]) {
-    return joinPath(this.path, ...pathList)
+    return joinPath(this.publicPath, ...pathList)
   }
 }

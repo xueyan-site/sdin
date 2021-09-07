@@ -2,21 +2,34 @@ import Koa from 'koa'
 import koaConditional from 'koa-conditional-get'
 import koaETag from 'koa-etag'
 import koaCompress from 'koa-compress'
+import koaBodyParser from 'koa-bodyparser'
 import koaSend from 'koa-send'
-import { webStatic, webError, webProxy } from '../common/server'
-import ReactCSR from 'pro/react-csr'
+import { useRoutes, webStatic, webError, webProxy } from '../common/server'
+import { createTracker } from './tracker'
+import type ReactCSR from 'pro/react-csr'
+
+interface ServerOptions {
+  /**
+   * 服务器密码
+   */
+  password: string
+}
 
 /**
  * 创建服务器
  */
-export function createServer(project: ReactCSR) {
+export async function createServer(project: ReactCSR, options: ServerOptions) {
   const server = new Koa()
   server.use(webProxy({
     proxies: project.serve.proxies
   }))
+  await useRoutes(server, [
+    createTracker(project, options)
+  ])
   server.use(koaConditional())
   server.use(koaETag())
   server.use(koaCompress())
+  server.use(koaBodyParser())
   server.use(webError({
     project,
     reader: (ctx, page) => {
@@ -27,14 +40,14 @@ export function createServer(project: ReactCSR) {
     }
   }))
   server.use(webStatic({
-    prefix: project.path,
     dist: project.astDist,
+    prefix: project.publicPath,
     extensions: ['html','json']
   }))
   server.use(webStatic({
-    prefix: project.path,
     dist: project.webDist,
-    index: project.index,
+    index: project.index?.id,
+    prefix: project.publicPath,
     extensions: ['html','json']
   }))
   return server

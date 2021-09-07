@@ -1,10 +1,60 @@
-import { Context, Next } from 'koa'
+import Koa from 'koa'
 import koaMount from 'koa-mount'
-import koaProxy, { Options as ProxyOptions } from 'koa-proxy'
+import koaProxy from 'koa-proxy'
 import koaCompose from 'koa-compose'
-import koaStatic, { Options } from 'koa-static'
-import ReactCSR from 'pro/react-csr'
-import ReactCSRPage from 'pro/react-csr-page'
+import koaStatic from 'koa-static'
+import KoaRouter from 'koa-router'
+import type { Context, Next, Middleware } from 'koa'
+import type { Options as ProxyOptions } from 'koa-proxy'
+import type { Options } from 'koa-static'
+import type ReactCSR from 'pro/react-csr'
+import type ReactCSRPage from 'pro/react-csr-page'
+
+export type Middlewarer = () => PromiseOrNot<Middleware<any, any> | undefined>
+
+/**
+ * 使用中间件创建器（若没有创建中间件，则不应用）
+ */
+export async function useMiddlewarer(server: Koa, creator: Middlewarer) {
+  const middleware = await creator()
+  if (middleware) {
+    server.use(middleware)
+  }
+}
+
+export type RouteConfig = [keyof KoaRouter, ...any[]]
+
+export type RoutesResult = PromiseOrNot<(RouteConfig | undefined)[] | undefined>
+
+/**
+ * 使用路由（若路由器列表不存在，则不应用）
+ */
+export async function useRoutes(server: Koa, routesList: RoutesResult[]) {
+  const routeList: RouteConfig[] = []
+  const results = await Promise.all(routesList)
+  results.forEach(routes => {
+    if (routes) {
+      routes.forEach(route => {
+        if (route) {
+          routeList.push(route)
+        }
+      })
+    }
+  })
+  if (routeList.length > 0) {
+    const router = new KoaRouter()
+    routeList.forEach(([key, ...args]) => {
+      const method: any = router[key]
+      if (typeof method === 'function') {
+        method.apply(router, args)
+      }
+    })
+    server.use(koaCompose([
+      router.routes(),
+      router.allowedMethods()
+    ]))
+  }
+}
 
 export interface WebStaticOptions extends Omit<Options, 'maxage'> {
   // 资源目录
@@ -42,8 +92,8 @@ interface WebErrorOptions {
 /**
  * 网站错误兜底
  */
-export function webError(options: WebErrorOptions) {
-  const page = options.project.getPage(options.project.error)
+export function webError({ project, reader }: WebErrorOptions) {
+  const page = project.error
   return async (ctx: Context, next: Next) => {
     try {
       await next()
@@ -51,8 +101,8 @@ export function webError(options: WebErrorOptions) {
         throw new Error()
       }
     } catch (error) {
-      if (page && options.reader) {
-        await options.reader(ctx, page, error)
+      if (page && reader) {
+        await reader(ctx, page, error)
       } else {
         ctx.set('content-type', 'text/html')
         ctx.body = error?.message

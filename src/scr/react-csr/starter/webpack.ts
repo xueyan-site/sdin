@@ -1,10 +1,11 @@
-import { mapValues, omit } from 'lodash'
+import { omit } from 'lodash'
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
-import Webpack, { Compiler, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin } from 'webpack'
-import ReactCSR from 'pro/react-csr'
-import { cmdNmPath } from 'utl/path'
+import Webpack, { HotModuleReplacementPlugin, NoEmitOnErrorsPlugin } from 'webpack'
 import { getPages } from '../common/page'
 import { getRules } from '../common/module'
+import { getDefinePlugin, getResolve, getResolveLoader } from '../common/buff'
+import type { Compiler } from 'webpack'
+import type ReactCSR from 'pro/react-csr'
 
 /**
  * 获取webpack配置
@@ -26,7 +27,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     output: {
       path: project.webDist,
       pathinfo: true,
-      publicPath: project.path,
+      publicPath: project.publicPath,
       hashDigestLength: 8,
       filename: 'js/[name].js',
       chunkFilename: 'js/[id].js'
@@ -35,24 +36,8 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
       rules: getRules(project, true)
     },
     externals,
-    resolve: {
-      extensions: [
-        '.tsx',
-        '.ts',
-        '.jsx',
-        '.js',
-        '.json'
-      ],
-      alias: mapValues(project.alias, value => {
-        return project.withRoot(value)
-      })
-    },
-    resolveLoader: {
-      modules: [
-        project.mdl,
-        cmdNmPath()
-      ]
-    },
+    resolve: getResolve(project),
+    resolveLoader: getResolveLoader(project),
     plugins: [
       new HotModuleReplacementPlugin(),
       new ReactRefreshPlugin({
@@ -60,6 +45,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
           sockIntegration: 'whm'
         }
       }),
+      getDefinePlugin(project, true),
       new NoEmitOnErrorsPlugin(),
       ...pages.plugins
     ]

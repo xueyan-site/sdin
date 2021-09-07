@@ -2,8 +2,8 @@ import fse from 'fs-extra'
 import chardet from 'chardet'
 import { template } from 'lodash'
 import { withPath } from './path'
-import { deepRead, DeepReadNode } from './read'
-import { AnyObject } from 'types'
+import { deepRead } from './read'
+import type { DeepReadNode } from './read'
 
 /**
  * 深度遍历的节点信息

@@ -1,4 +1,4 @@
-import Package from 'pro/package'
+import type Package from 'pro/package'
 
 /**
  * 预校验
@@ -9,9 +9,9 @@ export async function precheck(project: Package): Promise<string> {
   }
   const illegalFileList = await project.getIrregularFileList(project.src, 'src')
   if (illegalFileList.length > 0) {
-    return ['Please change the following files to kebab-case']
+    return ['please change the following files to kebab-case']
       .concat(illegalFileList)
-      .join('\n  - ')
+      .join('\n   - ')
   }
   return ''
 }

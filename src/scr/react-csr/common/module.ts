@@ -1,8 +1,8 @@
 import { defaultsDeep } from 'lodash'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import ReactCSR from 'pro/react-csr'
 import { cmdNmPath } from 'utl/path'
-import { RuleSetRule } from 'webpack'
+import type ReactCSR from 'pro/react-csr'
+import type { RuleSetRule } from 'webpack'
 
 /**
  * 获取webpack的loader配置

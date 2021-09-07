@@ -1,7 +1,8 @@
-import Application, { ApplicationConfig } from './application'
-import { uniqWith } from 'lodash'
+import { trimStart, uniqWith } from 'lodash'
 import { withPath } from 'utl/path'
 import { readJsonSync } from 'utl/read'
+import type Application from './application'
+import type { ApplicationConfig } from './application'
 
 /**
  * 节点属性键值对
@@ -30,13 +31,6 @@ export interface PageConfig {
    * 入口文件
    */
   entry?: string
-
-  /**
-   * 容器，默认是没有的
-   * 若有，则会将entry作为children传入
-   * 它会接收与entry相同的参数
-   */
-  container?: string
 
   /**
    * 标题
@@ -89,24 +83,24 @@ export default abstract class Page<
   TConfig extends PageConfig
 > {
   /**
-   * 页面ID
+   * 页面ID（优先使用config.path，默认使用文件夹名）
    */
   readonly id: string
 
   /**
-   * 页面url后缀（默认使用文件夹名）
+   * 名称（默认使用id）
+   */
+  readonly name: string
+
+  /**
+   * url中的页面路径（完整，包含'/'）
    */
   readonly path: string
 
   /**
-   * 页面url路径（全路径）
+   * url中的页面路径（非公共路径外的路径，包含'/'）
    */
-  readonly fullPath: string
-
-  /**
-   * 名称（默认使用path）
-   */
-  readonly name: string
+  readonly privatePath: string
 
   /**
    * 页面目录路径
@@ -127,13 +121,6 @@ export default abstract class Page<
    * 入口文件（默认使用index.tsx）
    */
   readonly entry: string
-
-  /**
-   * 容器，默认是没有的
-   * 若有，则会将entry作为children传入
-   * 它会接收与entry相同的参数
-   */
-  readonly container?: string
 
   /**
    * 标题
@@ -165,19 +152,13 @@ export default abstract class Page<
     this.root = project.withSrc(props.folder)
     const config = this.config = readJsonSync('page.js', this.root) as any
     // 设置页面的路由、名称、id
-    this.path = config.path || props.folder
-    this.fullPath = props.project.joinPath(this.path)
-    this.id = project.id + '_' + this.path
-    this.name = config.name || this.path
+    this.id = trimStart(config.path || props.folder, '/')
+    this.privatePath = '/' + this.id
+    this.path = project.joinPath(this.privatePath)
+    this.name = config.name || this.id
     // 设置页面的文件入口
     this.entry = config.entry || __config__.entry || 'index.tsx'
     this.entry = this.withRoot(this.entry)
-    // 外层容器组件
-    if (config.container) {
-      this.container = this.withRoot(config.container)
-    } else if (__config__.container) {
-      this.container = this.project.withRoot(__config__.container)
-    }
     // 设置页面标题
     this.title = config.title || __config__.title
     if (!this.title) {

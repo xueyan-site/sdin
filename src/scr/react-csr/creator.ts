@@ -1,5 +1,7 @@
-import Creator, { CreatorProps } from 'exe/creator'
-import ReactCSR, { REACT_CSR_TYPE } from 'pro/react-csr'
+import Creator from 'exe/creator'
+import { REACT_CSR_TYPE } from 'pro/react-csr'
+import type { CreatorProps } from 'exe/creator'
+import type ReactCSR from 'pro/react-csr'
 
 /**
  * react应用创建器实例化参数

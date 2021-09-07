@@ -1,14 +1,6 @@
-export { 
-  default as PackageCreator,
-  PackageCreatorProps
-} from './creator'
-
-export {
-  default as PackageStarter,
-  PackageStarterProps
-} from './starter'
-
-export { 
-  default as PackageBuilder,
-  PackageBuilderProps
-} from './builder'
+export { default as PackageCreator } from './creator'
+export { default as PackageStarter } from './starter'
+export { default as PackageBuilder } from './builder'
+export type { PackageCreatorProps } from './creator'
+export type { PackageStarterProps } from './starter'
+export type { PackageBuilderProps } from './builder'

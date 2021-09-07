@@ -2,10 +2,11 @@ import del from 'del'
 import ora from 'ora'
 import chalk from 'chalk'
 import { printExitError, printLoading, printSuccess } from 'utl/print'
-import Package from 'pro/package'
-import Builder, { BuilderProps } from 'exe/builder'
+import Builder from 'exe/builder'
 import { compile } from './common/task'
 import { precheck } from './common/check'
+import type { BuilderProps } from 'exe/builder'
+import type Package from 'pro/package'
 
 /**
  * 包构建器实例化参数

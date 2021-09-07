@@ -1,5 +1,6 @@
 import { isBoolean } from 'lodash'
-import Project, { ProjectProps, ProjectConfig } from './project'
+import Project from './project'
+import type { ProjectProps, ProjectConfig } from './project'
 
 /**
  * 包类型

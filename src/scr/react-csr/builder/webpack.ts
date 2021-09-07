@@ -1,10 +1,8 @@
-import { mapValues } from 'lodash'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import ReactCSR from 'pro/react-csr'
-import { cmdNmPath } from 'utl/path'
 import { getPages } from '../common/page'
 import { getRules } from '../common/module'
-import { getSplitChunks } from '../common/optimize'
+import { getDefinePlugin, getResolve, getResolveLoader, getSplitChunks } from '../common/buff'
 import Webpack, { Compiler, ProgressPlugin } from 'webpack'
 
 /**
@@ -21,7 +19,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     entry: pages.entry,
     output: {
       path: project.webDist,
-      publicPath: project.path,
+      publicPath: project.publicPath,
       hashDigestLength: 12,
       filename: 'js/[name].[chunkhash].js',
       chunkFilename: 'js/[id].[chunkhash].js'
@@ -30,30 +28,15 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
       rules: getRules(project, false)
     },
     externals: project.module.externals,
-    resolve: {
-      extensions: [
-        '.tsx',
-        '.ts',
-        '.jsx',
-        '.js',
-        '.json'
-      ],
-      alias: mapValues(project.alias, value => {
-        return project.withRoot(value)
-      })
-    },
-    resolveLoader: {
-      modules: [
-        project.mdl,
-        cmdNmPath()
-      ]
-    },
+    resolve: getResolve(project),
+    resolveLoader: getResolveLoader(project),
     plugins: [
       new ProgressPlugin(),
       new MiniCssExtractPlugin({
         filename: 'css/[name].[contenthash].css',
         chunkFilename: 'css/[id].[contenthash].css'
       }),
+      getDefinePlugin(project, false),
       ...pages.plugins
     ],
     optimization: {

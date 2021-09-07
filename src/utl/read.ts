@@ -1,8 +1,8 @@
 import { execSync } from 'child_process'
-import fse, { Stats } from 'fs-extra'
+import fse from 'fs-extra'
 import { isPlainObject, isString, set as setByPath } from 'lodash'
 import { withPath, joinPath, basename } from './path'
-import { PackageInfo, GitInfo, AnyObject } from 'types'
+import type { Stats } from 'fs-extra'
 
 /**
  * 深度遍历的节点信息

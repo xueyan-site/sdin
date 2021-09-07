@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
-import chalk, { Chalk } from 'chalk'
+import chalk from 'chalk'
 import { isError } from 'lodash'
+import type { Chalk } from 'chalk'
 
 const TIME_FORMAT = 'YY/MM/DD HH:mm ss.SSS'
 
@@ -16,10 +17,12 @@ function getLabel(icon: string, color: Chalk, msg: string) {
  * 打印错误信息
  * @param {String} msg 信息
  */
-export const printError = (msg: string | Error, callback?: () => void) => {
+export const printError = (msg: string | Error, title?: string, callback?: () => void) => {
   if (msg) {
-    if (isError(msg) && msg.message) {
-      console.log(getLabel('💥', chalk.red, msg.message))
+    if (isError(msg)) {
+      if (title) {
+        console.log(getLabel('💥', chalk.red, title))
+      }
       console.error(msg.stack)
     } else {
       console.log(getLabel('🐛', chalk.red, msg as any))
@@ -34,8 +37,8 @@ export const printError = (msg: string | Error, callback?: () => void) => {
  * 打印错误信息并退出
  * @param {String} msg 信息
  */
-export const printExitError = (msg: string | Error, code?: number) => {
-  printError(msg, () => process.exit(code))
+export const printExitError = (msg: string | Error, title?: string, code?: number) => {
+  printError(msg, title, () => process.exit(code))
 }
 
 /**

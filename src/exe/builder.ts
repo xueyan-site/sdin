@@ -1,5 +1,7 @@
-import Project, { ProjectConfig } from 'pro/project'
-import Executor, { ExecutorProps } from './executor'
+import Executor from './executor'
+import type Project from 'pro/project'
+import type { ProjectConfig } from 'pro/project'
+import type { ExecutorProps } from './executor'
 
 /**
  * 项目构建器实例化参数

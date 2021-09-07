@@ -1,5 +1,6 @@
-import ReactCSR from './react-csr'
-import Page, { PageConfig, PageProps } from './page'
+import Page from './page'
+import type ReactCSR from './react-csr'
+import type { PageConfig, PageProps } from './page'
 
 /**
  * react-csr页面配置
