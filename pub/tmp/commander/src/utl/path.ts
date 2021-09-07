@@ -68,33 +68,6 @@ export const chdPath = (...pathList: string[]) => {
 }
 
 /**
- * computed relative path from another path
- * 
- * @example
- * relativePath('/a/b/c/d/e.js', '/a/b/f/g.js')
- * // result === '../c/d/e.js'
- */
-export const relativePath = (path1: string, path2: string) => {
-  let path1List = path1.split('/')
-  let path2List = path2.split('/')
-  const maxLen = Math.max(path1List.length, path2List.length)
-  for (let i = 0; i < maxLen; i++) {
-    if (path1List[i] !== path2List[i]) {
-      path1List = path1List.slice(i)
-      path2List = path2List.slice(i)
-      break
-    }
-  }
-  let relaPath = ''
-  if (path2List.length > 1) {
-    relaPath = new Array(path2List.length - 1).fill('../').join('')
-  } else {
-    relaPath = './'
-  }
-  return relaPath + path1List.join('/')
-}
-
-/**
  * exist file in folder or not
  * 
  * resolvePathExtends('/path/to', 'index', ['.tsx', '.ts', '.jsx', '.js'])
@@ -108,3 +81,28 @@ export function resolvePathExtends(path: string, name: string, exts: string[]) {
   }
   return ''
 }
+
+/***********************************************
+ * 以下方法，均以 / 为分割符，不因系统不同而不同
+ **********************************************/
+
+/**
+ * 连接路径
+ * @param {String[]} pathList 路径
+ */
+export const withPosixPath = path.posix.resolve
+
+/**
+ * 连接路径
+ * @param {String[]} pathList 路径
+ */
+export const joinPosixPath = path.posix.join
+
+/**
+ * computed relative path from another path
+ * 
+ * @example
+ * relativePath('/a/b/c/d/e.js', '/a/b/f/g.js')
+ * // result === '../c/d/e.js'
+ */
+export const relativePosixPath = path.posix.relative
