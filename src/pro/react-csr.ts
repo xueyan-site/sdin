@@ -1,9 +1,10 @@
 import fse from 'fs-extra'
-import { defaultsDeep, keyBy } from 'lodash'
+import { defaultsDeep, isObject, keyBy } from 'lodash'
 import Application from './application'
 import ReactCSRPage from './react-csr-page'
 import type { RuleSetCondition, RuleSetRule } from 'webpack'
 import type { Options as ProxyOptions } from 'koa-proxy'
+import type { ClientOptions as ESClientOptions } from '@elastic/elasticsearch'
 import type { ApplicationProps, ApplicationConfig } from './application'
 import type { ReactCSRPageConfig } from './react-csr-page'
 
@@ -92,7 +93,7 @@ export interface ReactCSRConfig extends ApplicationConfig<ReactCSRType> {
   /**
    * 是否开启打点功能，默认开启
    */
-  track?: boolean
+  track?: boolean | ESClientOptions
 
   /**
    * 页面的全局默认配置
@@ -166,6 +167,11 @@ export default class ReactCSR extends Application<
   readonly trackPath: string
 
   /**
+   * 连接打点服务器的配置
+   */
+  readonly trackOptions?: ESClientOptions
+
+  /**
    * 页面的全局默认配置
    */
   readonly __pageConfig__: ReactCSRPageConfig
@@ -208,7 +214,9 @@ export default class ReactCSR extends Application<
     this.index = this.getPage(config.index)
     this.error = this.getPage(config.error)
     // 设置打点路径
-    this.trackPath = config.track !== false ? this.joinPath('t.gif') : ''
+    const track = config.track
+    this.trackPath = track !== false ? this.joinPath('t.gif') : ''
+    this.trackOptions = isObject(track) ? track : undefined
   }
 
   /**

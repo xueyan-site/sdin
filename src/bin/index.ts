@@ -8,7 +8,7 @@ import { CMD } from 'utl/path'
 import type { ExecutableCommandOptions } from 'commander'
 
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
-process.on('uncaughtException', err => printExitError(err, 1))
+process.on('uncaughtException', err => printExitError(err, undefined, 1))
 
 const program = new Command()
 const packageInfo = readPackageInfoSync(CMD)

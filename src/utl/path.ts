@@ -41,12 +41,12 @@ export const cwdNmPath = (...pathList: string[]) => {
 }
 
 /**
- * 当前模块目录（current module directory）
+ * 当前模块目录（即脚手架本身）（current module directory）
  */
 export const CMD = path.resolve(__dirname, '../../../')
 
 /**
- * 基于当前模块目录的相对路径
+ * 基于当前模块目录（即脚手架本身）的相对路径
  * @param {String[]} pathList 路径
  */
 export const cmdPath = (...pathList: string[]) => {
@@ -54,7 +54,7 @@ export const cmdPath = (...pathList: string[]) => {
 }
 
 /**
- * 基于当前模块目录的node_modules的相对路径
+ * 基于当前模块目录（即脚手架本身）的node_modules的相对路径
  * @param {String[]} pathList 路径
  */
 export const cmdNmPath = (...pathList: string[]) => {

@@ -1,4 +1,4 @@
-import { execSync } from 'child_process'
+import { execSync, exec } from 'child_process'
 import type { ExecSyncOptions } from 'child_process'
 
 /**
@@ -7,6 +7,16 @@ import type { ExecSyncOptions } from 'child_process'
  */
 export function executeSync(command: string, options?: ExecSyncOptions) {
   return execSync(command, Object.assign({
+    stdio: 'inherit'
+  }, options))
+}
+
+/**
+ * 同步执行命令，并将信息显示在父进程中
+ * @param {String} command 命令
+ */
+export function execute(command: string, options?: ExecSyncOptions) {
+  return exec(command, Object.assign({
     stdio: 'inherit'
   }, options))
 }

@@ -1,3 +1,4 @@
+import validator from 'validator'
 import { joinPath, withPath } from 'utl/path'
 import { deepRead, readJsonSync, readPackageInfoSync } from 'utl/read'
 
@@ -110,9 +111,19 @@ export default abstract class Project<
   readonly version: string
 
   /**
-   * 项目作者
+   * 项目作者（包括邮箱）
    */
   readonly author: string
+
+  /**
+   * 项目作者姓名
+   */
+  readonly authorName: string
+
+  /**
+   * 项目作者邮箱
+   */
+  readonly authorEmail: string
 
   /**
    * 项目类型
@@ -222,11 +233,25 @@ export default abstract class Project<
     const packageInfo = this.package = props.package || readPackageInfoSync(this.root)
     const config = this.config = readJsonSync(props.config || 'project.js', this.root) as any
     // 设置项目的名称、作者、版本、id
-    this.id = packageInfo.name
+    if (/^[a-z][a-z0-9\-]+$/.test(packageInfo.name)) {
+      this.id = packageInfo.name
+    } else {
+      throw new Error('please change package.json/name to kebab-case')
+    }
     this.name = config.name || this.id
-    this.author = packageInfo.author
     this.version = packageInfo.version
     this.alias = config.alias
+    const authorMatched = /^(.+) <(.+)>$/.exec(packageInfo.author)
+    if (authorMatched && authorMatched.length >= 3) {
+      this.author = packageInfo.author
+      this.authorName = authorMatched[1]
+      this.authorEmail = authorMatched[2]
+      if (!validator.isEmail(this.authorEmail)) {
+        throw new Error('package.json/author email format error')
+      }
+    } else {
+      throw new Error('please change package.json/author to "author <xxx@xxx.xxx>"')
+    }
   }
 
   /**

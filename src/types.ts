@@ -6,6 +6,11 @@ interface AnyObject<TValue = any> {
 }
 
 /**
+ * promise或者原样
+ */
+type PromiseOrNot<T> = T | Promise<T>
+
+/**
  * git全局配置信息
  */
 interface GitInfo {

@@ -15,7 +15,7 @@ import { ReactCSRCreator } from 'scr/react-csr'
 import type Creator from 'exe/creator'
 
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
-process.on('uncaughtException', err => printExitError(err, 1))
+process.on('uncaughtException', err => printExitError(err, undefined, 1))
 
 printInfo(`welcome to use ${chalk.blue('xueyan-typescript-cli')}`)
 printInfo('project creation process is ready')
@@ -32,7 +32,7 @@ async function action(path?: string) {
   /**
    * 确认类型
    */
-  const templateMeta = readJsonSync(cmdPath('com/tmp/meta.json'))
+  const templateMeta = readJsonSync(cmdPath('pub/tmp/meta.json'))
   const projects: any[] = templateMeta.projects || []
   const type = (await prompt<{ type: string }>([
     {
@@ -140,6 +140,6 @@ async function action(path?: string) {
   if (creator) {
     await creator.open()
   } else {
-    throw Error(`sorry, there are no items of type ${meta.type}`)
+    printExitError(`sorry, there are no items of type ${meta.type}`)
   }
 }

@@ -107,7 +107,9 @@ export function getDefinePlugin(project: ReactCSR, dev: boolean): DefinePlugin {
     XT_ENV: JSON.stringify('web'), // 项目打包结果运行环境，web、node
     XT_DEV: JSON.stringify(dev), // 项目是否以开发态进行构建，不是则代表是正式态
     XT_NAME: JSON.stringify(project.name), // 项目名称
-    XT_AUTHOR: JSON.stringify(project.author), // 项目作者
+    XT_AUTHOR: JSON.stringify(project.author), // 项目作者 author <email>
+    XT_AUTHOR_NAME: JSON.stringify(project.authorName), // 项目作者名称
+    XT_AUTHOR_EMAIL: JSON.stringify(project.authorEmail), // 项目作者邮箱
     XT_VERSION: JSON.stringify(project.version), // 项目版本
     XT_ROOT: JSON.stringify(project.root), // 项目根目录
     XT_PATH: JSON.stringify(project.publicPath), // 项目url中的公共路径（包含'/'）

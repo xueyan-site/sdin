@@ -12,7 +12,7 @@ import { ReactCSRBuilder } from 'scr/react-csr'
 import type Builder from 'exe/builder'
 
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
-process.on('uncaughtException', err => printExitError(err, 1))
+process.on('uncaughtException', err => printExitError(err, undefined, 1))
 
 printInfo(`welcome to use ${chalk.blue('xueyan-typescript-cli')}`)
 const program = new Command()
@@ -39,6 +39,6 @@ async function action(path?: string) {
   if (builder) {
     await builder.open()
   } else {
-    throw Error('please indicates the type of project in config file')
+    printExitError('sorry, this command is not available for the current project')
   }
 }
