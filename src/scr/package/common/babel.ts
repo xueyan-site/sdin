@@ -1,5 +1,5 @@
 import { mapValues } from 'lodash'
-import { cmdNmPath, relativePath } from 'utl/path'
+import { cmdNmPath, relativePosixPath } from 'utl/path'
 import { withCache } from 'utl/read'
 import type Package from 'pro/package'
 
@@ -27,7 +27,7 @@ function getModuleAliasPlugin(project: Package): any {
     if (!matchedKey) {
       return source
     }
-    return relativePath(
+    return relativePosixPath(
       project.withRoot(
         source.replace(matchedKey, aliasMap[matchedKey])
       ),

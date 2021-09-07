@@ -1,5 +1,5 @@
 import { trimStart } from 'lodash'
-import { joinPath } from 'utl/path'
+import { joinPosixPath } from 'utl/path'
 import Project from './project'
 import type { ProjectProps, ProjectConfig } from './project'
 
@@ -45,6 +45,6 @@ export default abstract class Application<
    * @returns 
    */
   joinPath(...pathList: string[]) {
-    return joinPath(this.publicPath, ...pathList)
+    return joinPosixPath(this.publicPath, ...pathList)
   }
 }
