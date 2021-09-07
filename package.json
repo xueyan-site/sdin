@@ -23,7 +23,8 @@
   },
   "files": [
     "dist/**/*",
-    "com/**/*"
+    "pub/**/*",
+    "yarn.lock"
   ],
   "bin": {
     "xt": "./dist/node/bin/index.js"

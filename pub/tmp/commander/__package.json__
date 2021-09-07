@@ -12,7 +12,8 @@
     "url": ""
   },
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "yarn.lock"
   ],
   "bin": {
     "<%= name %>": "./dist/node/binary/index.js"
