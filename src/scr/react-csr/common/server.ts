@@ -100,7 +100,7 @@ export function webError({ project, reader }: WebErrorOptions) {
       if (ctx.status >= 400) {
         throw new Error()
       }
-    } catch (error) {
+    } catch (error: any) {
       if (page && reader) {
         await reader(ctx, page, error)
       } else {

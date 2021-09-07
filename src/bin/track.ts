@@ -85,7 +85,7 @@ async function action() {
   // 启动docker
   try {
     execute(`docker-compose -f ${esDockerComposePath} up`)
-  } catch (err) {
+  } catch (err: any) {
     printExitError(err, 'docker server start failed, please check whether docker is opened and whether the network is OK')
   }
 }
