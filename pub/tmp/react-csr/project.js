@@ -1,6 +1,6 @@
 module.exports = {
   type: 'react-csr',
-  index: 'one',
+  index: 'index',
   error: 'error',
   alias: {
     src: 'src',

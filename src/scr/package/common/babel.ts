@@ -28,10 +28,10 @@ function getModuleAliasPlugin(project: Package): any {
       return source
     }
     return relativePosixPath(
+      current,
       project.withRoot(
         source.replace(matchedKey, aliasMap[matchedKey])
-      ),
-      current
+      )
     )
   }
   return [
