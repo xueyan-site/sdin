@@ -6,7 +6,6 @@ import { printExitError, printLoading, printSuccess } from 'utl/print'
 import Starter from 'exe/starter'
 import { compile } from './common/task'
 import { precheck } from './common/check'
-import type { Stats } from 'fs-extra'
 import type Package from 'pro/package'
 import type { StarterProps } from 'exe/starter'
 
@@ -44,18 +43,15 @@ export default class PackageStarter extends Starter<Package> {
       return console.error(err)
     }
     // 处理文件变动的方法
-    const handleFileModify = (path: string, stats: Stats) => {
-      const pathType = stats.isDirectory() ? 'folder' : stats.isFile() ? 'file' : ''
-      if (pathType) {
-        const pathDesc = pathType + ' src/' + path
-        const tip = ora(`${pathDesc} ${chalk.blue('rebuilding')}`).start()
-        compile(this.project, file => file.path.includes(path)).then(time => {
-          tip.succeed(`${pathDesc} rebuilt ${chalk.blue('successfully')}, total ${chalk.green(time + 'ms')}`)
-        }).catch(err => {
-          tip.fail(`${pathDesc} rebuilt ${chalk.red('failed')}`)
-          console.error(err)
-        })
-      }
+    const handleFileModify = (path: string) => {
+      const pathDesc = 'src/' + path
+      const tip = ora(`${pathDesc} ${chalk.blue('rebuilding')}`).start()
+      compile(this.project, file => file.path.includes(path)).then(time => {
+        tip.succeed(`${pathDesc} rebuilt ${chalk.blue('successfully')}, total ${chalk.green(time + 'ms')}`)
+      }).catch(err => {
+        tip.fail(`${pathDesc} rebuilt ${chalk.red('failed')}`)
+        console.error(err)
+      })
     }
     // 执行watch相关逻辑
     const watcher = gulp.watch('**/*', { cwd: this.project.src })

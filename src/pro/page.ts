@@ -1,4 +1,4 @@
-import { trimStart, uniqWith } from 'lodash'
+import { trimEnd, trimStart, uniqWith } from 'lodash'
 import { withPath } from 'utl/path'
 import { readJsonSync } from 'utl/read'
 import type Application from './application'
@@ -152,9 +152,13 @@ export default abstract class Page<
     this.root = project.withSrc(props.folder)
     const config = this.config = readJsonSync('page.js', this.root) as any
     // 设置页面的路由、名称、id
-    this.id = trimStart(config.path || props.folder, '/')
-    this.privatePath = '/' + this.id
+    let __path__: string = config.path || props.folder
+    if (__path__) {
+      __path__ = trimEnd(trimStart(__path__, '/'), '/')
+    }
+    this.privatePath = '/' + __path__
     this.path = project.joinPath(this.privatePath)
+    this.id = __path__.replace(/\//g, '_')
     this.name = config.name || this.id
     // 设置页面的文件入口
     this.entry = config.entry || __config__.entry || 'index.tsx'

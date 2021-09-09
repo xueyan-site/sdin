@@ -28,7 +28,7 @@ function getRowRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset/source',
     generator: {
-      filename: 'raw/[name].[contenthash].[ext]'
+      filename: 'raw/[name].[contenthash][ext]'
     }
   }, project.module.rules.row, {
     test: /\.txt$/i
@@ -39,7 +39,7 @@ function getFontRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset',
     generator: {
-      filename: 'fnt/[name].[contenthash].[ext]'
+      filename: 'fnt/[name].[contenthash][ext]'
     }
   }, project.module.rules.font, {
     test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -55,7 +55,7 @@ function getImageRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset',
     generator: {
-      filename: 'img/[name].[contenthash].[ext]'
+      filename: 'img/[name].[contenthash][ext]'
     }
   }, project.module.rules.image, {
     test: /\.(png|jpg|jpeg|svg|gif|bmp|webp|tif)(\?.*)?$/,
@@ -71,7 +71,7 @@ function getAudioRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset',
     generator: {
-      filename: 'ado/[name].[contenthash].[ext]'
+      filename: 'ado/[name].[contenthash][ext]'
     }
   }, project.module.rules.audio, {
     test: /\.(mp3|wma|wav|aac|amr|ogg)(\?.*)?$/,
@@ -87,7 +87,7 @@ function getVideoRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset',
     generator: {
-      filename: 'vdo/[name].[contenthash].[ext]'
+      filename: 'vdo/[name].[contenthash][ext]'
     }
   }, project.module.rules.video, {
     test: /\.(mp4|3gp|mpg|avi|wmv|flv)(\?.*)?$/,

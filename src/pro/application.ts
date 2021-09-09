@@ -1,4 +1,4 @@
-import { trimStart } from 'lodash'
+import { trimEnd, trimStart } from 'lodash'
 import { joinPosixPath } from 'utl/path'
 import Project from './project'
 import type { ProjectProps, ProjectConfig } from './project'
@@ -36,7 +36,11 @@ export default abstract class Application<
 
   constructor(type: TType, props: ApplicationProps<TType, TConfig>) {
     super(type, props)
-    this.publicPath = '/' + trimStart(this.config.path, '/')
+    let __path__: string = this.config.path || ''
+    if (__path__) {
+      __path__ = trimEnd(trimStart(__path__, '/'), '/')
+    }
+    this.publicPath = '/' + __path__
   }
 
   /**
