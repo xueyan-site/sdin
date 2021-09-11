@@ -21,7 +21,7 @@ declare global {
   const XT_VERSION: string
   /** project fold path in file system */
   const XT_ROOT: string
-  /** url public path (include \/), please see project.js.path */
+  /** url public path (start and end with \/), please see project.js.path */
   const XT_PATH: string
   /** project track path, (value "" after closing the hit) */
   const XT_TRACK_PATH: string

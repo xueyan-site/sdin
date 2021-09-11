@@ -19,9 +19,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     entry: pages.entry,
     output: {
       path: project.webDist,
-      publicPath: project.publicPath 
-        ? project.publicPath + '/' 
-        : '/',
+      publicPath: project.publicPath,
       hashDigestLength: 12,
       filename: 'js/[name].[chunkhash].js',
       chunkFilename: 'js/[id].[chunkhash].js'

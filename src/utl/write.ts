@@ -66,3 +66,16 @@ export function getReplaceHandler(variables: AnyObject) {
     return content
   }
 }
+
+/**
+ * 更换文本
+ */
+export function twoBracesReplacer<T>(str: T, variables: AnyObject) {
+  if (str && typeof str === 'string' && str.includes('{{')) {
+    return str.replace(/{{(\w+)}}/g, (_i, key) => (
+      key in variables ? variables[key] : key
+    ))
+  } else {
+    return str
+  }
+}

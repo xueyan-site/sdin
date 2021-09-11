@@ -1,4 +1,4 @@
-import { trimEnd, trimStart } from 'lodash'
+import { trim } from 'lodash'
 import { joinPosixPath } from 'utl/path'
 import Project from './project'
 import type { ProjectProps, ProjectConfig } from './project'
@@ -30,17 +30,17 @@ export default abstract class Application<
   TConfig extends ApplicationConfig<TType>
 > extends Project<TType, TConfig> {
   /**
-   * url中的公共路径（包含'/'）
+   * url中的公共路径（始终以'/'开头和结尾）
    */
   readonly publicPath: string
 
   constructor(type: TType, props: ApplicationProps<TType, TConfig>) {
     super(type, props)
     let __path__: string = this.config.path || ''
-    if (__path__) {
-      __path__ = trimEnd(trimStart(__path__, '/'), '/')
+    if (__path__[0]) {
+      __path__ = trim(__path__, '/ ')
     }
-    this.publicPath = '/' + __path__
+    this.publicPath = __path__ ? `/${__path__}/` : '/'
   }
 
   /**

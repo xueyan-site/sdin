@@ -1,6 +1,7 @@
 import { trimEnd, trimStart, uniqWith } from 'lodash'
 import { withPath } from 'utl/path'
 import { readJsonSync } from 'utl/read'
+import { twoBracesReplacer } from 'utl/write'
 import type Application from './application'
 import type { ApplicationConfig } from './application'
 
@@ -93,12 +94,12 @@ export default abstract class Page<
   readonly name: string
 
   /**
-   * url中的页面路径（完整，包含'/'）
+   * url中的页面路径（完整路径，以'/'开头）
    */
   readonly path: string
 
   /**
-   * url中的页面路径（非公共路径外的路径，包含'/'）
+   * url中的页面路径（公共路径以外的路径，不以'/'开头）
    */
   readonly privatePath: string
 
@@ -156,7 +157,7 @@ export default abstract class Page<
     if (__path__) {
       __path__ = trimEnd(trimStart(__path__, '/'), '/')
     }
-    this.privatePath = '/' + __path__
+    this.privatePath = __path__
     this.path = project.joinPath(this.privatePath)
     this.id = __path__.replace(/\//g, '_')
     this.name = config.name || this.id
@@ -207,6 +208,17 @@ export default abstract class Page<
   nodesToHTML(label: string, nodes: NodeAttrs[]) {
     const full = ['script'].includes(label)
     let strs: string[] = []
+    const project = this.project
+    const variables = {
+      XT_ID: project.id, // 项目ID，一般是package.name
+      XT_TYPE: project.type, // 项目类型，此处是react-csr
+      XT_NAME: project.name, // 项目名称
+      XT_AUTHOR: project.author, // 项目作者 author <email>
+      XT_AUTHOR_NAME: project.authorName, // 项目作者名称
+      XT_AUTHOR_EMAIL: project.authorEmail, // 项目作者邮箱
+      XT_VERSION: project.version, // 项目版本
+      XT_PATH: project.publicPath, // 项目url中的公共路径（以'/'开头和结尾）
+    }
     for (let i = 0, node: NodeAttrs; i < nodes.length; i++) {
       node = nodes[i]
       let attrs: string[] = []
@@ -219,13 +231,13 @@ export default abstract class Page<
         }
         value = node[key]
         if (key === 'children') {
-          children = value
+          children = twoBracesReplacer(value, variables)
           continue
         }
         if (value === true) {
           attrs.push(key)
         } else {
-          attrs.push(key + '="' + value + '"')
+          attrs.push(key + '="' + twoBracesReplacer(value, variables) + '"')
         }
       }
       if (attrs.length <= 0) {
