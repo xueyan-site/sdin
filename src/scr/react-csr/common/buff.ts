@@ -112,7 +112,7 @@ export function getDefinePlugin(project: ReactCSR, dev: boolean): DefinePlugin {
     XT_AUTHOR_EMAIL: JSON.stringify(project.authorEmail), // 项目作者邮箱
     XT_VERSION: JSON.stringify(project.version), // 项目版本
     XT_ROOT: JSON.stringify(project.root), // 项目根目录
-    XT_PATH: JSON.stringify(project.publicPath), // 项目url中的公共路径（包含'/'）
+    XT_PATH: JSON.stringify(project.publicPath), // 项目url中的公共路径（以'/'开头和结尾）
     XT_TRACK_PATH: JSON.stringify(project.trackPath), // 项目打点的路径（关闭打点后，值为""）
   })
 }

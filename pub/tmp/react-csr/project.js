@@ -43,14 +43,14 @@ module.exports = {
         key: 'favicon',
         rel: "icon",
         type: "image/png",
-        href: "/favicon.png"
+        href: "{{XT_PATH}}favicon.png"
       }
     ],
     styles: [
       {
         key: 'global',
         rel: 'stylesheet',
-        href: '/index.css'
+        href: '{{XT_PATH}}index.css'
       },
       {
         key: 'normalize',

@@ -4,6 +4,7 @@ import koaProxy from 'koa-proxy'
 import koaCompose from 'koa-compose'
 import koaStatic from 'koa-static'
 import KoaRouter from 'koa-router'
+import { trimEnd } from 'lodash'
 import type { Context, Next, Middleware } from 'koa'
 import type { Options as ProxyOptions } from 'koa-proxy'
 import type { Options } from 'koa-static'
@@ -77,8 +78,9 @@ export function webStatic(options: WebStaticOptions) {
     options.root = options.dist
   }
   const mdw = koaStatic(options.dist, options)
-  if (options.prefix) {
-    return koaMount(options.prefix, mdw)
+  const prefix = trimEnd(options.prefix, '/')
+  if (prefix) {
+    return koaMount(prefix, mdw)
   } else {
     return mdw
   }
@@ -101,10 +103,15 @@ export function webError({ project, reader }: WebErrorOptions) {
         throw new Error()
       }
     } catch (error: any) {
-      if (page && reader) {
-        await reader(ctx, page, error)
+      if (ctx.headers.accept?.includes('text/html')) {
+        if (page && reader) {
+          await reader(ctx, page, error)
+        } else {
+          ctx.set('content-type', 'text/html')
+          ctx.body = error?.message
+        }
       } else {
-        ctx.set('content-type', 'text/html')
+        ctx.set('content-type', 'text/plain')
         ctx.body = error?.message
       }
     }

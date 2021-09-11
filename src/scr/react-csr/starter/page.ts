@@ -3,6 +3,7 @@ import KoaRouter from 'koa-router'
 import e2k from 'express-to-koa'
 import wdm from 'webpack-dev-middleware'
 import whm from 'webpack-hot-middleware'
+import { trimEnd } from 'lodash'
 import type { Context } from 'koa'
 import type { Compiler } from 'webpack'
 import type ReactCSR from 'pro/react-csr'
@@ -19,7 +20,8 @@ export function pageRouter(project: ReactCSR, compiler: Compiler) {
     router.get(page.path, ctx => readPage(ctx, page, project, compiler))
   })
   if (index) {
-    router.get(project.publicPath, ctx => readPage(ctx, index, project, compiler))
+    const idxPath = trimEnd(project.publicPath, '/') || '/'
+    router.get(idxPath, ctx => readPage(ctx, index, project, compiler))
   }
   return koaCompose([
     router.routes(),
