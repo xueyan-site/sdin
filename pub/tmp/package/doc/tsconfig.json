@@ -16,7 +16,7 @@
     "noFallthroughCasesInSwitch": true,
     "lib": ["ES2015", "DOM"],
     "module": "esnext",
-    "target": "es5",
+    "target": "ES5",
     "jsx": "react",
     "outDir": "dist",
     "allowJs": true,
