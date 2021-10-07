@@ -20,9 +20,11 @@ interface ServerOptions {
  */
 export async function createServer(project: ReactCSR, options: ServerOptions) {
   const server = new Koa()
-  server.use(webProxy({
-    proxies: project.serve.proxies
-  }))
+  if (project.serve.proxies.length > 0) {
+    server.use(webProxy({
+      proxies: project.serve.proxies
+    }))
+  }
   await useRoutes(server, [
     createTracker(project, options)
   ])

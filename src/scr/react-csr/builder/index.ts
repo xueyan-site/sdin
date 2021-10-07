@@ -24,22 +24,23 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
   }
 
   async main() {
-    await del(this.project.dist)
-    await del(this.project.withBuf('entry'))
+    const project = this.project
+    await del(project.dist)
+    await del(project.withBuf('entry'))
     // 预校验
-    printLoading(`checking project ${this.project.name}`)
-    const checkResult = await precheck(this.project)
+    printLoading(`checking project ${project.name}`)
+    const checkResult = await precheck(project)
     if (checkResult) {
       return printExitError(checkResult)
     } else {
-      printSuccess(`${this.project.name} has no questions`)
+      printSuccess(`${project.name} has no questions`)
     }
     // 正式开始构建
     console.log()
     try {
-      await handleAssets(this.project)
+      await handleAssets(project)
       const stats = await this.compile()
-      ora(`${this.project.name} built ${chalk.blue('successfully')}`).succeed()
+      ora(`${project.name} built ${chalk.blue('successfully')}`).succeed()
       if (stats) {
         console.log(stats.toString({
           all: false,
@@ -55,7 +56,7 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
       }
       console.log()
     } catch (err) {
-      ora(`${this.project.name} built ${chalk.red('failed')}`).fail()
+      ora(`${project.name} built ${chalk.red('failed')}`).fail()
       return console.error(err)
     }
   }
@@ -64,11 +65,12 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
    * 编译脚本文件
    */
   protected async compile() {
-    const compiler = await createWebpack(this.project)
+    const project = this.project
+    const compiler = await createWebpack(project)
     return new Promise<Stats|undefined>((resolve, reject) => {
       this.on('close', () => {
         compiler.close(() => {
-          reject(`${this.project.name} build process is closed`)
+          reject(`${project.name} build process is closed`)
         })
       })
       compiler.run((error?: Error, stats?: Stats) => {

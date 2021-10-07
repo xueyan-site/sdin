@@ -12,10 +12,10 @@ export default function Index(props: PageProps) {
         {props.page.name}
       </div>
       <div className={styles.content}>
-        Project {XT_NAME}
+        {XT_NAME}
       </div>
       <div className={styles.content}>
-        Author {XT_AUTHOR}
+        {XT_AUTHOR}
       </div>
     </div>
   )

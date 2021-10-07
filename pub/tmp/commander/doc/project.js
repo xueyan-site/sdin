@@ -1,8 +1,10 @@
+const pkg = require('../package.json')
+
 module.exports = {
   type: 'react-csr',
-  index: 'doc',
-  error: 'error',
+  index: 'zh',
   track: false,
+  path: pkg.name,
   alias: {
     src: 'src',
     ast: 'pub/ast',

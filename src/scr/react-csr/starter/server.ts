@@ -9,9 +9,11 @@ import type ReactCSR from 'pro/react-csr'
  */
 export async function createServer(project: ReactCSR, compiler: Compiler) {
   const server = new Koa()
-  server.use(webProxy({
-    proxies: project.start.proxies
-  }))
+  if (project.start.proxies.length > 0) {
+    server.use(webProxy({
+      proxies: project.start.proxies
+    }))
+  }
   server.use(webError({
     project,
     reader: (ctx, page) => {

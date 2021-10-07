@@ -22,30 +22,31 @@ export default class ReactCSRStarter extends Starter<ReactCSR> {
   }
 
   async main() {
+    const project = this.project
     // 预校验
-    printLoading(`checking project ${this.project.name}`)
-    const checkResult = await precheck(this.project)
+    printLoading(`checking project ${project.name}`)
+    const checkResult = await precheck(project)
     if (checkResult) {
       return printExitError(checkResult)
     } else {
-      printSuccess(`${this.project.name} has no questions`)
+      printSuccess(`${project.name} has no questions`)
     }
     // 启动服务器
     console.log()
     let server: any
-    const tip = ora(`${this.project.name} compiler ${chalk.blue('creating')}`).start()
+    const tip = ora(`${project.name} compiler ${chalk.blue('creating')}`).start()
     try {
-      const compiler = await createWebpack(this.project)
-      server = await createServer(this.project, compiler)
-      tip.succeed(`${this.project.name} compiler created ${chalk.blue('successfully')}`)
+      const compiler = await createWebpack(project)
+      server = await createServer(project, compiler)
+      tip.succeed(`${project.name} compiler created ${chalk.blue('successfully')}`)
     } catch (err) {
-      tip.fail(`${this.project.name} compiler created ${chalk.red('failed')}`)
+      tip.fail(`${project.name} compiler created ${chalk.red('failed')}`)
       return console.error(err)
     }
     if (server) {
-      server.listen(this.project.start.port, () => {
-        ora(`${this.project.name} compiler listening on ${
-          chalk.blue('http://127.0.0.1:' + this.project.start.port)
+      server.listen(project.start.port, () => {
+        ora(`${project.name} compiler listening on ${
+          chalk.blue('http://127.0.0.1:' + project.start.port + project.publicPath)
         }\n`).succeed()
       })
       return new Promise<void>(resolve => {
