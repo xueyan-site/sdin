@@ -31,9 +31,9 @@ export default class ReactCSRServer extends Server<ReactCSR> {
         resolve()
       })
       server.listen(project.serve.port, () => {
-        ora(`${this.project.name} server password is ${this.password}`).info()
-        ora(`${this.project.name} server listening on ${
-          chalk.blue('http://127.0.0.1:' + this.project.serve.port)
+        ora(`${project.name} server password is ${this.password}`).info()
+        ora(`${project.name} server listening on ${
+          chalk.blue('http://127.0.0.1:' + project.serve.port + project.publicPath)
         }\n`).succeed()
       })
     })

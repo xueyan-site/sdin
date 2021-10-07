@@ -5,7 +5,7 @@
  */
 
 import React from 'react'
-import classNames from 'classnames'
+import cn from 'classnames'
 import styles from './index.scss'
 
 /**
@@ -38,7 +38,7 @@ export interface SwitchProps {
   style?: React.CSSProperties
 }
 
-export default function Switch({
+export function Switch({
   value,
   onChange,
   block,
@@ -47,7 +47,7 @@ export default function Switch({
 }: SwitchProps) {
   return (
     <div 
-      className={classNames(
+      className={cn(
         styles.wrapper, 
         value && styles.active, 
         block && styles.block, 

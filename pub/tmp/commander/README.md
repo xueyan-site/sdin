@@ -20,7 +20,7 @@
 
 ## Develop
 
-Please make sure that `Node` and `NPM` are installed on your computer, and `xueyan-typescript-cli` is installed globally. After switching current work path to this project root in CMD, you can run command `yarn start`.
+Please make sure that `Node` and `NPM` are installed on your computer, and `xueyan-typescript-cli` is installed globally. After switching current work path to this project root in CMD, run command `yarn start`.
 
 ## Appendix
 
