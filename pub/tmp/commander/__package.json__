@@ -16,7 +16,7 @@
     "yarn.lock"
   ],
   "bin": {
-    "<%= name %>": "./dist/node/binary/index.js"
+    "<%= name %>": "./dist/node/bin/index.js"
   },
   "scripts": {
     "start": "xt start",
