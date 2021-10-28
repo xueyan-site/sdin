@@ -42,7 +42,7 @@ export interface ReactCSRModuleConfig {
    * 修改现有模块规则（仅允许修改部分值）
    */
   rules: {
-    row?: Partial<RuleSetRule>
+    raw?: Partial<RuleSetRule>
     font?: Partial<RuleSetRule>
     image?: Partial<RuleSetRule>
     audio?: Partial<RuleSetRule>

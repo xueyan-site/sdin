@@ -33,7 +33,7 @@ export function pageRouter(project: ReactCSR, compiler: Compiler) {
  * 页面处理器
  */
 export async function readPage(ctx: Context, page: ReactCSRPage, project: ReactCSR, compiler: Compiler) {
-  const filePath = project.withDist('web', page.id + '.html')
+  const filePath = project.withDist(page.id + '.html')
   ctx.set('content-type', 'text/html')
   ctx.body = await new Promise<string|Buffer|undefined>((resolve, reject) => {
     compiler.outputFileSystem.readFile(filePath, (err, data) => {

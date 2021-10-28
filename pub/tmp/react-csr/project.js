@@ -3,7 +3,6 @@ module.exports = {
   index: 'index',
   error: 'error',
   alias: {
-    src: 'src',
     api: 'pub/api',
     ast: 'pub/ast',
     com: 'pub/com',
@@ -48,14 +47,14 @@ module.exports = {
     ],
     styles: [
       {
-        key: 'global',
-        rel: 'stylesheet',
-        href: '{{XT_PATH}}index.css'
-      },
-      {
         key: 'normalize',
         rel: 'stylesheet',
         href: 'https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css'
+      },
+      {
+        key: 'global',
+        rel: 'stylesheet',
+        href: '{{XT_PATH}}global.css'
       }
     ],
     scripts: [

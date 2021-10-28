@@ -20,7 +20,7 @@ export default function Example() {
       <div onClick={() => setState(add(1, state))}>
         点我 +1
       </div>
-      <div onClick={() => setState(!state)}>
+      <div onClick={() => setState(1)}>
         结果 {state}
       </div>
     </Fragment>

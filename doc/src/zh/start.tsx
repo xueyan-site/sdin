@@ -12,7 +12,25 @@ npm i xueyan-react-playground
 yarn add xueyan-react-playground
 \`\`\`
 
-## 常规用法
+
+介绍
+安装
+基础
+  了解命令
+  创建项目
+  开发项目
+  部署项目
+开发 Package 项目
+
+开发 ReactCSR 项目
+
+附录
+  命令行
+  package project.js
+  react-csr project.js
+  react-csr page.js
+教程
+
 `
 
 export default function Main() {

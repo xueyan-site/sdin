@@ -21,7 +21,6 @@ const LOGOS: LinkImage[] = [
 const SIDE_FOOTER = `
 author - ${XT_AUTHOR_NAME}  
 concat - ${XT_AUTHOR_EMAIL}  
-builder - [xueyan-typescript-cli](https://github.com/xueyan-site/xueyan-typescript-cli)
 `
 
 export interface PageDocProps extends 

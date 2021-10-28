@@ -30,7 +30,6 @@
     "removeComments": false,
     "baseUrl": ".",
     "paths": {
-      "src/*": ["./src/*"],
       "api/*": ["./pub/api/*"],
       "ast/*": ["./pub/ast/*"],
       "com/*": ["./pub/com/*"],

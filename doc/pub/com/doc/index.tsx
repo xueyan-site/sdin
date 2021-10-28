@@ -1,7 +1,7 @@
 import React from 'react'
 import Doc from 'xueyan-react-doc'
 import { Segment } from 'xueyan-react-markdown'
-import pkg from '../../../package.json'
+import pkg from '../../../../package.json'
 import type { PageProps } from 'xueyan-react'
 import type { LinkImage, DocConfig } from 'xueyan-react-doc'
 

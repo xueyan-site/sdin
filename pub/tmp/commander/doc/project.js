@@ -1,12 +1,8 @@
-const pkg = require('../package.json')
-
 module.exports = {
   type: 'react-csr',
   index: 'zh',
   track: false,
-  path: pkg.name,
   alias: {
-    src: 'src',
     ast: 'pub/ast',
     utl: 'pub/utl'
   },
@@ -18,7 +14,7 @@ module.exports = {
       lodash: '_'
     },
     rules: {
-      row: {
+      raw: {
         test: /\.(txt|md)$/i
       }
     }
@@ -46,14 +42,14 @@ module.exports = {
     ],
     styles: [
       {
-        key: 'global',
-        rel: 'stylesheet',
-        href: '{{XT_PATH}}index.css'
-      },
-      {
         key: 'normalize',
         rel: 'stylesheet',
         href: 'https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css'
+      },
+      {
+        key: 'global',
+        rel: 'stylesheet',
+        href: '{{XT_PATH}}global.css'
       }
     ],
     scripts: [

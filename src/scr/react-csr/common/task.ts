@@ -28,6 +28,6 @@ export async function handleAssets(project: ReactCSR) {
     styFilter,
     gulpCleanCss(),
     styFilter.restore,
-    gulp.dest(project.astDist)
+    gulp.dest(project.dist)
   )
 }
