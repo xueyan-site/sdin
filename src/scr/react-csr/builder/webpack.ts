@@ -18,11 +18,11 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     context: project.root,
     entry: pages.entry,
     output: {
-      path: project.webDist,
+      path: project.dist,
       publicPath: project.publicPath,
       hashDigestLength: 12,
-      filename: 'js/[name].[chunkhash].js',
-      chunkFilename: 'js/[id].[chunkhash].js'
+      filename: '_js/[name].[chunkhash].js',
+      chunkFilename: '_js/[id].[chunkhash].js'
     },
     module: {
       rules: getRules(project, false)
@@ -33,15 +33,15 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     plugins: [
       new ProgressPlugin(),
       new MiniCssExtractPlugin({
-        filename: 'css/[name].[contenthash].css',
-        chunkFilename: 'css/[id].[contenthash].css'
+        filename: '_css/[name].[contenthash].css',
+        chunkFilename: '_css/[id].[contenthash].css'
       }),
       getDefinePlugin(project, false),
       ...pages.plugins
     ],
     optimization: {
       runtimeChunk: {
-        name: (entry: any) => entry.name + '-rc'
+        name: (entry: any) => entry.name + '_rc'
       },
       splitChunks: getSplitChunks()
     }

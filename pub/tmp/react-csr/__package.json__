@@ -2,7 +2,7 @@
   "name": "<%= name %>",
   "version": "<%= version %>",
   "author": "<%= author %>",
-  "description": "",
+  "description": "react client-side rendering application",
   "private": true,
   "scripts": {
     "start": "xt start",

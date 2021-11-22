@@ -34,7 +34,6 @@ async function action() {
     console.log()
     return process.exit()
   }
-  console.log()
   // 检查是否有相关配置文件，若没有，则进行创建
   const esDockerComposePath = cmdPath('buf/est/docker-compose.yml')
   if (!fse.existsSync(esDockerComposePath)) {
@@ -50,20 +49,20 @@ async function action() {
     )
   }
   // 把配置文件展示给用户，先给用户进行提示，让用户确认配置文件没有问题
-  console.log(chalk.blue(esDockerComposePath))
+  console.log()
+  console.log('next, we will launch elasticsearch and kibana with docker')
+  console.log('docker will auto download and install them by docker-compose.yml')
+  console.log()
+  console.log(chalk.blue('docker-compose.yml path:'))
+  console.log(esDockerComposePath)
+  console.log(chalk.blue('docker-compose.yml content: '))
   console.log(fse.readFileSync(esDockerComposePath).toString('utf8'))
   console.log()
   const confirm = (await prompt<{ confirm: string }>([
     {
       type: 'select',
       name: 'confirm',
-      message: 
-        chalk.blue('please make sure that docker-compose.yml is no problem (👆above)')
-        + '\n  '
-        + 'next, we will launch elasticsearch and kibana with docker'
-        + '\n  '
-        + 'note: docker will auto download and install them by docker-compose.yml'
-        + '\n',
+      message: chalk.blue('please make sure that docker-compose.yml is no problem (👆above)'),
       required: true,
       choices: [
         {
@@ -86,6 +85,6 @@ async function action() {
   try {
     execute(`docker-compose -f ${esDockerComposePath} up`)
   } catch (err: any) {
-    printExitError(err, 'docker server start failed, please check whether docker is opened and whether the network is OK')
+    printExitError(err || 'docker server error, please check whether docker is opened and whether the network is OK')
   }
 }

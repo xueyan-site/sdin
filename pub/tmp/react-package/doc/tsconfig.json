@@ -30,8 +30,8 @@
     "removeComments": false,
     "baseUrl": ".",
     "paths": {
-      "src/*": ["./src/*"],
       "ast/*": ["./pub/ast/*"],
+      "com/*": ["./pub/com/*"],
       "utl/*": ["./pub/utl/*"],
       "<%= name %>": ["../src"]
     }

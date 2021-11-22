@@ -3,7 +3,7 @@
   "version": "<%= version %>",
   "author": "<%= author %>",
   "license": "MIT",
-  "description": "",
+  "description": "command line tool",
   "main": "dist/node",
   "types": "dist/def",
   "keywords": [],
@@ -16,14 +16,11 @@
     "yarn.lock"
   ],
   "bin": {
-    "<%= name %>": "./dist/node/binary/index.js"
+    "<%= name %>": "./dist/node/bin/index.js"
   },
   "scripts": {
     "start": "xt start",
-    "build": "xt build",
-    "start-doc": "xt start doc",
-    "build-doc": "xt build doc",
-    "serve-doc": "xt serve doc"
+    "build": "xt build"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.0",

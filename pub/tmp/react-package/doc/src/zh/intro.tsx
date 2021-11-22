@@ -6,7 +6,9 @@ import { Switch } from '<%= name %>'
 const MARK1 = `
 ## <%= name %>
 
-\`<%= name %>\` 是一个 \`React\` 开关组件.  
+\`<%= name %>\` is a react component.  
+
+## Usage
 `
 
 const code1 = `
@@ -18,7 +20,7 @@ export default function Example() {
   return (
     <Fragment>
       <span>switch: </span>
-      <Switch block={true} value={state} onChange={setState} />
+      <Switch value={state} onChange={setState} />
     </Fragment>
   )
 }
@@ -28,8 +30,9 @@ export default function Main() {
   return (
     <Article>
       <Segment>{MARK1}</Segment>
-      <Segment>## 示例</Segment>
-      <Playground scope={{ React, useState, Fragment, Switch }}>{code1}</Playground>
+      <Playground scope={{ React, useState, Fragment, Switch }}>
+        {code1}
+      </Playground>
     </Article>
   )
 }

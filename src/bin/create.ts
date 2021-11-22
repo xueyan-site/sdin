@@ -18,8 +18,6 @@ process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, undefined, 1))
 
 printInfo(`welcome to use ${chalk.blue('xueyan-typescript-cli')}`)
-printInfo('project creation process is ready')
-console.log()
 const program = new Command()
 
 program
@@ -29,6 +27,8 @@ program
   .parse(process.argv)
 
 async function action(path?: string) {
+  printInfo('project creation process is ready')
+  console.log()
   /**
    * 确认类型
    */

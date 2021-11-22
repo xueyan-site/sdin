@@ -1,0 +1,40 @@
+{
+  "name": "xueyan-typescript-cli-doc",
+  "version": "1.0.0",
+  "author": "xueyan-site <yang@xueyan.site>",
+  "description": "xueyan-typescript-cli project document",
+  "private": true,
+  "scripts": {
+    "start": "xt start",
+    "build": "xt build",
+    "serve": "xt serve"
+  },
+  "dependencies": {
+    "classnames": "^2.3.0",
+    "lodash": "^4.14.0",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "xueyan-react": "^1.4.0",
+    "xueyan-react-doc": "^1.1.3",
+    "xueyan-react-markdown": "^2.0.4"
+  },
+  "devDependencies": {
+    "@babel/runtime": "^7.12.0",
+    "@types/lodash": "^4.14.0",
+    "@types/react": ">=16.8.0",
+    "@types/react-dom": ">=16.8.0",
+    "typescript": "^4.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -6,14 +6,14 @@ import type { PageProps } from 'xueyan-react'
 import type { LinkImage, DocConfig } from 'xueyan-react-doc'
 
 const AVATAR: LinkImage = {
-  src: '',
+  src: XT_PATH + 'project.png',
   href: XT_PATH
 }
 
 const LOGOS: LinkImage[] = [
   {
     title: 'repository',
-    src: XT_PATH + 'git.png',
+    src: XT_PATH + 'repository.png',
     href: pkg.repository.url,
   }
 ]
@@ -21,7 +21,6 @@ const LOGOS: LinkImage[] = [
 const SIDE_FOOTER = `
 author - ${XT_AUTHOR_NAME}  
 concat - ${XT_AUTHOR_EMAIL}  
-builder - [xueyan-typescript-cli](https://github.com/xueyan-site/xueyan-typescript-cli)
 `
 
 export interface PageDocProps extends 

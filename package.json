@@ -1,9 +1,9 @@
 {
   "name": "xueyan-typescript-cli",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "author": "xueyan <yang@xueyan.site>",
   "license": "MIT",
-  "description": "Typescript Application or Package Command Tool",
+  "description": "typescript application or package command tool",
   "main": "dist/node",
   "types": "dist/def",
   "keywords": [
@@ -31,7 +31,8 @@
   },
   "scripts": {
     "start": "xt start",
-    "build": "xt build"
+    "build": "xt build",
+    "serve": "xt serve"
   },
   "dependencies": {
     "@babel/core": "^7.14.8",

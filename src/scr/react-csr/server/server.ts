@@ -36,18 +36,13 @@ export async function createServer(project: ReactCSR, options: ServerOptions) {
     project,
     reader: (ctx, page) => {
       return koaSend(ctx, page.path, {
-        root: project.webDist,
+        root: project.dist,
         extensions: ['html']
       })
     }
   }))
   server.use(webStatic({
-    dist: project.astDist,
-    prefix: project.publicPath,
-    extensions: ['html','json']
-  }))
-  server.use(webStatic({
-    dist: project.webDist,
+    dist: project.dist,
     index: project.index?.id,
     prefix: project.publicPath,
     extensions: ['html','json']

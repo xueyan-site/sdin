@@ -28,9 +28,9 @@ function getRowRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset/source',
     generator: {
-      filename: 'raw/[name].[contenthash][ext]'
+      filename: '_raw/[name].[contenthash][ext]'
     }
-  }, project.module.rules.row, {
+  }, project.module.rules.raw, {
     test: /\.txt$/i
   })
 }
@@ -39,15 +39,10 @@ function getFontRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset',
     generator: {
-      filename: 'fnt/[name].[contenthash][ext]'
+      filename: '_fnt/[name].[contenthash][ext]'
     }
   }, project.module.rules.font, {
-    test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-    parser: {
-      dataUrlCondition: {
-        maxSize: 10240 // 10kb
-      }
-    }
+    test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/
   })
 }
 
@@ -55,10 +50,10 @@ function getImageRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset',
     generator: {
-      filename: 'img/[name].[contenthash][ext]'
+      filename: '_img/[name].[contenthash][ext]'
     }
   }, project.module.rules.image, {
-    test: /\.(png|jpg|jpeg|svg|gif|bmp|webp|tif)(\?.*)?$/,
+    test: /\.(png|jpg|jpeg|svg|webp|gif|bmp|tif)(\?.*)?$/,
     parser: {
       dataUrlCondition: {
         maxSize: 10240 // 10kb
@@ -71,15 +66,10 @@ function getAudioRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset',
     generator: {
-      filename: 'ado/[name].[contenthash][ext]'
+      filename: '_ado/[name].[contenthash][ext]'
     }
   }, project.module.rules.audio, {
-    test: /\.(mp3|wma|wav|aac|amr|ogg)(\?.*)?$/,
-    parser: {
-      dataUrlCondition: {
-        maxSize: 10240 // 10kb
-      }
-    }
+    test: /\.(mp3|wma|wav|aac|amr|ogg)(\?.*)?$/
   })
 }
 
@@ -87,15 +77,10 @@ function getVideoRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset',
     generator: {
-      filename: 'vdo/[name].[contenthash][ext]'
+      filename: '_vdo/[name].[contenthash][ext]'
     }
   }, project.module.rules.video, {
-    test: /\.(mp4|3gp|mpg|avi|wmv|flv)(\?.*)?$/,
-    parser: {
-      dataUrlCondition: {
-        maxSize: 10240 // 10kb
-      }
-    }
+    test: /\.(mp4|3gp|webm|mpg|avi|wmv|flv)(\?.*)?$/
   })
 }
 
