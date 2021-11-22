@@ -3,7 +3,7 @@
   "version": "<%= version %>",
   "author": "<%= author %>",
   "license": "MIT",
-  "description": "",
+  "description": "react package",
   "main": "dist/node",
   "types": "dist/def",
   "module": "dist/web",

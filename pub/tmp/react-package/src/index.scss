@@ -1,12 +1,12 @@
 .wrapper {
-  width: 2.6em;
-  height: 1.4em;
+  width: 44px;
+  height: 24px;
+  border-radius: 24px;
   display: inline-block;
   box-sizing: content-box;
   background-color: rgba(127,127,127,.5);
   position: relative;
   overflow: hidden;
-  border-radius: 1.4em;
   transition: background-color .3s;
   vertical-align: top;
   cursor: pointer;
@@ -17,18 +17,18 @@
   &.active {
     background-color: #13d474;
     .inner {
-      transform: translate3d(1.3em, -50%, 0);
+      transform: translate3d(22px, -50%, 0);
     }
   }
   .inner {
     position: absolute;
     top: 50%;
     left: 0;
-    width: 1.2em;
-    height: 1.2em;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background-color: #fff;
-    transform: translate3d(0.12em, -50%, 0);
+    transform: translate3d(2px, -50%, 0);
     transition: transform .3s;
   }
 }
