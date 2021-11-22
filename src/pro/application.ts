@@ -36,10 +36,7 @@ export default abstract class Application<
 
   constructor(type: TType, props: ApplicationProps<TType, TConfig>) {
     super(type, props)
-    let __path__: string = this.config.path || ''
-    if (__path__[0]) {
-      __path__ = trim(__path__, '/ ')
-    }
+    const __path__ = trim(this.config.path || '', '/ ')
     this.publicPath = __path__ ? `/${__path__}/` : '/'
   }
 

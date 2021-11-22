@@ -1,24 +1,24 @@
 import React from 'react'
 import Doc from 'xueyan-react-doc'
 import { Segment } from 'xueyan-react-markdown'
-import pkg from '../../../../package.json'
+import pkg from '../../../package.json'
 import type { PageProps } from 'xueyan-react'
 import type { LinkImage, DocConfig } from 'xueyan-react-doc'
 
 const AVATAR: LinkImage = {
-  src: XT_PATH + 'project.png',
+  src: XT_PATH + 'img/project.png',
   href: XT_PATH
 }
 
 const LOGOS: LinkImage[] = [
   {
     title: 'github',
-    src: XT_PATH + 'github.png',
+    src: XT_PATH + 'img/github.png',
     href: pkg.repository.url,
   },
   {
     title: 'xueyan-site',
-    src: XT_PATH + 'xueyan-site.svg',
+    src: XT_PATH + 'img/xueyan-site.svg',
     href: 'https://xueyan.site',
   }
 ]

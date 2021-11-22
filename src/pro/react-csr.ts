@@ -224,7 +224,7 @@ export default class ReactCSR extends Application<
    * @returns 
    */
   getPage(id?: string): ReactCSRPage | undefined {
-    return this.__pageMap__[id || '']
+    return id ? this.__pageMap__[id] : undefined
   }
 
   /**

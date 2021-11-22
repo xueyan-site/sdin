@@ -13,7 +13,7 @@ import styles from './index.scss'
  */
 export interface SwitchProps {
   /**
-   * switch status（on或off） 
+   * switch status（on or off） 
    */
   value?: boolean
   

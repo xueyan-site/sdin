@@ -31,6 +31,7 @@
     "baseUrl": ".",
     "paths": {
       "ast/*": ["./pub/ast/*"],
+      "com/*": ["./pub/com/*"],
       "utl/*": ["./pub/utl/*"],
       "<%= name %>": ["../src"]
     }

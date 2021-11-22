@@ -96,7 +96,7 @@ export default abstract class Executor<
     if (fse.existsSync(path)) {
       const tip = ora(`${name} node modules ${chalk.blue('downloading')}`).start()
       try {
-        executeSync(`cd ${path} && yarn`)
+        executeSync(`cd ${path} && npm install`)
         tip.succeed(`${name} node modules ${chalk.blue('downloaded successfully')}`)
       } catch (err) {
         tip.fail(`${name} node modules ${chalk.red('download failed')}`)

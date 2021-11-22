@@ -234,11 +234,11 @@ export default abstract class Project<
     const config = this.config = readJsonSync(props.config || 'project.js', this.root) as any
     // 设置项目的名称、作者、版本、id
     if (/^[a-z][a-z0-9\-]+$/.test(packageInfo.name)) {
-      this.id = packageInfo.name.replace(/\//g, '_')
+      this.id = packageInfo.name.replace(/[@ \/\.]/g, '_')
     } else {
       throw new Error('please change package.json/name to kebab-case')
     }
-    this.name = config.name || this.id
+    this.name = config.name || packageInfo.name
     this.version = packageInfo.version
     this.alias = config.alias
     const authorMatched = /^(.+) <(.+)>$/.exec(packageInfo.author)

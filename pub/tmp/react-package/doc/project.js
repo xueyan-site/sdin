@@ -4,6 +4,7 @@ module.exports = {
   track: false,
   alias: {
     ast: 'pub/ast',
+    com: 'pub/com',
     utl: 'pub/utl',
     '<%= name %>': '../src'
   },

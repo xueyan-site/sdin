@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "author": "xueyan <yang@xueyan.site>",
   "license": "MIT",
-  "description": "Typescript Application or Package Command Tool",
+  "description": "typescript application or package command tool",
   "main": "dist/node",
   "types": "dist/def",
   "keywords": [
@@ -32,9 +32,7 @@
   "scripts": {
     "start": "xt start",
     "build": "xt build",
-    "start-doc": "xt start doc",
-    "build-doc": "xt build doc",
-    "serve-doc": "xt serve doc"
+    "serve": "xt serve"
   },
   "dependencies": {
     "@babel/core": "^7.14.8",
