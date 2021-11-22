@@ -21,17 +21,17 @@ const CONTENTS: ArticleMeta[] = [
       {
         id: 'base-understand-commands',
         label: '了解命令',
-        content: () => import('./base/understand-commands')
+        content: () => import('./base-understand-commands')
       },
       {
         id: 'base-develop-package',
         label: '开发工具包',
-        content: () => import('./base/develop-package')
+        content: () => import('./base-develop-package')
       },
       {
         id: 'base-develop-application',
         label: '开发应用程序',
-        content: () => import('./base/develop-application')
+        content: () => import('./base-develop-application')
       }
     ]
   },
@@ -42,7 +42,7 @@ const CONTENTS: ArticleMeta[] = [
       {
         id: 'pro',
         label: '了解命令',
-        content: () => import('./base/understand-commands')
+        content: () => import('./base-understand-commands')
       }
     ]
   },
@@ -53,42 +53,42 @@ const CONTENTS: ArticleMeta[] = [
       {
         id: 'api-commands',
         label: '命令列表',
-        content: () => import('./api/commands')
+        content: () => import('./api-commands')
       },
       {
         id: 'api-project',
         label: '项目配置',
-        content: () => import('./api/project')
+        content: () => import('./api-project')
       },
       {
         id: 'api-appication',
         label: '应用项目配置',
-        content: () => import('./api/application')
+        content: () => import('./api-application')
       },
       {
         id: 'api-page',
         label: '页面配置',
-        content: () => import('./api/page')
+        content: () => import('./api-page')
       },
       {
         id: 'api-package-project',
         label: 'package 项目配置',
-        content: () => import('./api/package-project')
+        content: () => import('./api-package-project')
       },
       {
         id: 'api-react-csr-project',
         label: 'react-csr 项目配置',
-        content: () => import('./api/react-csr-project')
+        content: () => import('./api-react-csr-project')
       },
       {
         id: 'api-react-csr-page',
         label: 'react-csr 页面配置',
-        content: () => import('./api/react-csr-page')
+        content: () => import('./api-react-csr-page')
       },
       {
         id: 'api-react-csr-define',
         label: 'react-csr 宏',
-        content: () => import('./api/react-csr-define')
+        content: () => import('./api-react-csr-define')
       }
     ]
   }
