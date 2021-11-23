@@ -12,8 +12,8 @@ const AVATAR: LinkImage = {
 
 const LOGOS: LinkImage[] = [
   {
-    title: 'github',
-    src: XT_PATH + 'github.png',
+    title: 'repository',
+    src: XT_PATH + 'repository.png',
     href: pkg.repository.url,
   },
   {

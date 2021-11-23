@@ -18,7 +18,7 @@ module.exports = {
       lodash: '_'
     },
     rules: {
-      row: {
+      raw: {
         test: /\.(txt|md)$/i
       }
     }

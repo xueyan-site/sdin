@@ -15,7 +15,7 @@
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0",
     "xueyan-react": "^1.4.0",
-    "xueyan-react-doc": "^1.1.4",
+    "xueyan-react-doc": "^1.1.5",
     "xueyan-react-markdown": "^2.0.5",
     "xueyan-react-playground": "^1.1.1"
   },

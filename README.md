@@ -351,7 +351,7 @@ Title of HTML
 `metas: NodeAttrs[] = []`
 
 Meta list of HTML
-  
+
 #### react-csr-page links
 
 `links: NodeAttrs[] = []`

@@ -1,9 +1,9 @@
 {
   "name": "xueyan-typescript-cli",
   "version": "2.2.1",
-  "author": "xueyan <yang@xueyan.site>",
+  "author": "xueyan-site <yang@xueyan.site>",
   "license": "MIT",
-  "description": "typescript application or package command tool",
+  "description": "typescript application or package command line tool",
   "main": "dist/node",
   "types": "dist/def",
   "keywords": [
@@ -23,16 +23,14 @@
   },
   "files": [
     "dist/**/*",
-    "pub/**/*",
-    "yarn.lock"
+    "pub/**/*"
   ],
   "bin": {
     "xt": "./dist/node/bin/index.js"
   },
   "scripts": {
     "start": "xt start",
-    "build": "xt build",
-    "serve": "xt serve"
+    "build": "xt build"
   },
   "dependencies": {
     "@babel/core": "^7.14.8",

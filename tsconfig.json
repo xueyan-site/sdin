@@ -1,5 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
   "include": ["src", "typings.d.ts"],
   "exclude": ["node_modules", "*.test.*"],
   "compilerOptions": {
@@ -14,9 +13,9 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "lib": ["ES2015"],
     "module": "commonjs",
     "target": "ES5",
-    "lib": ["ES2015"],
     "jsx": "react",
     "outDir": "dist",
     "allowJs": true,
