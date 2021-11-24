@@ -63,9 +63,9 @@ export default function Main() {
   return (
     <Article>
       <Segment>{MARK1}</Segment>
-      <Video src={XT_PATH+'vdo/intro-demo.webm'} />
+      <Video src={XT_PATH+'intro-demo.webm'} />
       <Segment>{MARK2}</Segment>
-      <img style={STYLE1} src={XT_PATH+'img/project.png'}/>
+      <img style={STYLE1} src={XT_PATH+'project.png'}/>
     </Article>
   )
 }

@@ -1,6 +1,6 @@
 module.exports = {
   type: 'react-csr',
-  index: 'zh',
+  index: 'en',
   track: false,
   alias: {
     ast: 'pub/ast',

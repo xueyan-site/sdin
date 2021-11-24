@@ -6,11 +6,11 @@ import type { ArticleMeta } from 'xueyan-react-doc'
 const CONTENTS: ArticleMeta[] = [
   {
     id: 'intro',
-    label: '介绍',
+    label: 'Introduction',
     content: () => import('./intro')
   }
 ]
 
 export default function Index(props: PageProps) {
-  return <Doc {...props} language="中文" contents={CONTENTS} />
+  return <Doc {...props} language="English" contents={CONTENTS} />
 }

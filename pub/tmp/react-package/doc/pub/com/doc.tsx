@@ -3,7 +3,7 @@ import Doc from 'xueyan-react-doc'
 import { Segment } from 'xueyan-react-markdown'
 import pkg from '../../../package.json'
 import type { PageProps } from 'xueyan-react'
-import type { LinkImage, DocConfig } from 'xueyan-react-doc'
+import type { LinkImage, LinkText, DocConfig } from 'xueyan-react-doc'
 
 const AVATAR: LinkImage = {
   src: XT_PATH + 'project.png',
@@ -15,6 +15,17 @@ const LOGOS: LinkImage[] = [
     title: 'repository',
     src: XT_PATH + 'repository.png',
     href: pkg.repository.url,
+  }
+]
+
+const LANGUAGES: LinkText[] = [
+  {
+    label: 'English',
+    href: XT_PATH + 'en'
+  },
+  {
+    label: '中文',
+    href: XT_PATH + 'zh'
   }
 ]
 
@@ -38,6 +49,7 @@ export default function PageDoc({ page, ...other }: PageDocProps) {
       description={pkg.description}
       avatar={AVATAR}
       logos={LOGOS}
+      languages={LANGUAGES}
       article={query.article || 'intro'}
       onChange={node => {
         router.changeUrl(path, {

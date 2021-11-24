@@ -4,7 +4,7 @@ import { Article, Segment } from 'xueyan-react-markdown'
 const MARK1 = `
 ## <%= name %>
 
-\`<%= name %>\` 是一个命令行工具。  
+\`<%= name %>\` is a command line tool.  
 
 \`\`\`shell
 # <%= name %> create

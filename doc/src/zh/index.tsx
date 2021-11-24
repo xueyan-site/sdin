@@ -95,5 +95,5 @@ const CONTENTS: ArticleMeta[] = [
 ]
 
 export default function Index(props: PageProps) {
-  return <Doc {...props} contents={CONTENTS} />
+  return <Doc {...props} language="中文" contents={CONTENTS} />
 }

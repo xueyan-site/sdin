@@ -6,9 +6,9 @@ import { add } from '<%= name %>'
 const MARK1 = `
 ## <%= name %>
 
-\`<%= name %>\` 是一个可用于 Node 和 Web 平台的包。  
+\`<%= name %>\` is a package on web and node platform.  
 
-## 用法
+## Usage
 `
 
 const code1 = `

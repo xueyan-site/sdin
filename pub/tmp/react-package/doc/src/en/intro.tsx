@@ -6,9 +6,9 @@ import { Switch } from '<%= name %>'
 const MARK1 = `
 ## <%= name %>
 
-\`<%= name %>\` 是一个 React 组件。  
+\`<%= name %>\` is a react component.  
 
-## 用法
+## Usage
 `
 
 const code1 = `
