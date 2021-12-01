@@ -1,5 +1,4 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import TerserPlugin from 'terser-webpack-plugin'
 import ReactCSR from 'pro/react-csr'
 import { getPages } from '../common/page'
 import { getRules } from '../common/module'
@@ -44,12 +43,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
       runtimeChunk: {
         name: (entry: any) => entry.name + '_rc'
       },
-      splitChunks: getSplitChunks(),
-      minimizer: [
-        new TerserPlugin({
-          parallel: false
-        })
-      ]
+      splitChunks: getSplitChunks()
     }
   })
 }
