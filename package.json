@@ -1,6 +1,6 @@
 {
   "name": "xueyan-typescript-cli",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "author": "xueyan-site <yang@xueyan.site>",
   "license": "MIT",
   "description": "typescript application or package command line tool",
@@ -81,6 +81,7 @@
     "sass": "^1.36.0",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
+    "terser-webpack-plugin": "^5.2.5",
     "typescript": "^4.3.5",
     "update-notifier": "^5.1.0",
     "uuid": "^8.3.2",
