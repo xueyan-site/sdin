@@ -1,19 +1,18 @@
 module.exports = {
   type: 'react-csr',
-  index: 'en',
-  track: false,
+  index: 'zh',
   alias: {
-    ast: 'pub/ast',
-    com: 'pub/com',
-    utl: 'pub/utl',
+    'ast': 'pub/ast',
+    'com': 'pub/com',
+    'utl': 'pub/utl',
     '<%= name %>': '../src'
   },
   module: {
     externals: {
-      react: 'React',
+      'react': 'React',
       'react-dom': 'ReactDOM',
-      classnames: 'classNames',
-      lodash: '_'
+      'classnames': 'classNames',
+      'lodash': '_'
     },
     rules: {
       raw: {

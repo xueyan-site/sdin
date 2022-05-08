@@ -3,29 +3,48 @@ import chalk from 'chalk'
 import { isError } from 'lodash'
 import type { Chalk } from 'chalk'
 
-const TIME_FORMAT = 'YY/MM/DD HH:mm ss.SSS'
-
-/**
- * 获取标签
- */
 function getLabel(icon: string, color: Chalk, msg: string) {
-  const curr = dayjs()
-  return `${icon} ${color(curr.format(TIME_FORMAT))} ${msg}`
+  return `${icon} ${color(dayjs().format('HH:mm:ss.SSS'))} ${msg}`
 }
 
-/**
- * 打印错误信息
- * @param {String} msg 信息
- */
-export const printError = (msg: string | Error, title?: string, callback?: () => void) => {
+export function printInfo(msg: string, callback?: () => void) {
+  if (msg) {
+    console.log(getLabel('🙂', chalk.blue, msg))
+    if (callback) {
+      callback()
+    }
+  }
+}
+
+export function printLoading(msg: string) {
+  if (msg) {
+    console.log(getLabel('🤔', chalk.magenta, msg))
+  }
+}
+
+export function printSuccess(msg: string) {
+  if (msg) {
+    console.log(getLabel('😊', chalk.green, msg))
+  }
+}
+
+export function printWarning(msg: string) {
+  if (msg) {
+    console.log(getLabel('😥', chalk.yellow, msg))
+  }
+}
+
+export function printError(msg: string | Error, title?: string, callback?: () => void) {
   if (msg) {
     if (isError(msg)) {
       if (title) {
-        console.log(getLabel('💥', chalk.red, title))
+        console.log(getLabel('😰', chalk.red, title))
       }
-      console.error(msg.stack)
+      if (msg.stack) {
+        console.error(msg.stack)
+      }
     } else {
-      console.log(getLabel('🐛', chalk.red, msg as any))
+      console.log(getLabel('😨', chalk.red, msg as any))
     }
     if (callback) {
       callback()
@@ -33,61 +52,10 @@ export const printError = (msg: string | Error, title?: string, callback?: () =>
   }
 }
 
-/**
- * 打印错误信息并退出
- * @param {String} msg 信息
- */
-export const printExitError = (msg: string | Error, title?: string, code?: number) => {
-  printError(msg, title, () => process.exit(code))
-}
-
-/**
- * 打印普通信息
- * @param {String} msg 信息
- */
-export const printInfo = (msg: string, callback?: () => void) => {
-  if (msg) {
-    console.log(getLabel('🍀', chalk.cyan, msg))
-    if (callback) {
-      callback()
-    }
-  }
-}
-
-/**
- * 打印错误信息并退出
- * @param {String} msg 信息
- */
-export const printExitInfo = (msg: string, code?: number) => {
+export function printExitInfo(msg: string, code?: number) {
   printInfo(msg, () => process.exit(code))
 }
 
-/**
- * 打印加载信息
- * @param {String} msg 信息
- */
-export const printLoading = (msg: string) => {
-  if (msg) {
-    console.log(getLabel('🚀', chalk.green, msg))
-  }
-}
-
-/**
- * 打印警告信息
- * @param {String} msg 信息
- */
-export const printWarning = (msg: string) => {
-  if (msg) {
-    console.log(getLabel('🔔', chalk.yellow, msg))
-  }
-}
-
-/**
- * 打印成功信息
- * @param {String} msg 信息
- */
-export const printSuccess = (msg: string) => {
-  if (msg) {
-    console.log(getLabel('🍺', chalk.blue, msg))
-  }
+export function printExitError(msg: string | Error, title?: string, code?: number) {
+  printError(msg, title, () => process.exit(code))
 }

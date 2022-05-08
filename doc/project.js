@@ -3,25 +3,18 @@ const pkg = require('../package.json')
 module.exports = {
   type: 'react-csr',
   index: 'zh',
-  track: false,
   path: pkg.name,
-  serve: {
-    port: 10003
-  },
-  start: {
-    port: 15003
-  },
   alias: {
-    ast: 'pub/ast',
-    com: 'pub/com',
-    utl: 'pub/utl'
+    'ast': 'pub/ast',
+    'com': 'pub/com',
+    'utl': 'pub/utl'
   },
   module: {
     externals: {
-      react: 'React',
+      'react': 'React',
       'react-dom': 'ReactDOM',
-      classnames: 'classNames',
-      lodash: '_'
+      'classnames': 'classNames',
+      'lodash': '_'
     },
     rules: {
       raw: {

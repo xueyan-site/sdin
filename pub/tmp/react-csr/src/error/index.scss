@@ -1,20 +1,22 @@
 .wrapper {
+  height: 100%;
   padding: 20vh 10vw 0;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   flex-flow: column nowrap;
 }
-.banner {
+.icon {
   width: 48px;
   margin-bottom: 24px;
 }
 .title {
-  margin-bottom: 16px;
-  font-weight: 600;
+  margin-bottom: 12px;
+  color: #ff4f45;
   font-size: 24px;
-  color: #666;
+  font-weight: 600;
 }
 .content {
   margin-bottom: 8px;
-  color: #999;
+  color: rgba(48, 52, 56, 0.68);
 }

@@ -215,7 +215,7 @@ export default class ReactCSR extends Application<
     this.error = this.getPage(config.error)
     // 设置打点路径
     const track = config.track
-    this.trackPath = track !== false ? this.joinPath('t.gif') : ''
+    this.trackPath = track ? this.joinPath('t.gif') : ''
     this.trackOptions = isObject(track) ? track : undefined
   }
 

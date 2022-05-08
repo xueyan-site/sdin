@@ -1,10 +1,10 @@
-.wrapper {
+.xrswitch {
   width: 44px;
   height: 24px;
   border-radius: 24px;
   display: inline-block;
   box-sizing: content-box;
-  background-color: rgba(127,127,127,.5);
+  background-color: #d6d7d7;
   position: relative;
   overflow: hidden;
   transition: background-color .3s;
@@ -15,7 +15,7 @@
     display: block;
   }
   &.active {
-    background-color: #13d474;
+    background-color: #48cd6a;;
     .inner {
       transform: translate3d(22px, -50%, 0);
     }
@@ -27,7 +27,7 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: #f5f9ff;
     transform: translate3d(2px, -50%, 0);
     transition: transform .3s;
   }

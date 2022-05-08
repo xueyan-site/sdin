@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import chalk, { Chalk } from 'chalk'
 import { isError } from 'lodash'
 
-const TIME_FORMAT = 'YY/MM/DD HH:mm ss.SSS'
+const TIME_FORMAT = 'YY/MM/DD HH:mm:ss.SSS'
 
 /**
  * get message prefix

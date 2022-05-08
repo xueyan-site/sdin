@@ -1,17 +1,21 @@
 {
   "name": "xueyan-typescript-cli",
   "version": "2.2.4",
-  "author": "xueyan-site <yang@xueyan.site>",
-  "license": "MIT",
+  "author": "xueyan-site <xueyan@xueyan.site>",
+  "license": "LGPL-3.0",
   "description": "typescript application or package command line tool",
   "main": "dist/node",
   "types": "dist/def",
+  "files": [
+    "dist/**/*",
+    "pub/**/*"
+  ],
   "keywords": [
     "cli",
     "command",
     "typescript",
-    "build",
     "create",
+    "build",
     "node",
     "react",
     "package",
@@ -21,10 +25,6 @@
     "type": "git",
     "url": "https://github.com/xueyan-site/xueyan-typescript-cli.git"
   },
-  "files": [
-    "dist/**/*",
-    "pub/**/*"
-  ],
   "bin": {
     "xt": "./dist/node/bin/index.js"
   },

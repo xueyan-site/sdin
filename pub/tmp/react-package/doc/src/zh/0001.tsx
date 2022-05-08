@@ -1,27 +1,27 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState } from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
-import Playground from 'xueyan-react-playground'
+import { Playground } from 'xueyan-react-playground'
 import { Switch } from '<%= name %>'
 
 const MARK1 = `
 ## <%= name %>
 
-\`<%= name %>\` is a react component.  
+TODO
 
-## Usage
+## 用法
 `
 
 const code1 = `
 import React, { useState } from 'react'
-import Switch from '<%= name %>'
+import { Switch } from '<%= name %>'
 
 export default function Example() {
   const [state, setState] = useState<boolean>(false)
   return (
-    <Fragment>
-      <span>switch: </span>
+    <div style={{ display: 'flex', alignItem: 'center' }}>
+      <div style={{ marginRight: '8px' }}>Switch</div>
       <Switch value={state} onChange={setState} />
-    </Fragment>
+    </div>
   )
 }
 `
@@ -30,7 +30,7 @@ export default function Main() {
   return (
     <Article>
       <Segment>{MARK1}</Segment>
-      <Playground scope={{ React, useState, Fragment, Switch }}>
+      <Playground scope={{ React, useState, Switch }}>
         {code1}
       </Playground>
     </Article>

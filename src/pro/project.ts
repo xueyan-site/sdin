@@ -328,7 +328,7 @@ export default abstract class Project<
    * prefix 最后返回的文件路径中，前面补上的公共路径
    */
   async getIrregularFileList(root: string, prefix?: string): Promise<string[]> {
-    const ALLOW_EXP = /^[a-z][a-z0-9\-\.]+$/
+    const ALLOW_EXP = /^[a-z0-9][a-z0-9\-\.]+$/
     const fileList: string[] = []
     await deepRead(root, node => {
       if (!ALLOW_EXP.test(node.name)) {

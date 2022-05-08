@@ -18,10 +18,10 @@ module.exports = {
   },
   module: {
     externals: {
-      react: 'React',
+      'react': 'React',
       'react-dom': 'ReactDOM',
-      classnames: 'classNames',
-      lodash: '_'
+      'classnames': 'classNames',
+      'lodash': '_'
     }
   },
   page: {

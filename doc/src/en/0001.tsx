@@ -2,13 +2,8 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-## <%= name %>
-
-\`<%= name %>\` 是一个命令行工具。  
-
-\`\`\`shell
-# <%= name %> create
-\`\`\`
+Unfortunately, we have not yet provided you with English version.  
+If you are interested in translating this document, you are welcome to submit merge request to us.
 `
 
 export default function Main() {

@@ -1,28 +1,16 @@
 # <%= name %>
 
-`<%= name %>` is a react package.  
+TODO
 
-- [<%= name %>](<% print('#'+name) %>)
-  - [Why use it](#why-use-it)
-  - [What are its highlights](#what-are-its-highlights)
-  - [How to use it](#how-to-use-it)
-  - [Interface](#interface)
-  - [Develop](#develop)
-  - [Appendix](#appendix)
+## Document
 
-## Why use it
-
-## What are its highlights
-
-## How to use it
-
-## Interface
+TODO
 
 ## Develop
 
-Please make sure that `Node` and `NPM` are installed on your computer, and `xueyan-typescript-cli` is installed globally. After switching current work path to this project root in CLI, run command `yarn start`.
+Please make sure that `Node` and `NPM` are installed on your computer, and `xueyan-typescript-cli` is installed globally. After switching current work path to this project root in CLI, run command `xt start` to live-compile this project, or run command `xt start doc` to live-compile the documents of this project.
 
 ## Appendix
 
-author - <%= author %>  
-builder - [xueyan-typescript-cli](https://github.com/xueyan-site/xueyan-typescript-cli)  
+Author: [<%= authorName %>](<%= authorEmail %>)  
+Builder: [xueyan-typescript-cli](https://github.com/xueyan-site/xueyan-typescript-cli)  

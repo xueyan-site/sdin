@@ -2,19 +2,22 @@
   "name": "<%= name %>",
   "version": "<%= version %>",
   "author": "<%= author %>",
-  "license": "MIT",
-  "description": "package",
+  "license": "LGPL-3.0",
+  "description": "TODO",
   "main": "dist/node",
   "types": "dist/def",
   "module": "dist/web",
-  "keywords": [],
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
   "files": [
     "dist/**/*"
   ],
+  "keywords": [
+    "component",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "TODO"
+  },
   "scripts": {
     "start": "xt start",
     "build": "xt build"

@@ -2,19 +2,21 @@
   "name": "<%= name %>",
   "version": "<%= version %>",
   "author": "<%= author %>",
-  "license": "MIT",
-  "description": "command line tool",
+  "license": "LGPL-3.0",
+  "description": "TODO",
   "main": "dist/node",
   "types": "dist/def",
-  "keywords": [],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "commander",
+    "typescript"
+  ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "TODO"
   },
-  "files": [
-    "dist/**/*",
-    "yarn.lock"
-  ],
   "bin": {
     "<%= name %>": "./dist/node/bin/index.js"
   },
