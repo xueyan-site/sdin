@@ -1,9 +1,10 @@
+import Webpack, { Compiler, ProgressPlugin } from 'webpack'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
 import ReactCSR from 'pro/react-csr'
 import { getPages } from '../common/page'
 import { getRules } from '../common/module'
 import { getDefinePlugin, getResolve, getResolveLoader, getSplitChunks } from '../common/buff'
-import Webpack, { Compiler, ProgressPlugin } from 'webpack'
 
 /**
  * 创建webpack实例
@@ -40,10 +41,26 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
       ...pages.plugins
     ],
     optimization: {
+      splitChunks: getSplitChunks(),
       runtimeChunk: {
-        name: (entry: any) => entry.name + '_rc'
+        name: (entry: any) => entry.name + '-rc'
       },
-      splitChunks: getSplitChunks()
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          extractComments: false,
+          minify: TerserPlugin.uglifyJsMinify,
+          terserOptions: {
+            compress: true,
+            mangle: true
+          },
+        }),
+      ],
+    },
+    performance: {
+      hints: 'warning',
+      maxAssetSize: 524288,
+      maxEntrypointSize: 2097152,
     }
   })
 }

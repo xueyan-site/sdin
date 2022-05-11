@@ -13,15 +13,21 @@ export function getSplitChunks(): { cacheGroups: any } {
   return {
     cacheGroups: {
       // 打包业务中公共代码
-      src02: getSplitSourceConfig(10, 2),
-      src05: getSplitSourceConfig(11, 5),
-      src12: getSplitSourceConfig(12, 12),
-      src24: getSplitSourceConfig(13, 24),
+      'src-02-04': getSplitSourceConfig('src-02-04', 10, 2),
+      'src-05-09': getSplitSourceConfig('src-05-09', 11, 5),
+      'src-10-16': getSplitSourceConfig('src-10-16', 12, 10),
+      'src-17-25': getSplitSourceConfig('src-17-25', 13, 17),
+      'src-26-36': getSplitSourceConfig('src-26-36', 14, 26),
+      'src-37-47': getSplitSourceConfig('src-37-47', 15, 37),
+      'src-48-xx': getSplitSourceConfig('src-48-xx', 16, 48),
       // 打包第三方库的文件
-      mdl02: getSplitModuleConfig(20, 2),
-      mdl05: getSplitModuleConfig(21, 5),
-      mdl12: getSplitModuleConfig(22, 12),
-      mdl24: getSplitModuleConfig(23, 24)
+      'mdl-02-04': getSplitModuleConfig('mdl-02-04', 20, 2),
+      'mdl-05-09': getSplitModuleConfig('mdl-05-09', 21, 5),
+      'mdl-10-16': getSplitModuleConfig('mdl-10-16', 22, 10),
+      'mdl-17-25': getSplitModuleConfig('mdl-17-25', 23, 17),
+      'mdl-26-36': getSplitModuleConfig('mdl-26-36', 24, 26),
+      'mdl-37-47': getSplitModuleConfig('mdl-37-47', 25, 37),
+      'mdl-48-xx': getSplitModuleConfig('mdl-48-xx', 26, 48)
     }
   }
 }
@@ -31,9 +37,9 @@ export function getSplitChunks(): { cacheGroups: any } {
  * @param priority 优先级
  * @param minCount 最少被引用多少次
  */
-function getSplitSourceConfig(priority: number, minCount: number) {
+function getSplitSourceConfig(name: string, priority: number, minCount: number) {
   return {
-    name: 'src' + minCount,
+    name: name,
     chunks: "initial",
     minSize: 1,
     priority: priority,
@@ -46,10 +52,10 @@ function getSplitSourceConfig(priority: number, minCount: number) {
  * @param priority 优先级
  * @param minCount 最少被引用多少次
  */
-function getSplitModuleConfig(priority: number, minCount: number) {
+function getSplitModuleConfig(name: string, priority: number, minCount: number) {
   return {
     test: /[\\/]node_modules[\\/]/,
-    name: 'mdl' + minCount,
+    name: name,
     chunks: "initial",
     priority: priority,
     minChunks: minCount
@@ -73,7 +79,7 @@ export function getResolve(project: ReactCSR): Configuration['resolve'] {
     // 指定react和react-dom的绝对路径
     // 防止出现react版本不一致的问题
     alias: Object.assign({
-      react: project.withMdl('react'),
+      'react': project.withMdl('react'),
       'react-dom': project.withMdl('react-dom')
     }, mapValues(project.alias, value => {
       return project.withRoot(value)
