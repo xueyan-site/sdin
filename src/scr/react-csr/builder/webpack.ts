@@ -15,7 +15,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
   const pages = await getPages(project, false)
   return Webpack({
     mode: 'production',
-    devtool: 'cheap-module-source-map',
+    devtool: false,
     context: project.root,
     entry: pages.entry,
     output: {

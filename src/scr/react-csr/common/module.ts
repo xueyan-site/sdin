@@ -85,7 +85,6 @@ function getVideoRule(project: ReactCSR) {
 }
 
 function getCssRule(dev: boolean): RuleSetRule {
-  const sourceMap = dev ? false : true
   return {
     test: /\.css$/,
     use: [
@@ -93,7 +92,7 @@ function getCssRule(dev: boolean): RuleSetRule {
       {
         loader: 'css-loader',
         options: {
-          sourceMap,
+          sourceMap: dev,
           importLoaders: 1,
           modules: false
         }
@@ -101,7 +100,7 @@ function getCssRule(dev: boolean): RuleSetRule {
       {
         loader: 'postcss-loader',
         options: {
-          sourceMap,
+          sourceMap: dev,
           postcssOptions: {
             plugins: [
               cmdNmPath('postcss-import'),
@@ -115,7 +114,6 @@ function getCssRule(dev: boolean): RuleSetRule {
 }
 
 function getScssRule(project: ReactCSR, dev: boolean): RuleSetRule {
-  const sourceMap = dev ? false : true
   return {
     test: /\.scss$/,
     use: [
@@ -123,7 +121,7 @@ function getScssRule(project: ReactCSR, dev: boolean): RuleSetRule {
       {
         loader: 'css-loader',
         options: {
-          sourceMap,
+          sourceMap: dev,
           importLoaders: 2,
           modules: {
             exportLocalsConvention: "camelCase",
@@ -135,7 +133,7 @@ function getScssRule(project: ReactCSR, dev: boolean): RuleSetRule {
       {
         loader: 'postcss-loader',
         options: {
-          sourceMap,
+          sourceMap: dev,
           postcssOptions: {
             plugins: [
               cmdNmPath('postcss-import'),
@@ -147,7 +145,7 @@ function getScssRule(project: ReactCSR, dev: boolean): RuleSetRule {
       {
         loader: 'sass-loader',
         options: {
-          sourceMap
+          sourceMap: dev
         }
       }
     ]
