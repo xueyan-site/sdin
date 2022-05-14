@@ -1,4 +1,5 @@
 import React from 'react'
+import 'xueyan-react-style'
 import { Doc } from 'xueyan-react-doc'
 import { Article, Segment } from 'xueyan-react-markdown'
 import pkg from '../../../package.json'

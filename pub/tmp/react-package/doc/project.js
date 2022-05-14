@@ -5,7 +5,8 @@ module.exports = {
     'ast': 'pub/ast',
     'com': 'pub/com',
     'utl': 'pub/utl',
-    '<%= name %>': '../src'
+    '<%= name %>': '../src',
+    'xueyan-react-style': '../node_modules/xueyan-react-style'
   },
   module: {
     externals: {
