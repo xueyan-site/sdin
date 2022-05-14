@@ -1,11 +1,11 @@
-import React, { useLayoutEffect } from 'react'
+import React, { Fragment, useLayoutEffect } from 'react'
 import 'xueyan-react-style'
 import './narrow-screen.scss'
 
 export function NarrowScreen({
   children
 }: {
-  children?: React.ReactElement
+  children?: React.ReactNode
 }) {
   useLayoutEffect(() => {
     const appDom = document.getElementById('app')
@@ -13,5 +13,5 @@ export function NarrowScreen({
       appDom.classList.add('narrow')
     }
   }, [])
-  return children || null
+  return <Fragment>{children}</Fragment>
 }

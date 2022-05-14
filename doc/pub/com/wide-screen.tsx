@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import 'xueyan-react-style'
 import './wide-screen.scss'
 
 export function WideScreen({
   children
 }: {
-  children?: React.ReactElement
+  children?: React.ReactNode
 }) {
-  return children || null
+  return <Fragment>{children}</Fragment>
 }
