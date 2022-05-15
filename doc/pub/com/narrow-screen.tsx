@@ -8,10 +8,8 @@ export function NarrowScreen({
   children?: React.ReactNode
 }) {
   useLayoutEffect(() => {
-    const appDom = document.getElementById('app')
-    if (appDom) {
-      appDom.classList.add('narrow')
-    }
+    document.body.classList.add('narrow')
+    return () => document.body.classList.remove('narrow')
   }, [])
   return <Fragment>{children}</Fragment>
 }
