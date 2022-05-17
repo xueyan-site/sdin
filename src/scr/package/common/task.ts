@@ -6,7 +6,7 @@ import gulpFilter from 'gulp-filter'
 import { pipeline } from 'utl/exec'
 import { withCache } from 'utl/read'
 import { getBabelOptions } from './babel'
-import type Package from 'pro/package'
+import type { Package } from 'pro/package'
 import type { Project as TSProject } from 'gulp-typescript'
 import type { FileFunction as FilterFunc } from 'gulp-filter'
 

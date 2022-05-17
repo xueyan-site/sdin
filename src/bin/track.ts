@@ -3,17 +3,19 @@
 import fse from 'fs-extra'
 import chalk from 'chalk'
 import { v4 as uuid } from 'uuid'
-import { Command } from 'commander'
-import { cmdPath } from 'utl/path'
-import { execute, executeSync } from 'utl/exec'
-import { printExitError, printExitInfo, printInfo, printWarning } from 'utl/print'
-import { deepCopy, getReplaceHandler } from 'utl/write'
 import { prompt } from 'enquirer'
+import { Command } from 'commander'
+import { cmdPath, CMD } from 'utl/path'
+import { readPackageInfoSync } from 'utl/read'
+import { execute, executeSync } from 'utl/exec'
+import { deepCopy, getReplaceHandler } from 'utl/write'
+import { printExitError, printExitInfo, printInfo, printWarning } from 'utl/print'
 
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, undefined, 1))
 
-printInfo(`welcome to use ${chalk.blue('xueyan-typescript-cli')}`)
+const packageInfo = readPackageInfoSync(CMD)
+printInfo(`${packageInfo.name} ${packageInfo.version}`)
 const program = new Command()
 
 program

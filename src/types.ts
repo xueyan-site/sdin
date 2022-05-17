@@ -1,11 +1,4 @@
 /**
- * 指代任一对象
- */
-interface AnyObject<TValue = any> {
-  [prop: string]: TValue
-}
-
-/**
  * promise或者原样
  */
 type PromiseOrNot<T> = T | Promise<T>

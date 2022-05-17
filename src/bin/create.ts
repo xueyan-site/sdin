@@ -1,23 +1,24 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk'
+import validator from 'validator'
 import { padEnd } from 'lodash'
 import { Command } from 'commander'
 import { prompt } from 'enquirer'
-import validator from 'validator'
-import { cwdPath, cmdPath } from 'utl/path'
+import { cwdPath, cmdPath, CMD } from 'utl/path'
 import { printExitError, printInfo } from 'utl/print'
-import { readGitConfigSync, readJsonSync } from 'utl/read'
-import Package, { PACKAGE_TYPE } from 'pro/package'
-import ReactCSR, { REACT_CSR_TYPE } from 'pro/react-csr'
+import { readPackageInfoSync, readGitConfigSync, readJsonSync } from 'utl/read'
+import { Package, PACKAGE_TYPE } from 'pro/package'
+import { ReactCSR, REACT_CSR_TYPE } from 'pro/react-csr'
 import { PackageCreator } from 'scr/package'
 import { ReactCSRCreator } from 'scr/react-csr'
-import type Creator from 'exe/creator'
+import type { Creator } from 'exe/creator'
 
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, undefined, 1))
 
-printInfo(`welcome to use ${chalk.blue('xueyan-typescript-cli')}`)
+const packageInfo = readPackageInfoSync(CMD)
+printInfo(`${packageInfo.name} ${packageInfo.version}`)
 const program = new Command()
 
 program

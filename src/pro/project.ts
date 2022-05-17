@@ -66,7 +66,7 @@ interface ProjectMeta {
   /**
    * 项目配置信息
    */
-  config: AnyObject
+  config: Record<string, any>
 
   /**
    * 项目包名
@@ -91,7 +91,7 @@ export function readProjectMeta(projectPath: string): ProjectMeta {
 /**
  * 项目
  */
-export default abstract class Project<
+export abstract class Project<
   TType extends string,
   TConfig extends ProjectConfig<TType>
 > {
@@ -211,7 +211,7 @@ export default abstract class Project<
   /**
    * ts配置的缓存
    */
-  private __tsConfig__?: AnyObject
+  private __tsConfig__?: Record<string, any>
 
   constructor(type: TType, props: ProjectProps<TType, TConfig>) {
     // 确定项目的类型

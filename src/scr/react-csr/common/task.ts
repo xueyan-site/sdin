@@ -5,7 +5,7 @@ import gulpUglify from 'gulp-uglify'
 import gulpFilter from 'gulp-filter'
 import { pipeline } from 'utl/exec'
 import { cmdNmPath } from 'utl/path'
-import type ReactCSR from 'pro/react-csr'
+import type { ReactCSR } from 'pro/react-csr'
 
 /**
  * 处理素材文件

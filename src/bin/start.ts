@@ -1,20 +1,21 @@
 #!/usr/bin/env node
 
-import chalk from 'chalk'
 import { Command } from 'commander'
+import { cwdPath, CMD } from 'utl/path'
+import { readPackageInfoSync } from 'utl/read'
 import { printExitError, printInfo } from 'utl/print'
-import { cwdPath } from 'utl/path'
 import { readProjectMeta } from 'pro/project'
-import Package, { PACKAGE_TYPE } from 'pro/package'
-import ReactCSR, { REACT_CSR_TYPE } from 'pro/react-csr'
+import { Package, PACKAGE_TYPE } from 'pro/package'
+import { ReactCSR, REACT_CSR_TYPE } from 'pro/react-csr'
 import { PackageStarter } from 'scr/package'
 import { ReactCSRStarter } from 'scr/react-csr'
-import type Starter from 'exe/starter'
+import type { Starter } from 'exe/starter'
 
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, undefined, 1))
 
-printInfo(`welcome to use ${chalk.blue('xueyan-typescript-cli')}`)
+const packageInfo = readPackageInfoSync(CMD)
+printInfo(`${packageInfo.name} ${packageInfo.version}`)
 const program = new Command()
 
 program

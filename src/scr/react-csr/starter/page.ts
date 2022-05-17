@@ -6,8 +6,8 @@ import whm from 'webpack-hot-middleware'
 import { trimEnd } from 'lodash'
 import type { Context } from 'koa'
 import type { Compiler } from 'webpack'
-import type ReactCSR from 'pro/react-csr'
-import type ReactCSRPage from 'pro/react-csr-page'
+import type { ReactCSR } from 'pro/react-csr'
+import type { ReactCSRPage } from 'pro/react-csr-page'
 
 /**
  * 页面路由器

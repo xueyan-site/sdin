@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 
+import chalk from 'chalk'
 import updateNotifier from 'update-notifier'
 import { Command } from 'commander'
-import { readPackageInfoSync } from 'utl/read'
-import { printExitError, printInfo } from 'utl/print'
 import { CMD } from 'utl/path'
+import { printExitError } from 'utl/print'
+import { readPackageInfoSync } from 'utl/read'
 import type { ExecutableCommandOptions } from 'commander'
 
 process.on('unhandledRejection', (reason: any) => printExitError(reason))
 process.on('uncaughtException', err => printExitError(err, undefined, 1))
 
-const program = new Command()
 const packageInfo = readPackageInfoSync(CMD)
+const program = new Command()
 
 /**
  * 检查更新
@@ -19,12 +20,13 @@ const packageInfo = readPackageInfoSync(CMD)
 const notifier = updateNotifier({ pkg: packageInfo })
 if (notifier.update) {
   const { current, latest, type, name } = notifier.update
-  printInfo(`you can update ${name} to new ${type} version`)
+  console.log(`you can update ${name} to new ${type} version`)
   console.log([
-    `  version: ${current} => ${latest}`,
-    `  npm: npm i -g ${name}@latest`,
-    `  yarn: yarn global add ${name}@latest`
+    `- version:  ${chalk.blue(current)} => ${chalk.green(latest)}`,
+    `- npm:      npm i -g ${name}@latest`,
+    `- yarn:     yarn global add ${name}@latest`
   ].join('\n'))
+  console.log()
 }
 
 /**

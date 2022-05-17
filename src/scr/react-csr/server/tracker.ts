@@ -3,7 +3,7 @@ import fse from 'fs-extra'
 import { Context } from 'koa'
 import { get, isFunction, isArray } from 'lodash'
 import { Client as ElasticSearch } from '@elastic/elasticsearch'
-import ReactCSR from 'pro/react-csr'
+import { ReactCSR } from 'pro/react-csr'
 import { cmdPath } from 'utl/path'
 import { RouteConfig } from '../common/server'
 
@@ -91,7 +91,7 @@ function createElasticSearch(project: ReactCSR): ElasticSearch | undefined {
  */
 function saveTrackData(es: ElasticSearch, ctx: Context, project: ReactCSR) {
   ctx.status = 204
-  const query = ctx.query as AnyObject<string|undefined>
+  const query = ctx.query as Record<string, string|undefined>
   const tl = (query.t || '').split(TRACK_JOIN_SYMBOL)
   if (tl.length < 7) {
     return
@@ -100,7 +100,7 @@ function saveTrackData(es: ElasticSearch, ctx: Context, project: ReactCSR) {
    * 页面公共数据
    */
   const index = tl[0]
-  const body: AnyObject = {
+  const body: Record<string, any> = {
     time: new Date(),
     ip: ctx.request.ip || '',
     ua: ctx.header['user-agent'] || '',

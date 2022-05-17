@@ -1,7 +1,7 @@
 import fse from 'fs-extra'
 import { defaultsDeep, isObject, keyBy } from 'lodash'
-import Application from './application'
-import ReactCSRPage from './react-csr-page'
+import { Application } from './application'
+import { ReactCSRPage } from './react-csr-page'
 import type { RuleSetCondition, RuleSetRule } from 'webpack'
 import type { Options as ProxyOptions } from 'koa-proxy'
 import type { ClientOptions as ESClientOptions } from '@elastic/elasticsearch'
@@ -22,7 +22,7 @@ export interface ReactCSRModuleConfig {
   /**
    * 模块扩展
    */
-  externals: AnyObject<string>
+  externals: Record<string, string>
 
   /**
    * 模块的扩展
@@ -127,7 +127,7 @@ export interface ReactCSRProps extends ApplicationProps<
 /**
  * react-csr应用
  */
-export default class ReactCSR extends Application<
+export class ReactCSR extends Application<
   ReactCSRType, 
   ReactCSRConfig
 > {
@@ -184,7 +184,7 @@ export default class ReactCSR extends Application<
   /**
    * 页面映射表
    */
-  private __pageMap__: AnyObject<ReactCSRPage> = {}
+  private __pageMap__: Record<string, ReactCSRPage> = {}
 
   constructor(props: ReactCSRProps) {
     super(REACT_CSR_TYPE, props)

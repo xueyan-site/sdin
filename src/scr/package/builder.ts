@@ -2,11 +2,11 @@ import del from 'del'
 import ora from 'ora'
 import chalk from 'chalk'
 import { printExitError, printLoading, printSuccess } from 'utl/print'
-import Builder from 'exe/builder'
+import { Builder } from 'exe/builder'
 import { compile } from './common/task'
 import { precheck } from './common/check'
 import type { BuilderProps } from 'exe/builder'
-import type Package from 'pro/package'
+import type { Package } from 'pro/package'
 
 /**
  * 包构建器实例化参数
@@ -16,7 +16,7 @@ export interface PackageBuilderProps extends BuilderProps<Package> {}
 /**
  * 包构建器
  */
-export default class PackageBuilder extends Builder<Package> {
+export class PackageBuilder extends Builder<Package> {
   constructor(props: PackageBuilderProps) {
     super(props)
   }
@@ -24,7 +24,7 @@ export default class PackageBuilder extends Builder<Package> {
   async main() {
     await del(this.project.dist)
     // 预校验
-    printLoading(`checking project ${this.project.name}`)
+    printLoading(`checking ${this.project.name}`)
     const checkResult = await precheck(this.project)
     if (checkResult) {
       return printExitError(checkResult)

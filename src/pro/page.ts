@@ -2,7 +2,7 @@ import { trim, uniqWith } from 'lodash'
 import { withPath } from 'utl/path'
 import { readJsonSync } from 'utl/read'
 import { twoBracesReplacer } from 'utl/write'
-import type Application from './application'
+import type { Application } from './application'
 import type { ApplicationConfig } from './application'
 
 /**
@@ -79,7 +79,7 @@ export interface PageProps<
 /**
  * 页面
  */
-export default abstract class Page<
+export abstract class Page<
   TProject extends Application<string, ApplicationConfig<string>>,
   TConfig extends PageConfig
 > {

@@ -1,11 +1,11 @@
 import chalk from 'chalk'
 import ora from 'ora'
 import fse from 'fs-extra'
-import Executor from './executor'
+import { Executor } from './executor'
 import { cmdPath } from 'utl/path'
 import { deepCopy, getReplaceHandler } from 'utl/write'
 import { executeSync } from 'utl/exec'
-import type Project from 'pro/project'
+import type { Project } from 'pro/project'
 import type { ProjectConfig } from 'pro/project'
 import type { ExecutorProps } from './executor'
 
@@ -24,7 +24,7 @@ export interface CreatorProps<
 /**
  * 项目创建器
  */
-export default abstract class Creator<
+export abstract class Creator<
   TProject extends Project<string, ProjectConfig<string>>
 > extends Executor<TProject> {
   protected templatePath: string
@@ -64,7 +64,7 @@ export default abstract class Creator<
     if (!fse.existsSync(gitPath)) {
       const tip = ora(`${this.project.name} git repository ${chalk.blue('initializing')}\n`).start()
       try {
-        executeSync(`cd ${this.project.root} && git init && git add . && git commit -m "chore: project created"`)
+        executeSync(`cd ${this.project.root} && git init && git add . && git commit -m "chore: project is created"`)
         tip.succeed(`${this.project.name} git repository ${chalk.blue('initialized successfully')}`)
       } catch (err) {
         tip.fail(`${this.project.name} git repository ${chalk.red('initialization failed')}`)

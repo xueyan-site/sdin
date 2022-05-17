@@ -1,4 +1,4 @@
-import type ReactCSR from 'pro/react-csr'
+import type { ReactCSR } from 'pro/react-csr'
 
 /**
  * 预校验

@@ -1,7 +1,7 @@
 import { defaultsDeep } from 'lodash'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { cmdNmPath } from 'utl/path'
-import type ReactCSR from 'pro/react-csr'
+import type { ReactCSR } from 'pro/react-csr'
 import type { RuleSetRule } from 'webpack'
 
 /**

@@ -5,7 +5,7 @@ import { getPages } from '../common/page'
 import { getRules } from '../common/module'
 import { getDefinePlugin, getResolve, getResolveLoader } from '../common/buff'
 import type { Compiler } from 'webpack'
-import type ReactCSR from 'pro/react-csr'
+import type { ReactCSR } from 'pro/react-csr'
 
 /**
  * 获取webpack配置

@@ -1,5 +1,5 @@
-import Executor from './executor'
-import type Project from 'pro/project'
+import { Executor } from './executor'
+import type { Project } from 'pro/project'
 import type { ProjectConfig } from 'pro/project'
 import type { ExecutorProps } from './executor'
 
@@ -13,7 +13,7 @@ export interface BuilderProps<
 /**
  * 项目构建器
  */
-export default abstract class Builder<
+export abstract class Builder<
   TProject extends Project<string, ProjectConfig<string>>
 > extends Executor<TProject> {
   constructor(props: BuilderProps<TProject>) {

@@ -142,7 +142,7 @@ const getJson = withCache<string, any>(key => {
  * @param root 指定文件的参考目录 @default ''
  * @param strict 是否启用严格模式（一定要有，没有则报错）
  */
-export function readJsonSync(value: any, root?: string, strict?: boolean): AnyObject {
+export function readJsonSync(value: any, root?: string, strict?: boolean): Record<string, any> {
   // 若值是纯对象，则直接返回
   if (isPlainObject(value)) {
     return value
@@ -174,7 +174,7 @@ export function readJsonSync(value: any, root?: string, strict?: boolean): AnyOb
  */
 export function readGitConfigSync(): GitInfo {
   const configStr = execSync(`git config --global --list`).toString()
-  const config: AnyObject = {}
+  const config: Record<string, any> = {}
   configStr.split('\n').forEach(line => {
     if (line) {
       const flagIndex = line.indexOf('=')

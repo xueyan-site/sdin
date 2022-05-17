@@ -1,4 +1,4 @@
-import type ReactCSRPage from 'pro/react-csr-page'
+import type { ReactCSRPage } from 'pro/react-csr-page'
 
 export function getScriptString(page: ReactCSRPage) {
   return `

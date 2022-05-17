@@ -3,7 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { cmdNmPath } from 'utl/path'
 import { getScriptString } from './script'
 import { getTemplateString } from './template'
-import type ReactCSR from 'pro/react-csr'
+import type { ReactCSR } from 'pro/react-csr'
 import type { WebpackPluginInstance } from 'webpack'
 
 /**
@@ -13,7 +13,7 @@ import type { WebpackPluginInstance } from 'webpack'
  */
 export async function getPages(project: ReactCSR, dev: boolean) {
   const tasks: Promise<void>[] = []
-  const entry: AnyObject<string|string[]> = {}
+  const entry: Record<string, string|string[]> = {}
   const plugins: WebpackPluginInstance[] = []
   const HMR_CLIENT = cmdNmPath('webpack-hot-middleware/client?reload=true')
   project.pageList.forEach(page => {

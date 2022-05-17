@@ -3,7 +3,7 @@ import fse from 'fs-extra'
 import ora from 'ora'
 import chalk from 'chalk'
 import { executeSync } from 'utl/exec'
-import type Project from 'pro/project'
+import type { Project } from 'pro/project'
 import type { ProjectConfig } from 'pro/project'
 
 /**
@@ -18,7 +18,7 @@ export interface ExecutorProps<
 /**
  * 项目执行器
  */
-export default abstract class Executor<
+export abstract class Executor<
   TProject extends Project<string, ProjectConfig<string>>
 > extends EventEmitter {
   /**

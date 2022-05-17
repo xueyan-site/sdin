@@ -1,6 +1,6 @@
 import { trim } from 'lodash'
 import { joinPosixPath } from 'utl/path'
-import Project from './project'
+import { Project } from './project'
 import type { ProjectProps, ProjectConfig } from './project'
 
 /**
@@ -25,7 +25,7 @@ export interface ApplicationProps<
 /**
  * application应用
  */
-export default abstract class Application<
+export abstract class Application<
   TType extends string,
   TConfig extends ApplicationConfig<TType>
 > extends Project<TType, TConfig> {

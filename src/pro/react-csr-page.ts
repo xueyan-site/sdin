@@ -1,5 +1,5 @@
-import Page from './page'
-import type ReactCSR from './react-csr'
+import { Page } from './page'
+import type { ReactCSR } from './react-csr'
 import type { PageConfig, PageProps } from './page'
 
 /**
@@ -20,7 +20,7 @@ export interface ReactCSRPageProps extends PageProps<ReactCSR> {}
 /**
  * react-csr页面
  */
-export default class ReactCSRPage extends Page<ReactCSR, ReactCSRPageConfig> {
+export class ReactCSRPage extends Page<ReactCSR, ReactCSRPageConfig> {
   /**
    * HTML骨架图渲染器
    */

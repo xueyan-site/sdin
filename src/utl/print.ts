@@ -3,13 +3,13 @@ import chalk from 'chalk'
 import { isError } from 'lodash'
 import type { Chalk } from 'chalk'
 
-function getLabel(icon: string, color: Chalk, msg: string) {
-  return `${icon} ${color(dayjs().format('HH:mm:ss.SSS'))} ${msg}`
+function getLabel(color: Chalk, msg: string) {
+  return `${color(dayjs().format('HH:mm:ss.SSS'))} ${msg}`
 }
 
 export function printInfo(msg: string, callback?: () => void) {
   if (msg) {
-    console.log(getLabel('🙂', chalk.blue, msg))
+    console.log(getLabel(chalk.blue, msg))
     if (callback) {
       callback()
     }
@@ -18,19 +18,19 @@ export function printInfo(msg: string, callback?: () => void) {
 
 export function printLoading(msg: string) {
   if (msg) {
-    console.log(getLabel('🤔', chalk.magenta, msg))
+    console.log(getLabel(chalk.magenta, msg))
   }
 }
 
 export function printSuccess(msg: string) {
   if (msg) {
-    console.log(getLabel('😊', chalk.green, msg))
+    console.log(getLabel(chalk.green, msg))
   }
 }
 
 export function printWarning(msg: string) {
   if (msg) {
-    console.log(getLabel('😥', chalk.yellow, msg))
+    console.log(getLabel(chalk.yellow, msg))
   }
 }
 
@@ -38,13 +38,13 @@ export function printError(msg: string | Error, title?: string, callback?: () =>
   if (msg) {
     if (isError(msg)) {
       if (title) {
-        console.log(getLabel('😰', chalk.red, title))
+        console.log(getLabel(chalk.red, title))
       }
       if (msg.stack) {
         console.error(msg.stack)
       }
     } else {
-      console.log(getLabel('😨', chalk.red, msg as any))
+      console.log(getLabel(chalk.red, msg as any))
     }
     if (callback) {
       callback()

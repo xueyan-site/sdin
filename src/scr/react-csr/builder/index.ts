@@ -1,12 +1,12 @@
 import del from 'del'
 import ora from 'ora'
 import chalk from 'chalk'
-import Builder from 'exe/builder'
+import { Builder } from 'exe/builder'
 import { printExitError, printLoading, printSuccess } from 'utl/print'
 import { createWebpack } from './webpack'
 import { handleAssets } from '../common/task'
 import { precheck } from '../common/check'
-import type ReactCSR from 'pro/react-csr'
+import type { ReactCSR } from 'pro/react-csr'
 import type { Stats } from 'webpack'
 import type { BuilderProps } from 'exe/builder'
 
@@ -18,7 +18,7 @@ export interface ReactCSRBuilderProps extends BuilderProps<ReactCSR> {}
 /**
  * react应用构建器
  */
-export default class ReactCSRBuilder extends Builder<ReactCSR> {
+export class ReactCSRBuilder extends Builder<ReactCSR> {
   constructor(props: ReactCSRBuilderProps) {
     super(props)
   }
@@ -28,7 +28,7 @@ export default class ReactCSRBuilder extends Builder<ReactCSR> {
     await del(project.dist)
     await del(project.withBuf('entry'))
     // 预校验
-    printLoading(`checking project ${project.name}`)
+    printLoading(`checking ${project.name}`)
     const checkResult = await precheck(project)
     if (checkResult) {
       return printExitError(checkResult)

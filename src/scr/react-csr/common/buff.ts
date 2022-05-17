@@ -1,7 +1,7 @@
 import { mapValues } from 'lodash'
 import { cmdNmPath } from 'utl/path'
 import { DefinePlugin } from 'webpack'
-import type ReactCSR from 'pro/react-csr'
+import type { ReactCSR } from 'pro/react-csr'
 import type { Configuration } from 'webpack'
 
 /**

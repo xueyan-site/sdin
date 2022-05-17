@@ -1,4 +1,4 @@
-import type Package from 'pro/package'
+import type { Package } from 'pro/package'
 
 /**
  * 预校验

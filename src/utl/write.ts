@@ -54,7 +54,7 @@ export async function deepCopy(
 /**
  * 更换文本
  */
-export function getReplaceHandler(variables: AnyObject) {
+export function getReplaceHandler(variables: Record<string, any>) {
   return function replace(_node: DeepCopyNode, content: Buffer) {
     const encodeInfo = chardet.analyse(content)
     if(encodeInfo.find(i => i.name === 'UTF-8')) {
@@ -70,7 +70,7 @@ export function getReplaceHandler(variables: AnyObject) {
 /**
  * 更换文本
  */
-export function twoBracesReplacer<T>(str: T, variables: AnyObject) {
+export function twoBracesReplacer<T>(str: T, variables: Record<string, any>) {
   if (str && typeof str === 'string' && str.includes('{{')) {
     return str.replace(/{{(\w+)}}/g, (_i, key) => (
       key in variables ? variables[key] : key

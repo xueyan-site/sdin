@@ -1,5 +1,5 @@
 import { isBoolean } from 'lodash'
-import Project from './project'
+import { Project } from './project'
 import type { ProjectProps, ProjectConfig } from './project'
 
 /**
@@ -60,7 +60,7 @@ export interface PackageProps extends ProjectProps<
 /**
  * 包
  */
-export default class Package extends Project<
+export class Package extends Project<
   PackageType, 
   PackageConfig
 > {

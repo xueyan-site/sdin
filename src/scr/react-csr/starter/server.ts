@@ -2,7 +2,7 @@ import Koa from 'koa'
 import { webStatic, webError, webProxy } from '../common/server'
 import { pageRouter, pageBuilder, pageReloader, readPage } from './page'
 import type { Compiler } from 'webpack'
-import type ReactCSR from 'pro/react-csr'
+import type { ReactCSR } from 'pro/react-csr'
 
 /**
  * 创建服务器

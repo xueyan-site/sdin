@@ -3,10 +3,10 @@ import gulp from 'gulp'
 import ora from 'ora'
 import chalk from 'chalk'
 import { printExitError, printLoading, printSuccess } from 'utl/print'
-import Starter from 'exe/starter'
+import { Starter } from 'exe/starter'
 import { compile } from './common/task'
 import { precheck } from './common/check'
-import type Package from 'pro/package'
+import type { Package } from 'pro/package'
 import type { StarterProps } from 'exe/starter'
 
 /**
@@ -17,7 +17,7 @@ export interface PackageStarterProps extends StarterProps<Package> {}
 /**
  * 包构建器
  */
-export default class PackageStarter extends Starter<Package> {
+export class PackageStarter extends Starter<Package> {
   constructor(props: PackageStarterProps) {
     super(props)
   }
@@ -25,7 +25,7 @@ export default class PackageStarter extends Starter<Package> {
   async main() {
     await del(this.project.dist)
     // 预校验
-    printLoading(`checking project ${this.project.name}`)
+    printLoading(`checking ${this.project.name}`)
     const checkResult = await precheck(this.project)
     if (checkResult) {
       return printExitError(checkResult)

@@ -1,7 +1,7 @@
 import { mapValues } from 'lodash'
 import { cmdNmPath, relativePosixPath } from 'utl/path'
 import { withCache } from 'utl/read'
-import type Package from 'pro/package'
+import type { Package } from 'pro/package'
 
 /**
  * 获取自定义模块别名Babel插件
@@ -43,7 +43,7 @@ function getModuleAliasPlugin(project: Package): any {
 /**
  * 缓存Babel配置（便于在监听模式下，节省时间）
  */
-const __getBabelOptions__ = withCache<string, AnyObject, {
+const __getBabelOptions__ = withCache<string, Record<string, any>, {
   project: Package,
   target: 'web' | 'node'
 }>((_key, props) => ({

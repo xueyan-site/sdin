@@ -1,7 +1,7 @@
 import Webpack, { Compiler, ProgressPlugin } from 'webpack'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
-import ReactCSR from 'pro/react-csr'
+import { ReactCSR } from 'pro/react-csr'
 import { getPages } from '../common/page'
 import { getRules } from '../common/module'
 import { getDefinePlugin, getResolve, getResolveLoader, getSplitChunks } from '../common/buff'

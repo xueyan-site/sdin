@@ -1,11 +1,11 @@
 import ora from 'ora'
 import chalk from 'chalk'
-import Starter from 'exe/starter'
+import { Starter } from 'exe/starter'
 import { printExitError, printLoading, printSuccess } from 'utl/print'
 import { createServer } from './server'
 import { createWebpack } from './webpack'
 import { precheck } from '../common/check'
-import type ReactCSR from 'pro/react-csr'
+import type { ReactCSR } from 'pro/react-csr'
 import type { StarterProps } from 'exe/starter'
 
 /**
@@ -16,7 +16,7 @@ export interface ReactCSRStarterProps extends StarterProps<ReactCSR> {}
 /**
  * react应用创建器
  */
-export default class ReactCSRStarter extends Starter<ReactCSR> {
+export class ReactCSRStarter extends Starter<ReactCSR> {
   constructor(props: ReactCSRStarterProps) {
     super(props)
   }
@@ -24,7 +24,7 @@ export default class ReactCSRStarter extends Starter<ReactCSR> {
   async main() {
     const project = this.project
     // 预校验
-    printLoading(`checking project ${project.name}`)
+    printLoading(`checking ${project.name}`)
     const checkResult = await precheck(project)
     if (checkResult) {
       return printExitError(checkResult)

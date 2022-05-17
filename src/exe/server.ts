@@ -1,6 +1,6 @@
-import Executor from './executor'
+import { Executor } from './executor'
 import { v4 as uuid } from 'uuid'
-import type Project from 'pro/project'
+import type { Project } from 'pro/project'
 import type { ProjectConfig } from 'pro/project'
 import type { ExecutorProps } from './executor'
 
@@ -19,7 +19,7 @@ export interface ServerProps<
 /**
  * 项目服务器
  */
-export default abstract class Server<
+export abstract class Server<
   TProject extends Project<string, ProjectConfig<string>>
 > extends Executor<TProject> {
   /**

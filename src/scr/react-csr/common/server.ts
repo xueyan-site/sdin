@@ -8,8 +8,8 @@ import { trimEnd } from 'lodash'
 import type { Context, Next, Middleware } from 'koa'
 import type { Options as ProxyOptions } from 'koa-proxy'
 import type { Options } from 'koa-static'
-import type ReactCSR from 'pro/react-csr'
-import type ReactCSRPage from 'pro/react-csr-page'
+import type { ReactCSR } from 'pro/react-csr'
+import type { ReactCSRPage } from 'pro/react-csr-page'
 
 export type Middlewarer = () => PromiseOrNot<Middleware<any, any> | undefined>
 

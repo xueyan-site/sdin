@@ -1,8 +1,8 @@
 import ora from 'ora'
 import chalk from 'chalk'
-import Server from 'exe/server'
+import { Server } from 'exe/server'
 import { createServer } from './server'
-import type ReactCSR from 'pro/react-csr'
+import type { ReactCSR } from 'pro/react-csr'
 import type { ServerProps } from 'exe/server'
 
 /**
@@ -13,7 +13,7 @@ export interface ReactCSRServerProps extends ServerProps<ReactCSR> {}
 /**
  * react应用服务器
  */
-export default class ReactCSRServer extends Server<ReactCSR> {
+export class ReactCSRServer extends Server<ReactCSR> {
   constructor(props: ReactCSRServerProps) {
     super(props)
   }

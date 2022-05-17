@@ -6,7 +6,7 @@ import koaBodyParser from 'koa-bodyparser'
 import koaSend from 'koa-send'
 import { useRoutes, webStatic, webError, webProxy } from '../common/server'
 import { createTracker } from './tracker'
-import type ReactCSR from 'pro/react-csr'
+import type { ReactCSR } from 'pro/react-csr'
 
 interface ServerOptions {
   /**
