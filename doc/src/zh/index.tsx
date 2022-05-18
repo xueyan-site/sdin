@@ -2,21 +2,72 @@ import React from 'react'
 import { PageDoc } from 'com/page-doc'
 import pkg from '../../../package.json'
 import type { PageProps } from 'xueyan-react'
-import type { DocumentInfo } from 'xueyan-react-doc'
+import type { Collection } from 'xueyan-react-doc'
 
-const DOCUMENTS: DocumentInfo<string,string>[] = [
+const COLLECTIONS: Collection<string,string>[] = [
   {
     value: '1',
-    label: '集一',
+    label: '基础用法',
     contents: [
       {
         value: '1-1',
+        label: '介绍',
+        content: () => import('./0001')
+      },
+      {
+        value: '1-2',
+        label: '开发工具包',
+        content: () => import('./0002')
+      }
+      //       {
+      //         id: 'base-develop-package',
+      //         label: '开发工具包',
+      //         content: () => import('./base-develop-package')
+      //       },
+      //       {
+      //         id: 'base-develop-application',
+      //         label: '开发应用程序',
+      //         content: () => import('./base-develop-application')
+      //       }
+    ]
+  },
+  {
+    value: '2',
+    label: '实用技巧',
+    contents: [
+      {
+        value: '2-1',
+        label: '章一 介绍',
+        content: () => import('./0001')
+      }
+    ]
+  },
+  {
+    value: '3',
+    label: '配置文件选项',
+    contents: [
+      {
+        value: '3-1',
         label: '章一 介绍',
         content: () => import('./0001')
       }
     ]
   }
 ]
+
+export default function Index(props: PageProps) {
+  return (
+    <PageDoc 
+      {...props}
+      language="zh"
+      version={pkg.version}
+      collections={COLLECTIONS}
+      name={pkg.name}
+      description={pkg.description}
+    />
+  )
+}
+
 
 // const CONTENTS: ArticleMeta[] = [
 //   {
@@ -108,16 +159,3 @@ const DOCUMENTS: DocumentInfo<string,string>[] = [
 //     ]
 //   }
 // ]
-
-export default function Index(props: PageProps) {
-  return (
-    <PageDoc 
-      {...props}
-      language="zh"
-      version={pkg.version}
-      documents={DOCUMENTS}
-      name={pkg.name}
-      description={pkg.description}
-    />
-  )
-}

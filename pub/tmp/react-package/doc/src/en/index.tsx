@@ -2,9 +2,9 @@ import React from 'react'
 import { PageDoc } from 'com/page-doc'
 import pkg from '../../../package.json'
 import type { PageProps } from 'xueyan-react'
-import type { DocumentInfo } from 'xueyan-react-doc'
+import type { Collection } from 'xueyan-react-doc'
 
-const DOCUMENTS: DocumentInfo<string,string>[] = [
+const COLLECTIONS: Collection<string,string>[] = [
   {
     value: '1',
     label: 'collection 1',
@@ -24,7 +24,7 @@ export default function Index(props: PageProps) {
       {...props}
       language="en"
       version={pkg.version}
-      documents={DOCUMENTS}
+      collections={COLLECTIONS}
       name={pkg.name}
       description={pkg.description}
     />

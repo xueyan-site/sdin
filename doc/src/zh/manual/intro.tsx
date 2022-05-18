@@ -27,8 +27,6 @@ const MARK1 = `
 
 7、应用项目，内置宏，内置埋点功能，配有专门的工具包（[xueyan-react](https://xueyan.site/xueyan-react)）。
 
-8、开放源代码，免费。
-
 ## 技术架构
 
 \`XT\` 使用 Koa2 建立服务，使用 Webpack5 打包项目，使用 Gulp4 搭建流水线，完成项目的开发、构建和部署。
@@ -38,8 +36,6 @@ const MARK1 = `
 ![](${XT_PATH}img/framework.svg)
 
 ## 使用过程
-
-你可通过下方的演示，了解 \`XT\` 的使用过程。  
 
 > 下面演示的是React组件包项目的创建和启动过程。（视频经过了剪辑和加速处理）  
 `

@@ -43,11 +43,6 @@ module.exports = {
     ],
     styles: [
       {
-        key: 'normalize',
-        rel: 'stylesheet',
-        href: 'https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css'
-      },
-      {
         key: 'global',
         rel: 'stylesheet',
         href: '{{XT_PATH}}global.css'

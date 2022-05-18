@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './video.scss'
 
-export default function Video({
+export function Video({
   src,
   width,
 }: {

@@ -39,7 +39,7 @@ const LANGUAGES: SelectOption<string>[] = [
 ]
 
 const SIDE_FOOTER = `
-Author [${XT_AUTHOR_NAME}](${XT_AUTHOR_EMAIL})  
+Author [${XT_AUTHOR_NAME}](mailto://${XT_AUTHOR_EMAIL})  
 Builder [xueyan-typescript-cli](https://github.com/xueyan-site/xueyan-typescript-cli)  
 `
 

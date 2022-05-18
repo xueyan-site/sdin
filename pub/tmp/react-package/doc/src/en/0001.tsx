@@ -3,7 +3,7 @@ import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
 Unfortunately, we have not yet provided you with English version.  
-If you are interested in translating this document, you are welcome to submit merge request to us.
+If you are interested in translating this document, please submit merge request to us.
 `
 
 export default function Main() {
