@@ -9,6 +9,9 @@ module.exports = {
     'com': 'pub/com',
     'utl': 'pub/utl'
   },
+  serve: {
+    port: 12005
+  },
   module: {
     externals: {
       'react': 'React',

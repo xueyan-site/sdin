@@ -6,7 +6,7 @@ import INTRO_VDO from './intro.webm'
 import { Video } from 'com/video'
 
 const MARK1 = `
-> 📣：为方便阅读，后续称 \`xueyan-typescript-cli\` 为 \`xt\`。  
+> 📣：为了阅读方便，本文将 \`xueyan-typescript-cli\`  简称为 \`xt\`。  
 
 \`xt\` 是一个 Typescript 语言命令行工具，可开发：
 

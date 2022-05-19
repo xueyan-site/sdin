@@ -21,11 +21,11 @@ const MARK1 = `
 | XT_PATH | project.publicPath | 项目url中的公共路径（以'/'开头和结尾） |
 | XT_TRACK_PATH | project.trackPath | 项目打点的路径（关闭打点后，值为""） |
 
-最长用的，应当是 XT_PATH。
+用 XT_PATH 举例：
 
-\`XT\` 会把 react-csr 项目下的 \`pub/ast\` 目录作为公共目录。
+\`xt\` 会把 react-csr 项目下的 \`pub/ast\` 目录作为公共目录。
 
-所以，当我们写 \`\$\{XT_PATH\}favicon.png\` 时，它指向的文件是 \`pub/ast/favicon.png\`。
+当我们写 \`\$\{XT_PATH\}favicon.png\` 时，它指向的文件是 \`pub/ast/favicon.png\`。
 `
 
 export default function Main() {

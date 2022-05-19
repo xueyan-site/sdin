@@ -2,7 +2,24 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-本文展示 \`XT\` 的命令及其参数的意义和用法。
+\`\`\`shell
+$ xt
+Usage: xt [options] [command]
+
+Options:
+  -V, --version   output the version number
+  -h, --help      display help for command
+
+Commands:
+  create          create project
+  start           develop or debug project on browser
+  build           build project to production line
+  serve           open project server
+  track           start tracking services
+  help [command]  display help for command
+\`\`\`
+
+本文展示 \`xt\` 的命令及其参数的意义和用法。
 
 ## xt create
 
@@ -20,7 +37,7 @@ Options:
 
 目前有两种项目类型可供选择：
 
-- package（用于开发 Node 工具包、Web 工具包、命令行工具、React 组件包）
+- package（用于开发 Node 工具包、Web 工具包、命令行工具、React 组件）
 - react-csr（用于开发 React 纯客户端渲染式应用程序）
 
 ## xt start

@@ -2,15 +2,15 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-本文展示页面配置文件参数。（页面配置文件是页面根目录下的 \`page.js\`）
+配置文件路径：\`project/src/xxx-page/page.js\`
 
-> src 文件夹下的每一个文件夹，都代表一个页面，页面名称即是页面路径。
+> src 文件夹下的每一个文件夹，都代表一个页面。
 
 ## name
 
 \`string = <page folder name>\`
 
-> 默认值为 页面文件夹名
+> 默认值：页面文件夹名
 
 页面名称。（不限语言，不限符号）
 
@@ -18,13 +18,13 @@ const MARK1 = `
 
 \`string = <page folder name>\`
 
-> 默认值为 页面文件夹名
+> 默认值：页面文件夹名
 
 页面url中的路径后缀。
 
-无论填写怎样的路径，在使用时，\`XT\` 都会确保其不以 / 开头，不以 / 结尾。
+无论填写怎样的路径，在使用时，\`xt\` 都会确保其不以 / 开头，不以 / 结尾。
 
-比如，填写 /aaa/，\`XT\` 会将其转化为 aaa。
+比如，填写 /aaa/，\`xt\` 会将其转化为 aaa。
 
 它会和项目url中的公共路径（project.path）进行拼接，形成页面的完整url。
 
@@ -32,15 +32,13 @@ const MARK1 = `
 
 \`string = 'index.tsx'\`
 
-> 默认值为 'index.tsx'
-
 指定页面入口文件。（书写相对路径时，是以当前页面文件夹路径为入口文件的参考点）
 
 ## 标题
 
 \`string = page.name + '・' + project.name\`
 
-> 默认值为 当前页面名称与项目名称的拼接
+> 默认值：当前页面名称与项目名称的拼接
 
 指定页面的标题，它将会变成 HTML 文件中 title 标签下的内容。
 
@@ -98,7 +96,7 @@ module.exports = {
 }
 \`\`\`
 
-上方使用的 XT_PATH 是 \`XT\` 专门提供的常量，仅限于在 NodeAttrs 类型的对象中使用。
+上方使用的 XT_PATH 是 \`xt\` 专门提供的常量，仅限于在 NodeAttrs 类型的对象中使用。
 
 常量列表：
 
@@ -119,7 +117,7 @@ module.exports = {
 
 指定插入模版的 script 标签列表，它将会变成 HTML 文件中的多个 script 标签。
 
-它排在 \`XT\` 构建的脚本前面。
+它排在 \`xt\` 构建的脚本前面。
 
 示例：
 
@@ -142,7 +140,7 @@ module.exports = {
 
 指定插入模版的 link 标签列表，它将会变成 HTML 文件中的多个 link 标签。  
 
-与 link 标签不同的是，它专用于写样式标签，\`XT\` 会对它做些处理。  
+与 link 标签不同的是，它专用于写样式标签，\`xt\` 会对它做些处理。  
 
 它排在 links 生成的标签后面，scripts 生成的标签前面。
 
@@ -161,7 +159,7 @@ module.exports = {
 }
 \`\`\`
 
-以上几个标签列表，在 HTML 中的位置如下：
+以上标签列表，在网页中的位置如下：
 
 \`\`\`html
 <head>

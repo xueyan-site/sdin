@@ -2,9 +2,9 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-在开始安装之前，请检查电脑上是否安装 Node 和 NPM（或者 Yarn）。
+在开始安装之前，请检查电脑上是否安装 Node 和 NPM（ 或者 Yarn）。
 
-\`XT\` 需要 [Node.js](https://nodejs.org) v10.13.0 (LTS) 或更高版本。
+\`xt\` 需要 [Node.js](https://nodejs.org) v10.13.0 (LTS) 或更高版本。
 
 你可以使用 [n](https://github.com/tj/n)，[nvm](https://github.com/creationix/nvm) 或 [nvm-windows](https://github.com/coreybutler/nvm-windows) 在一个系统中管理多个 Node 版本。
 
@@ -14,7 +14,6 @@ const MARK1 = `
 
 \`\`\`shell
 $ npm install -g xueyan-typescript-cli
-或者
 $ yarn global add xueyan-typescript-cli
 \`\`\`
 
@@ -30,17 +29,15 @@ $ xt --version
 
 \`\`\`shell
 $ npm update -g xueyan-typescript-cli
-或者
 $ yarn global upgrade --latest xueyan-typescript-cli
 \`\`\`
 
 ## 找不到本包
 
-安装失败，命令行显示找不到本包时，你可以尝试用以下命令，检查本地NPM配置：
+安装失败，命令行显示找不到本包时，你可以尝试用以下命令，检查本地 NPM 配置：
 
 \`\`\`shell
 $ npm config get registry
-或者
 $ yarn config get registry
 \`\`\`
 
@@ -48,7 +45,6 @@ $ yarn config get registry
 
 \`\`\`shell
 $ npm config set registry https://registry.npmjs.org
-或者
 $ yarn config set registry https://registry.npmjs.org
 \`\`\`
 
@@ -58,31 +54,26 @@ $ yarn config set registry https://registry.npmjs.org
 
 \`\`\`shell
 $ npm install -g xueyan-typescript-cli --registry https://registry.npmjs.org
-或者
 $ yarn global add xueyan-typescript-cli --registry https://registry.npmjs.org
 \`\`\`
 
 ## 下载速度太慢
 
-因网络环境和镜像源服务器原因，可能导致下载速度非常慢。
-
-这时，你可以选择使用国内的源。
+因网络环境和镜像源服务器原因，可能导致下载速度慢。这时，你可以选择使用国内的源。
 
 \`\`\`shell
 $ npm config set registry https://registry.npm.taobao.org
-或者
 $ yarn config set registry https://registry.npm.taobao.org
 \`\`\`
 
-或者，在安装时临时指定镜像源。
+在安装时临时指定镜像源。
 
 \`\`\`shell
 $ npm install -g xueyan-typescript-cli --registry https://registry.npm.taobao.org
-或者
 $ yarn global add xueyan-typescript-cli --registry https://registry.npm.taobao.org
 \`\`\`
 
-另外，你还可以选择换用CNPM。
+你也可以选择用 CNPM 代替 NPM 。
 
 \`\`\`shell
 $ npm install -g cnpm --registry=https://registry.npm.taobao.org
@@ -95,7 +86,6 @@ $ cnpm install -g xueyan-typescript-cli
 
 \`\`\`shell
 $ npm info xueyan-typescript-cli version
-或者
 $ yarn info xueyan-typescript-cli version
 \`\`\`
 
@@ -103,7 +93,6 @@ $ yarn info xueyan-typescript-cli version
 
 \`\`\`shell
 $ npm info xueyan-typescript-cli
-或者
 $ yarn info xueyan-typescript-cli
 \`\`\`
 

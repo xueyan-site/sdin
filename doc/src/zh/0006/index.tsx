@@ -2,21 +2,19 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-本文展示项目配置文件参数。（页面配置文件是页面根目录下的 \`project.js\`）
+配置文件路径：\`project/project.js\`
 
 ## type
 
 \`'package' | 'react-csr'\`
 
-> 不可变
-
-项目的类型标识。
+项目的类型标识。（请勿修改）
 
 ## name
 
 \`string = <package.json.name>\`
 
-> 默认值为 package.json 的 name 字段
+> 默认值：package.json 的 name 字段
 
 项目名称。（不限语言，不限符号）
 

@@ -2,9 +2,9 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-本文展示 react-csr 项目的配置文件参数。
+配置文件路径：\`project/project.js\`
 
-> 此处仅列 react-csr 项目特有配置，更多配置参数请见 “接口字典 / 应用项目配置”。
+> 此处仅列出 react-csr 项目独有的配置，更多配置参数请见 [应用项目的配置信息](${XT_PATH}?doc=0007)。
 
 ## index
 
@@ -24,22 +24,22 @@ const MARK1 = `
 
 ## track
 
-\`boolean | ESClientOptions = true\`
+\`boolean | ESClientOptions = false\`
 
-> 默认值为 true，即开启状态，此时使用默认配置连接本机默认端口  
-> 支持自定义配置，参数详见 <https://github.com/elastic/elasticsearch-js#documentation>
+> ESClientOptions：<https://github.com/elastic/elasticsearch-js#documentation>
 
 是否开启打点功能。
 
-若关闭，则使用 \`xueyan-react\` 工具进行打点时无效。
+若未开启，则使用 [xueyan-react](https://xueyan.site/xueyan-react) 工具进行打点时无效。
 
-注意：打点功能，需要配合 \`xt track\` 命令使用，要求机器安装 docker，且会占用机器的内存资源和硬盘资源。若不需要统计数据，建议关闭。
+> 打点功能需要配合 \`xt track\` 命令使用，要求机器安装 docker、Kibana 和 ElasticSearch，且会占用机器资源。  
+> 运行 \`xt track\` 命令时，工具会自行检测是否安装它们，以及告知用户安装方法。
 
 ## page
 
 \`undefined | Partial<ReactCSRPageConfig>\`
 
-> ReactCSRPageConfig 见文章 “接口字典 / react-csr page.js”
+> ReactCSRPageConfig： [react-csr 项目的页面配置信息](${XT_PATH}?doc=0011)
 
 与页面相关的全局默认配置。
 
@@ -55,10 +55,12 @@ const MARK1 = `
 
 \`{ [key: string]: string }\`
 
-> 具体用法详见：<https://webpack.docschina.org/configuration/externals/>  
-> 注意，请确保 key 是包名，value 是全局变量名。\`XT\` 不会保证 Webpack 提及的其它写法有效  
+> 具体用法：<https://webpack.docschina.org/configuration/externals/>  
+> 注意，请确保 key 是包名，value 是全局变量名。\`xt\` 不会保证 Webpack 提及的其它写法有效  
 
 防止将某些 import 的包打包到 bundle 中，而是在运行时，再去从外部获取这些扩展依赖。  
+
+> 配合 [page.scripts](${XT_PATH}?doc=0009#scripts) 选项，可实现在打包时剔除常用的模块，改为由网页从 CDN 上下载。  
 
 示例：
 
@@ -78,7 +80,7 @@ module.exports = {
 
 \`RuleSetCondition[]\`
 
-> 具体用法详见：<https://webpack.docschina.org/configuration/module/#ruleinclude>
+> 具体用法：<https://webpack.docschina.org/configuration/module/#ruleinclude>  
 
 babel 转换 JS 文件时，指定覆盖的模块范围。
 
@@ -86,7 +88,7 @@ babel 转换 JS 文件时，指定覆盖的模块范围。
 
 \`RuleSetCondition[]\`
 
-> 具体用法详见：<https://webpack.docschina.org/configuration/module/#ruleexclude>
+> 具体用法：<https://webpack.docschina.org/configuration/module/#ruleexclude>  
 
 babel 转换 JS 文件时，指定不覆盖的模块范围。
 
@@ -115,10 +117,10 @@ module.exports = {
 }
 \`\`\`
 
-> RuleSetRule：详见 <https://webpack.docschina.org/configuration/module/#modulerules>
-> 不允许修改 test、parser.dataUrlCondition.maxSize。
+> RuleSetRule：<https://webpack.docschina.org/configuration/module/#modulerules>  
+> 注意：无法修改 test、parser.dataUrlCondition.maxSize。  
 
-修改现有模块规则。
+修改 Webpack 文件打包规则。
 
 目前规则如下：
 
@@ -134,9 +136,9 @@ module.exports = {
 
 \`RuleSetRule[]\`
 
-> RuleSetRule：详见 <https://webpack.docschina.org/configuration/module/#modulerules>
+> RuleSetRule：<https://webpack.docschina.org/configuration/module/#modulerules>  
 
-添加额外模块规则。
+添加额外的 Webpack 文件打包规则。
 
 ## serve
 
@@ -144,19 +146,17 @@ module.exports = {
 
 配置服务信息。
 
-### 1. port
+### serve.port
 
 \`number = 443\`
 
-> 默认值为 443
-
 指定服务启动的端口。
 
-### 2. proxies
+### serve.proxies
 
 \`ProxyOptions[]\`
 
-> ProxyOptions：详见 <https://github.com/edorivai/koa-proxy>
+> ProxyOptions：<https://github.com/edorivai/koa-proxy>  
 
 配置代理。
 
@@ -181,21 +181,19 @@ module.exports = {
 
 配置服务信息。（只用于开发期间）
 
-### 1. port
+### start.port
 
 \`number = 8080\`
 
-> 默认值为 8080
-
 指定服务启动的端口。
 
-### 2. proxies
+### start.proxies
 
 \`ProxyOptions[]\`
 
-> ProxyOptions：详见 <https://github.com/edorivai/koa-proxy>
+> ProxyOptions：<https://github.com/edorivai/koa-proxy>  
 
-配置代理。若没有配置，则继承 serve.proxies 的配置。
+配置代理。若没有配置，则继承 <a href="#serve.proxies">serve.proxies</a> 的配置。
 
 示例：
 
