@@ -17,7 +17,7 @@ $ xt create
 > react-csr 的意思是在客户端渲染的 React 网页应用程序，这样命名是为了与服务端渲染模式（SSR）进行区分。
 
 \`\`\`shell
-✔ what kind of project do you want to create · package
+✔ what kind of project do you want to create · react-csr
 \`\`\`
 
 按提示填写项目的名称，项目的路径等信息。

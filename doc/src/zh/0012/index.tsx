@@ -124,7 +124,7 @@ module.exports = {
 
 目前规则如下：
 
-| name | type | suffix |
+| 名称 | 类型 | 匹配文件后缀 |
 | - | - | - |
 | raw | asset/source | txt |
 | font | asset | woff woff2 eot ttf otf |

@@ -19,8 +19,6 @@ Commands:
   help [command]  display help for command
 \`\`\`
 
-本文展示 \`xt\` 的命令及其参数的意义和用法。
-
 ## xt create
 
 \`\`\`shell

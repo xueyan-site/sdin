@@ -34,7 +34,7 @@ module.exports = {
 }
 \`\`\`
 
-配置了别名之后，请记得在 tsconfig.json 中添加一下 path。
+配置别名之后，请记得在 tsconfig.json 中添加一下 path。
 
 \`\`\`json
 {

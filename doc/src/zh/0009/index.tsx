@@ -2,7 +2,7 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-配置文件路径：\`project/src/xxx-page/page.js\`
+配置文件路径：\`project/src/<xxx page>/page.js\`
 
 > src 文件夹下的每一个文件夹，都代表一个页面。
 
@@ -105,7 +105,7 @@ module.exports = {
 | XT_ID | project.id | 项目ID，一般是package.name |
 | XT_TYPE | project.type | 项目类型，此处是react-csr |
 | XT_NAME | project.name | 项目名称 |
-| XT_AUTHOR | project.author | 项目作者 author \<email\> |
+| XT_AUTHOR | project.author | 项目作者名称 + 邮箱 |
 | XT_AUTHOR_NAME | project.authorName | 项目作者名称 |
 | XT_AUTHOR_EMAIL | project.authorEmail | 项目作者邮箱 |
 | XT_VERSION | project.version | 项目版本 |
