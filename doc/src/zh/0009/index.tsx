@@ -34,7 +34,7 @@ const MARK1 = `
 
 指定页面入口文件。（书写相对路径时，是以当前页面文件夹路径为入口文件的参考点）
 
-## 标题
+## title
 
 \`string = page.name + '・' + project.name\`
 
@@ -128,7 +128,7 @@ module.exports = {
     {
       key: 'react',
       defer: true,
-      src: 'https://cdn.jsdelivr.net/npm/react@16.12.0/umd/react.production.min.js'
+      src: 'https://cdn.xxx.com/react.pro.min.js'
     }
   ]
 }
