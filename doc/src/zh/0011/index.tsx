@@ -8,7 +8,11 @@ const MARK1 = `
 
 ## skeleton
 
-\`undefined | (page: ReactCSRPage) => string\`
+\`\`\`ts
+type skeleton = 
+  | undefined 
+  | (page: ReactCSRPage) => string
+\`\`\`
 
 HTML骨架图渲染器。\`xt\` 会将它的结果注入 HTML 的 body 中，作为页面的初始内容展示。
 

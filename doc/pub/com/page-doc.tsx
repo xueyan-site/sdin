@@ -17,6 +17,11 @@ const ICONS: ImageLinkProps[] = [
     src: XT_PATH + 'repository.png',
     href: pkg.repository.url,
     title: 'repository',
+  },
+  {
+    src: XT_PATH + 'favicon.png',
+    href: '/',
+    title: 'website'
   }
 ]
 
