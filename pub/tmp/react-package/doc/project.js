@@ -10,6 +10,7 @@ module.exports = {
   },
   module: {
     externals: {
+      'typescript': 'ts',
       'react': 'React',
       'react-dom': 'ReactDOM',
       'classnames': 'classNames',
@@ -50,6 +51,11 @@ module.exports = {
       }
     ],
     scripts: [
+      {
+        key: 'typescript',
+        defer: true,
+        src: 'https://cdn.bootcdn.net/ajax/libs/typescript/4.6.4/typescript.min.js'
+      },
       {
         key: 'react',
         defer: true,
