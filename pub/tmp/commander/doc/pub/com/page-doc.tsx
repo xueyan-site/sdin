@@ -57,14 +57,14 @@ export function PageDoc<T,D>({ page, ...other }: PageDocProps<T,D>) {
       versions={VERSIONS}
       languages={LANGUAGES}
       value={query.doc}
-      onChange={value => {
-        router.changeUrl(path, {
-          ...query,
-          doc: value
-        })
-      }}
       onChangeLanguage={value => {
         router.changeUrl(publicPath + value, query)
+      }}
+      getHref={option => {
+        return router.formatUrl(path, {
+          ...query,
+          doc: option.value
+        })
       }}
     >
       <Article>

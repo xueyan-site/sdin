@@ -1,6 +1,6 @@
 {
   "name": "xueyan-typescript-cli",
-  "version": "2.2.16",
+  "version": "2.2.17",
   "author": "xueyan-site <xueyan@xueyan.site>",
   "license": "LGPL-3.0",
   "description": "typescript application or package command line tool",
