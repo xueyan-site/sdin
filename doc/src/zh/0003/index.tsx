@@ -80,19 +80,19 @@ $ xt serve
 
 ### 配置文件
 
-项目的配置文件是 \`project/project.js\`，\`xt\` 会按照该文件导出的配置信息，执行相应功能。
+项目的配置文件是 \`project.js\`，\`xt\` 会按照文件中的配置，执行相应功能。
 
-项目的每个页面也有配置文件，一般可以省略。页面配置文件是 \`project/src/xxx-page/page.js\`。
+项目的每个页面也有配置文件，一般可以省略。页面配置文件是 \`src/xxx-page/page.js\`。
 
 ### 目录结构上的限制
 
 为了防止多人协作时目录结构被破坏，\`xt\` 限制开发者只能用数字、小写字母和点号命名文件和文件夹。  
 
-\`xt\` 没有提供指定生产产物路径的配置，生成的产物只能位于 \`project/dist\` 路径下。  
+\`xt\` 没有提供指定生产产物路径的配置，生成的产物只能位于 \`dist\` 路径下。  
 
-不能修改 \`project/src\`、\`project/pub\`、\`project/pub/ast\` 文件夹的名称。   
+不能修改 \`src\`、\`pub\`、\`pub/ast\` 文件夹的名称。   
 
-\`project/src\` 下的每一个文件夹都是一个页面，不能放公共文件。公共文件只能放在 \`project/pub\` 文件夹下。  
+\`src\` 下的每一个文件夹都是一个页面，不能放公共文件。公共文件只能放在 \`pub\` 文件夹下。  
 
 ### 宏
 
@@ -100,23 +100,23 @@ $ xt serve
 
 ### 静态资源
 
-\`project/pub/ast\` 路径下的文件，是网站的公共静态资源，在打包时会被直接复制到产物目录下，其中的<span style="color:var(--red)"> js 和 css 文件会被压缩</span>。
+\`pub/ast\` 路径下的文件，是网站的公共静态资源，在打包时会被直接复制到产物目录下，其中的<span style="color:var(--red)"> js 和 css 文件会被压缩</span>。
 
-\`project/pub/ast/favicon.png\` 是网站的图标，规格为 200x200。
+\`pub/ast/favicon.png\` 是网站的图标，规格为 200x200。
 
-\`project/pub/ast/global.css\` 是全局样式文件，其中包含 [normalize.css](https://github.com/necolas/normalize.css)。
+\`pub/ast/global.css\` 是全局样式文件，其中包含 [normalize.css](https://github.com/necolas/normalize.css)。
 
 ### 样式主题
 
-模版内配了[样式主题包](https://xueyan.site/xueyan-react-style)，支持暗黑主题，需要配合 \`project/pub/com/narrow-screen\` 组件或者  \`project/pub/com/wide-screen\` 组件才能生效。
+模版内配了[样式主题包](https://xueyan.site/xueyan-react-style)，支持暗黑主题，需要配合 \`pub/com/narrow-screen\` 组件或者  \`pub/com/wide-screen\` 组件才能生效。
 
 若要去除，请删除这两个组件，并移除 \`xueyan-react-style\` 依赖包。
 
 ### 适配移动端
 
-模版内为移动端场景做了适配，按照375px的设计稿宽度，1rem 等于 10px，配合 \`project/pub/com/narrow-screen\` 组件，可以呈现出移动端的自适应效果。
+模版内为移动端场景做了适配，按照375px的设计稿宽度，1rem 等于 10px，配合 \`pub/com/narrow-screen\` 组件，可以呈现出移动端的自适应效果。
 
-若要去除，请删除 \`project/pub/com/narrow-screen\` 组件，及 \`project/pub/ast/global.css\` 文件中关于设定 rem 的部分。
+若要去除，请删除 \`pub/com/narrow-screen\` 组件，及 \`pub/ast/global.css\` 文件中关于设定 rem 的部分。
 `
 
 export default function Main() {

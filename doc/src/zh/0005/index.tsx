@@ -35,8 +35,11 @@ Options:
 
 目前有两种项目类型可供选择：
 
-- package（用于开发 Node 工具包、Web 工具包、命令行工具、React 组件）
-- react-csr（用于开发 React 纯客户端渲染式应用程序）
+- react-csr（React 纯客户端渲染式应用程序）
+- package（工具包）
+  - commander（命令行工具）
+  - package（Node 工具、Web 工具）
+  - react-package（React 组件、React 工具）
 
 ## xt start
 

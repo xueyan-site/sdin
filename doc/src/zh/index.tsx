@@ -1,8 +1,13 @@
 import React from 'react'
 import { PageDoc } from 'com/page-doc'
+import { ConfigIcon, InterfaceIcon, ConstIcon } from 'xueyan-react-icon'
 import pkg from '../../../package.json'
 import type { PageProps } from 'xueyan-react'
 import type { Collection } from 'xueyan-react-doc'
+
+const INTERFACE_ICON = <InterfaceIcon color="var(--pink)"/>
+const CONFIG_ICON = <ConfigIcon color="var(--indigo)"/>
+const CONST_ICON = <ConstIcon color="var(--teal)"/>
 
 const COLLECTIONS: Collection<string,string>[] = [
   {
@@ -38,6 +43,7 @@ const COLLECTIONS: Collection<string,string>[] = [
       {
         value: '0005',
         label: '命令行接口',
+        icon: INTERFACE_ICON,
         content: () => import('./0005')
       },
       {
@@ -46,7 +52,8 @@ const COLLECTIONS: Collection<string,string>[] = [
         children: [
           {
             value: '0008',
-            label: 'package 项目的配置信息',
+            label: 'package 项目配置',
+            icon: CONFIG_ICON,
             content: () => import('./0008')
           }
         ]
@@ -57,17 +64,20 @@ const COLLECTIONS: Collection<string,string>[] = [
         children: [
           {
             value: '0012',
-            label: 'react-csr 项目的配置信息',
+            label: 'react-csr 项目配置',
+            icon: CONFIG_ICON,
             content: () => import('./0012')
           },
           {
             value: '0011',
-            label: 'react-csr 项目的页面配置信息',
+            label: 'react-csr 页面配置',
+            icon: CONFIG_ICON,
             content: () => import('./0011')
           },
           {
             value: '0010',
             label: 'react-csr 宏',
+            icon: CONST_ICON,
             content: () => import('./0010')
           }
         ]
@@ -78,17 +88,20 @@ const COLLECTIONS: Collection<string,string>[] = [
         children: [
           {
             value: '0006',
-            label: '项目的配置信息',
+            label: '项目配置',
+            icon: CONFIG_ICON,
             content: () => import('./0006')
           },
           {
             value: '0007',
-            label: '应用项目的配置信息',
+            label: '应用项目配置',
+            icon: CONFIG_ICON,
             content: () => import('./0007')
           },
           {
             value: '0009',
-            label: '应用项目的页面配置信息',
+            label: '应用项目页面配置',
+            icon: CONFIG_ICON,
             content: () => import('./0009')
           }
         ]

@@ -2,7 +2,7 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-配置文件路径：\`project/project.js\`
+配置文件：\`project.js\`
 
 ## type
 

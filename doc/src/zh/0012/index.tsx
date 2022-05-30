@@ -2,9 +2,9 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-配置文件路径：\`project/project.js\`
+配置文件：\`project.js\`
 
-> 此处仅列出 react-csr 项目独有的配置，更多配置参数请见 [应用项目的配置信息](${XT_PATH}?doc=0007)。
+> 此处仅列出 react-csr 项目独有的配置，更多配置参数请见 [应用项目配置](${XT_PATH}?doc=0007)。
 
 ## index
 
@@ -39,7 +39,7 @@ const MARK1 = `
 
 \`undefined | Partial<ReactCSRPageConfig>\`
 
-> ReactCSRPageConfig： [react-csr 项目的页面配置信息](${XT_PATH}?doc=0011)
+> ReactCSRPageConfig： [react-csr 页面配置](${XT_PATH}?doc=0011)
 
 与页面相关的全局默认配置。
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-配置文件路径：\`project/src/<xxx page>/page.js\`
+配置文件：\`src/<xxx page>/page.js\`
 
 > src 文件夹下的每一个文件夹，都代表一个页面。
 
