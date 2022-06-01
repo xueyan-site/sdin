@@ -51,7 +51,7 @@ const MARK1 = `
 
 与模块相关的配置信息。
 
-### 1. externals
+## module.externals
 
 \`{ [key: string]: string }\`
 
@@ -76,7 +76,7 @@ module.exports = {
 }
 \`\`\`
 
-### 2. babelIncludes
+## module.babelIncludes
 
 \`RuleSetCondition[]\`
 
@@ -84,7 +84,7 @@ module.exports = {
 
 babel 转换 JS 文件时，指定覆盖的模块范围。
 
-### 3. babelExcludes
+## module.babelExcludes
 
 \`RuleSetCondition[]\`
 
@@ -105,7 +105,7 @@ module.exports = {
 }
 \`\`\`
 
-### 4. rules
+## module.rules
 
 \`\`\`ts
 {
@@ -132,7 +132,7 @@ module.exports = {
 | audio | asset | mp3 wma wav aac amr ogg |
 | video | asset | mp4 3gp webm mpg avi wmv flv |
 
-### 5. loaders
+## module.loaders
 
 \`RuleSetRule[]\`
 
@@ -146,13 +146,13 @@ module.exports = {
 
 配置服务信息。
 
-### serve.port
+## serve.port
 
 \`number = 443\`
 
 指定服务启动的端口。
 
-### serve.proxies
+## serve.proxies
 
 \`ProxyOptions[]\`
 
@@ -181,13 +181,13 @@ module.exports = {
 
 配置服务信息。（只用于开发期间）
 
-### start.port
+## start.port
 
 \`number = 8080\`
 
 指定服务启动的端口。
 
-### start.proxies
+## start.proxies
 
 \`ProxyOptions[]\`
 

@@ -10,19 +10,19 @@ const MARK1 = `
 
 \`boolean = true\`
 
-生成 web 端使用的脚本。
+生成 web 端使用的脚本
 
 ## buildNode
 
 \`boolean = true\`
 
-生成 node端使用的脚本。
+生成 node端使用的脚本
 
-## 构建出定义文件
+## buildTypes
 
 \`boolean = true\`
 
-生成 Typescript 定义文件。
+生成 Typescript 定义文件
 
 ## useReact
 
@@ -34,7 +34,7 @@ const MARK1 = `
 
 \`boolean = false\`
 
-使用 gulp-uglify 混淆代码。
+使用 gulp-uglify 混淆代码
 `
 
 export default function Main() {
