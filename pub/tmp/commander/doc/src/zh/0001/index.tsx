@@ -2,8 +2,6 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-## <%= name %>
-
 TODO
 
 \`\`\`shell

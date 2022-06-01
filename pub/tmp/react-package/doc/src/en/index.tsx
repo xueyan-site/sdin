@@ -6,12 +6,12 @@ import type { Collection } from 'xueyan-react-doc'
 
 const COLLECTIONS: Collection<string,string>[] = [
   {
-    value: '1',
-    label: 'collection 1',
+    value: '9999',
+    label: 'Guide',
     contents: [
       {
-        value: '1-1',
-        label: 'chapter 1: introduction',
+        value: '0001',
+        label: 'Introduction',
         content: () => import('./0001')
       }
     ]
