@@ -230,8 +230,9 @@ export abstract class Project<
    * 获取不到，则返回空字符串
    */
   getDepVersion(dep: string): string {
-    const deps = this.package.dependencies
-    return deps && deps[dep] || ''
+    return (this.package.dependencies || {})[dep] 
+      || (this.package.devDependencies || {})[dep] 
+      || ''
   }
 
   /**
