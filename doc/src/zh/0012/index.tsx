@@ -4,7 +4,7 @@ import { Article, Segment } from 'xueyan-react-markdown'
 const MARK1 = `
 配置文件：\`project.js\`
 
-> 此处仅列出 react-csr 项目独有的配置，更多配置参数请见 [应用项目配置](${XT_ASSETS_PATH}?doc=0007)。
+> 此处仅列出 react-csr 项目独有的配置，更多配置参数请见 [应用项目配置](?doc=0007)。
 
 ## index
 
@@ -39,7 +39,7 @@ const MARK1 = `
 
 \`undefined | Partial<ReactCSRPageConfig>\`
 
-> ReactCSRPageConfig： [react-csr 页面配置](${XT_ASSETS_PATH}?doc=0011)
+> ReactCSRPageConfig： [react-csr 页面配置](?doc=0011)
 
 与页面相关的全局默认配置。
 
@@ -60,7 +60,7 @@ const MARK1 = `
 
 防止将某些 import 的包打包到 bundle 中，而是在运行时，再去从外部获取这些扩展依赖。  
 
-> 配合 [page.scripts](${XT_ASSETS_PATH}?doc=0009#scripts) 选项，可实现在打包时剔除常用的模块，改为由网页从 CDN 上下载。  
+> 配合 [page.scripts](?doc=0009#scripts) 选项，可实现在打包时剔除常用的模块，改为由网页从 CDN 上下载。  
 
 示例：
 

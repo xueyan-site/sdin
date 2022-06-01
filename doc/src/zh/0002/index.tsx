@@ -2,11 +2,10 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-\`xt\` 支持开发的包类型有：Node 工具包、Web 工具包、命令行工具、React 组件。
+\`xt\` 支持开发的包类型有：Node 工具包、Web 工具包、命令行工具、React 组件
 
-涉及命令：\`xt create\`、\`xt start doc\`、\`xt build\`。
-
-> 此处仅介绍 react 组件的开发过程，其它类型的包开发过程与其相同。
+> 涉及命令：\`xt create\`、\`xt start doc\`、\`xt build\`  
+> 此处仅介绍 react 组件的开发过程，其它类型的包开发过程与其相同  
 
 ## 创建一个新项目
 

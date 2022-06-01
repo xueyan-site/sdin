@@ -2,7 +2,7 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-涉及命令：\`xt create\`、\`xt start\`、\`xt build\`、\`xt serve\`。
+> 涉及命令：\`xt create\`、\`xt start\`、\`xt build\`、\`xt serve\`
 
 ## 创建一个新项目
 
@@ -96,7 +96,7 @@ $ xt serve
 
 ### 宏
 
-\`xt\` [为项目提供了宏](${XT_ASSETS_PATH}?doc=0010)，你可以将其当成已经定义过的全局常量来用。
+\`xt\` [为项目提供了宏](?doc=0010)，你可以将其当成已经定义过的全局常量来用。
 
 ### 静态资源
 
