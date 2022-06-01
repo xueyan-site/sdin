@@ -40,14 +40,14 @@ module.exports = {
         key: 'favicon',
         rel: "icon",
         type: "image/png",
-        href: "{{XT_PATH}}favicon.png"
+        href: "{{XT_ASSETS_PATH}}favicon.png"
       }
     ],
     styles: [
       {
         key: 'global',
         rel: 'stylesheet',
-        href: '{{XT_PATH}}global.css'
+        href: '{{XT_ASSETS_PATH}}global.css'
       }
     ],
     scripts: [

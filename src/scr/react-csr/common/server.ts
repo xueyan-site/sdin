@@ -106,13 +106,7 @@ export function webError({ project, reader }: WebErrorOptions) {
       if (ctx.headers.accept?.includes('text/html')) {
         if (page && reader) {
           await reader(ctx, page, error)
-        } else {
-          ctx.set('content-type', 'text/html')
-          ctx.body = error?.message
         }
-      } else {
-        ctx.set('content-type', 'text/plain')
-        ctx.body = error?.message
       }
     }
   }

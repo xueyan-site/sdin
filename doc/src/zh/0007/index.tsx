@@ -4,7 +4,7 @@ import { Article, Segment } from 'xueyan-react-markdown'
 const MARK1 = `
 配置文件：\`project.js\`
 
-> 此处仅列出应用项目独有的配置，更多配置参数请见 [项目配置](${XT_PATH}?doc=0006)。
+> 此处仅列出应用项目独有的配置，更多配置参数请见 [项目配置](${XT_ASSETS_PATH}?doc=0006)。
 
 ## path
 

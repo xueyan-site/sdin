@@ -9,30 +9,23 @@ import type { Project } from 'pro/project'
 import type { ProjectConfig } from 'pro/project'
 import type { ExecutorProps } from './executor'
 
-/**
- * 项目创建器实例化参数
- */
 export interface CreatorProps<
-  TProject extends Project<string, ProjectConfig<string>>
-> extends ExecutorProps<TProject> {
-  /**
-   * 实例化项目时，使用的模版名称
-   */
+  P extends Project<string, ProjectConfig<string>>
+> extends ExecutorProps<P> {
+  /** 实例化项目时，使用的模版名称 */
   template?: string
 }
 
-/**
- * 项目创建器
- */
 export abstract class Creator<
-  TProject extends Project<string, ProjectConfig<string>>
-> extends Executor<TProject> {
-  protected templatePath: string
+  P extends Project<string, ProjectConfig<string>>
+> extends Executor<P> {
 
-  constructor(props: CreatorProps<TProject>, defaultTemplate: string) {
+  protected tmp: string
+
+  constructor(props: CreatorProps<P>, defaultTemplate: string) {
     super(props)
     const __template__ = props.template || defaultTemplate
-    this.templatePath = cmdPath(`pub/tmp/${__template__}`)
+    this.tmp = cmdPath(`pub/tmp/${__template__}`)
   }
 
   /**
@@ -45,7 +38,7 @@ export abstract class Creator<
     const tip = ora(`${this.project.type} template ${chalk.blue('copying')}\n`).start()
     try {
       await deepCopy(
-        this.templatePath,
+        this.tmp,
         this.project.root,
         getReplaceHandler(this.project)
       )

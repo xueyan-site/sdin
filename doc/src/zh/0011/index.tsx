@@ -4,7 +4,7 @@ import { Article, Segment } from 'xueyan-react-markdown'
 const MARK1 = `
 配置文件：\`src/<xxx page>/page.js\`
 
-> 此处仅列出 react-csr 项目页面独有的配置，更多配置参数请见 [应用项目页面配置](${XT_PATH}?doc=0009)。
+> 此处仅列出 react-csr 项目页面独有的配置，更多配置参数请见 [应用项目页面配置](${XT_ASSETS_PATH}?doc=0009)。
 
 ## skeleton
 

@@ -6,32 +6,22 @@ import { executeSync } from 'utl/exec'
 import type { Project } from 'pro/project'
 import type { ProjectConfig } from 'pro/project'
 
-/**
- * 项目执行器实例化参数
- */
 export interface ExecutorProps<
-  TProject extends Project<string, ProjectConfig<string>>
+  P extends Project<string, ProjectConfig<string>>
 > {
-  project: TProject
+  project: P
 }
 
-/**
- * 项目执行器
- */
 export abstract class Executor<
-  TProject extends Project<string, ProjectConfig<string>>
+  P extends Project<string, ProjectConfig<string>>
 > extends EventEmitter {
-  /**
-   * 项目对象
-   */
-  readonly project: TProject
 
-  /**
-   * 是否正在执行
-   */
+  readonly project: P
+
+  /** 是否正在执行 */
   protected executing: boolean
 
-  constructor(props: ExecutorProps<TProject>) {
+  constructor(props: ExecutorProps<P>) {
     super()
     this.project = props.project
     this.executing = false

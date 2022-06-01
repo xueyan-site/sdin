@@ -19,6 +19,6 @@ export async function handleAssets(project: ReactCSR) {
     styFilter,
     gulpCleanCss(),
     styFilter.restore,
-    gulp.dest(project.dist)
+    gulp.dest(project.astDist)
   )
 }

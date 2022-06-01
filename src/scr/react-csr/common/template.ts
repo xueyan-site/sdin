@@ -1,11 +1,13 @@
 import type { ReactCSRPage } from 'pro/react-csr-page'
 
 function getPageData(page: ReactCSRPage) {
+  const project = page.project
   return {
     id: page.id,
     name: page.name,
-    pagePath: page.path,
-    publicPath: page.project.publicPath,
+    path: page.path,
+    publicPath: project.publicPath,
+    assetsPath: project.assetsPath,
     privatePath: page.privatePath
   }
 }

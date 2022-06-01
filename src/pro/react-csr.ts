@@ -8,60 +8,37 @@ import type { ClientOptions as ESClientOptions } from '@elastic/elasticsearch'
 import type { ApplicationProps, ApplicationConfig } from './application'
 import type { ReactCSRPageConfig } from './react-csr-page'
 
-/**
- * react-csr应用类型
- */
 export type ReactCSRType = 'react-csr'
 
 export const REACT_CSR_TYPE: ReactCSRType = 'react-csr'
 
-/**
- * react-csr 模块配置信息
- */
+interface ReactCSRModuleConfigRules {
+  raw?: Partial<RuleSetRule>
+  font?: Partial<RuleSetRule>
+  image?: Partial<RuleSetRule>
+  audio?: Partial<RuleSetRule>
+  video?: Partial<RuleSetRule>
+}
+
 export interface ReactCSRModuleConfig {
-  /**
-   * 模块扩展
-   */
+  /** 模块扩展 */
   externals: Record<string, string>
 
-  /**
-   * 模块的扩展
-   * webpack.externals
-   * <https://webpack.docschina.org/configuration/externals/>
-   */
+  /** babel 编译包含项 */
   babelIncludes: RuleSetCondition[]
 
-  /**
-   * 模块的扩展
-   * webpack.externals
-   * <https://webpack.docschina.org/configuration/externals/>
-   */
+  /** babel 编译排除项 */
   babelExcludes: RuleSetCondition[]
 
-  /**
-   * 修改现有模块规则（仅允许修改部分值）
-   */
-  rules: {
-    raw?: Partial<RuleSetRule>
-    font?: Partial<RuleSetRule>
-    image?: Partial<RuleSetRule>
-    audio?: Partial<RuleSetRule>
-    video?: Partial<RuleSetRule>
-  }
+  /** 修改现有模块规则（仅允许修改部分值）*/
+  rules: ReactCSRModuleConfigRules
 
-  /**
-   * 自定义模块规则
-   */
+  /** 自定义模块规则 */
   loaders: RuleSetRule[]
 }
 
-/**
- * react-csr 服务配置信息
- */
 export interface ReactCSRServeConfig {
-  /**
-   * 启动的端口
-   */
+  /** 启动的端口 */
   port: number
 
   /**
@@ -71,119 +48,71 @@ export interface ReactCSRServeConfig {
   proxies: ProxyOptions[]
 }
 
-/**
- * react-csr 开发配置信息
- */
 export interface ReactCSRStartConfig extends ReactCSRServeConfig {}
 
-/**
- * react-csr 配置信息
- */
 export interface ReactCSRConfig extends ApplicationConfig<ReactCSRType> {
-  /**
-   * 项目的根页面
-   */
+  /** 项目的根页面 */
   index?: string
 
-  /**
-   * 错误页面
-   */
+  /** 错误页面 */
   error?: string
 
-  /**
-   * 是否开启打点功能，默认开启
-   */
+  /** 是否开启打点功能，默认开启 */
   track?: boolean | ESClientOptions
 
-  /**
-   * 页面的全局默认配置
-   */
+  /** 页面的全局默认配置 */
   page?: Partial<ReactCSRPageConfig>
 
-  /**
-   * 模块配置信息
-   */
+  /** 模块配置信息 */
   module?: Partial<ReactCSRModuleConfig>
 
-  /**
-   * 服务配置信息
-   */
+  /** 服务配置信息 */
   serve?: Partial<ReactCSRServeConfig>
 
-  /**
-   * 服务配置信息（开发时期）
-   */
+  /** 服务配置信息（开发时期）*/
   start?: Partial<ReactCSRStartConfig>
 }
 
-/**
- * react-csr应用实例化参数
- */
 export interface ReactCSRProps extends ApplicationProps<
   ReactCSRType, 
   ReactCSRConfig
 > {}
 
-/**
- * react-csr应用
- */
 export class ReactCSR extends Application<
   ReactCSRType, 
   ReactCSRConfig
 > {
-  /**
-   * 项目原始的公共资源文件目录
-   */
+  /** 项目原始的公共资源文件目录 */
   readonly astPub: string
 
-  /**
-   * 项目的根页面
-   */
+  /** 项目的根页面 */
   readonly index?: ReactCSRPage
 
-  /**
-   * 项目的错误页面
-   */
+  /** 项目的错误页面 */
   readonly error?: ReactCSRPage
 
-  /**
-   * 模块配置信息
-   */
+  /** 模块配置信息 */
   readonly module: ReactCSRModuleConfig
 
-  /**
-   * 服务配置信息
-   */
+  /** 服务配置信息 */
   readonly serve: ReactCSRServeConfig
 
-  /**
-   * 服务配置信息（开发时期）
-   */
+  /** 服务配置信息（开发时期）*/
   readonly start: ReactCSRStartConfig
 
-  /**
-   * 打点路径（为空，则不能打点）
-   */
+  /** 打点路径（为空，则不能打点）*/
   readonly trackPath: string
 
-  /**
-   * 连接打点服务器的配置
-   */
+  /** 连接打点服务器的配置 */
   readonly trackOptions?: ESClientOptions
 
-  /**
-   * 页面的全局默认配置
-   */
+  /** 页面的全局默认配置 */
   readonly __pageConfig__: ReactCSRPageConfig
 
-  /**
-   * 页面列表
-   */
+  /** 页面列表 */
   readonly pageList: ReactCSRPage[] = []
 
-  /**
-   * 页面映射表
-   */
+  /** 页面映射表 */
   private __pageMap__: Record<string, ReactCSRPage> = {}
 
   constructor(props: ReactCSRProps) {
@@ -221,7 +150,6 @@ export class ReactCSR extends Application<
 
   /**
    * 获取某一个页面
-   * @returns 
    */
   getPage(id?: string): ReactCSRPage | undefined {
     return id ? this.__pageMap__[id] : undefined
@@ -229,7 +157,6 @@ export class ReactCSR extends Application<
 
   /**
    * 获取页面列表
-   * @param project 
    */
   private getPageList() {
     const pages: ReactCSRPage[] = []

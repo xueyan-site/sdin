@@ -5,57 +5,28 @@ import { twoBracesReplacer } from 'utl/write'
 import type { Application } from './application'
 import type { ApplicationConfig } from './application'
 
-/**
- * 节点属性键值对
- */
 export interface NodeAttrs {
   key: string
-  children: string | undefined
+  children?: string
   [prop: string]: string | boolean | undefined
 }
 
-/**
- * 页面配置
- */
 export interface PageConfig {
-  /**
-   * 页面名称
-   */
+  /** 页面名称 */
   name?: string
-
-  /**
-   * 页面url后缀
-   */
+  /** 页面url后缀 */
   path?: string
-
-  /**
-   * 入口文件
-   */
+  /** 入口文件 */
   entry?: string
-
-  /**
-   * 标题
-   */
+  /** 标题 */
   title?: string
-
-  /**
-   * 插入模版的meta标签
-   */
+  /** 插入模版的meta标签 */
   metas?: NodeAttrs[]
-
-  /**
-   * 插入模版的样式列表
-   */
+  /** 插入模版的样式列表 */
   links?: NodeAttrs[]
-
-  /**
-   * 插入模版的脚本列表
-   */
+  /** 插入模版的脚本列表 */
   scripts?: NodeAttrs[]
-
-  /**
-   * 插入模版的样式列表
-   */
+  /** 插入模版的样式列表 */
   styles?: NodeAttrs[]
 }
 
@@ -63,99 +34,68 @@ export interface PageConfig {
  * 页面实例化参数
  */
 export interface PageProps<
-  TProject extends Application<string, ApplicationConfig<string>>
+  P extends Application<string, ApplicationConfig<string>>
 > {
-  /**
-   * 文件夹名称
-   */
+  /** 文件夹名称 */
   folder: string
-
-  /**
-   * 页面所属项目
-   */
-  project: TProject
+  /** 页面所属项目 */
+  project: P
 }
 
 /**
  * 页面
  */
 export abstract class Page<
-  TProject extends Application<string, ApplicationConfig<string>>,
-  TConfig extends PageConfig
+  P extends Application<string, ApplicationConfig<string>>,
+  C extends PageConfig
 > {
-  /**
-   * 页面ID（优先使用config.path，默认使用文件夹名）
-   */
+  /** 页面ID（优先使用config.path，默认使用文件夹名）*/
   readonly id: string
 
-  /**
-   * 名称（默认使用id）
-   */
+  /** 名称（默认使用id）*/
   readonly name: string
 
-  /**
-   * url中的页面路径（完整路径，以'/'开头）
-   */
+  /** url中的页面路径（完整路径，以'/'开头，不以'/'结尾）*/
   readonly path: string
 
-  /**
-   * url中的页面路径（公共路径以外的路径，不以'/'开头）
-   */
+  /** url中的页面路径（公共路径以外的路径，不以'/'开头）*/
   readonly privatePath: string
 
-  /**
-   * 页面目录路径
-   */
+  /** 页面目录路径 */
   readonly root: string
 
-  /**
-   * 页面所属项目
-   */
-  readonly project: TProject
+  /** 页面所属项目 */
+  readonly project: P
 
-  /**
-   * 页面配置文件内容
-   */
-  protected config: TConfig
+  /** 页面配置文件内容 */
+  protected config: C
 
-  /**
-   * 入口文件（默认使用index.tsx）
-   */
+  /** 入口文件（默认使用index.tsx）*/
   readonly entry: string
 
-  /**
-   * 标题
-   */
+  /** 标题 */
   readonly title: string
 
-  /**
-   * 插入模版的meta标签
-   */
+  /** 插入模版的meta标签 */
   readonly metas: NodeAttrs[]
 
-  /**
-   * 插入模版的样式列表
-   */
+  /** 插入模版的样式列表 */
   readonly links: NodeAttrs[]
 
-  /**
-   * 插入模版的脚本列表
-   */
+  /** 插入模版的脚本列表*/
   readonly scripts: NodeAttrs[]
 
-  /**
-   * 插入模版的样式列表
-   */
+  /** 插入模版的样式列表 */
   readonly styles: NodeAttrs[]
 
-  constructor(props: PageProps<TProject>, __config__: TConfig) {
+  constructor(props: PageProps<P>, __config__: C) {
     const project = this.project = props.project
     this.root = project.withSrc(props.folder)
     const config = this.config = readJsonSync('page.js', this.root) as any
     // 设置页面的路由、名称、id
     const __path__ = trim(config.path || props.folder, '/ ')
     this.privatePath = __path__
-    this.path = project.joinPath(this.privatePath)
+    this.path = project.joinPath(__path__)
     this.id = __path__.replace(/[@ \/\.]/g, '_')
     this.name = config.name || props.folder
     // 设置页面的文件入口
@@ -210,11 +150,12 @@ export abstract class Page<
       XT_ID: project.id, // 项目ID，一般是package.name
       XT_TYPE: project.type, // 项目类型，此处是react-csr
       XT_NAME: project.name, // 项目名称
+      XT_VERSION: project.version, // 项目版本
       XT_AUTHOR: project.author, // 项目作者 author <email>
       XT_AUTHOR_NAME: project.authorName, // 项目作者名称
       XT_AUTHOR_EMAIL: project.authorEmail, // 项目作者邮箱
-      XT_VERSION: project.version, // 项目版本
-      XT_PATH: project.publicPath, // 项目url中的公共路径（以'/'开头和结尾）
+      XT_PUBLIC_PATH: project.publicPath, // 项目url中的公共路径（以'/'开头和结尾）
+      XT_ASSETS_PATH: project.assetsPath, // 项目的素材路径（以'/'开头和结尾）
     }
     for (let i = 0, node: NodeAttrs; i < nodes.length; i++) {
       node = nodes[i]

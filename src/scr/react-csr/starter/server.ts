@@ -22,7 +22,7 @@ export async function createServer(project: ReactCSR, compiler: Compiler) {
   }))
   server.use(webStatic({
     dist: project.astPub,
-    prefix: project.publicPath,
+    prefix: project.assetsPath,
     extensions: ['html','json']
   }))
   server.use(pageBuilder(project, compiler))

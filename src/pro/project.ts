@@ -2,21 +2,14 @@ import validator from 'validator'
 import { joinPath, withPath } from 'utl/path'
 import { deepRead, readJsonSync, readPackageInfoSync } from 'utl/read'
 
-/**
- * 项目配置信息
- */
-export interface ProjectConfig<TType extends string> {
-  /**
-   * 项目类型
-   */
-  type?: TType
-
+export interface ProjectConfig<T extends string> {
+  /** 项目类型 */
+  type?: T
   /**
    * 项目名称（中文、英文都可以）
    * 不写，则使用package.json中的name字段代替
    */
   name?: string
-
   /**
    * 模块的alias
    * webpack.resolve.alias | babel-plugin-module-resolver.alias
@@ -26,51 +19,27 @@ export interface ProjectConfig<TType extends string> {
   alias?: ModuleAlias
 }
 
-/**
- * 项目实例化参数
- */
 export interface ProjectProps<
-  TType extends string, 
-  TConfig extends ProjectConfig<TType>
+  T extends string, 
+  C extends ProjectConfig<T>,
 > {
-  /**
-   * 项目目录路径
-   */
+  /** 项目目录路径 */
   root: string
-
-  /**
-   * 项目配置信息
-   */
-  config?: TConfig | string
-
-  /**
-   * 项目包信息
-   */
+  /** 项目配置信息 */
+  config?: C | string
+  /** 项目包信息 */
   package?: PackageInfo
 }
 
-/**
- * 项目元信息（即项目的主要信息）
- */
+// 项目元信息（即项目的主要信息）
 interface ProjectMeta {
-  /**
-   * 项目类型
-   */
+  /** 项目类型 */
   type: string
-
-  /**
-   * 项目目录路径
-   */
+  /** 项目目录路径 */
   root: string
-
-  /**
-   * 项目配置信息
-   */
+  /** 项目配置信息 */
   config: Record<string, any>
-
-  /**
-   * 项目包名
-   */
+  /** 项目包名 */
   package: PackageInfo
 }
 
@@ -88,116 +57,71 @@ export function readProjectMeta(projectPath: string): ProjectMeta {
   }
 }
 
-/**
- * 项目
- */
 export abstract class Project<
-  TType extends string,
-  TConfig extends ProjectConfig<TType>
+  T extends string,
+  C extends ProjectConfig<T>,
 > {
-  /**
-   * 项目ID（即package.json/name）
-   */
+  /** 项目ID（即package.json/name）*/
   readonly id: string
 
-  /**
-   * 项目名称（中文、英文都可以，默认使用ID）
-   */
+  /** 项目名称（中文、英文都可以，默认使用ID）*/
   readonly name: string
 
-  /**
-   * 项目版本
-   */
+  /** 项目版本 */
   readonly version: string
 
-  /**
-   * 项目作者（包括邮箱）
-   */
+  /** 项目作者（包括邮箱）*/
   readonly author: string
 
-  /**
-   * 项目作者姓名
-   */
+  /** 项目作者姓名 */
   readonly authorName: string
 
-  /**
-   * 项目作者邮箱
-   */
+  /** 项目作者邮箱 */
   readonly authorEmail: string
 
-  /**
-   * 项目类型
-   */
-  readonly type: TType
+  /** 项目类型 */
+  readonly type: T
 
-  /**
-   * 项目目录路径
-   */
+  /** 项目目录路径 */
   readonly root: string
 
-  /**
-   * 项目构建时的临时缓存文件目录
-   */
+  /** 项目构建时的临时缓存文件目录 */
   readonly buf: string
 
-  /**
-   * 项目源文件目录
-   */
+  /** 项目源文件目录 */
   readonly src: string
 
-  /**
-   * 项目生成资源文件目录
-   */
+  /** 项目生成资源文件目录 */
   readonly pub: string
 
-  /**
-   * 项目文档目录
-   */
+  /** 项目文档目录 */
   readonly doc: string
 
-  /**
-   * 项目模块文件目录
-   */
+  /** 项目模块文件目录 */
   readonly mdl: string
 
-  /**
-   * typescript配置文件路径
-   */
+  /** typescript配置文件路径 */
   readonly tsc: string
 
-  /**
-   * 项目生成的资源文件目录
-   */
+  /** 项目生成的资源文件目录 */
   readonly dist: string
 
-  /**
-   * 项目生成的公共资源文件目录
-   */
+  /** 项目生成的公共资源文件目录*/
   readonly astDist: string
 
-  /**
-   * 项目生成的定义文件目录
-   */
+  /** 项目生成的定义文件目录 */
   readonly defDist: string
 
-  /**
-   * 项目生成的web端资源文件目录
-   */
+  /** 项目生成的web端资源文件目录 */
   readonly webDist: string
 
-  /**
-   * 项目生成的node端资源文件目录
-   */
+  /** 项目生成的node端资源文件目录 */
   readonly nodeDist: string
 
-  /**
-   * 项目配置信息
-   */
-  protected config: TConfig
+  /** 项目配置信息 */
+  protected config: C
 
-  /**
-   * 项目包信息
-   */
+  /** 项目包信息 */
   readonly package: PackageInfo
 
   /**
@@ -208,12 +132,10 @@ export abstract class Project<
    */
   readonly alias?: ModuleAlias
 
-  /**
-   * ts配置的缓存
-   */
+  /** ts配置的缓存 */
   private __tsConfig__?: Record<string, any>
 
-  constructor(type: TType, props: ProjectProps<TType, TConfig>) {
+  constructor(type: T, props: ProjectProps<T, C>) {
     // 确定项目的类型
     this.type = type
     // 建立项目相关路径

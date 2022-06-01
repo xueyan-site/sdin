@@ -28,7 +28,7 @@ function getRowRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset/source',
     generator: {
-      filename: '_raw/[name].[contenthash][ext]'
+      filename: 'raw/[name].[contenthash][ext]'
     }
   }, project.module.rules.raw, {
     test: /\.txt$/i
@@ -39,7 +39,7 @@ function getFontRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset',
     generator: {
-      filename: '_fnt/[name].[contenthash][ext]'
+      filename: 'fnt/[name].[contenthash][ext]'
     }
   }, project.module.rules.font, {
     test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/
@@ -50,7 +50,7 @@ function getImageRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset',
     generator: {
-      filename: '_img/[name].[contenthash][ext]'
+      filename: 'img/[name].[contenthash][ext]'
     }
   }, project.module.rules.image, {
     test: /\.(png|jpg|jpeg|svg|webp|gif|bmp|tif)(\?.*)?$/,
@@ -66,7 +66,7 @@ function getAudioRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset',
     generator: {
-      filename: '_ado/[name].[contenthash][ext]'
+      filename: 'ado/[name].[contenthash][ext]'
     }
   }, project.module.rules.audio, {
     test: /\.(mp3|wma|wav|aac|amr|ogg)(\?.*)?$/
@@ -77,7 +77,7 @@ function getVideoRule(project: ReactCSR) {
   return defaultsDeep({
     type: 'asset',
     generator: {
-      filename: '_vdo/[name].[contenthash][ext]'
+      filename: 'vdo/[name].[contenthash][ext]'
     }
   }, project.module.rules.video, {
     test: /\.(mp4|3gp|webm|mpg|avi|wmv|flv)(\?.*)?$/
@@ -125,7 +125,7 @@ function getScssRule(project: ReactCSR, dev: boolean): RuleSetRule {
           importLoaders: 2,
           modules: {
             exportLocalsConvention: "camelCase",
-            localIdentName: dev ? '[local]_[hash:base64:8]' : '[hash:base64:12]',
+            localIdentName: dev ? '[local]_[hash:base64:6]' : '[hash:base64:9]',
             localIdentContext: project.root
           }
         }

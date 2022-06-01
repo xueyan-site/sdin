@@ -3,10 +3,7 @@ import { joinPosixPath } from 'utl/path'
 import { Project } from './project'
 import type { ProjectProps, ProjectConfig } from './project'
 
-/**
- * 应用配置信息
- */
-export interface ApplicationConfig<TType extends string> extends ProjectConfig<TType> {
+export interface ApplicationConfig<T extends string> extends ProjectConfig<T> {
   /**
    * 项目url中的公共路径
    * <https://webpack.docschina.org/configuration/output/#outputpublicpath> 
@@ -14,36 +11,31 @@ export interface ApplicationConfig<TType extends string> extends ProjectConfig<T
   path?: string
 }
 
-/**
- * 应用实例化参数
- */
 export interface ApplicationProps<
-  TType extends string,
-  TConfig extends ApplicationConfig<TType>
-> extends ProjectProps<TType, TConfig> {}
+  T extends string,
+  C extends ApplicationConfig<T>,
+> extends ProjectProps<T,C> {}
 
-/**
- * application应用
- */
 export abstract class Application<
-  TType extends string,
-  TConfig extends ApplicationConfig<TType>
-> extends Project<TType, TConfig> {
-  /**
-   * url中的公共路径（始终以'/'开头和结尾）
-   */
+  T extends string,
+  C extends ApplicationConfig<T>,
+> extends Project<T,C> {
+  
+  /** url中的公共路径（以'/'开头和结尾）*/
   readonly publicPath: string
 
-  constructor(type: TType, props: ApplicationProps<TType, TConfig>) {
+  /** 项目的素材路径（以'/'开头和结尾）*/
+  readonly assetsPath: string
+
+  constructor(type: T, props: ApplicationProps<T,C>) {
     super(type, props)
     const __path__ = trim(this.config.path || '', '/ ')
     this.publicPath = __path__ ? `/${__path__}/` : '/'
+    this.assetsPath = this.joinPath('ast/')
   }
 
   /**
    * 以本项目公共path为前缀，拼接其它path
-   * @param pathList 
-   * @returns 
    */
   joinPath(...pathList: string[]) {
     return joinPosixPath(this.publicPath, ...pathList)

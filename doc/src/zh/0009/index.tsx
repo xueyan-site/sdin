@@ -90,13 +90,13 @@ module.exports = {
       key: 'favicon',
       rel: "icon",
       type: "image/png",
-      href: "{{XT_PATH}}favicon.png"
+      href: "{{XT_ASSETS_PATH}}favicon.png"
     }
   ]
 }
 \`\`\`
 
-上方使用的 XT_PATH 是 \`xt\` 专门提供的常量，仅限于在 NodeAttrs 类型的对象中使用。
+上方使用的 XT_ASSETS_PATH 是 \`xt\` 专门提供的常量，仅限于在 NodeAttrs 类型的对象中使用。
 
 常量列表：
 
@@ -109,7 +109,8 @@ module.exports = {
 | XT_AUTHOR_NAME | project.authorName | 项目作者名称 |
 | XT_AUTHOR_EMAIL | project.authorEmail | 项目作者邮箱 |
 | XT_VERSION | project.version | 项目版本 |
-| XT_PATH | project.publicPath | 项目url中的公共路径（以'/'开头和结尾） |
+| XT_PUBLIC_PATH | project.publicPath | 项目url中的公共路径（以'/'开头和结尾） |
+| XT_ASSETS_PATH | project.assetsPath | 项目的素材路径（以'/'开头和结尾） |
 
 ## scripts
 
@@ -153,7 +154,7 @@ module.exports = {
     {
       key: 'global',
       rel: 'stylesheet',
-      href: '{{XT_PATH}}global.css'
+      href: '{{XT_ASSETS_PATH}}global.css'
     }
   ]
 }

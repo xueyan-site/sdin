@@ -21,9 +21,9 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     output: {
       path: project.dist,
       publicPath: project.publicPath,
-      hashDigestLength: 12,
-      filename: '_js/[name].[chunkhash].js',
-      chunkFilename: '_js/[id].[chunkhash].js'
+      hashDigestLength: 9,
+      filename: 'js/[name].[chunkhash].js',
+      chunkFilename: 'js/[id].[chunkhash].js'
     },
     module: {
       rules: getRules(project, false)
@@ -34,8 +34,8 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     plugins: [
       new ProgressPlugin(),
       new MiniCssExtractPlugin({
-        filename: '_css/[name].[contenthash].css',
-        chunkFilename: '_css/[id].[contenthash].css'
+        filename: 'css/[name].[contenthash].css',
+        chunkFilename: 'css/[id].[contenthash].css'
       }),
       getDefinePlugin(project, false),
       ...pages.plugins
@@ -43,7 +43,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     optimization: {
       splitChunks: getSplitChunks(),
       runtimeChunk: {
-        name: (entry: any) => entry.name + '-rc'
+        name: (entry: any) => entry.name + '.rc'
       },
       minimize: true,
       minimizer: [
@@ -59,8 +59,8 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     },
     performance: {
       hints: 'warning',
-      maxAssetSize: 524288,
-      maxEntrypointSize: 2097152,
+      maxAssetSize: 262144,
+      maxEntrypointSize: 1048576,
     }
   })
 }
