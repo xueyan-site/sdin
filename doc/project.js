@@ -57,22 +57,22 @@ module.exports = {
       {
         key: 'react',
         defer: true,
-        src: "https://xueyan.site/react.js"
+        src: "https://xueyan.site/ast/react.js"
       },
       {
         key: 'react-dom',
         defer: true,
-        src: "https://xueyan.site/react-dom.js"
+        src: "https://xueyan.site/ast/react-dom.js"
       },
       {
         key: 'classnames',
         defer: true,
-        src: "https://xueyan.site/classnames.js"
+        src: "https://xueyan.site/ast/classnames.js"
       },
       {
         key: 'lodash',
         defer: true,
-        src: "https://xueyan.site/lodash.js"
+        src: "https://xueyan.site/ast/lodash.js"
       }
     ]
   }
