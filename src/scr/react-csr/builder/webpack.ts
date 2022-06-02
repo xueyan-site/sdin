@@ -59,7 +59,7 @@ export async function createWebpack(project: ReactCSR): Promise<Compiler> {
     },
     performance: {
       hints: 'warning',
-      maxAssetSize: 262144,
+      maxAssetSize: 524288,
       maxEntrypointSize: 1048576,
     }
   })

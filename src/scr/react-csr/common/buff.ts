@@ -12,7 +12,7 @@ export function getSplitChunks(): {
   cacheGroups: any
 } {
   return {
-    maxSize: 262144,
+    maxSize: 524288,
     cacheGroups: {
       // 打包业务中公共代码
       's0202': getSplitSourceConfig('s0202', 10, 2),
