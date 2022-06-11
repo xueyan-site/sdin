@@ -1,56 +1,48 @@
 #!/usr/bin/env node
 
+import chalk from 'chalk'
 import updateNotifier from 'update-notifier'
 import { Command } from 'commander'
-import { readPackageInfoSync } from 'utl/read'
-import { printExitError, printInfo } from 'utl/print'
-import { CMD } from 'utl/path'
-import type { ExecutableCommandOptions } from 'commander'
+import { CMD_PATH } from '../utils/path'
+import { getPackageInfoSync } from '../utils/package'
 
-process.on('unhandledRejection', (reason: any) => printExitError(reason))
-process.on('uncaughtException', err => printExitError(err, 1))
+const pkg = getPackageInfoSync(CMD_PATH)
+const cmd = new Command()
 
-const program = new Command()
-const packageInfo = readPackageInfoSync(CMD)
-const notifier = updateNotifier({ pkg: packageInfo })
-
-if (notifier.update) {
-  const { current, latest, type, name } = notifier.update
-  printInfo(`you can update ${name} to new ${type} version`)
+const noti = updateNotifier({ pkg })
+console.log()
+if (noti.update) {
+  const { current, latest, type, name } = noti.update
+  console.log(`you can update ${name} to new ${type} version`)
   console.log([
-    `  version: ${current} => ${latest}`,
-    `  npm: npm i -g ${name}@latest`
+    `- version:  ${chalk.blue(current)} => ${chalk.green(latest)}`,
+    `- command:      npm i -g ${name}@latest`
   ].join('\n'))
+} else {
+  console.log(`😊 ${pkg.name} ${pkg.version}`)
 }
-
-const SUB_CMD_LIST: {
-  command: string
-  description: string
-  options: ExecutableCommandOptions & Required<Pick<ExecutableCommandOptions, 'executableFile'>>
-}[] = [
-  {
-    command: 'create',
-    description: 'create project',
-    options: {
-      executableFile: './create'
-    }
-  }
-]
+console.log()
 
 const HELP_INFO = `
-name:        ${packageInfo.name}
-author:      ${packageInfo.author}
-version:     ${packageInfo.version}
-license:     ${packageInfo.license || 'private'}
-description: ${packageInfo.description || 'not yet'}
+██╗  ██╗████████╗
+╚██╗██╔╝╚══██╔══╝
+ ╚███╔╝    ██║   
+ ██╔██╗    ██║   
+██╔╝ ██╗   ██║   
+╚═╝  ╚═╝   ╚═╝   
+
+name:        ${pkg.name}
+version:     ${pkg.version}
+license:     ${pkg.license || 'private'}
+author:      ${pkg.author}
+description: ${pkg.description || '--'}
 `
 
-SUB_CMD_LIST.forEach(cmd => {
-  program.command(cmd.command, cmd.description, cmd.options)
-})
-
-program
-  .name(Object.keys(packageInfo.bin)[0])
-  .version(packageInfo.name + ' ' + packageInfo.version)
+cmd
+  .command('create', 'create project', {
+    executableFile: './create'
+  })
+  .name(Object.keys(pkg.bin)[0])
+  .version(pkg.name + ' ' + pkg.version)
   .on('--help', () => console.log(HELP_INFO))
   .parse(process.argv)

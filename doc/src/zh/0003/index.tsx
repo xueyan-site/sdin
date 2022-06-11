@@ -2,8 +2,6 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-> 涉及命令：\`xt create\`、\`xt start\`、\`xt build\`、\`xt serve\`
-
 ## 创建一个新项目
 
 运行以下命令：
@@ -36,10 +34,10 @@ $ xt create
 
 ## 启动项目
 
-进入项目根目录，输入 \`xt start\`。
+进入项目根目录，输入 \`xt dev\`。
 
 \`\`\`shell
-$ xt start
+$ xt dev
 ✔ xxx compiler created successfully
 ✔ xxx compiler listening on http://127.0.0.1:8080/
 \`\`\`

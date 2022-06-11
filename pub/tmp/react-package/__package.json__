@@ -20,7 +20,7 @@
     "url": "TODO"
   },
   "scripts": {
-    "start": "xt start",
+    "dev": "xt dev",
     "build": "xt build"
   },
   "dependencies": {

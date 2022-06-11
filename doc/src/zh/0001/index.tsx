@@ -6,25 +6,30 @@ import INTRO_VDO from './intro.webm'
 import { Video } from 'com/video'
 
 const MARK1 = `
-> 📣：为了阅读方便，本文将 \`xueyan-typescript-cli\`  简称为 \`xt\`。  
-
-\`xt\` 是一个 Typescript 语言命令行工具，可开发：
+\`xueyan-typescript-cli\`（简称 \`xt\`），是一个 Typescript 语言命令行工具，可开发：
 
 <p>
   <img src="${SUPPORT_IMG}" style="width:800px" />  
 </p>
 
-> 💡：\`xt\` 和本文档，是通过 \`xt\` 开发的。  
-
 ## 架构
 
-主要组成： \`Webpack 5\` + \`Gulp 4\` + \`Koa 2\`
+组成： \`Webpack 5\` + \`Gulp 4\` + \`Koa 2\`
 
-支持的语言： \`Typescript\`、\`Javascript\`、\`SCSS\`、\`CSS\`（支持自定义Loader）
+支持： \`TS\`、\`JS\`、\`SCSS\`、\`CSS\`、\`自定义Loader\`
 
 <p>
   <img src="${FRAMEWORK_IMG}" style="width:800px" />  
 </p>
+
+## 使用方
+
+- [xueyan-typescript-cli](https://github.com/xueyan-site/xueyan-typescript-cli)
+- [xueyan-react-doc](https://github.com/xueyan-site/xueyan-react-doc)
+- [xueyan-react-markdown](https://github.com/xueyan-site/xueyan-react-markdown)
+- [xueyan-react-style](https://github.com/xueyan-site/xueyan-react-style)
+- [xueyan-react-transition](https://github.com/xueyan-site/xueyan-react-transition)
+- [xueyan-react-store](https://github.com/xueyan-site/xueyan-react-store)
 `
 
 export default function Main() {

@@ -5,7 +5,7 @@
   "description": "TODO",
   "private": true,
   "scripts": {
-    "start": "xt start",
+    "dev": "xt dev",
     "build": "xt build",
     "serve": "xt serve"
   },

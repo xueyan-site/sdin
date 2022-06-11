@@ -28,11 +28,6 @@
     "declarationMap": false,
     "removeComments": false,
     "baseUrl": ".",
-    "paths": {
-      "exe/*": ["src/exe/*"],
-      "pro/*": ["src/pro/*"],
-      "scr/*": ["src/scr/*"],
-      "utl/*": ["src/utl/*"]
-    }
+    "paths": {}
   }
 }

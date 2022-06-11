@@ -9,9 +9,13 @@ const MARK1 = `
 ## skeleton
 
 \`\`\`ts
-type skeleton = 
-  | undefined 
-  | (page: ReactCSRPage) => string
+undefined | (
+  root: string,                  // 项目文件夹路径
+  pkg: PackageInfo,              // 包信息
+  pjtCfg: ReactCSRProjectConfig, // 项目配置
+  pgCfg: ReactCSRPageConfig,     // 页面配置
+  dev: boolean                   // 是否是开发
+) => string
 \`\`\`
 
 HTML骨架图渲染器。\`xt\` 会将它的结果注入 HTML 的 body 中，作为页面的初始内容展示。

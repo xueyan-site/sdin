@@ -12,10 +12,10 @@ Options:
 
 Commands:
   create          create project
-  start           develop or debug project on browser
+  dev             develop project
   build           build project to production line
   serve           open project server
-  track           start tracking services
+  track           open tracking service
   help [command]  display help for command
 \`\`\`
 
@@ -41,13 +41,13 @@ Options:
   - package（Node 工具、Web 工具）
   - react-package（React 组件、React 工具）
 
-## xt start
+## xt dev
 
 \`\`\`shell
-$ xt start --help
-Usage: start [options] [path]
+$ xt dev --help
+Usage: dev [options] [path]
 
-develop or debug project on browser
+develop project
 
 Options:
   -h, --help  display help for command
@@ -55,9 +55,9 @@ Options:
 
 启动项目，供开发者开发。
 
-package 项目中，它监听源码的改变后，刷新构建的产物。
+对 package 项目，它监听源码的改变后，刷新构建的产物。
 
-react 应用程序中，它不仅监听源码的变更，还负责以开发模式构建项目，给开发者提供可实时预览的用户界面。
+对 react 应用程序，它不仅监听源码的变更，还负责以开发模式构建项目，给开发者提供可实时预览的用户界面。
 
 ## xt build
 
@@ -96,7 +96,7 @@ Options:
 $ xt track --help
 Usage: track [options]
 
-start tracking services
+open tracking service
 
 Options:
   -h, --help  display help for command

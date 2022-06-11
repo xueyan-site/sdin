@@ -21,7 +21,7 @@
     "<%= name %>": "./dist/node/bin/index.js"
   },
   "scripts": {
-    "start": "xt start",
+    "dev": "xt dev",
     "build": "xt build"
   },
   "dependencies": {

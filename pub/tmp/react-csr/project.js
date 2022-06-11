@@ -8,7 +8,7 @@ module.exports = {
     com: 'pub/com',
     utl: 'pub/utl',
   },
-  start: {
+  develop: {
     proxies: [
       {
         match: /^\/api\//,

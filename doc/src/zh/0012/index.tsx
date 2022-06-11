@@ -10,7 +10,7 @@ const MARK1 = `
 
 \`undefined | string\`
 
-指定项目的根页面。（即指定当访问URL为项目公共路径时，应当返回的页面）
+指定项目的根页面路径。（即指定当访问URL为项目公共路径时，应当返回的页面）
 
 不指定，或指定页面不存在，则当用户访问时，按照找不到页面来处理。
 
@@ -18,7 +18,7 @@ const MARK1 = `
 
 \`undefined | string\`
 
-指定项目的错误兜底页面。（即指定当访问URL不存在时，应当返回的页面）
+指定项目的错误兜底页面路径。（即指定当访问URL不存在时，应当返回的页面）
 
 不指定，或指定页面不存在，则提示用户找不到页面。
 
@@ -175,19 +175,19 @@ module.exports = {
 }
 \`\`\`
 
-## start
+## develop
 
 \`undefined | Partial<ReactCSRStartConfig>\`
 
 配置服务信息。（只用于开发期间）
 
-## start.port
+## develop.port
 
 \`number = 8080\`
 
 指定服务启动的端口。
 
-## start.proxies
+## develop.proxies
 
 \`ProxyOptions[]\`
 
@@ -199,7 +199,7 @@ module.exports = {
 
 \`\`\`ts
 module.exports = {
-  start: {
+  develop: {
     proxies: [
       {
         match: /^\/api\//,

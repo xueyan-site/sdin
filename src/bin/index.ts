@@ -3,80 +3,29 @@
 import chalk from 'chalk'
 import updateNotifier from 'update-notifier'
 import { Command } from 'commander'
-import { CMD } from 'utl/path'
-import { printExitError } from 'utl/print'
-import { readPackageInfoSync } from 'utl/read'
-import type { ExecutableCommandOptions } from 'commander'
+import { CMD_PATH } from '../utils/path'
+import { getPackageInfoSync } from '../utils/package'
 
-process.on('unhandledRejection', (reason: any) => printExitError(reason))
-process.on('uncaughtException', err => printExitError(err, undefined, 1))
+const pkg = getPackageInfoSync(CMD_PATH)
+const cmd = new Command()
 
-const packageInfo = readPackageInfoSync(CMD)
-const program = new Command()
-
-/**
- * 检查更新
- */
-const notifier = updateNotifier({ pkg: packageInfo })
-if (notifier.update) {
-  const { current, latest, type, name } = notifier.update
+// 检查更新
+const noti = updateNotifier({ pkg })
+console.log()
+if (noti.update) {
+  const { current, latest, type, name } = noti.update
   console.log(`you can update ${name} to new ${type} version`)
   console.log([
     `- version:  ${chalk.blue(current)} => ${chalk.green(latest)}`,
     `- npm:      npm i -g ${name}@latest`,
     `- yarn:     yarn global add ${name}@latest`
   ].join('\n'))
-  console.log()
+} else {
+  console.log(`😊 ${pkg.name} ${pkg.version}`)
 }
+console.log()
 
-/**
- * 子命令列表
- */
-const SUB_CMD_LIST: {
-  command: string
-  description: string
-  options: ExecutableCommandOptions & Required<Pick<ExecutableCommandOptions, 'executableFile'>>
-}[] = [
-  {
-    command: 'create',
-    description: 'create project',
-    options: {
-      executableFile: './create'
-    }
-  },
-  {
-    command: 'start',
-    description: 'develop or debug project on browser',
-    options: {
-      executableFile: './start'
-    }
-  },
-  {
-    command: 'build',
-    description: 'build project to production line',
-    options: {
-      executableFile: './build'
-    }
-  },
-  {
-    command: 'serve',
-    description: 'open project server',
-    options: {
-      executableFile: './serve'
-    }
-  },
-  {
-    command: 'track',
-    description: 'start tracking services',
-    options: {
-      executableFile: './track'
-    }
-  }
-]
-
-/**
- * 帮助信息
- */
+// 命令行的帮助信息
 const HELP_INFO = `
 ██╗  ██╗████████╗
 ╚██╗██╔╝╚══██╔══╝
@@ -84,20 +33,34 @@ const HELP_INFO = `
  ██╔██╗    ██║   
 ██╔╝ ██╗   ██║   
 ╚═╝  ╚═╝   ╚═╝   
-                 
-name:        ${packageInfo.name}
-author:      ${packageInfo.author}
-version:     ${packageInfo.version}
-license:     ${packageInfo.license || 'private'}
-description: ${packageInfo.description || 'not yet'}
+
+name:        ${pkg.name}
+version:     ${pkg.version}
+license:     ${pkg.license || 'private'}
+author:      ${pkg.author}
+description: ${pkg.description || '--'}
 `
 
-SUB_CMD_LIST.forEach(cmd => {
-  program.command(cmd.command, cmd.description, cmd.options)
-})
-
-program
-  .name(Object.keys(packageInfo.bin)[0])
-  .version(packageInfo.name + ' ' + packageInfo.version)
+cmd
+  .command('create', 'create project', {
+    executableFile: './create'
+  })
+  .command('dev', 'develop project', {
+    executableFile: './develop'
+  })
+  .command('start', 'command <dev> alias', {
+    executableFile: './develop'
+  })
+  .command('build', 'build project to production line', {
+    executableFile: './build'
+  })
+  .command('serve', 'open project server', {
+    executableFile: './serve'
+  })
+  .command('track', 'open tracking service', {
+    executableFile: './track'
+  })
+  .name(Object.keys(pkg.bin)[0])
+  .version(pkg.name + ' ' + pkg.version)
   .on('--help', () => console.log(HELP_INFO))
   .parse(process.argv)

@@ -102,7 +102,7 @@ module.exports = {
 
 | 常量名 | 值 | 描述 |
 | - | - | - |
-| XT_ID | project.id | 项目ID，一般是package.name |
+| XT_ID | project.id | 项目ID（package.name） |
 | XT_TYPE | project.type | 项目类型，此处是react-csr |
 | XT_NAME | project.name | 项目名称 |
 | XT_AUTHOR | project.author | 项目作者名称 + 邮箱 |

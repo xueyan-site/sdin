@@ -10,11 +10,8 @@ const MARK1 = `
 
 ## 安装本包
 
-使用下列任一命令安装本包：
-
 \`\`\`shell
 $ npm install -g xueyan-typescript-cli
-$ yarn global add xueyan-typescript-cli
 \`\`\`
 
 你可以用这个命令来查看当前本包版本：
@@ -25,52 +22,44 @@ $ xt --version
 
 ## 升级本包
 
-如需升级本包，请使用下列任一命令：
-
 \`\`\`shell
 $ npm update -g xueyan-typescript-cli
-$ yarn global upgrade --latest xueyan-typescript-cli
 \`\`\`
 
 ## 找不到本包
 
-安装失败，命令行显示找不到本包时，你可以尝试用以下命令，检查本地 NPM 配置：
+安装失败，命令行显示找不到本包时，尝试用以下命令，检查本地 NPM 配置：
 
 \`\`\`shell
 $ npm config get registry
-$ yarn config get registry
 \`\`\`
 
 如果结果显示不是 <https://registry.npmjs.org>，则需要修改 registry。
 
 \`\`\`shell
 $ npm config set registry https://registry.npmjs.org
-$ yarn config set registry https://registry.npmjs.org
 \`\`\`
 
 然后，重新执行安装命令即可。
 
-如果你只想本次下载时采用此源，可以在安装时临时指定镜像源。
+如果只想本次下载时采用此源，可以在安装时临时指定镜像源。
 
 \`\`\`shell
 $ npm install -g xueyan-typescript-cli --registry https://registry.npmjs.org
-$ yarn global add xueyan-typescript-cli --registry https://registry.npmjs.org
 \`\`\`
 
 ## 下载速度太慢
 
-因网络环境和镜像源服务器原因，可能导致下载速度慢。这时，你可以选择使用国内的源。
+因网络环境和镜像源服务器原因，可能导致下载速度慢。这时，可以选择使用国内的源。
 
 \`\`\`shell
 $ npm config set registry https://registry.npm.taobao.org
-$ yarn config set registry https://registry.npm.taobao.org
 \`\`\`
 
 在安装时临时指定镜像源。
 
 \`\`\`shell
 $ npm install -g xueyan-typescript-cli --registry https://registry.npm.taobao.org
-$ yarn global add xueyan-typescript-cli --registry https://registry.npm.taobao.org
 \`\`\`
 
 你也可以选择用 CNPM 代替 NPM 。
@@ -86,14 +75,12 @@ $ cnpm install -g xueyan-typescript-cli
 
 \`\`\`shell
 $ npm info xueyan-typescript-cli version
-$ yarn info xueyan-typescript-cli version
 \`\`\`
 
 查看远程镜像源中，本包的最新版本详细信息：
 
 \`\`\`shell
 $ npm info xueyan-typescript-cli
-$ yarn info xueyan-typescript-cli
 \`\`\`
 
 查看本地本包的版本列表和位置

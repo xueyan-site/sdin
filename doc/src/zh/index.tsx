@@ -26,7 +26,7 @@ const COLLECTIONS: Collection<string,string>[] = [
       },
       {
         value: '0002',
-        label: '开发包（以React组件为例）',
+        label: '开发工具包',
         content: () => import('./0002')
       },
       {

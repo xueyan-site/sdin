@@ -1,23 +1,19 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander'
-import { cwdPath } from 'utl/path'
-import { printExitError, printInfo } from 'utl/print'
-import create from 'scr/create'
+import { CWD_PATH } from '../utils/path'
+import { resolve } from 'path'
+import { create } from '../create'
 
-process.on('unhandledRejection', (reason: any) => printExitError(reason))
-process.on('uncaughtException', err => printExitError(err, 1))
+const cmd = new Command()
 
-printInfo('welcome to use <%= name %>')
-printInfo('project creation process is ready')
-const program = new Command()
-
-program
+cmd
   .description('create project')
   .arguments('[path]')
   .action(action)
   .parse(process.argv)
 
 async function action(path?: string) {
-  await create(cwdPath(path || ''))
+  const target = resolve(CWD_PATH, path || '')
+  await create(target)
 }

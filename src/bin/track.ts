@@ -1,70 +1,64 @@
 #!/usr/bin/env node
 
-import fse from 'fs-extra'
-import chalk from 'chalk'
+import { ensureDir, existsSync, readFileSync } from 'fs-extra'
+import { resolve } from 'path'
 import { v4 as uuid } from 'uuid'
+import { blue, yellow } from 'chalk'
 import { prompt } from 'enquirer'
 import { Command } from 'commander'
-import { cmdPath, CMD } from 'utl/path'
-import { readPackageInfoSync } from 'utl/read'
-import { execute, executeSync } from 'utl/exec'
-import { deepCopy, getReplaceHandler } from 'utl/write'
-import { printExitError, printExitInfo, printInfo, printWarning } from 'utl/print'
+import { execSync } from 'child_process'
+import { CMD_PATH } from '../utils/path'
+import { printExit } from '../utils/console'
+import { deepCopy, getReplaceHandler } from '../utils/write'
 
-process.on('unhandledRejection', (reason: any) => printExitError(reason))
-process.on('uncaughtException', err => printExitError(err, undefined, 1))
+const cmd = new Command()
 
-const packageInfo = readPackageInfoSync(CMD)
-printInfo(`${packageInfo.name} ${packageInfo.version}`)
-const program = new Command()
-
-program
-  .description('start tracking services')
+cmd
+  .description('open tracking services')
   .action(action)
   .parse(process.argv)
 
 async function action() {
   // 检查docker是否存在，若不存在，则给出指引
   try {
-    executeSync('docker -v', { stdio: 'ignore' })
+    execSync('docker -v', { stdio: 'ignore' })
   } catch (err) {
-    printWarning('sorry, open tracking server failed, because you don\'t have docker installed')
+    console.warn('sorry, open tracking server failed, because you don\'t have docker installed')
     console.log()
-    console.log('please get Docker from ' + chalk.blue('https://docs.docker.com/get-docker'))
-    console.log('or you can try this shell cmd: ' + chalk.blue('curl -sSL https://get.docker.com/ | sh'))
-    console.log('if you are Chinese, you can try: ' + chalk.blue('curl -sSL https://get.daocloud.io/docker | sh'))
+    console.log('please get Docker from ' + blue('https://docs.docker.com/get-docker'))
+    console.log('or you can try this shell cmd: ' + blue('curl -sSL https://get.docker.com/ | sh'))
+    console.log('if you are Chinese, you can try: ' + blue('curl -sSL https://get.daocloud.io/docker | sh'))
     console.log()
     return process.exit()
   }
   // 检查是否有相关配置文件，若没有，则进行创建
-  const esDockerComposePath = cmdPath('buf/est/docker-compose.yml')
-  if (!fse.existsSync(esDockerComposePath)) {
-    const esdPath = cmdPath('buf/esd')
-    await fse.ensureDir(esdPath)
+  const esDockerComposePath = resolve(CMD_PATH, 'buf/est/docker-compose.yml')
+  if (!existsSync(esDockerComposePath)) {
+    const esdPath = resolve(CMD_PATH, 'buf/esd')
+    await ensureDir(esdPath)
     await deepCopy(
-      cmdPath('pub/est/docker-compose.yml'),
+      resolve(CMD_PATH, 'pub/est/docker-compose.yml'),
       esDockerComposePath,
       getReplaceHandler({
-        esdPath: cmdPath('buf/esd'),
+        esdPath: resolve(CMD_PATH, 'buf/esd'),
         password: uuid()
       })
     )
   }
   // 把配置文件展示给用户，先给用户进行提示，让用户确认配置文件没有问题
-  console.log()
   console.log('next, we will launch elasticsearch and kibana with docker')
   console.log('docker will auto download and install them by docker-compose.yml')
   console.log()
-  console.log(chalk.blue('docker-compose.yml path:'))
+  console.log(blue('docker-compose.yml path:'))
   console.log(esDockerComposePath)
-  console.log(chalk.blue('docker-compose.yml content: '))
-  console.log(fse.readFileSync(esDockerComposePath).toString('utf8'))
+  console.log(blue('docker-compose.yml content: '))
+  console.log(readFileSync(esDockerComposePath).toString('utf8'))
   console.log()
   const confirm = (await prompt<{ confirm: string }>([
     {
       type: 'select',
       name: 'confirm',
-      message: chalk.blue('please make sure that docker-compose.yml is no problem (👆above)'),
+      message: blue('please make sure that docker-compose.yml is no problem (👆above)'),
       required: true,
       choices: [
         {
@@ -80,13 +74,9 @@ async function action() {
   ])).confirm
   // 用户若是选择no，则展示编辑配置文件的方法
   if (confirm === 'no') {
-    printInfo('you can use vim to edit docker-compose.yml:')
-    return printExitInfo(chalk.yellow('vim ' +  esDockerComposePath))
+    console.log('you can use vim to edit docker-compose.yml:')
+    return printExit(yellow('vim ' +  esDockerComposePath))
   }
   // 启动docker
-  try {
-    execute(`docker-compose -f ${esDockerComposePath} up`)
-  } catch (err: any) {
-    printExitError(err || 'docker server error, please check whether docker is opened and whether the network is OK')
-  }
+  execSync(`docker-compose -f ${esDockerComposePath} up`, { stdio: 'inherit' })
 }

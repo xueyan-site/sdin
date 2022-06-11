@@ -28,9 +28,6 @@
     "declarationMap": false,
     "removeComments": false,
     "baseUrl": ".",
-    "paths": {
-      "scr/*": ["src/scr/*"],
-      "utl/*": ["src/utl/*"]
-    }
+    "paths": {}
   }
 }
