@@ -15,7 +15,7 @@ function search(path: string, result: string[] = []) {
     const files = readdirSync(path)
     for (let i = 0; i < files.length; i++) {
       const name = files[i]
-      if (!/^(src|dist|buf|node_modules|\.)$/g.test(name)) {
+      if (!/^(buf|dist|pub|src|node_modules|\.)$/g.test(name)) {
         search(resolve(path, name), result)
       }
     }
