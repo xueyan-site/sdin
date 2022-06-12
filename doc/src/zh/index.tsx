@@ -42,69 +42,33 @@ const COLLECTIONS: Collection<string,string>[] = [
     contents: [
       {
         value: '0005',
-        label: '命令行接口',
+        label: '命令',
         icon: INTERFACE_ICON,
         content: () => import('./0005')
       },
       {
-        value: '9994',
-        label: 'package 项目',
-        children: [
-          {
-            value: '0008',
-            label: 'package 项目配置',
-            icon: CONFIG_ICON,
-            content: () => import('./0008')
-          }
-        ]
+        value: '0010',
+        label: 'react-csr 宏',
+        icon: CONST_ICON,
+        content: () => import('./0010')
       },
       {
-        value: '9996',
-        label: 'react-csr 项目',
-        children: [
-          {
-            value: '0012',
-            label: 'react-csr 项目配置',
-            icon: CONFIG_ICON,
-            content: () => import('./0012')
-          },
-          {
-            value: '0011',
-            label: 'react-csr 页面配置',
-            icon: CONFIG_ICON,
-            content: () => import('./0011')
-          },
-          {
-            value: '0010',
-            label: 'react-csr 宏',
-            icon: CONST_ICON,
-            content: () => import('./0010')
-          }
-        ]
+        value: '0008',
+        label: 'package 项目配置',
+        icon: CONFIG_ICON,
+        content: () => import('./0008')
       },
       {
-        value: '9995',
-        label: '其它配置',
-        children: [
-          {
-            value: '0006',
-            label: '项目配置',
-            icon: CONFIG_ICON,
-            content: () => import('./0006')
-          },
-          {
-            value: '0007',
-            label: '应用项目配置',
-            icon: CONFIG_ICON,
-            content: () => import('./0007')
-          },
-          {
-            value: '0009',
-            label: '应用项目页面配置',
-            icon: CONFIG_ICON,
-            content: () => import('./0009')
-          }
-        ]
+        value: '0012',
+        label: 'react-csr 项目配置',
+        icon: CONFIG_ICON,
+        content: () => import('./0012')
+      },
+      {
+        value: '0011',
+        label: 'react-csr 页面配置',
+        icon: CONFIG_ICON,
+        content: () => import('./0011')
       }
     ]
   }

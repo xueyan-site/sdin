@@ -13,27 +13,24 @@ Options:
 Commands:
   create          create project
   dev             develop project
+  start           command <dev> alias
   build           build project to production line
   serve           open project server
+  serves          serve multi projects
   track           open tracking service
   help [command]  display help for command
 \`\`\`
 
 ## xt create
 
-\`\`\`shell
-$ xt create --help
-Usage: create [options] [path]
+创建新的项目
 
-create project
+| 参数 | 类型 | 说明 |
+| - | - | - |
+| name | \`? string\` | 项目名称 |
+| -h, --help | \`? boolean\` | 显示帮助信息 |
 
-Options:
-  -h, --help  display help for command
-\`\`\`
-
-创建项目。
-
-目前有两种项目类型可供选择：
+有两种项目类型可供选择：
 
 - react-csr（React 纯客户端渲染式应用程序）
 - package（工具包）
@@ -43,72 +40,76 @@ Options:
 
 ## xt dev
 
-\`\`\`shell
-$ xt dev --help
-Usage: dev [options] [path]
+启动项目，供开发者开发
 
-develop project
+| 参数 | 类型 | 说明 |
+| - | - | - |
+| path | \`? string\` | 项目路径 |
+| -p, --port | \`? number\` | 服务器端口号（对应用程序有效） |
+| -h, --help | \`? boolean\` | 显示帮助信息 |
 
-Options:
-  -h, --help  display help for command
-\`\`\`
+package：监听源码的变更，刷新构建的产物。
 
-启动项目，供开发者开发。
+react-csr：监听源码的变更，以开发模式构建项目，给开发者提供可实时预览的用户界面。
 
-对 package 项目，它监听源码的改变后，刷新构建的产物。
+## xt start
 
-对 react 应用程序，它不仅监听源码的变更，还负责以开发模式构建项目，给开发者提供可实时预览的用户界面。
+\`xt dev\` 命令的别名
 
 ## xt build
 
-\`\`\`shell
-$ xt build --help
-Usage: build [options] [path]
+构建项目产物，将代码打包成对外使用的成品
 
-build project to production line
-
-Options:
-  -h, --help  display help for command
-\`\`\`
-
-构建项目产物，将代码打包成可以对外使用的成品。
+| 参数 | 类型 | 说明 |
+| - | - | - |
+| path | \`? string\` | 项目路径 |
+| -h, --help | \`? boolean\` | 显示帮助信息 |
 
 ## xt serve
 
-\`\`\`shell
-$ xt serve --help
-Usage: serve [options] [path]
+以应用程序产物为资料，启动服务器，对外提供静态资源服务。（对应用程序有效）
 
-open project server
+| 参数 | 类型 | 说明 |
+| - | - | - |
+| path | \`? string\` | 项目路径 |
+| -p, --port | \`? number\` | 服务器端口号 |
+| -h, --help | \`? boolean\` | 显示帮助信息 |
 
-Options:
-  -p, --password  server password
-  -h, --help      display help for command
-\`\`\`
+## xt serves
 
-启动服务器，以项目产物为资料，对外提供静态资源服务。（只用于应用程序）
+自动搜索应用程序，以它们的产物为资料，启动服务器，对外提供静态资源服务。（对应用程序有效）
 
-\`-p\`：服务器密码，用于对外提供保密功能。若不传，则每次启动时，服务器都会生成一串随机码来作为它的密码。
+| 参数 | 类型 | 说明 |
+| - | - | - |
+| path | \`? string\` | 搜索项目的路径 |
+| -p, --port | \`? number\` | 服务器端口号 |
+| -k, --SSLKey | \`? string\` | SSL 私钥文件路径 |
+| -c, --SSLCert | \`? string\` | SSL 证书文件路径 |
+| -h, --help | \`? boolean\` | 显示帮助信息 |
+
+本命令适用于 \`多项目共建网站\` 的情况。
+
+比如，有项目 a、b、c，分别使用公共路径 \`/a/\`，\`/b/\`，\`/\`。
+
+将项目 a、b、c 放置于同一文件夹下（可以是不同层级），分别用 \`xt build\` 构建产物。
+
+然后在该文件夹下，启动本命令，便可以访问它们了。
+
+若传入 SSLKey 和 SSLCert 参数，则会启动 https 服务器对外提供服务，否则启动 http 服务器。
 
 ## xt track
 
-\`\`\`shell
-$ xt track --help
-Usage: track [options]
+为应用程序提供日志的存储和查询功能
 
-open tracking service
+| 参数 | 类型 | 说明 |
+| - | - | - |
+| -h, --help | \`? boolean\` | 显示帮助信息 |
 
-Options:
-  -h, --help  display help for command
-\`\`\`
+用 docker 启动 Kibana 和 Elasticsearch，对所有项目提供日志存储和在线查询服务。
 
-为应用程序提供日志的存储和在线查询功能。
+若项目内使用了打点功能，则请在启动服务器之前使用本命令，否则打点功能不起作用。  
 
-它用 docker 启动 Kibana 和 Elasticsearch，对所有项目提供日志存储和在线查询服务。
-
-若项目启用了打点功能，则在使用命令 \`xt serve\` 之前，务必确保机器上启动了本命令，否则打点功能无效。  
-
-若本地没有安装 docker，它会给出提示。
+若本地没有对应的环境，它会引导用户去配置。
 `
 
 export default function Main() {

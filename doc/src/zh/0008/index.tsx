@@ -4,37 +4,44 @@ import { Article, Segment } from 'xueyan-react-markdown'
 const MARK1 = `
 配置文件：\`project.js\`
 
-> 此处仅列出 package 项目独有的配置，更多配置参数请见 [应用项目配置](?doc=0007)。
+| 属性 | 名称 | 类型 | 说明 |
+| - | - | - | - |
+| type | 项目类型 | \`'package'\` | 请勿修改 |
+| name | 项目名称 | \`? string\` | 中英文都可以，默认 package.json/name |
+| alias | 文件（夹）路径的别名 | \`? Record<string, string>\` | |
+| buildWeb | 生成 ESM 代码 | \`? boolean\` | 默认 true |
+| buildNode | 生成 CJS 代码 | \`? boolean\` | 默认 true |
+| buildTypes | 生成 TS 定义 | \`? boolean\` | 默认 true |
+| useReact | 支持 JSX 代码 | \`? boolean\` | 添加 @babel/preset-react 插件 |
+| useUglify | 混淆并压缩构建产物 | \`? boolean\` | 添加 gulp-uglify 插件 |
 
-## buildWeb
+## alias
 
-\`boolean = true\`
+\`? Record<string, string>\`
 
-生成 web 端使用的脚本
+配置文件（夹）路径的别名
 
-## buildNode
+示例如下，配置文件夹 \`src/foo\` 别名为 \`foo\` ：
 
-\`boolean = true\`
+\`\`\`js
+module.exports = {
+  alias: {
+    foo: "src/foo"
+  }
+}
+\`\`\`
 
-生成 node端使用的脚本
+配置别名之后，在 tsconfig.json 中添加一下 path。
 
-## buildTypes
-
-\`boolean = true\`
-
-生成 Typescript 定义文件
-
-## useReact
-
-\`boolean = false\`
-
-添加 @babel/preset-react 插件。（即支持转换 React JSX 写法）
-
-## useUglify
-
-\`boolean = false\`
-
-使用 gulp-uglify 混淆代码
+\`\`\`json
+{
+  "compilerOptions": {
+    "paths": {
+      "foo/*": ["./src/foo/*"]
+    }
+  }
+}
+\`\`\`
 `
 
 export default function Main() {

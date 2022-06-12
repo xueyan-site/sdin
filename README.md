@@ -1,13 +1,11 @@
 # xueyan-typescript-cli
 
+![xueyan-typescript-cli](https://xueyan.site/xueyan-typescript-cli/ast/project.png)
+
 Typescript application or package command tool.
 
 ```shell
 npm i -g xueyan-typescript-cli
-xt create
-...
-cd the_project_you_just_created
-xt dev
 ```
 
 ## Document

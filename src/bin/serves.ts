@@ -3,31 +3,34 @@
 import { Command } from 'commander'
 import { resolve } from 'path'
 import { CWD_PATH } from '../utils/path'
-import { printExit } from '../utils/console'
-import { getJsonSync } from '../utils/read'
-import { serveReactCSR } from '../serve-react-csr'
+import { serves } from '../serves'
 
 const cmd = new Command()
 
 cmd
-  .description('open project web server')
+  .description('search projects and open web server')
   .arguments('[path]')
   .option('-p, --port <number>', 'server port')
+  .option('-h, --httpPort <number>', 'http server port')
+  .option('-k, --SSLKey <filePath>', 'SSL private key file path')
+  .option('-c, --SSLCert <filePath>', 'SSL certification file path')
   .action(action)
   .parse(process.argv)
 
 interface CmdOpts {
   port?: string
+  SSLKey?: string
+  SSLCert?: string
 }
 
 async function action(path?: string) {
   const opts = cmd.opts<CmdOpts>()
   const root = resolve(CWD_PATH, path || '')
-  const cfg = getJsonSync(resolve(root, 'project.js'), true)
   const port = opts.port ? Number(opts.port) : undefined
-  if (cfg.type === 'react-csr') {
-    await serveReactCSR({ root, port })
-  } else {
-    printExit(`sorry, there are no items of type ${cfg.type}`)
-  }
+  await serves({
+    root,
+    port,
+    SSLKey: opts.SSLKey,
+    SSLCert: opts.SSLCert
+  })
 }

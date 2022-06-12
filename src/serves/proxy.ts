@@ -6,34 +6,28 @@ import koaCompose from 'koa-compose'
 import { get, isFunction, isArray } from 'lodash'
 import { existsSync, readFileSync } from 'fs-extra'
 import { Client as ElasticSearch } from '@elastic/elasticsearch'
-import { ReactCSRProjectConfig } from '../react-csr'
 import { CMD_PATH } from '../utils/path'
+import { AppInfo } from './apps'
+import type { ClientOptions as ESClientOptions } from '@elastic/elasticsearch'
 
 export async function createTracker(
-  cfg: ReactCSRProjectConfig
+  apps: AppInfo[]
 ): Promise<Middleware<any, any> | undefined> {
-  const es = createElasticSearch(cfg)
+  const cs = apps.filter(i => i.cfg.trackPath).map(i => i.cfg)
+  if (cs.length < 1) {
+    return
+  }
+  const opts: ESClientOptions = {}
+  cs.forEach(i => Object.assign(opts, i.trackOptions))
+  const es = await connectElasticSearch(opts)
   if (!es) {
     return
   }
-  const tip = ora('server is connecting elasticsearch').start()
-  const connected = await new Promise<boolean>(resolve => {
-    es.ping(undefined, { requestTimeout: 3000 })
-      .then(({ statusCode, body }) => {
-        resolve(statusCode === 200 && body === true)
-      })
-      .catch(() => resolve(false))
-  })
-  if (!connected) {
-    tip.info('server cannot connect elasticsearch, tracking service is closed')
-    return
-  }
-  tip.succeed('server connected elasticsearch successfully')
   const router = new KoaRouter()
-  // get trackPath 是提交打点数据的接口
-  router.get(cfg.trackPath, (ctx: Context) => saveTrackData(es, ctx, cfg))
-  // post trackPath 是一个对外的聚合接口，可以通过它实现对数据库的各种操作
-  router.post(cfg.trackPath, (ctx: Context) => operateTrackData(es, ctx))
+  cs.forEach(cfg => {
+    router.get(cfg.trackPath, ctx => saveTrackData(es, ctx, cfg.id))
+    router.post(cfg.trackPath, ctx => operateTrackData(es, ctx))
+  })
   return koaCompose([
     router.routes(),
     router.allowedMethods()
@@ -41,31 +35,46 @@ export async function createTracker(
 }
 
 /**
- * 获取es实例
+ * 连接 ES
  */
-function createElasticSearch(cfg: ReactCSRProjectConfig): ElasticSearch | undefined {
-  if (cfg.trackOptions) {
-    return new ElasticSearch(cfg.trackOptions)
+async function connectElasticSearch(opts: ESClientOptions): Promise<ElasticSearch | undefined> {
+  let es: ElasticSearch | undefined
+  if (opts) {
+    es = new ElasticSearch(opts)
   } else {
     const esDockerComposePath = resolve(CMD_PATH, 'buf/est/docker-compose.yml')
     if (existsSync(esDockerComposePath)) {
       const esdc = readFileSync(esDockerComposePath).toString('utf8')
       const matched = esdc.match(/ELASTIC_PASSWORD=([0-9a-zA-Z\-\_]+)/)
       if (matched && matched[1]) {
-        return new ElasticSearch({
+        es = new ElasticSearch({
           node: `http://elastic:${matched[1]}@127.0.0.1:9200`,
         })
       }
     }
   }
-  return
+  if (es) {
+    const esc = es
+    const tip = ora('server is connecting elasticsearch').start()
+    const connected = await new Promise<boolean>(resolve => {
+      esc.ping(undefined, { requestTimeout: 3000 })
+        .then(res => resolve(res.statusCode === 200 && res.body === true))
+        .catch(() => resolve(false))
+    })
+    if (!connected) {
+      tip.info('server cannot connect elasticsearch, tracking service is closed')
+      return undefined
+    }
+    tip.succeed('server connected elasticsearch successfully')
+  }
+  return es
 }
 
 /**
- * 保存从页面获取到的打点数据至es
+ * 保存打点数据至 ES
  * https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html
  */
-function saveTrackData(es: ElasticSearch, ctx: Context, cfg: ReactCSRProjectConfig) {
+function saveTrackData(es: ElasticSearch, ctx: Context, id: string) {
   ctx.status = 204
   const query = ctx.query as Record<string, string|undefined>
   const tl = (query.t || '').split('!')
@@ -79,7 +88,7 @@ function saveTrackData(es: ElasticSearch, ctx: Context, cfg: ReactCSRProjectConf
     ip: ctx.request.ip || '',
     ua: ctx.header['user-agent'] || '',
     url: ctx.header.referer || '',
-    project: cfg.id,
+    project: id,
     sn: tl[1] || '',
     view: tl[2] || '',
     page: tl[3] || '',

@@ -2,9 +2,9 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-\`xt\` 支持开发的包类型有：Node 工具包、Web 工具包、命令行工具、React 组件
+\`xt\` 支持开发的包类型有：\`Node 工具包\`、\`Web 工具包\`、\`命令行工具\`、\`React 组件\`
 
-> 此处介绍 react 组件的开发过程，其它类型的包开发过程与其相同  
+此处介绍 react 组件的开发过程，其它类型的包的开发过程与其相同  
 
 ## 创建一个新项目
 
@@ -26,8 +26,8 @@ $ xt create
 \`\`\`shell
 ✔ what is the name of your project · xxx
 ✔ where do you want the project to be generated · /Users/abc/xxx
-✔ please tell me the name of the author · abc
-✔ please tell me the author's email · abc@abc.site
+✔ please tell me the name of author · abc
+✔ please tell me the email of author · abc@abc.site
 \`\`\`
 
 填完上述信息之后，\`xt\` 开始初始化项目。经过一段时间的等待后，项目就创建好了。
@@ -41,19 +41,18 @@ $ xt create
 
 \`\`\`shell
 $ xt dev doc
-✔ xxx-doc compiler created successfully
-✔ xxx-doc compiler listening on http://127.0.0.1:8080/
+✔ xxx-doc listening on http://127.0.0.1:8080/
 \`\`\`
 
-如上所示，文档站点已经启动起来了，请在浏览器中打开命令行中提示的网址。
+若如上所示，则站点已启动成功，请在浏览器中打开命令行中提示的网址。
 
-选择一款称手的编辑器（这里推荐你使用 [VSCode](https://code.visualstudio.com)），打开刚才创建的项目，开始开发你的组件。
+选择一款称手的编辑器（推荐你使用 [VSCode](https://code.visualstudio.com)），打开新创建的项目，开始开发你的组件。
 
 ## 提交项目代码
 
-开发结束之后，修改项目中标注为\`TODO\`的地方。
+开发结束之后，修改项目中标注为 \`TODO\` 的地方。
 
-然后填写 package.json 中的 description、keywords、repository。
+然后，填写 package.json 中的 description、keywords、repository。
 
 最后，运行以下命令保存项目：
 
@@ -82,8 +81,7 @@ $ npm publish
 \`\`\`
 
 > 发布NPM包，需要先在命令行中登录NPM平台。  
-> 待发布的包，不能与NPM平台上他人的包同名，也不能重复发布同一版本。  
-> 要发布的内容，可在 package.json 的 files 字段中指定。  
+> 可在 package.json 的 files 字段中指定要发布的文件。  
 `
 
 export default function Main() {

@@ -19,8 +19,9 @@ export function createKoa(
   compiler: Compiler
 ): Koa {
   const koa = new Koa()
-  if (cfg.develop.proxies.length > 0) {
-    koa.use(koaCompose(cfg.develop.proxies.map(i => koaProxy(i))))
+  const develop = cfg.develop
+  if (develop.proxies.length > 0) {
+    koa.use(koaCompose(develop.proxies.map(i => koaProxy(i))))
   }
   koa.use(e2k(wdm(compiler, {
     stats: 'errors-warnings',
@@ -32,13 +33,17 @@ export function createKoa(
     trimEnd(cfg.assetsPath, '/'),
     koaStatic(resolve(root, 'pub/ast'))
   ))
-  koa.use(async ctx => {
-    if (ctx.status >= 404 && cfg.error) {
-      if ((ctx.headers.accept || '').includes('text/html')) {
-        await readPageFile(ctx, root, cfg.error, compiler)
+  if (cfg.error) {
+    const errCfg = cfg.error
+    const fileExp = /.+\.[0-9a-zA-Z]+$/
+    koa.use(async ctx => {
+      if (ctx.status >= 404 && !fileExp.test(ctx.path)) {
+        if ((ctx.headers.accept || '').includes('text/html')) {
+          await readPageFile(ctx, root, errCfg, compiler)
+        }
       }
-    }
-  })
+    })
+  }
   return koa
 }
 

@@ -14,12 +14,17 @@ const cmd = new Command()
 
 cmd
   .description('create project')
-  .arguments('[path]')
+  .arguments('[name]')
+  .option('-p, --path <projectPath>', 'project path')
   .action(action)
   .parse(process.argv)
 
-async function action(path?: string) {
-  // 选择项目类型
+interface CmdOpts {
+  path?: string
+}
+
+async function action(name?: string) {
+  const opts = cmd.opts<CmdOpts>()
   const type = (await prompt<{ type: string }>([
     {
       type: 'select',
@@ -38,11 +43,11 @@ async function action(path?: string) {
       ]
     }
   ])).type
-  const target = resolve(CWD_PATH, path || '')
+  const target = resolve(CWD_PATH, opts.path || '')
   if (type === 'package') {
-    createPackage(await enquirePackage(target))
+    createPackage(await enquirePackage(target, name))
   } else if (type === 'react-csr') {
-    createReactCSR(await enquireReactCSR(target))
+    createReactCSR(await enquireReactCSR(target, name))
   } else {
     printExit(`sorry, there are no items of type ${type}`)
   }

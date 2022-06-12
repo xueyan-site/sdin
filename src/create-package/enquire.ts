@@ -23,7 +23,8 @@ const TMP_DESC_LIST = [
 ]
 
 export async function enquirePackage(
-  target?: string // 预设的项目生成目录
+  target?: string, // 预设的项目生成目录
+  name?: string
 ): Promise<CreatePackageProps> {
   const git = getGitGlobalConfigSync()
   // 选择项目模版
@@ -49,7 +50,8 @@ export async function enquirePackage(
       name: 'name',
       message: 'what is the name of your project',
       required: true,
-      validate: str => /^[a-z@][a-z0-9\.\/\_\-]+$/.test(str)
+      validate: str => /^[a-z@][a-z0-9\.\/\_\-]+$/.test(str),
+      initial: name
     },
     {
       type: 'input',

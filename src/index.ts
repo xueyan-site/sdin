@@ -14,6 +14,7 @@ export type { DevelopPackageProps, DevelopPackageResult } from './develop-packag
 export type { DevelopReactCSRProps, DevelopReactCSRResult } from './develop-react-csr'
 export type { BuildPackageProps, BuildPackageResult } from './build-package'
 export type { BuildReactCSRProps, BuildReactCSRResult } from './build-react-csr'
+export type { ServeReactCSRProps, ServeReactCSRResult } from './serve-react-csr'
 export type { PackageProjectUserConfig, PackageProjectConfig } from './package'
 export type {
   ReactCSRProjectUserConfig,

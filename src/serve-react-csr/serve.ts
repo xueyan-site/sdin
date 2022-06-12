@@ -1,16 +1,21 @@
 import Koa from 'koa'
+import http from 'http'
+import https from 'https'
+import { resolve } from 'path'
 import { red, green } from 'chalk'
+import { readFileSync } from 'fs-extra'
 import { createKoa } from './koa'
 import { printTask } from '../utils/console'
 import { getPackageInfoSync } from '../utils/package'
-import { precheckReactCSR, getReactCSRProjectConfigSync } from '../react-csr'
+import { getReactCSRProjectConfigSync } from '../react-csr'
+import type { Server } from 'http'
 import type { PackageInfo } from '../utils/package'
 import type { ReactCSRProjectConfig } from '../react-csr'
-import type { Server } from 'http'
 
 export interface  ServeReactCSRProps {
   root: string
-  password?: string
+  /** 指定端口（优先级高于配置） */
+  port?: number
 }
 
 export interface  ServeReactCSRResult {
@@ -21,18 +26,27 @@ export interface  ServeReactCSRResult {
 }
 
 export async function serveReactCSR(
-  { root, password }:  ServeReactCSRProps
+  { root, port }:  ServeReactCSRProps
 ): Promise< ServeReactCSRResult> {
   const pkg = getPackageInfoSync(root)
   const cfg = getReactCSRProjectConfigSync(root, pkg)
-  await precheckReactCSR(root, pkg)
-  const koa = await createKoa(root, cfg, password)
-  const origin = `http://127.0.0.1:${cfg.serve.port}${cfg.publicPath}`
-  const server = await printTask({
-    failed: `${cfg.name} compile ${red('failed')}`,
-    success: `${cfg.name} compiler listening on ${green(origin)}`,
-    task: () => new Promise<Server>(resolve => {
-      const res = koa.listen(cfg.serve.port, () => resolve(res))
+  const serve = cfg.serve
+  if (port) {
+    serve.port = port
+  }
+  const koa = await createKoa(root, cfg)
+  const server = (!serve.SSLKey || !serve.SSLCert)
+    ? http.createServer(koa.callback())
+    : https.createServer({
+        key: readFileSync(resolve(root, serve.SSLKey)),
+        cert: readFileSync(resolve(root, serve.SSLCert))
+      }, koa.callback())
+  const origin = `http://127.0.0.1:${serve.port}${cfg.publicPath}`
+  await printTask({
+    failed: `${cfg.name} serve ${red('failed')}`,
+    success: `${cfg.name} listening on ${green(origin)}`,
+    task: () => new Promise<void>(res => {
+      server.listen(serve.port, () => res())
     })
   })
   return { pkg, cfg, koa, server }

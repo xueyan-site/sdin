@@ -6,7 +6,8 @@ import { CreateReactCSRProps } from './create'
 import { getGitGlobalConfigSync } from '../utils/git'
 
 export async function enquireReactCSR(
-  target?: string // 预设的项目生成目录
+  target?: string, // 预设的项目生成目录
+  name?: string
 ): Promise<CreateReactCSRProps> {
   const git = getGitGlobalConfigSync()
   const data = await prompt<{
@@ -20,7 +21,8 @@ export async function enquireReactCSR(
       name: 'name',
       message: 'what is the name of your project',
       required: true,
-      validate: str => /^[a-z@][a-z0-9\.\/\_\-]+$/.test(str)
+      validate: str => /^[a-z@][a-z0-9\.\/\_\-]+$/.test(str),
+      initial: name
     },
     {
       type: 'input',

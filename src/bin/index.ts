@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import chalk from 'chalk'
 import updateNotifier from 'update-notifier'
+import { blue, green } from 'chalk'
 import { Command } from 'commander'
 import { CMD_PATH } from '../utils/path'
 import { getPackageInfoSync } from '../utils/package'
@@ -16,12 +16,11 @@ if (noti.update) {
   const { current, latest, type, name } = noti.update
   console.log(`you can update ${name} to new ${type} version`)
   console.log([
-    `- version:  ${chalk.blue(current)} => ${chalk.green(latest)}`,
-    `- npm:      npm i -g ${name}@latest`,
-    `- yarn:     yarn global add ${name}@latest`
+    `- version:  ${blue(current)} => ${green(latest)}`,
+    `- npm:      npm i -g ${name}@latest`
   ].join('\n'))
 } else {
-  console.log(`😊 ${pkg.name} ${pkg.version}`)
+  console.log(`${pkg.name} ${pkg.version}`)
 }
 console.log()
 
@@ -56,6 +55,9 @@ cmd
   })
   .command('serve', 'open project server', {
     executableFile: './serve'
+  })
+  .command('serves', 'serve multi projects', {
+    executableFile: './serves'
   })
   .command('track', 'open tracking service', {
     executableFile: './track'

@@ -8,14 +8,23 @@ import type { ClientOptions as ESClientOptions } from '@elastic/elasticsearch'
 import type { RuleSetCondition, RuleSetRule } from 'webpack'
 import type { Options as ProxyOptions } from 'koa-proxy'
 
-interface ReactCSRServeConfig {
+interface ReactCSRDevelopConfig {
   /** 启动的端口 */
   port: number
   /** 代理设置 <https://github.com/edorivai/koa-proxy> */
   proxies: ProxyOptions[]
 }
 
-interface ReactCSRDevelopConfig extends ReactCSRServeConfig {}
+interface ReactCSRServeConfig {
+  /** 启动的端口 */
+  port: number
+  /** 代理设置 <https://github.com/edorivai/koa-proxy> */
+  proxies: ProxyOptions[]
+  /** SSL 私钥文件路径 */
+  SSLKey?: string
+  /** SSL 证书文件路径 */
+  SSLCert?: string
+}
 
 interface ReactCSRModuleConfigRules {
   raw?: Partial<RuleSetRule>
@@ -61,10 +70,10 @@ export interface ReactCSRProjectConfig {
   assetsPath: string
   /** 模块配置信息 */
   module: ReactCSRModuleConfig
-  /** 服务配置信息 */
-  serve: ReactCSRServeConfig
   /** 服务配置信息（开发时期）*/
   develop: ReactCSRDevelopConfig
+  /** 服务配置信息 */
+  serve: ReactCSRServeConfig
   /** 所有页面 */
   pageList: ReactCSRPageConfig[]
   /** 项目的根页面 */
@@ -115,16 +124,14 @@ export function getReactCSRProjectConfigSync(
     rules: {},
     loaders: []
   })
-  const serve = defaultsDeep({}, ucfg.serve, {
-    port: 443,
+  const _serve = ucfg.serve || {}
+  const serve = defaultsDeep({}, _serve, {
+    port: (_serve.SSLKey && _serve.SSLCert) ? 443 : 80,
     proxies: []
   })
-  const develop = defaultsDeep({
-    ...ucfg.start,
-    ...ucfg.develop
-  }, {
-    ...serve,
-    port: 8080
+  const develop = defaultsDeep({}, ucfg.start, ucfg.develop, {
+    port: 8080,
+    proxies: serve.proxies
   })
   const pageList = getReactCSRPageConfigListSync(root, {
     name,

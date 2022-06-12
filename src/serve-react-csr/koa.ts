@@ -8,44 +8,52 @@ import koaStatic from 'koa-static'
 import KoaRouter from 'koa-router'
 import koaConditional from 'koa-conditional-get'
 import koaETag from 'koa-etag'
-import koaCompress from 'koa-compress'
 import koaBodyParser from 'koa-bodyparser'
 import koaSend from 'koa-send'
-import { createTracker } from './track'
+import sslify from 'koa-sslify'
+import { createTracker } from '../serves/track'
 import type { ReactCSRProjectConfig } from '../react-csr'
 
 export async function createKoa(
   root: string,
-  cfg: ReactCSRProjectConfig,
-  pwd?: string // 服务器密码
+  cfg: ReactCSRProjectConfig
 ): Promise<Koa> {
   const koa = new Koa()
   const dist = resolve(root, 'dist')
-  if (cfg.develop.proxies.length > 0) {
-    koa.use(koaCompose(cfg.develop.proxies.map(i => koaProxy(i))))
+  const serve = cfg.serve
+  if (serve.SSLKey && serve.SSLCert) {
+    koa.use(sslify({
+      port: serve.port
+    }))
+  }
+  if (serve.proxies.length > 0) {
+    koa.use(koaCompose(serve.proxies.map(i => koaProxy(i))))
   }
   if (cfg.trackPath) {
-    const tracker = await createTracker(cfg, pwd || '')
+    const tracker = await createTracker([cfg])
     if (tracker) {
+      koa.use(koaBodyParser())
       koa.use(tracker)
     }
   }
   koa.use(koaConditional())
   koa.use(koaETag())
-  koa.use(koaCompress())
-  koa.use(koaBodyParser())
   koa.use(getPageRouter(root, cfg))
   koa.use(koaMount(
     trimEnd(cfg.publicPath, '/') || '/',
-    koaStatic(dist)
+    koaStatic(dist, { maxAge: 2592000000 })
   ))
-  koa.use(async ctx => {
-    if (ctx.status >= 404 && cfg.error) {
-      if ((ctx.headers.accept || '').includes('text/html')) {
-        await koaSend(ctx, cfg.error.html, { root: dist })
+  if (cfg.error) {
+    const errCfg = cfg.error
+    const fileExp = /.+\.[0-9a-zA-Z]+$/
+    koa.use(async ctx => {
+      if (ctx.status >= 404 && !fileExp.test(ctx.path)) {
+        if ((ctx.headers.accept || '').includes('text/html')) {
+          await koaSend(ctx, errCfg.html, { root: dist })
+        }
       }
-    }
-  })
+    })
+  }
   return koa
 }
 

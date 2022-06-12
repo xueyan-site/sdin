@@ -2,8 +2,6 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-在 react-csr 项目（或者专用于 react-csr 项目的包）里，你可以把这些宏当成全局常量直接使用。
-
 | 宏名 | 值 | 描述 |
 | - | - | - |
 | XT_ID | project.id | 项目ID（package.name） |
@@ -20,7 +18,9 @@ const MARK1 = `
 | XT_ASSETS_PATH | project.assetsPath | 项目的素材路径（以'/'开头和结尾） |
 | XT_TRACK_PATH | project.trackPath | 项目打点的路径（关闭打点后，值为""） |
 
-用 XT_ASSETS_PATH 举例：
+在 react-csr 项目中，或者专用于 react-csr 项目的包里，可以直接使用这些宏（相当于全局常量）。
+
+用 \`XT_ASSETS_PATH\` 举例：
 
 \`xt\` 会把 react-csr 项目下的 \`pub/ast\` 目录作为公共目录。
 

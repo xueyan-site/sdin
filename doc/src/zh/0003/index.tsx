@@ -12,10 +12,10 @@ $ xt create
 
 选择项目类型。此处请选择 \`react-csr\`。
 
-> react-csr 的意思是在客户端渲染的 React 网页应用程序，这样命名是为了与服务端渲染模式（SSR）进行区分。
+> react-csr 的意思是“在客户端渲染的 React 网页应用程序”，这样命名，是为了区别于服务端渲染模式（SSR）。
 
 \`\`\`shell
-✔ what kind of project do you want to create · react-csr
+what kind of project do you want to create · react-csr
 \`\`\`
 
 按提示填写项目的名称，项目的路径等信息。
@@ -23,14 +23,16 @@ $ xt create
 \`\`\`shell
 ✔ what is the name of your project · xxx
 ✔ where do you want the project to be generated · /Users/abc/xxx
-✔ please tell me the name of the author · abc
-✔ please tell me the author's email · abc@abc.site
+✔ please tell me the name of author · abc
+✔ please tell me the email of author · abc@abc.site
 \`\`\`
 
-填完上述信息之后，\`xt\` 开始初始化项目。经过一段时间的等待后，项目就创建好了。
+填完上述信息之后，\`xt\` 开始初始化项目。
 
-> 在此过程中，可能会存在网络卡顿的情况，一般是由于网络环境不好导致的，可以按 \`Control\` + \`c\` 结束创建流程。  
-> 中断下载过程对项目无碍，项目已经建立好了，只是没有依赖模块。可以在网络恢复后，进入项目根目录下，手动下载。  
+经过一段时间的等待后，项目就创建好了。
+
+> 在此过程中，可能会存在网络卡顿的情况，一般是由于网络环境不好导致的，可以按 \`Control + c\` 结束创建流程。  
+> 中断下载过程对项目无碍，项目已经建立好了，只是没有依赖模块。可以在网络恢复后，手动下载。  
 
 ## 启动项目
 
@@ -38,8 +40,7 @@ $ xt create
 
 \`\`\`shell
 $ xt dev
-✔ xxx compiler created successfully
-✔ xxx compiler listening on http://127.0.0.1:8080/
+✔ xxx listening on http://127.0.0.1:8080/
 \`\`\`
 
 如上所示，服务器已经启动起来了，请在浏览器中打开命令行中提示的网址。
