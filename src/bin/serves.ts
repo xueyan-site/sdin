@@ -11,7 +11,6 @@ cmd
   .description('search projects and open web server')
   .arguments('[path]')
   .option('-p, --port <number>', 'server port')
-  .option('-h, --httpPort <number>', 'http server port')
   .option('-k, --SSLKey <filePath>', 'SSL private key file path')
   .option('-c, --SSLCert <filePath>', 'SSL certification file path')
   .action(action)
