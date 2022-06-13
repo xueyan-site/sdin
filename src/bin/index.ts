@@ -59,6 +59,9 @@ cmd
   .command('serves', 'serve multi projects', {
     executableFile: './serves'
   })
+  .command('http2https', 'redirect http to https', {
+    executableFile: './http2https'
+  })
   .command('track', 'open tracking service', {
     executableFile: './track'
   })

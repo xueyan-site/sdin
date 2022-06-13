@@ -18,6 +18,7 @@ Commands:
   serve           open project server
   serves          serve multi projects
   track           open tracking service
+  http2https      redirect http to https
   help [command]  display help for command
 \`\`\`
 
@@ -96,6 +97,18 @@ react-csr：监听源码的变更，以开发模式构建项目，给开发者�
 然后在该文件夹下，启动本命令，便可以访问它们了。
 
 若传入 SSLKey 和 SSLCert 参数，则会启动 https 服务器对外提供服务，否则启动 http 服务器。
+
+## xt http2https
+
+将 http 请求重定向为 https
+
+| 参数 | 类型 | 说明 |
+| - | - | - |
+| path | \`? string\` | 允许重定向的路径，默认全部路径 |
+| -p, --port | \`? number\` | 服务器端口号，默认 80 |
+| -h, --help | \`? boolean\` | 显示帮助信息 |
+
+如果网站配置了 SSL，你可能还需要使用它，将 http 请求重定向到 https
 
 ## xt track
 
