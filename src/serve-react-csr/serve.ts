@@ -35,13 +35,14 @@ export async function serveReactCSR(
     serve.port = port
   }
   const koa = await createKoa(root, cfg)
-  const server = (!serve.SSLKey || !serve.SSLCert)
+  const useSSl = Boolean(serve.SSLKey && serve.SSLCert)
+  const server = !useSSl
     ? http.createServer(koa.callback())
     : https.createServer({
-        key: readFileSync(resolve(root, serve.SSLKey)),
-        cert: readFileSync(resolve(root, serve.SSLCert))
+        key: readFileSync(resolve(root, serve.SSLKey || '')),
+        cert: readFileSync(resolve(root, serve.SSLCert || ''))
       }, koa.callback())
-  const origin = `http://127.0.0.1:${serve.port}${cfg.publicPath}`
+  const origin = `${useSSl ? 'https' : 'http'}://127.0.0.1:${serve.port}${cfg.publicPath}`
   await printTask({
     failed: `${cfg.name} serve ${red('failed')}`,
     success: `${cfg.name} listening on ${green(origin)}`,
