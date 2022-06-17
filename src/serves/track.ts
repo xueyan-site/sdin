@@ -1,8 +1,7 @@
 import ora from 'ora'
 import { resolve } from 'path'
-import { Context, Middleware } from 'koa'
+import { Context } from 'koa'
 import KoaRouter from 'koa-router'
-import koaCompose from 'koa-compose'
 import { get, isFunction, isArray } from 'lodash'
 import { existsSync, readFileSync } from 'fs-extra'
 import { Client as ElasticSearch } from '@elastic/elasticsearch'
@@ -10,9 +9,9 @@ import { CMD_PATH } from '../utils/path'
 import type { ClientOptions as ESClientOptions } from '@elastic/elasticsearch'
 import type { ReactCSRProjectConfig } from 'src/react-csr'
 
-export async function createTracker(
+export async function getTrackRouter(
   cfgs: ReactCSRProjectConfig[]
-): Promise<Middleware<any, any> | undefined> {
+): Promise<KoaRouter<any, any> | undefined> {
   const cs = cfgs.filter(i => i.trackPath)
   if (cs.length < 1) {
     return
@@ -28,10 +27,7 @@ export async function createTracker(
     router.get(cfg.trackPath, ctx => saveTrackData(es, ctx, cfg.id))
     router.post(cfg.trackPath, ctx => operateTrackData(es, ctx))
   })
-  return koaCompose([
-    router.routes(),
-    router.allowedMethods()
-  ])
+  return router
 }
 
 /**

@@ -12,6 +12,8 @@ import type { AppInfo } from './apps'
 
 export interface  ServesProps {
   root: string
+  /** 启用日志 */
+  log?: boolean
   /** 指定端口 */
   port?: number
   /** SSL 私钥文件路径 */
@@ -27,12 +29,12 @@ export interface  ServesResult {
 }
 
 export async function serves(
-  { root, port: _port, SSLKey, SSLCert }:  ServesProps
+  { root, log, port: _port, SSLKey, SSLCert }:  ServesProps
 ): Promise<ServesResult> {
   const useSSl = Boolean(SSLKey && SSLCert)
   const port = _port || (useSSl ? 443 : 80)
   const apps = searchApps(root)
-  const koa = await createKoa(apps, port, SSLKey, SSLCert)
+  const koa = await createKoa({ apps, log, port, SSLKey, SSLCert })
   const server = !useSSl
     ? http.createServer(koa.callback())
     : https.createServer({

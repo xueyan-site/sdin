@@ -7,6 +7,12 @@ import { getReactCSRProjectConfigSync } from '../react-csr'
 import type { PackageInfo } from '../utils/package'
 import type { ReactCSRProjectConfig } from '../react-csr'
 
+export interface AppInfo {
+  root: string
+  pkg: PackageInfo
+  cfg: ReactCSRProjectConfig
+}
+
 function search(path: string, result: string[] = []) {
   if (statSync(path).isDirectory()) {
     if (existsSync(resolve(path, 'project.js'))) {
@@ -21,12 +27,6 @@ function search(path: string, result: string[] = []) {
     }
   }
   return result
-}
-
-export interface AppInfo {
-  root: string
-  pkg: PackageInfo
-  cfg: ReactCSRProjectConfig
 }
 
 export function searchApps(root: string): AppInfo[] {

@@ -1,6 +1,6 @@
 {
   "name": "xueyan-typescript-cli",
-  "version": "2.4.5",
+  "version": "2.4.6",
   "author": "xueyan-site <xueyan@xueyan.site>",
   "license": "LGPL-3.0",
   "description": "typescript application or package command line tool",
@@ -64,6 +64,7 @@
     "koa-compose": "4.1.0",
     "koa-conditional-get": "3.0.0",
     "koa-etag": "4.0.0",
+    "koa-logger": "^3.2.1",
     "koa-mount": "4.0.0",
     "koa-proxy": "1.0.0-alpha.3",
     "koa-router": "10.1.1",
@@ -103,6 +104,7 @@
     "@types/koa-compose": "3.2.5",
     "@types/koa-conditional-get": "2.0.0",
     "@types/koa-etag": "3.0.0",
+    "@types/koa-logger": "^3.1.2",
     "@types/koa-mount": "4.0.0",
     "@types/koa-proxy": "1.0.0",
     "@types/koa-router": "7.4.4",

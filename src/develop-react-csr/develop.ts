@@ -13,6 +13,8 @@ import type { ReactCSRProjectConfig } from '../react-csr'
 
 export interface DevelopReactCSRProps {
   root: string
+  /** 启用日志 */
+  log?: boolean
   /** 指定端口（优先级高于配置） */
   port?: number
 }
@@ -26,7 +28,7 @@ export interface DevelopReactCSRResult {
 }
 
 export async function developReactCSR(
-  { root, port }: DevelopReactCSRProps
+  { root, log, port }: DevelopReactCSRProps
 ): Promise<DevelopReactCSRResult> {
   const pkg = getPackageInfoSync(root)
   const cfg = getReactCSRProjectConfigSync(root, pkg)
@@ -36,7 +38,7 @@ export async function developReactCSR(
   }
   await precheckReactCSR(root, pkg)
   const compiler = await createCompiler(root, pkg, cfg)
-  const koa = createKoa(root, cfg, compiler)
+  const koa = createKoa({ root, log, cfg, compiler })
   const server = http.createServer(koa.callback())
   const origin = `http://127.0.0.1:${develop.port}${cfg.publicPath}`
   await printTask({

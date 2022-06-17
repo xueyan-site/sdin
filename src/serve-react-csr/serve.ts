@@ -14,6 +14,8 @@ import type { ReactCSRProjectConfig } from '../react-csr'
 
 export interface  ServeReactCSRProps {
   root: string
+  /** 启用日志 */
+  log?: boolean
   /** 指定端口（优先级高于配置） */
   port?: number
 }
@@ -26,7 +28,7 @@ export interface  ServeReactCSRResult {
 }
 
 export async function serveReactCSR(
-  { root, port }:  ServeReactCSRProps
+  { root, log, port }:  ServeReactCSRProps
 ): Promise< ServeReactCSRResult> {
   const pkg = getPackageInfoSync(root)
   const cfg = getReactCSRProjectConfigSync(root, pkg)
@@ -34,7 +36,7 @@ export async function serveReactCSR(
   if (port) {
     serve.port = port
   }
-  const koa = await createKoa(root, cfg)
+  const koa = await createKoa({ root, log, cfg })
   const useSSl = Boolean(serve.SSLKey && serve.SSLCert)
   const server = !useSSl
     ? http.createServer(koa.callback())

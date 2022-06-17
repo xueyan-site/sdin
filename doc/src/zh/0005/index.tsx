@@ -17,8 +17,8 @@ Commands:
   build           build project to production line
   serve           open project server
   serves          serve multi projects
-  track           open tracking service
   http2https      redirect http to https
+  track           open tracking service
   help [command]  display help for command
 \`\`\`
 
@@ -46,6 +46,7 @@ Commands:
 | 参数 | 类型 | 说明 |
 | - | - | - |
 | path | \`? string\` | 项目路径 |
+| -l, --log | \`? boolean\` | 开启请求日志 |
 | -p, --port | \`? number\` | 服务器端口号（对应用程序有效） |
 | -h, --help | \`? boolean\` | 显示帮助信息 |
 
@@ -73,6 +74,7 @@ react-csr：监听源码的变更，以开发模式构建项目，给开发者�
 | 参数 | 类型 | 说明 |
 | - | - | - |
 | path | \`? string\` | 项目路径 |
+| -l, --log | \`? boolean\` | 开启请求日志 |
 | -p, --port | \`? number\` | 服务器端口号 |
 | -h, --help | \`? boolean\` | 显示帮助信息 |
 
@@ -83,6 +85,7 @@ react-csr：监听源码的变更，以开发模式构建项目，给开发者�
 | 参数 | 类型 | 说明 |
 | - | - | - |
 | path | \`? string\` | 搜索项目的路径 |
+| -l, --log | \`? boolean\` | 开启请求日志 |
 | -p, --port | \`? number\` | 服务器端口号 |
 | -k, --SSLKey | \`? string\` | SSL 私钥文件路径 |
 | -c, --SSLCert | \`? string\` | SSL 证书文件路径 |
