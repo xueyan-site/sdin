@@ -2,29 +2,29 @@ export {};
 
 declare global {
   /** package.json.name */
-  const XT_ID: string
+  const P_ID: string
   /** project.js.type */
-  const XT_TYPE: string
+  const P_TYPE: string
   /** project runtime env, web or node */
-  const XT_ENV: 'web' | 'node'
+  const P_ENV: 'web' | 'node'
   /** project is in dev mode or not */
-  const XT_DEV: boolean
+  const P_DEV: boolean
   /** project name, usually package.json.name, you can customize in project.js */
-  const XT_NAME: string
+  const P_NAME: string
   /** package.json.author, e.g. author <xxx@xxx.xxx> */
-  const XT_AUTHOR: string
+  const P_AUTHOR: string
   /** project author, e.g. author */
-  const XT_AUTHOR_NAME: string
+  const P_AUTHOR_NAME: string
   /** project author, e.g. xxx@xxx.xxx */
-  const XT_AUTHOR_EMAIL: string
+  const P_AUTHOR_EMAIL: string
   /** package.json.version */
-  const XT_VERSION: string
+  const P_VERSION: string
   /** project fold path in file system */
-  const XT_ROOT: string
+  const P_ROOT: string
   /** project public path (start and end with \/), please see project.js.path */
-  const XT_PUBLIC_PATH: string
+  const P_PUBLIC_PATH: string
   /** project assets path (start and end with \/) */
-  const XT_ASSETS_PATH: string
+  const P_ASSETS_PATH: string
   /** project track path, (value "" after closing the hit) */
-  const XT_TRACK_PATH: string
+  const P_TRACK_PATH: string
 }

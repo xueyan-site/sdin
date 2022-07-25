@@ -4,26 +4,26 @@ import { Article, Segment } from 'xueyan-react-markdown'
 const MARK1 = `
 在开始安装之前，请检查电脑上是否安装 Node 和 NPM（ 或者 Yarn）。
 
-\`xt\` 需要 [Node.js](https://nodejs.org) v10.13.0 (LTS) 或更高版本。
+\`sdin\` 需要 [Node.js](https://nodejs.org) v10.13.0 (LTS) 或更高版本。
 
 你可以使用 [n](https://github.com/tj/n)，[nvm](https://github.com/creationix/nvm) 或 [nvm-windows](https://github.com/coreybutler/nvm-windows) 在一个系统中管理多个 Node 版本。
 
 ## 安装本包
 
 \`\`\`shell
-$ npm install -g xueyan-typescript-cli
+$ npm install -g sdin
 \`\`\`
 
 你可以用这个命令来查看当前本包版本：
 
 \`\`\`shell
-$ xt --version
+$ sdin --version
 \`\`\`
 
 ## 升级本包
 
 \`\`\`shell
-$ npm update -g xueyan-typescript-cli
+$ npm update -g sdin
 \`\`\`
 
 ## 找不到本包
@@ -45,7 +45,7 @@ $ npm config set registry https://registry.npmjs.org
 如果只想本次下载时采用此源，可以在安装时临时指定镜像源。
 
 \`\`\`shell
-$ npm install -g xueyan-typescript-cli --registry https://registry.npmjs.org
+$ npm install -g sdin --registry https://registry.npmjs.org
 \`\`\`
 
 ## 下载速度太慢
@@ -59,14 +59,14 @@ $ npm config set registry https://registry.npm.taobao.org
 在安装时临时指定镜像源。
 
 \`\`\`shell
-$ npm install -g xueyan-typescript-cli --registry https://registry.npm.taobao.org
+$ npm install -g sdin --registry https://registry.npm.taobao.org
 \`\`\`
 
 你也可以选择用 CNPM 代替 NPM 。
 
 \`\`\`shell
 $ npm install -g cnpm --registry=https://registry.npm.taobao.org
-$ cnpm install -g xueyan-typescript-cli
+$ cnpm install -g sdin
 \`\`\`
 
 ## 查询本包信息
@@ -74,19 +74,19 @@ $ cnpm install -g xueyan-typescript-cli
 查看远程镜像源中，本包的最新版本：
 
 \`\`\`shell
-$ npm info xueyan-typescript-cli version
+$ npm info sdin version
 \`\`\`
 
 查看远程镜像源中，本包的最新版本详细信息：
 
 \`\`\`shell
-$ npm info xueyan-typescript-cli
+$ npm info sdin
 \`\`\`
 
 查看本地本包的版本列表和位置
 
 \`\`\`shell
-$ npm list -g xueyan-typescript-cli
+$ npm list -g sdin
 \`\`\`
 `
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
-\`xt\` 支持开发的包类型有：\`Node 工具包\`、\`Web 工具包\`、\`命令行工具\`、\`React 组件\`
+\`sdin\` 支持开发的包类型有：\`Node 工具包\`、\`Web 工具包\`、\`命令行工具\`、\`React 组件\`
 
 此处介绍 react 组件的开发过程，其它类型的包的开发过程与其相同  
 
@@ -11,7 +11,7 @@ const MARK1 = `
 运行以下命令：
 
 \`\`\`shell
-$ xt create
+$ sdin create
 \`\`\`
 
 选择项目类型以及项目模版。此处请选择 \`package\` 和 \`react-package\`。
@@ -30,17 +30,17 @@ $ xt create
 ✔ please tell me the email of author · abc@abc.site
 \`\`\`
 
-填完上述信息之后，\`xt\` 开始初始化项目。经过一段时间的等待后，项目就创建好了。
+填完上述信息之后，\`sdin\` 开始初始化项目。经过一段时间的等待后，项目就创建好了。
 
 > 在此过程中，可能会存在网络卡顿的情况，一般是由于网络环境不好导致的，可以按 \`Control\` + \`c\` 结束创建流程。  
 > 中断下载过程对项目无碍，项目已经建立好了，只是没有依赖模块。可以在网络恢复后，进入项目根目录下，手动下载。  
 
 ## 启动项目
 
-进入项目根目录，输入 \`xt dev doc\`。
+进入项目根目录，输入 \`sdin dev doc\`。
 
 \`\`\`shell
-$ xt dev doc
+$ sdin dev doc
 ✔ xxx-doc listening on http://127.0.0.1:8080/
 \`\`\`
 
@@ -69,7 +69,7 @@ $ git commit -m 'feat: save project'
 输入构建命令。  
 
 \`\`\`shell
-$ xt build
+$ sdin build
 \`\`\`
 
 完成之后，在项目根目录下，会生成dist文件夹，这就是项目产物。  

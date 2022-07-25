@@ -5,16 +5,16 @@
   "description": "<%= name %> document",
   "private": true,
   "scripts": {
-    "dev": "xt dev",
-    "build": "xt build",
-    "serve": "xt serve"
+    "dev": "sdin dev",
+    "build": "sdin build",
+    "serve": "sdin serve"
   },
   "dependencies": {
     "classnames": "^2.3.0",
     "lodash": "^4.14.0",
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0",
-    "xueyan-react": "^1.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sdin-react": "^1.0.0",
     "xueyan-react-doc": "^2.1.3",
     "xueyan-react-markdown": "^3.0.2",
     "xueyan-react-playground": "^1.1.2",

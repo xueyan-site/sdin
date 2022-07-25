@@ -7,7 +7,7 @@ const MARK1 = `
 运行以下命令：
 
 \`\`\`shell
-$ xt create
+$ sdin create
 \`\`\`
 
 选择项目类型。此处请选择 \`react-csr\`。
@@ -27,7 +27,7 @@ what kind of project do you want to create · react-csr
 ✔ please tell me the email of author · abc@abc.site
 \`\`\`
 
-填完上述信息之后，\`xt\` 开始初始化项目。
+填完上述信息之后，\`sdin\` 开始初始化项目。
 
 经过一段时间的等待后，项目就创建好了。
 
@@ -36,10 +36,10 @@ what kind of project do you want to create · react-csr
 
 ## 启动项目
 
-进入项目根目录，输入 \`xt dev\`。
+进入项目根目录，输入 \`sdin dev\`。
 
 \`\`\`shell
-$ xt dev
+$ sdin dev
 ✔ xxx listening on http://127.0.0.1:8080/
 \`\`\`
 
@@ -64,7 +64,7 @@ $ git commit -m 'feat: save project'
 输入构建命令。  
 
 \`\`\`shell
-$ xt build
+$ sdin build
 \`\`\`
 
 完成之后，在项目根目录下，会生成dist文件夹，这就是项目产物。  
@@ -72,22 +72,22 @@ $ xt build
 最后，启动服务器。
 
 \`\`\`shell
-$ xt serve
+$ sdin serve
 \`\`\`
 
 ## 额外补充
 
 ### 配置文件
 
-项目的配置文件是 \`project.js\`，\`xt\` 会按照文件中的配置，执行相应功能。
+项目的配置文件是 \`project.js\`，\`sdin\` 会按照文件中的配置，执行相应功能。
 
 项目的每个页面也有配置文件，一般可以省略。页面配置文件是 \`src/xxx-page/page.js\`。
 
 ### 目录结构上的限制
 
-为了防止多人协作时目录结构被破坏，\`xt\` 限制开发者只能用数字、小写字母和点号命名文件和文件夹。  
+为了防止多人协作时目录结构被破坏，\`sdin\` 限制开发者只能用数字、小写字母和点号命名文件和文件夹。  
 
-\`xt\` 没有提供指定生产产物路径的配置，生成的产物只能位于 \`dist\` 路径下。  
+\`sdin\` 没有提供指定生产产物路径的配置，生成的产物只能位于 \`dist\` 路径下。  
 
 不能修改 \`src\`、\`pub\`、\`pub/ast\` 文件夹的名称。   
 
@@ -95,7 +95,7 @@ $ xt serve
 
 ### 宏
 
-\`xt\` [为项目提供了宏](?doc=0010)，你可以将其当成已经定义过的全局常量来用。
+\`sdin\` [为项目提供了宏](?doc=0010)，你可以将其当成已经定义过的全局常量来用。
 
 ### 静态资源
 

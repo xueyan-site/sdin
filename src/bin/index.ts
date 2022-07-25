@@ -25,20 +25,19 @@ if (noti.update) {
 console.log()
 
 // 命令行的帮助信息
-const HELP_INFO = `
-██╗  ██╗████████╗
-╚██╗██╔╝╚══██╔══╝
- ╚███╔╝    ██║   
- ██╔██╗    ██║   
-██╔╝ ██╗   ██║   
-╚═╝  ╚═╝   ╚═╝   
+const HELP_INFO = green(`
+███████  ██████   ██  ███    ██ 
+██       ██   ██  ██  ████   ██ 
+███████  ██   ██  ██  ██ ██  ██ 
+     ██  ██   ██  ██  ██  ██ ██ 
+███████  ██████   ██  ██   ████ 
 
 name:        ${pkg.name}
 version:     ${pkg.version}
-license:     ${pkg.license || 'private'}
+license:     ${pkg.license}
 author:      ${pkg.author}
 description: ${pkg.description || '--'}
-`
+`)
 
 cmd
   .command('create', 'create project', {

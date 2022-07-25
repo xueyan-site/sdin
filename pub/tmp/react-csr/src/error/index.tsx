@@ -7,7 +7,7 @@ export default function Index() {
   return (
     <NarrowScreen>
       <div className={styles.wrapper}>
-        <img className={styles.icon} src={`${XT_ASSETS_PATH}favicon.png`} />
+        <img className={styles.icon} src={`${P_ASSETS_PATH}favicon.png`} />
         <div className={styles.title}>ERROR</div>
         <div className={styles.desc}>😭 Page not found or crashed</div>
         <div className={styles.note}>Please check your network and URL</div>

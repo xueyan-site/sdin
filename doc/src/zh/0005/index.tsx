@@ -3,8 +3,8 @@ import { Article, Segment } from 'xueyan-react-markdown'
 
 const MARK1 = `
 \`\`\`shell
-$ xt
-Usage: xt [options] [command]
+$ sdin
+Usage: sdin [options] [command]
 
 Options:
   -V, --version   output the version number
@@ -22,7 +22,7 @@ Commands:
   help [command]  display help for command
 \`\`\`
 
-## xt create
+## sdin create
 
 创建新的项目
 
@@ -39,7 +39,7 @@ Commands:
   - package（Node 工具、Web 工具）
   - react-package（React 组件、React 工具）
 
-## xt dev
+## sdin dev
 
 启动项目，供开发者开发
 
@@ -54,11 +54,11 @@ package：监听源码的变更，刷新构建的产物。
 
 react-csr：监听源码的变更，以开发模式构建项目，给开发者提供可实时预览的用户界面。
 
-## xt start
+## sdin start
 
-\`xt dev\` 命令的别名
+\`sdin dev\` 命令的别名
 
-## xt build
+## sdin build
 
 构建项目产物，将代码打包成对外使用的成品
 
@@ -67,7 +67,7 @@ react-csr：监听源码的变更，以开发模式构建项目，给开发者�
 | path | \`? string\` | 项目路径 |
 | -h, --help | \`? boolean\` | 显示帮助信息 |
 
-## xt serve
+## sdin serve
 
 以应用程序产物为资料，启动服务器，对外提供静态资源服务。（对应用程序有效）
 
@@ -78,7 +78,7 @@ react-csr：监听源码的变更，以开发模式构建项目，给开发者�
 | -p, --port | \`? number\` | 服务器端口号 |
 | -h, --help | \`? boolean\` | 显示帮助信息 |
 
-## xt serves
+## sdin serves
 
 自动搜索应用程序，以它们的产物为资料，启动服务器，对外提供静态资源服务。（对应用程序有效）
 
@@ -95,13 +95,13 @@ react-csr：监听源码的变更，以开发模式构建项目，给开发者�
 
 比如，有项目 a、b、c，分别使用公共路径 \`/a/\`，\`/b/\`，\`/\`。
 
-将项目 a、b、c 放置于同一文件夹下（可以是不同层级），分别用 \`xt build\` 构建产物。
+将项目 a、b、c 放置于同一文件夹下（可以是不同层级），分别用 \`sdin build\` 构建产物。
 
 然后在该文件夹下，启动本命令，便可以访问它们了。
 
 若传入 SSLKey 和 SSLCert 参数，则会启动 https 服务器对外提供服务，否则启动 http 服务器。
 
-## xt http2https
+## sdin http2https
 
 将 http 请求重定向为 https
 
@@ -113,7 +113,7 @@ react-csr：监听源码的变更，以开发模式构建项目，给开发者�
 
 如果网站配置了 SSL，你可能还需要使用它，将 http 请求重定向到 https
 
-## xt track
+## sdin track
 
 为应用程序提供日志的存储和查询功能
 

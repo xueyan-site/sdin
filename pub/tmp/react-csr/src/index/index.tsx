@@ -8,10 +8,10 @@ export default function Index(props: PageProps) {
   return (
     <NarrowScreen>
       <div className={styles.wrapper}>
-        <img className={styles.icon} src={`${XT_ASSETS_PATH}favicon.png`} />
+        <img className={styles.icon} src={`${P_ASSETS_PATH}favicon.png`} />
         <div className={styles.title}>{props.page.name}</div>
-        <div className={styles.desc}>😊 Welcom to {XT_NAME}</div>
-        <div className={styles.note}>{XT_AUTHOR}</div>
+        <div className={styles.desc}>😊 Welcom to {P_NAME}</div>
+        <div className={styles.note}>{P_AUTHOR}</div>
         <SwitchTheme />
       </div>
     </NarrowScreen>

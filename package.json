@@ -1,6 +1,6 @@
 {
-  "name": "xueyan-typescript-cli",
-  "version": "2.4.6",
+  "name": "sdin",
+  "version": "1.0.0",
   "author": "xueyan-site <xueyan@xueyan.site>",
   "license": "LGPL-3.0",
   "description": "typescript application or package command line tool",
@@ -11,26 +11,20 @@
     "pub/**/*"
   ],
   "keywords": [
-    "cli",
-    "command",
-    "typescript",
-    "create",
-    "build",
-    "node",
-    "react",
-    "package",
-    "application"
+    "sdin",
+    "xueyan",
+    "typescript"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/xueyan-site/xueyan-typescript-cli.git"
+    "url": "https://github.com/xueyan-site/sdin.git"
   },
   "bin": {
-    "xt": "./dist/node/bin/index.js"
+    "sdin": "./dist/node/bin/index.js"
   },
   "scripts": {
-    "dev": "xt dev",
-    "build": "xt build"
+    "dev": "sdin dev",
+    "build": "sdin build"
   },
   "dependencies": {
     "@babel/core": "7.16.0",

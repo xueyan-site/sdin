@@ -16,9 +16,9 @@ export async function precheckReactCSR(
   if (['react', 'react-dom'].some(i => !getDepVersion(pkg, i))) {
     printExit('please install react、react-dom dependence')
   }
-  // xueyan-react 作为 react-csr 项目的基础包，必须安装，否则编译会报错
-  if (!getDepVersion(pkg, 'xueyan-react')) {
-    printExit('please install xueyan-react')
+  // sdin-react 作为 react-csr 项目的基础包，必须安装，否则编译会报错
+  if (!getDepVersion(pkg, 'sdin-react')) {
+    printExit('please install sdin-react')
   }
   const list = await getIrregularFileNames(resolve(root, 'src'), 'src')
   if (list.length > 0) {

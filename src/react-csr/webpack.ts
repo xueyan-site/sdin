@@ -144,19 +144,19 @@ export function getWebpackDefinePlugin(
   dev: boolean
 ): DefinePlugin {
   return new DefinePlugin({
-    XT_ID: JSON.stringify(cfg.id), // 项目ID，一般是package.name
-    XT_TYPE: JSON.stringify(cfg.type), // 项目类型，此处是react-csr
-    XT_NAME: JSON.stringify(cfg.name), // 项目名称
-    XT_VERSION: JSON.stringify(pkg.version), // 项目版本
-    XT_AUTHOR: JSON.stringify(pkg.author), // 项目作者 author <email>
-    XT_AUTHOR_NAME: JSON.stringify(pkg.authorName), // 项目作者名称
-    XT_AUTHOR_EMAIL: JSON.stringify(pkg.authorEmail), // 项目作者邮箱
-    XT_ROOT: JSON.stringify(root), // 项目根目录
-    XT_ENV: JSON.stringify('web'), // 项目打包结果运行环境，web、node
-    XT_DEV: JSON.stringify(dev), // 项目是否以开发态进行构建，不是则代表是正式态
-    XT_PUBLIC_PATH: JSON.stringify(cfg.publicPath), // 项目url中的公共路径（以'/'开头和结尾）
-    XT_ASSETS_PATH: JSON.stringify(cfg.assetsPath), // 项目的素材路径（以'/'开头和结尾）
-    XT_TRACK_PATH: JSON.stringify(cfg.trackPath), // 项目的打点路径（关闭打点后，值为""）
+    P_ID: JSON.stringify(cfg.id), // 项目ID，一般是package.name
+    P_TYPE: JSON.stringify(cfg.type), // 项目类型，此处是react-csr
+    P_NAME: JSON.stringify(cfg.name), // 项目名称
+    P_VERSION: JSON.stringify(pkg.version), // 项目版本
+    P_AUTHOR: JSON.stringify(pkg.author), // 项目作者 author <email>
+    P_AUTHOR_NAME: JSON.stringify(pkg.authorName), // 项目作者名称
+    P_AUTHOR_EMAIL: JSON.stringify(pkg.authorEmail), // 项目作者邮箱
+    P_ROOT: JSON.stringify(root), // 项目根目录
+    P_ENV: JSON.stringify('web'), // 项目打包结果运行环境，web、node
+    P_DEV: JSON.stringify(dev), // 项目是否以开发态进行构建，不是则代表是正式态
+    P_PUBLIC_PATH: JSON.stringify(cfg.publicPath), // 项目url中的公共路径（以'/'开头和结尾）
+    P_ASSETS_PATH: JSON.stringify(cfg.assetsPath), // 项目的素材路径（以'/'开头和结尾）
+    P_TRACK_PATH: JSON.stringify(cfg.trackPath), // 项目的打点路径（关闭打点后，值为""）
   })
 }
 

@@ -21,8 +21,8 @@
     "<%= name %>": "./dist/node/bin/index.js"
   },
   "scripts": {
-    "dev": "xt dev",
-    "build": "xt build"
+    "dev": "sdin dev",
+    "build": "sdin build"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.0",

@@ -22,9 +22,9 @@ const MARK1 = `
 
 页面url中的路径后缀，默认值是页面文件夹名
 
-无论填写怎样的路径，在使用时，\`xt\` 都会确保其不以 / 开头，不以 / 结尾。
+无论填写怎样的路径，在使用时，\`sdin\` 都会确保其不以 / 开头，不以 / 结尾。
 
-比如，填写 /aaa/，\`xt\` 会将其转化为 aaa。
+比如，填写 /aaa/，\`sdin\` 会将其转化为 aaa。
 
 它会和项目url中的公共路径（project.path）进行拼接，形成页面的完整url。
 
@@ -57,23 +57,23 @@ interface NodeAttrs extends Record<string, string|boolean|undefined> {
 
 ## NodeAttrs 常量表
 
-\`xt\` 提供的常量，仅限于在 NodeAttrs 类型的对象中使用。
+\`sdin\` 提供的常量，仅限于在 NodeAttrs 类型的对象中使用。
 
 | 常量名 | 值 | 描述 |
 | - | - | - |
-| XT_ID | project.id | 项目ID（package.name） |
-| XT_TYPE | project.type | 项目类型，此处是react-csr |
-| XT_NAME | project.name | 项目名称 |
-| XT_AUTHOR | project.author | 项目作者名称 + 邮箱 |
-| XT_AUTHOR_NAME | project.authorName | 项目作者名称 |
-| XT_AUTHOR_EMAIL | project.authorEmail | 项目作者邮箱 |
-| XT_VERSION | project.version | 项目版本 |
-| XT_PUBLIC_PATH | project.publicPath | 项目url中的公共路径（以'/'开头和结尾） |
-| XT_ASSETS_PATH | project.assetsPath | 项目的素材路径（以'/'开头和结尾） |
+| P_ID | project.id | 项目ID（package.name） |
+| P_TYPE | project.type | 项目类型，此处是react-csr |
+| P_NAME | project.name | 项目名称 |
+| P_AUTHOR | project.author | 项目作者名称 + 邮箱 |
+| P_AUTHOR_NAME | project.authorName | 项目作者名称 |
+| P_AUTHOR_EMAIL | project.authorEmail | 项目作者邮箱 |
+| P_VERSION | project.version | 项目版本 |
+| P_PUBLIC_PATH | project.publicPath | 项目url中的公共路径（以'/'开头和结尾） |
+| P_ASSETS_PATH | project.assetsPath | 项目的素材路径（以'/'开头和结尾） |
 
 ## 标签属性
 
-\`xt\` 支持配置 \`metas\`、\`links\`、\`scripts\`、\`styles\` 四种标签属性。
+\`sdin\` 支持配置 \`metas\`、\`links\`、\`scripts\`、\`styles\` 四种标签属性。
 
 它们在 HTML 中的位置如下：
 
@@ -126,7 +126,7 @@ module.exports = {
       key: 'favicon',
       rel: "icon",
       type: "image/png",
-      href: "{{XT_ASSETS_PATH}}favicon.png"
+      href: "{{P_ASSETS_PATH}}favicon.png"
     }
   ]
 }
@@ -139,7 +139,7 @@ module.exports = {
 
 指定插入模版的 script 标签列表，它将会变成 HTML 文件中的多个 script 标签。
 
-它排在 \`xt\` 构建的脚本前面。
+它排在 \`sdin\` 构建的脚本前面。
 
 示例：
 
@@ -162,7 +162,7 @@ module.exports = {
 
 指定插入模版的 link 标签列表，它将会变成 HTML 文件中的多个 link 标签。  
 
-与 link 标签不同的是，它专用于写样式标签，\`xt\` 会对它做些处理。  
+与 link 标签不同的是，它专用于写样式标签，\`sdin\` 会对它做些处理。  
 
 它排在 links 生成的标签后面，scripts 生成的标签前面。
 
@@ -175,7 +175,7 @@ module.exports = {
     {
       key: 'global',
       rel: 'stylesheet',
-      href: '{{XT_ASSETS_PATH}}global.css'
+      href: '{{P_ASSETS_PATH}}global.css'
     }
   ]
 }
@@ -197,7 +197,7 @@ undefined | (
 
 HTML 骨架图渲染器
 
-\`xt\` 会将它的输出结果，注入 HTML 的 body 中，作为页面的初始内容展示给用户。
+\`sdin\` 会将它的输出结果，注入 HTML 的 body 中，作为页面的初始内容展示给用户。
 
 可以用它结合 puppeteer 和骨架屏组件，在打包时，做页面的预渲染工作。
 `

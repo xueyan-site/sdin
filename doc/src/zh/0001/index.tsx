@@ -9,7 +9,7 @@ import REACT_CSR_DEV_IMG from './react-csr-dev.webp'
 import REACT_CSR_BUILD_IMG from './react-csr-build.webp'
 
 const MARK1 = `
-\`xueyan-typescript-cli\`（简称 \`xt\`），是一个 \`Typescript\` 项目开发工具，可开发：
+\`sdin\`（简称 \`sdin\`），是一个 \`Typescript\` 项目开发工具，可开发：
 
 <p>
   <img src="${SUPPORT_IMG}" style="width:640px" />  
@@ -51,7 +51,7 @@ const MARK1 = `
 
 ## 开发者参考实例
 
-- [xueyan-typescript-cli](https://github.com/xueyan-site/xueyan-typescript-cli)
+- [sdin](https://github.com/xueyan-site/sdin)
 - [xueyan-react-doc](https://github.com/xueyan-site/xueyan-react-doc)
 - [xueyan-react-markdown](https://github.com/xueyan-site/xueyan-react-markdown)
 - [xueyan-react-style](https://github.com/xueyan-site/xueyan-react-style)

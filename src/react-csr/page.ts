@@ -13,7 +13,7 @@ export interface NodeAttrs extends Record<string, string|boolean|undefined> {
 export type ReactCSRPageSkeleton = (
   root: string,
   pkg: PackageInfo,
-  pjtCfg: ReactCSRProjectConfig,
+  prjCfg: ReactCSRProjectConfig,
   pgCfg: ReactCSRPageConfig,
   dev: boolean
 ) => string
@@ -81,21 +81,21 @@ interface PartProjectConfig {
 export function getReactCSRPageConfigSync(
   root: string,
   folder: string,
-  pjtCfg: PartProjectConfig
+  prjCfg: PartProjectConfig
 ): ReactCSRPageConfig {
   const pageRoot = resolve(root, 'src', folder)
   const ucfg = getUserConfigSync(pageRoot)
-  const dcfg = pjtCfg.page || {}
+  const dcfg = prjCfg.page || {}
   const privatePath = trim(ucfg.path || folder, '/ ')
   const name = ucfg.name || folder
   return {
     id: folder,
     name,
     privatePath,
-    path: posix.join(pjtCfg.publicPath, privatePath),
+    path: posix.join(prjCfg.publicPath, privatePath),
     entry: resolve(pageRoot, ucfg.entry || dcfg.entry || 'index.tsx'),
     html: folder + '.html',
-    title: ucfg.title || dcfg.title || `${name}・${pjtCfg.name}`,
+    title: ucfg.title || dcfg.title || `${name}・${prjCfg.name}`,
     metas: uniqNodeAttrs(ucfg.metas, dcfg.metas),
     links: uniqNodeAttrs(ucfg.links, dcfg.links),
     scripts: uniqNodeAttrs(ucfg.scripts, dcfg.scripts),
@@ -106,14 +106,14 @@ export function getReactCSRPageConfigSync(
 
 export function getReactCSRPageConfigListSync(
   root: string,
-  pjtCfg: PartProjectConfig
+  prjCfg: PartProjectConfig
 ): ReactCSRPageConfig[] {
   const list: ReactCSRPageConfig[] = []
   const src = resolve(root, 'src')
   const files = readdirSync(src)
   for (let i = 0; i < files.length; i++) {
     if (statSync(resolve(src, files[i])).isDirectory()) {
-      list.push(getReactCSRPageConfigSync(root, files[i], pjtCfg))
+      list.push(getReactCSRPageConfigSync(root, files[i], prjCfg))
     }
   }
   return list

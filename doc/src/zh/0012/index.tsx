@@ -52,9 +52,9 @@ module.exports = {
 
 项目url中的公共路径
 
-无论填写怎样的路径，\`xt\` 都会确保其以 / 开头，以 / 结尾。
+无论填写怎样的路径，\`sdin\` 都会确保其以 / 开头，以 / 结尾。
 
-比如，填写 aaa，\`xt\` 会将其转化为 /aaa/。
+比如，填写 aaa，\`sdin\` 会将其转化为 /aaa/。
 
 ## index
 
@@ -82,9 +82,9 @@ module.exports = {
 
 若未开启，使用 [xueyan-react](https://xueyan.site/xueyan-react) 工具打点时无效。
 
-打点功能需要配合 \`xt track\` 命令使用，要求机器安装 docker、Kibana 和 ElasticSearch，且会占用机器资源。  
+打点功能需要配合 \`sdin track\` 命令使用，要求机器安装 docker、Kibana 和 ElasticSearch，且会占用机器资源。  
 
-运行 \`xt track\` 命令时，工具会自行检测是否安装它们，以及告知用户安装方法。
+运行 \`sdin track\` 命令时，工具会自行检测是否安装它们，以及告知用户安装方法。
 
 ## develop
 
