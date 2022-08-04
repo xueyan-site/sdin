@@ -1,5 +1,5 @@
 import React, { Fragment, useLayoutEffect } from 'react'
-import 'xueyan-react-style'
+import 'solor'
 import './narrow-screen.scss'
 
 export function NarrowScreen({

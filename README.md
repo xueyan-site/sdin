@@ -2,7 +2,7 @@
 
 ![sdin](https://xueyan.site/sdin/ast/project.png)
 
-Typescript application or package command tool.
+Typescript application or package dev and build tool.
 
 ```shell
 npm i -g sdin

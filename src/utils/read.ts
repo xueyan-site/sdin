@@ -4,9 +4,6 @@ import { resolve, join, basename } from 'path'
 import { printExit } from './console'
 import type { Stats } from 'fs-extra'
 
-/**
- * 深度遍历的节点信息
- */
 export interface DeepReadNode {
   /** 文件名 xxx.js */
   name: string
@@ -20,6 +17,14 @@ export interface DeepReadNode {
   current: string
 }
 
+export type DeepReadFilter = (
+  node: DeepReadNode
+) => (boolean | Promise<boolean>)
+
+export type DeepReadHandler = (
+  node: DeepReadNode
+) => (void | Promise<void>)
+
 /**
  * 深度遍历读取各个文件的信息
  * 注：不会读取文件夹的信息
@@ -29,16 +34,16 @@ async function __deepRead__({
   source,
   offset,
   current,
-  filter,
-  handler
+  handler,
+  filter
 }: {
   name: string,
   source: string
   offset: string
   current: string
-  filter?: (node: DeepReadNode) => (boolean | Promise<boolean>)
-  handler: (node: DeepReadNode) => (void | Promise<void>)
-}) {
+  handler: DeepReadHandler // 处理文件
+  filter?: DeepReadFilter // 过滤文件（为true才执行，否则跳过）
+}): Promise<void> {
   const stats = statSync(current)
   if (filter) {
     const isContinue = await filter({
@@ -72,9 +77,9 @@ async function __deepRead__({
  */
 export function deepRead(
   source: string,
-  handler: (node: DeepReadNode) => (void | Promise<void>),
-  filter?: (node: DeepReadNode) => (boolean | Promise<boolean>)
-) {
+  handler: DeepReadHandler, // 处理文件
+  filter?: DeepReadFilter // 过滤文件（为true才执行，否则跳过）
+): Promise<void> {
   if (!existsSync(source)) {
     printExit('read failed: ' + source)
   }

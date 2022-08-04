@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import 'xueyan-react-style'
+import 'solor'
 import './wide-screen.scss'
 
 export function WideScreen({

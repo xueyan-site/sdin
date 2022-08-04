@@ -1,5 +1,5 @@
 import React from 'react'
-import { SwitchTheme } from 'xueyan-react-style'
+import { SwitchTheme } from 'solor'
 import { NarrowScreen } from 'com/narrow-screen'
 import styles from './index.scss'
 

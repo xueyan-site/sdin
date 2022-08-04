@@ -1,9 +1,9 @@
 import React from 'react'
 import { PageDoc } from 'com/page-doc'
-import { ConfigIcon, InterfaceIcon, ConstIcon } from 'xueyan-react-icon'
+import { ConfigIcon, InterfaceIcon, ConstIcon } from 'sicon'
 import pkg from '../../../package.json'
-import type { PageProps } from 'xueyan-react'
-import type { Collection } from 'xueyan-react-doc'
+import type { PageProps } from 'sdin-react'
+import type { Collection } from 'ark-doc'
 
 const INTERFACE_ICON = <InterfaceIcon color="var(--pink)"/>
 const CONFIG_ICON = <ConfigIcon color="var(--indigo)"/>

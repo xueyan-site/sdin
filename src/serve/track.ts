@@ -7,7 +7,7 @@ import { existsSync, readFileSync } from 'fs-extra'
 import { Client as ElasticSearch } from '@elastic/elasticsearch'
 import { CMD_PATH } from '../utils/path'
 import type { ClientOptions as ESClientOptions } from '@elastic/elasticsearch'
-import type { ReactCSRProjectConfig } from 'src/react-csr'
+import type { ReactCSRProjectConfig } from '../react-csr'
 
 export async function getTrackRouter(
   cfgs: ReactCSRProjectConfig[]

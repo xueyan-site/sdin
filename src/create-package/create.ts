@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { copyProject } from '../utils/project'
+import { copyProject } from '../project/create'
 import { downloadModules } from '../utils/package'
 import { createGitRepository } from '../utils/git'
 

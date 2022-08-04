@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { getDepVersion } from '../utils/package'
-import { getIrregularFileNames } from '../utils/project'
+import { getIrregularFileNames } from '../project/check'
 import { printExit } from '../utils/console'
 import type { PackageInfo } from '../utils/package'
 

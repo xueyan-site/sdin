@@ -1,10 +1,10 @@
 import React from 'react'
-import { Article, Segment } from 'xueyan-react-markdown'
+import { Article, Segment } from 'ark-markdown'
 
 const MARK1 = `
 | 宏名 | 值 | 描述 |
 | - | - | - |
-| P_ID | project.id | 项目ID（package.name） |
+| P_ID | project.id | 项目ID，即 package.name |
 | P_TYPE | project.type | 项目类型，此处是 react-csr |
 | P_NAME | project.name | 项目名称 |
 | P_VERSION | project.version | 项目版本 |

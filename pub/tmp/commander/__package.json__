@@ -30,12 +30,15 @@
     "dayjs": "^1.10.6",
     "fs-extra": "^9.0.1",
     "lodash": "^4.17.20",
-    "update-notifier": "^5.0.1"
+    "update-notifier": "^5.1.0",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
+    "@types/configstore": "^5.0.0",
     "@types/fs-extra": "^9.0.1",
     "@types/lodash": "^4.14.161",
-    "@types/update-notifier": "^5.0.0",
+    "@types/update-notifier": "^5.1.0",
+    "@types/validator": "^13.7.0",
     "typescript": "^4.0.3"
   }
 }

@@ -5,7 +5,7 @@ import koaProxy from 'koa-proxy'
 import koaBodyParser from 'koa-bodyparser'
 import koaConditional from 'koa-conditional-get'
 import koaETag from 'koa-etag'
-import { getTrackRouter } from './track'
+import { getTrackRouter } from '../serve/track'
 import { getAppDistMdw } from './dist'
 import type { AppInfo } from './apps'
 

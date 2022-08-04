@@ -2,7 +2,7 @@
  * global style config file.
  */
 
- html {
+html {
   /** 1rem = 10px */
   font-size: calc(100vw / 37.5);
   -webkit-text-size-adjust: 100%;

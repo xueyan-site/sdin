@@ -1,11 +1,11 @@
 import React from 'react'
-import 'xueyan-react-style'
-import { Doc } from 'xueyan-react-doc'
-import { Article, Segment } from 'xueyan-react-markdown'
+import 'solor'
+import { Doc } from 'ark-doc'
+import { Article, Segment } from 'ark-markdown'
 import pkg from '../../../package.json'
-import type { PageProps } from 'xueyan-react'
-import type { ImageLinkProps, DocConfig } from 'xueyan-react-doc'
-import type { SelectOption } from 'xueyan-react-select'
+import type { PageProps } from 'sdin-react'
+import type { ImageLinkProps, DocConfig } from 'ark-doc'
+import type { SelectOption } from 'ark-select'
 
 const ICON: ImageLinkProps = {
   src: P_ASSETS_PATH + 'project.png',

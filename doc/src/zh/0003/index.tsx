@@ -1,5 +1,5 @@
 import React from 'react'
-import { Article, Segment } from 'xueyan-react-markdown'
+import { Article, Segment } from 'ark-markdown'
 
 const MARK1 = `
 ## 创建一个新项目
@@ -107,9 +107,9 @@ $ sdin serve
 
 ### 样式主题
 
-模版内配了[样式主题包](https://xueyan.site/xueyan-react-style)，支持暗黑主题，需要配合 \`pub/com/narrow-screen\` 组件或者  \`pub/com/wide-screen\` 组件才能生效。
+模版内配了[样式主题包](https://xueyan.site/solor)，支持暗黑主题，需要配合 \`pub/com/narrow-screen\` 组件或者  \`pub/com/wide-screen\` 组件才能生效。
 
-若要去除，请删除这两个组件，并移除 \`xueyan-react-style\` 依赖包。
+若要去除，请删除这两个组件，并移除 \`solor\` 依赖包。
 
 ### 适配移动端
 

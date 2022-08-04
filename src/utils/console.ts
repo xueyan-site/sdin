@@ -15,7 +15,7 @@ process.on('uncaughtException', err => {
   process.exit()
 })
 
-export function printExit(msg?: any, code: number = -1): any {
+export function printExit(msg?: any, code: number = -1): never {
   process.exitCode = code
   throw msg
 }

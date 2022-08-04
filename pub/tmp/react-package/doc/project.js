@@ -5,8 +5,8 @@ module.exports = {
     'ast': 'pub/ast',
     'com': 'pub/com',
     'utl': 'pub/utl',
-    '<%= name %>': '../src',
-    'xueyan-react-style': '../node_modules/xueyan-react-style'
+    'solor': '../node_modules/solor',
+    '<%= name %>': '../src'
   },
   module: {
     externals: {
@@ -59,12 +59,12 @@ module.exports = {
       {
         key: 'react',
         defer: true,
-        src: 'https://cdn.bootcdn.net/ajax/libs/react/16.14.0/umd/react.production.min.js'
+        src: 'https://cdn.bootcdn.net/ajax/libs/react/18.2.0/umd/react.production.min.js'
       },
       {
         key: 'react-dom',
         defer: true,
-        src: 'https://cdn.bootcdn.net/ajax/libs/react-dom/16.14.0/umd/react-dom.production.min.js'
+        src: 'https://cdn.bootcdn.net/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js'
       },
       {
         key: 'classnames',

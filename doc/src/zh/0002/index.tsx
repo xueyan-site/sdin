@@ -1,10 +1,8 @@
 import React from 'react'
-import { Article, Segment } from 'xueyan-react-markdown'
+import { Article, Segment } from 'ark-markdown'
 
 const MARK1 = `
 \`sdin\` 支持开发的包类型有：\`Node 工具包\`、\`Web 工具包\`、\`命令行工具\`、\`React 组件\`
-
-此处介绍 react 组件的开发过程，其它类型的包的开发过程与其相同  
 
 ## 创建一个新项目
 
@@ -14,7 +12,9 @@ const MARK1 = `
 $ sdin create
 \`\`\`
 
-选择项目类型以及项目模版。此处请选择 \`package\` 和 \`react-package\`。
+选择项目类型以及项目模版。
+
+以\`React 组件\`为例，此处选择 \`package\` 和 \`react-package\`。
 
 \`\`\`shell
 ✔ what kind of project do you want to create · package

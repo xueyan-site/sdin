@@ -1,9 +1,7 @@
 import React from 'react'
-import { Article, Segment } from 'xueyan-react-markdown'
+import { Article, Segment } from 'ark-markdown'
 
 const MARK1 = `
-在开始安装之前，请检查电脑上是否安装 Node 和 NPM（ 或者 Yarn）。
-
 \`sdin\` 需要 [Node.js](https://nodejs.org) v10.13.0 (LTS) 或更高版本。
 
 你可以使用 [n](https://github.com/tj/n)，[nvm](https://github.com/creationix/nvm) 或 [nvm-windows](https://github.com/coreybutler/nvm-windows) 在一个系统中管理多个 Node 版本。

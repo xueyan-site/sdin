@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import chalk from 'chalk'
 import updateNotifier from 'update-notifier'
+import { blue, green } from 'chalk'
 import { Command } from 'commander'
 import { CMD_PATH } from '../utils/path'
 import { getPackageInfoSync } from '../utils/package'
@@ -15,22 +15,15 @@ if (noti.update) {
   const { current, latest, type, name } = noti.update
   console.log(`you can update ${name} to new ${type} version`)
   console.log([
-    `- version:  ${chalk.blue(current)} => ${chalk.green(latest)}`,
-    `- command:      npm i -g ${name}@latest`
+    `- version:  ${blue(current)} => ${green(latest)}`,
+    `- npm:      npm i -g ${name}@latest`
   ].join('\n'))
 } else {
-  console.log(`😊 ${pkg.name} ${pkg.version}`)
+  console.log(`${pkg.name} ${pkg.version}`)
 }
 console.log()
 
 const HELP_INFO = `
-██╗  ██╗████████╗
-╚██╗██╔╝╚══██╔══╝
- ╚███╔╝    ██║   
- ██╔██╗    ██║   
-██╔╝ ██╗   ██║   
-╚═╝  ╚═╝   ╚═╝   
-
 name:        ${pkg.name}
 version:     ${pkg.version}
 license:     ${pkg.license || 'private'}

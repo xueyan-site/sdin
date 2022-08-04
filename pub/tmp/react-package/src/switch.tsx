@@ -36,7 +36,7 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>(({
       style={style}
       className={cn(
         className,
-        styles.xrswitch,
+        styles.switch,
         value && styles.active,
       )}
       onClick={() => {

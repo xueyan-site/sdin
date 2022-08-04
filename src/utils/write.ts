@@ -5,44 +5,67 @@ import { resolve } from 'path'
 import { deepRead } from './read'
 import type { DeepReadNode } from './read'
 
-/**
- * 深度遍历的节点信息
- */
 export type DeepCopyNode = DeepReadNode
+
+export type DeepCopyHandler = (
+  node: DeepCopyNode, 
+  content: Buffer
+) => ((string | Buffer) | Promise<(string | Buffer)>)
+
+export type DeepCopyFilter = (
+  node: DeepCopyNode
+) => (boolean | Promise<boolean>)
+
+export type DeepCopyRename = (
+  node: DeepCopyNode, 
+  target: string
+) => string
+
+export type DeepCopyRedirect = (
+  node: DeepCopyNode, 
+  target: string
+) => string
 
 /**
  * 深度遍历复制各个文件的信息
  * 文件名以__开头时，需要修正（为了避开 git、npm 规则）
  */
 export async function deepCopy(
-  source: string,
-  target: string,
-  handler?: (node: DeepCopyNode, content: Buffer) => ((string | Buffer) | Promise<(string | Buffer)>),
-  filter?: (node: DeepCopyNode) => (boolean | Promise<boolean>),
-  rename?: (node: DeepCopyNode, target: string) => string
+  source: string, // 源文件路径
+  target: string, // 目标文件路径
+  handler?: DeepCopyHandler, // 转换文件内容的处理器
+  filter?: DeepCopyFilter, // 过滤文件（为true才执行，否则跳过）
+  rename?: DeepCopyRename, // 重定义目标文件名
+  redirect?: DeepCopyRedirect // 重定向源文件路径
 ) {
-  const specFileExp = /^__(.*\.\w+)__$/
+  const SPEC_FILE_EXP = /^__(.*\.\w+)__$/
   const __handler__ = async (node: DeepCopyNode) => {
-    let content = await readFile(node.current)
-    let content1: string | Buffer = content
-    if (handler) {
-      content1 = await handler(node, content)
-    }
-    let filePath = ''
+    let resPath = ''
     if (rename) {
-      filePath = rename(node, target)
-    }
-    if (!filePath) {
-      const matched = specFileExp.exec(node.name)
-      if (matched && matched[1]) {
-        filePath = resolve(target, node.offset, '../' + matched[1])
-      } else if (node.offset) {
-        filePath = resolve(target, node.offset)
-      } else {
-        filePath = target
+      const newName = rename(node, target)
+      if (newName) {
+        resPath = node.offset ? resolve(target, node.offset) : target
+        resPath = resolve(resPath, '..', newName)
       }
     }
-    await outputFile(filePath, content1)
+    if (!resPath) {
+      resPath = node.offset ? resolve(target, node.offset) : target
+      if (node.name[0] === '_') {
+        const matched = SPEC_FILE_EXP.exec(node.name)
+        if (matched && matched[1]) {
+          resPath = resolve(resPath, '../' + matched[1])
+        }
+      }
+    }
+    if (resPath) {
+      let srcPath = (redirect && redirect(node, target)) || node.current
+      let srcData = await readFile(srcPath)
+      let resData: string | Buffer = srcData
+      if (handler) {
+        resData = await handler(node, srcData)
+      }
+      await outputFile(resPath, resData)
+    }
   }
   await deepRead(
     source,

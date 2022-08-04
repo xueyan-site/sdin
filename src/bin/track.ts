@@ -29,7 +29,7 @@ async function action() {
     console.log('or you can try this shell cmd: ' + blue('curl -sSL https://get.docker.com/ | sh'))
     console.log('if you are Chinese, you can try: ' + blue('curl -sSL https://get.daocloud.io/docker | sh'))
     console.log()
-    return process.exit()
+    process.exit()
   }
   // 检查是否有相关配置文件，若没有，则进行创建
   const esDockerComposePath = resolve(CMD_PATH, 'buf/est/docker-compose.yml')
@@ -75,8 +75,9 @@ async function action() {
   // 用户若是选择no，则展示编辑配置文件的方法
   if (confirm === 'no') {
     console.log('you can use vim to edit docker-compose.yml:')
-    return printExit(yellow('vim ' +  esDockerComposePath))
+    printExit(yellow('vim ' +  esDockerComposePath))
   }
   // 启动docker
   execSync(`docker-compose -f ${esDockerComposePath} up`, { stdio: 'inherit' })
+  return undefined
 }

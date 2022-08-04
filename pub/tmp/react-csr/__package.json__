@@ -15,7 +15,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sdin-react": "^1.0.0",
-    "xueyan-react-style": "^2.1.0"
+    "solor": "^1.0.0"
   },
   "devDependencies": {
     "@babel/runtime": "^7.12.0",

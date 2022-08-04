@@ -1,6 +1,6 @@
 import React from 'react'
-import { SwitchTheme } from 'xueyan-react-style'
-import { PageProps } from 'xueyan-react'
+import { SwitchTheme } from 'solor'
+import { PageProps } from 'sdin-react'
 import { NarrowScreen } from 'com/narrow-screen'
 import styles from './index.scss'
 

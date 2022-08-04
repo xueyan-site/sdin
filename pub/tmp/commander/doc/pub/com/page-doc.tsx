@@ -1,11 +1,11 @@
 import React from 'react'
-import 'xueyan-react-style'
-import { Doc } from 'xueyan-react-doc'
-import { Article, Segment } from 'xueyan-react-markdown'
+import 'solor'
+import { Doc } from 'ark-doc'
+import { Article, Segment } from 'ark-markdown'
 import pkg from '../../../package.json'
-import type { PageProps } from 'xueyan-react'
-import type { ImageLinkProps, DocConfig } from 'xueyan-react-doc'
-import type { SelectOption } from 'xueyan-react-select'
+import type { PageProps } from 'sdin-react'
+import type { ImageLinkProps, DocConfig } from 'ark-doc'
+import type { SelectOption } from 'ark-select'
 
 const ICON: ImageLinkProps = {
   src: P_ASSETS_PATH + 'project.png',
@@ -39,8 +39,8 @@ const LANGUAGES: SelectOption<string>[] = [
 ]
 
 const SIDE_FOOTER = `
-Author [${P_AUTHOR_NAME}](mailto://${P_AUTHOR_EMAIL})  
-Builder [sdin](https://github.com/xueyan-site/sdin)  
+Author: [${P_AUTHOR_NAME}](mailto://${P_AUTHOR_EMAIL})    
+Builder: [sdin](https://github.com/xueyan-site/sdin)  
 `
 
 export interface PageDocProps<T,D> extends 
@@ -54,9 +54,9 @@ export function PageDoc<T,D>({ page, ...other }: PageDocProps<T,D>) {
       {...other}
       icon={ICON}
       icons={ICONS}
+      value={query.doc}
       versions={VERSIONS}
       languages={LANGUAGES}
-      value={query.doc}
       onChangeLanguage={value => {
         router.changeUrl(publicPath + value, query)
       }}
