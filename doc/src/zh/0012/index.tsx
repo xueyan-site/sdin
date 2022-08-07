@@ -80,7 +80,7 @@ module.exports = {
 
 > 其他类型：[ESClientOptions](https://github.com/elastic/elasticsearch-js#documentation)
 
-若未开启，使用 [xueyan-react](https://xueyan.site/xueyan-react) 工具打点时无效。
+若未开启，使用 [sdin-react](https://xueyan.site/sdin-react) 工具打点时无效。
 
 打点功能需要配合 \`sdin track\` 命令使用，要求机器安装 docker、Kibana 和 ElasticSearch，且会占用机器资源。  
 
